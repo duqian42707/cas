@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Configuration Management Clustered Deployment</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+            <div id="dev-doc-info" class="alert alert-danger" role="alert">
+                <h3>WORKERS AHEAD!</h3>
+                <p>You are viewing the <strong>development</strong> documentation for the Apereo CAS server. <strong>The
+                    functionality presented here <a href="https://github.com/apereo/cas/milestones">is not officially released
+                        yet</a></strong>.
+                    This is a work in progress and will be continually updated as development moves forward. <strong>You are
+                        most encouraged to test the changes presented.</strong>
+            </div>
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="clustered-deployments">Clustered Deployments</h1>
+
+<p>CAS uses the <a href="http://cloud.spring.io/spring-cloud-static/spring-cloud.html">Spring Cloud Bus</a>
+to manage configuration in a distributed deployment. Spring Cloud Bus links nodes of a
+distributed system with a lightweight message broker. This can then be used to broadcast state
+changes (e.g. configuration changes) or other management instructions.</p>
+
+<p>The bus supports sending messages to all nodes listening. Broadcasted events will attempt to update, refresh and
+reload each CAS server application’s configuration.</p>
+
+<p>If CAS nodes are not sharing a central location for configuration properties such that each
+node contains a copy of the settings, any changes you make to one node must be replicated and
+synced across all nodes so they are persisted on disk. The broadcast mechanism noted above only
+applies changes to the runtime and the running CAS instance. Ideally, you should be keeping track
+of CAS settings in a shared (git) repository (or better yet, inside a private Github repository perhaps)
+where you make a change in one place and it’s broadcasted to all nodes. This model removes the need for
+synchronizing changes across disks and CAS nodes.CAS uses the Spring Cloud Bus to manage configuration 
+in a distributed deployment. Spring Cloud Bus links nodes of a distributed system with a lightweight message broker.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudbus">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudbus" data-bs-toggle="tab" href="#requiredPropertiesspringcloudbus">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudbus" data-bs-toggle="tab" href="#optionalPropertiesspringcloudbus">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudbus">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudbus" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudbus">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudbus">
+        <a class="nav-link" id="linkRdbmsspringcloudbus" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudbus">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudbus">
+        <a class="nav-link" id="linkEmailspringcloudbus" data-bs-toggle="tab" href="#emailPropertiesspringcloudbus">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudbus">
+        <a class="nav-link" id="linkLdapspringcloudbus" data-bs-toggle="tab" href="#ldapPropertiesspringcloudbus">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudbus">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudbus" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudbus">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudbus">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudbus" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudbus">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudbus">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudbus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudbus(this);" href="#principalTransformationPropertiesspringcloudbus">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudbus">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudbus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudbus(this);" href="#passwordPolicyPropertiesspringcloudbus">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudbus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudbus(this);" href="#thirdPartyPropertiesspringcloudbus">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudbus(this);" id="linkNotesspringcloudbus" data-bs-toggle="tab" href="#notesspringcloudbus">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudbus">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudbus">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudbus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudbus"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudbus">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudbus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudbus"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudbus">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudbus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudbus"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudbus">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.6.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudbus").remove()
+        
+        
+            $("#linkRdbmsspringcloudbus").remove()
+        
+        
+            $("#linkEmailspringcloudbus").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudbus").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudbus").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudbus").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudbus").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudbus").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudbus").remove()
+        
+        
+            $("#linkLdapspringcloudbus").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudbus");
+        var id=$("#navPillsMenusspringcloudbus a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudbus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudbus").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudbus").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudbus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudbus").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudbus").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudbus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudbus").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<p>The following endpoints are provided by Spring Cloud:</p>
+
+<div style="display:none" id="jdbcauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer ');
+        $("ul#navPillsMenuscasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#requiredPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#optionalPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#signingEncryptionPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#rdbmsPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#emailPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#ldapPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#authnPredicatePropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#passwordEncoderPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#principalTransformationPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#passwordPolicyPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer");
+        var id=$("#navPillsMenuscasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjdbcfeaturesrefreshbusenvbusrefreshbusrefreshservicer").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="ldapauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer ');
+        $("ul#navPillsMenuscasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#requiredPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#optionalPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#signingEncryptionPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#rdbmsPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#emailPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#ldapPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#authnPredicatePropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#passwordEncoderPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#principalTransformationPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#passwordPolicyPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer");
+        var id=$("#navPillsMenuscasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsldapfeaturesrefreshbusenvbusrefreshbusrefreshservicer").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="jaasauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer ');
+        $("ul#navPillsMenuscasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#requiredPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#optionalPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#signingEncryptionPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#rdbmsPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#emailPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#ldapPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#authnPredicatePropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#passwordEncoderPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#principalTransformationPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer(this);" href="#passwordPolicyPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer");
+        var id=$("#navPillsMenuscasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjaasfeaturesrefreshbusenvbusrefreshbusrefreshservicer").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div class="accordion" id="featuresrefreshbusenvbus-refreshbusrefreshservicer">
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+</div>
+
+<p><br /></p>
+
+<p>The transport mechanism for the bus to broadcast events is handled via one of the following components.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p>To enable additional logging, modify the logging configuration file to add the following:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;Logger</span> <span class="na">name=</span><span class="s">"org.springframework.amqp"</span> <span class="na">level=</span><span class="s">"debug"</span> <span class="na">additivity=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"console"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"file"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Logger&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="rabbitmq">RabbitMQ</h2>
+
+<p>This is the default option for broadcasting change events to CAS nodes.
+<a href="https://www.rabbitmq.com/">RabbitMQ</a> is open source message broker
+software (sometimes called message-oriented middleware) that implements
+the Advanced Message Queuing Protocol (AMQP).</p>
+
+<p>Support is enabled by including the following dependency in the final overlay:</p>
+
+<script type="text/javascript">
+
+function tabClicked(idx) {
+  var radius = "0px 5px 5px 5px";
+  if (idx != 0) {
+    radius = "5px 5px 5px 5px";
+  }
+  $(".tab-pane .highlight>pre.highlight").css("border-radius", radius);
+  switch (idx) {
+    case 0:
+      $("div #mavenorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 1:
+      $("div #gradleorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 2:
+      $("div #bomorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+  }
+}
+
+</script>
+
+<div style="display: block">
+
+<ul class="nav nav-pills">
+  <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(0)" data-bs-toggle="tab" href="#mavenorgapereocascasserversupportconfigurationcloudamqp">Maven</a></li>
+  <li class="nav-item"><a class="nav-link active" onclick="javascript:tabClicked(1)" data-bs-toggle="tab" href="#gradleorgapereocascasserversupportconfigurationcloudamqp">Gradle</a></li>
+
+  
+    <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(2)" data-bs-toggle="tab" href="#bomorgapereocascasserversupportconfigurationcloudamqp">BOM</a></li>
+  
+
+  <li role="presentation" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" onclick="javascript:tabClicked(3)" data-bs-toggle="dropdown" href="#" role="button">Resources
+      <span class="caret"></span>
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-configuration-cloud-amqp', 'cas-overlay');">Generate CAS Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-configuration-cloud-amqp', 'cas-mgmt-overlay');">Generate CAS Management Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-configuration-cloud-amqp', 'cas-config-server-overlay');">Generate CAS Configuration Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-discovery-server-overlay');">Generate CAS Discovery Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-bootadmin-server-overlay');">Generate CAS Spring Boot Admin Server WAR Overlay</a>
+    </div>
+  </li>
+</ul>
+
+
+<div class="cas-module-tabs tab-content clearfix">
+
+
+
+  <div class="tab-pane fade in" id="mavenorgapereocascasserversupportconfigurationcloudamqp">
+    
+
+    <span>
+      
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-amqp<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+    </span>
+  
+  </div>
+
+
+  <div class="tab-pane fade in active show" id="gradleorgapereocascasserversupportconfigurationcloudamqp">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-configuration-cloud-amqp:${project.'cas.version'}"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+
+  </div>
+
+
+  <div class="tab-pane fade in" id="bomorgapereocascasserversupportconfigurationcloudamqp">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">dependencyManagement</span> <span class="o">{</span>
+  <span class="n">imports</span> <span class="o">{</span>
+    <span class="n">mavenBom</span> <span class="s2">"org.apereo.cas:cas-server-support-bom:${project.'cas.version'}"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>  
+  <span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-configuration-cloud-amqp"</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+  
+  </div>
+
+</div>
+
+</div>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringrabbitmq">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringrabbitmq" data-bs-toggle="tab" href="#requiredPropertiesspringrabbitmq">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringrabbitmq" data-bs-toggle="tab" href="#optionalPropertiesspringrabbitmq">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringrabbitmq">
+        <a class="nav-link" id="linkSigningEncryptionspringrabbitmq" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringrabbitmq">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringrabbitmq">
+        <a class="nav-link" id="linkRdbmsspringrabbitmq" data-bs-toggle="tab" href="#rdbmsPropertiesspringrabbitmq">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringrabbitmq">
+        <a class="nav-link" id="linkEmailspringrabbitmq" data-bs-toggle="tab" href="#emailPropertiesspringrabbitmq">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringrabbitmq">
+        <a class="nav-link" id="linkLdapspringrabbitmq" data-bs-toggle="tab" href="#ldapPropertiesspringrabbitmq">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringrabbitmq">
+        <a class="nav-link" id="linkAuthnPredicatespringrabbitmq" data-bs-toggle="tab" href="#authnPredicatePropertiesspringrabbitmq">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringrabbitmq">
+        <a class="nav-link" id="linkPasswordEncoderspringrabbitmq" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringrabbitmq">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringrabbitmq">
+        <a class="nav-link" id="linkPrincipalTransformationspringrabbitmq" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringrabbitmq(this);" href="#principalTransformationPropertiesspringrabbitmq">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringrabbitmq">
+        <a class="nav-link" id="linkPasswordPolicyspringrabbitmq" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringrabbitmq(this);" href="#passwordPolicyPropertiesspringrabbitmq">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringrabbitmq" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringrabbitmq(this);" href="#thirdPartyPropertiesspringrabbitmq">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringrabbitmq(this);" id="linkNotesspringrabbitmq" data-bs-toggle="tab" href="#notesspringrabbitmq">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringrabbitmq">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringrabbitmq">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringrabbitmq">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringrabbitmq"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringrabbitmq">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringrabbitmq">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringrabbitmq"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringrabbitmq">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringrabbitmq">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringrabbitmq"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringrabbitmq">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.6.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringrabbitmq").remove()
+        
+        
+            $("#linkRdbmsspringrabbitmq").remove()
+        
+        
+            $("#linkEmailspringrabbitmq").remove()
+        
+        
+            $("#linkSigningEncryptionspringrabbitmq").remove()
+        
+        
+            $("#linkRequiredPropertiesspringrabbitmq").remove()
+        
+        
+            $("#linkPasswordPolicyspringrabbitmq").remove()
+        
+        
+            $("#linkPrincipalTransformationspringrabbitmq").remove()
+        
+        
+            $("#linkPasswordEncoderspringrabbitmq").remove()
+        
+        
+            $("#linkAuthnPredicatespringrabbitmq").remove()
+        
+        
+            $("#linkLdapspringrabbitmq").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringrabbitmq");
+        var id=$("#navPillsMenusspringrabbitmq a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringrabbitmq li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringrabbitmq").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringrabbitmq").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringrabbitmq li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringrabbitmq").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringrabbitmq").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringrabbitmq li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringrabbitmq").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h2 id="kafka">Kafka</h2>
+
+<p>Apache Kafka is an open-source message broker project developed by the Apache Software Foundation.
+The project aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds.
+It is, in its essence, a “massively scalable pub/sub message queue designed as a distributed transaction log”,
+making it highly valuable for enterprise infrastructures to process streaming data.</p>
+
+<p>Support is enabled by including the following dependency in the final overlay:</p>
+
+<script type="text/javascript">
+
+function tabClicked(idx) {
+  var radius = "0px 5px 5px 5px";
+  if (idx != 0) {
+    radius = "5px 5px 5px 5px";
+  }
+  $(".tab-pane .highlight>pre.highlight").css("border-radius", radius);
+  switch (idx) {
+    case 0:
+      $("div #mavenorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 1:
+      $("div #gradleorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 2:
+      $("div #bomorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+  }
+}
+
+</script>
+
+<div style="display: block">
+
+<ul class="nav nav-pills">
+  <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(0)" data-bs-toggle="tab" href="#mavenorgapereocascasserversupportconfigurationcloudkafk">Maven</a></li>
+  <li class="nav-item"><a class="nav-link active" onclick="javascript:tabClicked(1)" data-bs-toggle="tab" href="#gradleorgapereocascasserversupportconfigurationcloudkafk">Gradle</a></li>
+
+  
+    <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(2)" data-bs-toggle="tab" href="#bomorgapereocascasserversupportconfigurationcloudkafk">BOM</a></li>
+  
+
+  <li role="presentation" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" onclick="javascript:tabClicked(3)" data-bs-toggle="dropdown" href="#" role="button">Resources
+      <span class="caret"></span>
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-configuration-cloud-kafka', 'cas-overlay');">Generate CAS Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-configuration-cloud-kafka', 'cas-mgmt-overlay');">Generate CAS Management Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-configuration-cloud-kafka', 'cas-config-server-overlay');">Generate CAS Configuration Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-discovery-server-overlay');">Generate CAS Discovery Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-bootadmin-server-overlay');">Generate CAS Spring Boot Admin Server WAR Overlay</a>
+    </div>
+  </li>
+</ul>
+
+
+<div class="cas-module-tabs tab-content clearfix">
+
+
+
+  <div class="tab-pane fade in" id="mavenorgapereocascasserversupportconfigurationcloudkafk">
+    
+
+    <span>
+      
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-kafka<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+    </span>
+  
+  </div>
+
+
+  <div class="tab-pane fade in active show" id="gradleorgapereocascasserversupportconfigurationcloudkafk">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-configuration-cloud-kafka:${project.'cas.version'}"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+
+  </div>
+
+
+  <div class="tab-pane fade in" id="bomorgapereocascasserversupportconfigurationcloudkafk">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">dependencyManagement</span> <span class="o">{</span>
+  <span class="n">imports</span> <span class="o">{</span>
+    <span class="n">mavenBom</span> <span class="s2">"org.apereo.cas:cas-server-support-bom:${project.'cas.version'}"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>  
+  <span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-configuration-cloud-kafka"</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+  
+  </div>
+
+</div>
+
+</div>
+
+<p>Broadcast CAS configuration updates to other nodes in the cluster
+via <a href="http://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_apache_kafka_binder">Kafka</a>.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudstreamkafkaspringcloudstreambindingsoutput">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#requiredPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#optionalPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+        <a class="nav-link" id="linkRdbmsspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+        <a class="nav-link" id="linkEmailspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#emailPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+        <a class="nav-link" id="linkLdapspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#ldapPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudstreamkafkaspringcloudstreambindingsoutput(this);" href="#principalTransformationPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudstreamkafkaspringcloudstreambindingsoutput(this);" href="#passwordPolicyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudstreamkafkaspringcloudstreambindingsoutput(this);" href="#thirdPartyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudstreamkafkaspringcloudstreambindingsoutput(this);" id="linkNotesspringcloudstreamkafkaspringcloudstreambindingsoutput" data-bs-toggle="tab" href="#notesspringcloudstreamkafkaspringcloudstreambindingsoutput">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudstreamkafkaspringcloudstreambindingsoutput">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudstreamkafkaspringcloudstreambindingsoutput">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.6.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkRdbmsspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkEmailspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+        
+            $("#linkLdapspringcloudstreamkafkaspringcloudstreambindingsoutput").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudstreamkafkaspringcloudstreambindingsoutput");
+        var id=$("#navPillsMenusspringcloudstreamkafkaspringcloudstreambindingsoutput a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudstreamkafkaspringcloudstreambindingsoutput").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudstreamkafkaspringcloudstreambindingsoutput").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudstreamkafkaspringcloudstreambindingsoutput").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Configuration';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

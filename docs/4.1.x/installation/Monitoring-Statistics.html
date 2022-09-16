@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Monitoring & Statistics</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="monitoring">Monitoring</h1>
+<p>The CAS server exposes a <code class="language-plaintext highlighter-rouge">/status</code> endpoint that may be used to inquire about the health and general state of the software. Access to the endpoint is secured by Spring Security at <code class="language-plaintext highlighter-rouge">src/main/webapp/WEB-INF/spring-configuration/securityContext.xml</code>:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;sec:http</span> <span class="na">pattern=</span><span class="s">"/status/**"</span> <span class="na">entry-point-ref=</span><span class="s">"notAuthorizedEntryPoint"</span> <span class="na">use-expressions=</span><span class="s">"true"</span> <span class="na">auto-config=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;sec:intercept-url</span> <span class="na">pattern=</span><span class="s">"/status"</span> <span class="na">access=</span><span class="s">"${cas.securityContext.status.access}"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/sec:http&gt;</span></code></pre></figure>
+
+<p>Access is granted the following settings in <code class="language-plaintext highlighter-rouge">cas.properties</code> file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Spring Security's EL-based access rules for the /status URI of CAS that exposes health check information</span>
+cas.securityContext.status.access<span class="o">=</span>hasIpAddress<span class="o">(</span><span class="s1">'127.0.0.1'</span><span class="o">)</span></code></pre></figure>
+
+<h2 id="sample-output">Sample Output</h2>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">Health: OK
+
+    1.MemoryMonitor: OK - 322.13MB free, 495.09MB total.</code></pre></figure>
+
+<h2 id="internal-configuration-report">Internal Configuration Report</h2>
+
+<p>CAS also provides a <code class="language-plaintext highlighter-rouge">/status/config</code> endpoint that produces a report of the runtime CAS configuration, which includes all components that are under the <code class="language-plaintext highlighter-rouge">org.jasig</code>
+package as well as settings defined in the <code class="language-plaintext highlighter-rouge">cas.properties</code> file. The output of this endpoint is a JSON representation of the runtime that is rendered into a modest visualization:</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/1205228/7085296/35819ff0-df2a-11e4-9818-9119fd30588e.jpg" alt="" /></p>
+
+<h1 id="statistics">Statistics</h1>
+<p>Furthermore, the CAS web application has the ability to present statistical data about the runtime environment as well as ticket registry’s performance.</p>
+
+<p>The CAS server exposes a <code class="language-plaintext highlighter-rouge">/statistics</code> endpoint that may be used to inquire about the runtime state of the software. Access to the endpoint is secured by Spring Security at <code class="language-plaintext highlighter-rouge">src/main/webapp/WEB-INF/spring-configuration/securityContext.xml</code>:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;sec:http</span> <span class="na">pattern=</span><span class="s">"/statistics/**"</span> <span class="na">entry-point-ref=</span><span class="s">"notAuthorizedEntryPoint"</span> <span class="na">use-expressions=</span><span class="s">"true"</span> <span class="na">auto-config=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;sec:intercept-url</span> <span class="na">pattern=</span><span class="s">"/statistics"</span> <span class="na">access=</span><span class="s">"${cas.securityContext.statistics.access}"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/sec:http&gt;</span></code></pre></figure>
+
+<p>Access is granted the following settings in <code class="language-plaintext highlighter-rouge">cas.properties</code> file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Spring Security's EL-based access rules for the /statistics URI of CAS that exposes stats about the CAS server</span>
+cas.securityContext.statistics.access<span class="o">=</span>hasIpAddress<span class="o">(</span><span class="s1">'127.0.0.1'</span><span class="o">)</span></code></pre></figure>
+
+<p><img src="http://i.imgur.com/8CXPgOC.png" alt="" /></p>
+
+<h2 id="performance-statistics">Performance Statistics</h2>
+<p>CAS also uses the <a href="https://dropwizard.github.io/metrics/">Dropwizard Metrics framework</a>, that provides set of utilities for calculating and displaying performance statistics.</p>
+
+<h3 id="configuration">Configuration</h3>
+<p>The metrics configuration is controlled via the <code class="language-plaintext highlighter-rouge">/src/main/webapp/WEB-INF/spring-configuration/metricsContext.xml</code> file. The configuration will output all performance-related data and metrics to the logging framework. The reporting interval can be configured via the <code class="language-plaintext highlighter-rouge">cas.properties</code> file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Define how often should metric data be reported. Default is 30 seconds.</span>
+<span class="c"># metrics.refresh.interval=30s</span></code></pre></figure>
+
+<p>Various metrics can also be reported via JMX. Metrics are exposes via JMX MBeans.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;metrics:reporter</span> <span class="na">type=</span><span class="s">"jmx"</span> <span class="na">metric-registry=</span><span class="s">"metrics"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<p>To explore this you can use VisualVM (which ships with most JDKs as jvisualvm) with the VisualVM-MBeans plugins installed or JConsole (which ships with most JDKs as jconsole):</p>
+
+<p><img src="http://i.imgur.com/g8fmUlE.png" alt="" /></p>
+
+<p>Additionally, various metrics on JVM performance and data are also reported. The metrics contain a number of reusable gauges and metric sets which allow you to easily instrument JVM internals.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;metrics:register</span> <span class="na">metric-registry=</span><span class="s">"metrics"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">metrics:name=</span><span class="s">"jvm.gc"</span> <span class="na">class=</span><span class="s">"com.codahale.metrics.jvm.GarbageCollectorMetricSet"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">metrics:name=</span><span class="s">"jvm.memory"</span> <span class="na">class=</span><span class="s">"com.codahale.metrics.jvm.MemoryUsageGaugeSet"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">metrics:name=</span><span class="s">"jvm.thread-states"</span> <span class="na">class=</span><span class="s">"com.codahale.metrics.jvm.ThreadStatesGaugeSet"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">metrics:name=</span><span class="s">"jvm.fd.usage"</span> <span class="na">class=</span><span class="s">"com.codahale.metrics.jvm.FileDescriptorRatioGauge"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/metrics:register&gt;</span></code></pre></figure>
+
+<p>Supported metrics include:</p>
+
+<ul>
+  <li>Run count and elapsed times for all supported garbage collectors</li>
+  <li>Memory usage for all memory pools, including off-heap memory</li>
+  <li>Breakdown of thread states, including deadlocks</li>
+  <li>File descriptor usage</li>
+  <li>…</li>
+</ul>
+
+<h3 id="loggers">Loggers</h3>
+<p>All performance data and metrics are routed to a log file via the Log4j configuration:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">...
+<span class="nt">&lt;RollingFile</span> <span class="na">name=</span><span class="s">"perfFileAppender"</span> <span class="na">fileName=</span><span class="s">"perfStats.log"</span> <span class="na">append=</span><span class="s">"true"</span>
+             <span class="na">filePattern=</span><span class="s">"perfStats-%d{yyyy-MM-dd-HH}-%i.log"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;PatternLayout</span> <span class="na">pattern=</span><span class="s">"%m%n"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;Policies&gt;</span>
+        <span class="nt">&lt;OnStartupTriggeringPolicy</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;SizeBasedTriggeringPolicy</span> <span class="na">size=</span><span class="s">"10 MB"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;TimeBasedTriggeringPolicy</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Policies&gt;</span>
+<span class="nt">&lt;/RollingFile&gt;</span>
+
+...
+
+<span class="nt">&lt;Logger</span> <span class="na">name=</span><span class="s">"perfStatsLogger"</span> <span class="na">level=</span><span class="s">"info"</span> <span class="na">additivity=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"perfFileAppender"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Logger&gt;</span></code></pre></figure>
+
+<h3 id="sample-output-1">Sample Output</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.gc.Copy.count, <span class="nv">value</span><span class="o">=</span>22
+<span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.gc.Copy.time, <span class="nv">value</span><span class="o">=</span>466
+<span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.gc.MarkSweepCompact.count, <span class="nv">value</span><span class="o">=</span>3
+<span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.gc.MarkSweepCompact.time, <span class="nv">value</span><span class="o">=</span>414
+<span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.memory.heap.committed, <span class="nv">value</span><span class="o">=</span>259653632
+<span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.memory.heap.init, <span class="nv">value</span><span class="o">=</span>268435456
+<span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.memory.heap.max, <span class="nv">value</span><span class="o">=</span>1062338560
+<span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.memory.heap.usage, <span class="nv">value</span><span class="o">=</span>0.09121857348376773
+<span class="nb">type</span><span class="o">=</span>GAUGE, <span class="nv">name</span><span class="o">=</span>jvm.memory.heap.used, <span class="nv">value</span><span class="o">=</span>96905008
+
+<span class="nb">type</span><span class="o">=</span>METER, <span class="nv">name</span><span class="o">=</span>org.jasig.cas.CentralAuthenticationServiceImpl.CREATE_TICKET_GRANTING_TICKET_METER, <span class="nv">count</span><span class="o">=</span>0, <span class="nv">mean_rate</span><span class="o">=</span>0.0, <span class="nv">m1</span><span class="o">=</span>0.0, <span class="nv">m5</span><span class="o">=</span>0.0, <span class="nv">m15</span><span class="o">=</span>0.0, <span class="nv">rate_unit</span><span class="o">=</span>events/millisecond
+
+<span class="nb">type</span><span class="o">=</span>METER, <span class="nv">name</span><span class="o">=</span>org.jasig.cas.CentralAuthenticationServiceImpl.DESTROY_TICKET_GRANTING_TICKET_METER, <span class="nv">count</span><span class="o">=</span>0, <span class="nv">mean_rate</span><span class="o">=</span>0.0, <span class="nv">m1</span><span class="o">=</span>0.0, <span class="nv">m5</span><span class="o">=</span>0.0, <span class="nv">m15</span><span class="o">=</span>0.0, <span class="nv">rate_unit</span><span class="o">=</span>events/millisecond
+
+<span class="nb">type</span><span class="o">=</span>TIMER, <span class="nv">name</span><span class="o">=</span>org.jasig.cas.CentralAuthenticationServiceImpl.GRANT_SERVICE_TICKET_TIMER, <span class="nv">count</span><span class="o">=</span>0, <span class="nv">min</span><span class="o">=</span>0.0, <span class="nv">max</span><span class="o">=</span>0.0, <span class="nv">mean</span><span class="o">=</span>0.0, <span class="nv">stddev</span><span class="o">=</span>0.0, <span class="nv">median</span><span class="o">=</span>0.0, <span class="nv">p75</span><span class="o">=</span>0.0, <span class="nv">p95</span><span class="o">=</span>0.0, <span class="nv">p98</span><span class="o">=</span>0.0, <span class="nv">p99</span><span class="o">=</span>0.0, <span class="nv">p999</span><span class="o">=</span>0.0, <span class="nv">mean_rate</span><span class="o">=</span>0.0, <span class="nv">m1</span><span class="o">=</span>0.0, <span class="nv">m5</span><span class="o">=</span>0.0, <span class="nv">m15</span><span class="o">=</span>0.0, <span class="nv">rate_unit</span><span class="o">=</span>events/millisecond, <span class="nv">duration_unit</span><span class="o">=</span>milliseconds
+
+<span class="nb">type</span><span class="o">=</span>TIMER, <span class="nv">name</span><span class="o">=</span>org.jasig.cas.CentralAuthenticationServiceImpl.VALIDATE_SERVICE_TICKET_TIMER, <span class="nv">count</span><span class="o">=</span>0, <span class="nv">min</span><span class="o">=</span>0.0, <span class="nv">max</span><span class="o">=</span>0.0, <span class="nv">mean</span><span class="o">=</span>0.0, <span class="nv">stddev</span><span class="o">=</span>0.0, <span class="nv">median</span><span class="o">=</span>0.0, <span class="nv">p75</span><span class="o">=</span>0.0, <span class="nv">p95</span><span class="o">=</span>0.0, <span class="nv">p98</span><span class="o">=</span>0.0, <span class="nv">p99</span><span class="o">=</span>0.0, <span class="nv">p999</span><span class="o">=</span>0.0, <span class="nv">mean_rate</span><span class="o">=</span>0.0, <span class="nv">m1</span><span class="o">=</span>0.0, <span class="nv">m5</span><span class="o">=</span>0.0, <span class="nv">m15</span><span class="o">=</span>0.0, <span class="nv">rate_unit</span><span class="o">=</span>events/millisecond, <span class="nv">duration_unit</span><span class="o">=</span>milliseconds</code></pre></figure>
+
+<h3 id="viewing-metrics-on-the-web">Viewing Metrics on the Web</h3>
+<p>The CAS web application exposes a <code class="language-plaintext highlighter-rouge">/statistics</code> endpoint that can be used to view metrics and stats in the browser. The endpoint is protected by Spring Security, and the access rules are placed inside the <code class="language-plaintext highlighter-rouge">cas.properties</code> file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Spring Security's EL-based access rules for the /statistics URI of CAS that exposes stats about the CAS server</span>
+cas.securityContext.statistics.access<span class="o">=</span>hasIpAddress<span class="o">(</span><span class="s1">'127.0.0.1'</span><span class="o">)</span></code></pre></figure>
+
+<p>Once access is granted, the following sub-endpoints can be used to query the CAS server’s status and metrics:</p>
+
+<h4 id="statisticsping"><code class="language-plaintext highlighter-rouge">/statistics/ping</code></h4>
+<p>Reports back <code class="language-plaintext highlighter-rouge">pong</code> to indicate that the CAS server is running.</p>
+
+<h4 id="statisticsmetricsprettytrue"><code class="language-plaintext highlighter-rouge">/statistics/metrics?pretty=true</code></h4>
+<p>Reports back metrics and performance data. The optional <code class="language-plaintext highlighter-rouge">pretty</code> flag attempts to format the JSON output.</p>
+
+<h4 id="statisticsthreads"><code class="language-plaintext highlighter-rouge">/statistics/threads</code></h4>
+<p>Reports back JVM thread info.</p>
+
+<h4 id="statisticshealthcheck"><code class="language-plaintext highlighter-rouge">/statistics/healthcheck</code></h4>
+<p>Unused at this point, but may be used later to output health examinations of the CAS server’s internals, such as ticket registry, etc.</p>
+
+<h2 id="routing-logs-to-syslog">Routing logs to SysLog</h2>
+<p>CAS logging framework does have the ability to route messages to an external syslog instance. To configure this, you first to configure the <code class="language-plaintext highlighter-rouge">SysLogAppender</code> and then specify which messages needs to be routed over to this instance:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">...
+<span class="nt">&lt;Appenders&gt;</span>
+    <span class="nt">&lt;Syslog</span> <span class="na">name=</span><span class="s">"SYSLOG"</span> <span class="na">format=</span><span class="s">"RFC5424"</span> <span class="na">host=</span><span class="s">"localhost"</span> <span class="na">port=</span><span class="s">"8514"</span>
+            <span class="na">protocol=</span><span class="s">"TCP"</span> <span class="na">appName=</span><span class="s">"MyApp"</span> <span class="na">includeMDC=</span><span class="s">"true"</span>
+            <span class="na">facility=</span><span class="s">"LOCAL0"</span> <span class="na">enterpriseNumber=</span><span class="s">"18060"</span> <span class="na">newLine=</span><span class="s">"true"</span>
+            <span class="na">messageId=</span><span class="s">"Audit"</span> <span class="na">id=</span><span class="s">"App"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Appenders&gt;</span>
+
+...
+
+<span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">"org.jasig"</span> <span class="na">additivity=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;level</span> <span class="na">value=</span><span class="s">"DEBUG"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"cas"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"SYSLOG"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/logger&gt;</span></code></pre></figure>
+
+<p>You can also configure the remote destination output over SSL and specify the related keystore configuration:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml">...
+
+<span class="nt">&lt;Appenders&gt;</span>
+    <span class="nt">&lt;TLSSyslog</span> <span class="na">name=</span><span class="s">"bsd"</span> <span class="na">host=</span><span class="s">"localhost"</span> <span class="na">port=</span><span class="s">"6514"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;SSL&gt;</span>
+        <span class="nt">&lt;KeyStore</span> <span class="na">location=</span><span class="s">"log4j2-keystore.jks"</span> <span class="na">password=</span><span class="s">"changeme"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;TrustStore</span> <span class="na">location=</span><span class="s">"truststore.jks"</span> <span class="na">password=</span><span class="s">"changeme"</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/SSL&gt;</span>
+    <span class="nt">&lt;/TLSSyslog&gt;</span>
+<span class="nt">&lt;/Appenders&gt;</span>
+
+...</code></pre></figure>
+
+<p>For additional logging functionality, please refer to the Log4j configuration url or view
+the <a href="Logging.html">CAS Logging functionality</a>.</p>
+
+<h3 id="sso-sessions-report">SSO Sessions Report</h3>
+
+<p>CAS also provides a <code class="language-plaintext highlighter-rouge">/statistics/ssosessions</code> endpoint that produces a report of all active non-expired SSO sessions. The output of this endpoint is a JSON representation of SSO sessions that is rendered into a modest visualization:</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/1205228/6801195/fcf77186-d1e2-11e4-8059-cfa1d7e80d83.PNG" alt="" /></p>
+
+<p>By default, ticket-granting ticket ids are not shown. This behavior can be controlled via <code class="language-plaintext highlighter-rouge">cas.properties</code>:</p>
+
+<figure class="highlight"><pre><code class="language-properties" data-lang="properties"><span class="c">##
+# Reports
+#
+# Setting to whether include the ticket granting ticket id in the report
+</span><span class="err">#</span> <span class="py">sso.sessions.include.tgt</span><span class="p">=</span><span class="s">false</span></code></pre></figure>
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - CAS REST Protocol</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="rest-protocol">REST Protocol</h1>
+
+<p>The REST protocol allows one to model applications as users, programmatically acquiring
+service tickets to authenticate to other applications. This means that other applications would be able
+to use a CAS client  to accept Service Tickets rather than to rely upon another technology such as
+client SSL certificates for application-to-application authentication of requests. This is achieved
+by exposing a way to REST-fully obtain a Ticket Granting Ticket and then use that to obtain a Service Ticket.</p>
+
+<div class="alert alert-warning"><strong>Usage Warning!</strong><p>The REST endpoint may
+ become a tremendously convenient target for brute force dictionary attacks on CAS server. Consider
+ enabling throttling support to ensure brute force attacks are prevented upon authentication failures.</p></div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Support is enabled by including the following to the overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>cas-server-support-rest<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="request-a-ticket-granting-ticket">Request a Ticket Granting Ticket</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>POST /cas/v1/tickets HTTP/1.0
+<span class="s1">'Content-type'</span>: <span class="s1">'Application/x-www-form-urlencoded'</span>
+<span class="nv">username</span><span class="o">=</span>battags&amp;password<span class="o">=</span>password&amp;additionalParam1<span class="o">=</span>paramvalue
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You may also specify a <code class="language-plaintext highlighter-rouge">service</code> parameter to verify whether the authenticated user may be allowed to access the given service.</p>
+
+<h3 id="successful-response">Successful Response</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>201 Created
+Location: http://www.whatever.com/cas/v1/tickets/<span class="o">{</span>TGT <span class="nb">id</span><span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="unsuccessful-response">Unsuccessful Response</h3>
+
+<p>If incorrect credentials are sent, CAS will respond with a <code class="language-plaintext highlighter-rouge">401 Unauthorized</code>. A <code class="language-plaintext highlighter-rouge">400 Bad Request</code> error will be sent for missing parameters, etc. If you send a media type it does not understand, it will send the <code class="language-plaintext highlighter-rouge">415 Unsupported Media Type</code>.</p>
+
+<h3 id="jwt-ticket-granting-tickets">JWT Ticket Granting Tickets</h3>
+
+<p>Ticket-granting tickets created by the REST protocol may be issued as JWTs instead. Support is enabled by including the following in your overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>cas-server-support-rest-tokens<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To request a ticket-granting ticket as JWT next, ensure the <code class="language-plaintext highlighter-rouge">POST</code> request matches the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>POST /cas/v1/tickets HTTP/1.0
+
+<span class="nv">username</span><span class="o">=</span>battags&amp;password<span class="o">=</span>password&amp;token<span class="o">=</span><span class="nb">true</span>&amp;additionalParam1<span class="o">=</span>paramvalue
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">token</code> parameter may either be passed as a request parameter or a request header. The body of the response will include the ticket-granting ticket as a JWT. Note that JWTs created are typically signed and encrypted by default with pre-generated keys. To control settings or to see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#jwt-tickets">review this guide</a>.</p>
+
+<h2 id="authenticate-credentials">Authenticate Credentials</h2>
+
+<p>Similar to asking for ticket-granting tickets, this endpoint allows one to only verify the validity of provided credentials as they are extracted from the request body:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>POST /cas/v1/users HTTP/1.0
+
+<span class="nv">username</span><span class="o">=</span>battags&amp;password<span class="o">=</span>password
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You may also specify a <code class="language-plaintext highlighter-rouge">service</code> parameter to verify whether the authenticated user may be allowed to access the given service. While the above example shows <code class="language-plaintext highlighter-rouge">username</code> and <code class="language-plaintext highlighter-rouge">password</code> as the provided credentials, you are practically allowed to provide multiple sets and different types of credentials provided CAS is equipped to extract and recognize those from the request body. See <a href="#multiple-credentials">this  for more info</a>.</p>
+
+<p>A successful response will produce a <code class="language-plaintext highlighter-rouge">200 OK</code> status code along with a JSON representation of the authentication result, which may include the authentication object, authenticated principal along with any captured attributes and/or metadata fetched for the authenticated user.</p>
+
+<h2 id="request-a-service-ticket">Request a Service Ticket</h2>
+
+<p>The below snippets show one might request a service ticket using the semantics of the CAS protocol:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>POST /cas/v1/tickets/<span class="o">{</span>TGT <span class="nb">id</span><span class="o">}</span> HTTP/1.0
+
+<span class="nv">service</span><span class="o">={</span>form encoded parameter <span class="k">for </span>the service url<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You may also specify a <code class="language-plaintext highlighter-rouge">renew</code> parameter to obtain a service ticket that can be accepted by a service that only wants tickets issued from the presentation of the user’s primary credentials. In that case, user credentials have to be passed in the request, for example, as <code class="language-plaintext highlighter-rouge">username</code> and <code class="language-plaintext highlighter-rouge">password</code> parameters.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>POST /cas/v1/tickets/<span class="o">{</span>TGT <span class="nb">id</span><span class="o">}</span> HTTP/1.0
+
+<span class="nv">service</span><span class="o">={</span>form encoded parameter <span class="k">for </span>the service url<span class="o">}</span>&amp;renew<span class="o">=</span><span class="nb">true</span>&amp;username<span class="o">=</span>battags&amp;password<span class="o">=</span>password
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You may also submit service ticket requests using the semantics <a href="SAML-Protocol.html">SAML1 protocol</a>.</p>
+
+<h3 id="successful-response-1">Successful Response</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>200 OK
+ST-1-FFDFHDSJKHSDFJKSDHFJKRUEYREWUIFSD2132
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="jwt-service-tickets">JWT Service Tickets</h3>
+
+<p>Service tickets created by the REST protocol may be issued as JWTs instead. See <a href="../installation/Configure-ServiceTicket-JWT.html">this guide</a> to learn more.</p>
+
+<p>Support is enabled by including the following in your overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>cas-server-support-rest-tokens<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Note that JWTs created are typically signed and encrypted by default with pre-generated keys. To control settings or to see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#jwt-tickets">review this guide</a>.</p>
+
+<h2 id="validate-service-ticket">Validate Service Ticket</h2>
+
+<p>Service ticket validation is handled through the <a href="CAS-Protocol.html">CAS Protocol</a>
+via any of the validation endpoints such as <code class="language-plaintext highlighter-rouge">/p3/serviceValidate</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>GET /cas/p3/serviceValidate?service<span class="o">={</span>service url<span class="o">}</span>&amp;ticket<span class="o">={</span>service ticket<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="unsuccessful-response-1">Unsuccessful Response</h3>
+
+<p>CAS will send a 400 Bad Request. If an incorrect media type is
+sent, it will send the 415 Unsupported Media Type.</p>
+
+<h2 id="logout">Logout</h2>
+
+<p>Destroy the SSO session by removing the issued ticket:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>DELETE /cas/v1/tickets/TGT-fdsjfsdfjkalfewrihfdhfaie HTTP/1.0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ticket-status">Ticket Status</h2>
+
+<p>Verify the status of an obtained ticket to make sure it still is valid
+and has not yet expired.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>GET /cas/v1/tickets/TGT-fdsjfsdfjkalfewrihfdhfaie HTTP/1.0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="successful-response-2">Successful Response</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>200 OK
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="unsuccessful-response-2">Unsuccessful Response</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>404 NOT FOUND
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="add-service">Add Service</h2>
+
+<p>Support is enabled by including the following in your overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>cas-server-support-rest-services<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Invoke CAS to register applications into its own service registry. The REST call must be authenticated using basic authentication where credentials are authenticated and accepted by the existing CAS authentication strategy, and furthermore the authenticated principal must be authorized with a pre-configured role/attribute name and value that is designated in the CAS configuration via the CAS properties. The body of the request must be the service definition that shall be registered in JSON format and of course, CAS must be configured to accept the particular service type defined in the body. The accepted media type for this request is <code class="language-plaintext highlighter-rouge">application/json</code>.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#rest-api">review this guide</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>POST /cas/v1/services HTTP/1.0
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>…where body of the request may be:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>A successful response will produce a <code class="language-plaintext highlighter-rouge">200</code> status code in return.</p>
+
+<h2 id="x509-authentication">X.509 Authentication</h2>
+
+<p>The feature extends the CAS REST API communication model to non-interactive X.509 authentication
+where REST credentials may be retrieved from a certificate embedded in the request rather than
+the usual and default username/password.</p>
+
+<p>This pattern may be of interest in cases where the internal network architecture hides
+the CAS server from external users behind firewall, reverse proxy, or a messaging bus and
+allows only trusted applications to connect directly to the CAS server.</p>
+
+<div class="alert alert-warning"><strong>Usage Warning!</strong><p>The X.509 feature over REST
+using a body parameter or a http header provides a tremendously convenient target for claiming
+user identities or obtaining TGTs without proof of private key ownership.
+To securely use this feature, network configuration <strong>MUST</strong> allow connections
+to the CAS server only from trusted hosts which in turn have strict security limitations and
+logging.
+It is also recommended to make sure that the body parameter or the http header can only come
+from trusted hosts and not from the original authenticating client.</p></div>
+
+<p>It is also possible to let the servlet container validate the TLS client key / X.509 certificate
+during TLS handshake, and have CAS server retrieve the certificate from the container.</p>
+
+<p>Support is enabled by including the following in your overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>cas-server-support-rest-x509<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="request-a-ticket-granting-ticket-proxy-tls-client-authentication-using-a-body-parameter">Request a Ticket Granting Ticket (Proxy TLS Client Authentication using a body parameter)</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>POST /cas/v1/tickets HTTP/1.0
+<span class="nv">cert</span><span class="o">=</span>&lt;ascii certificate&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="request-a-ticket-granting-ticket-proxy-tls-client-authentication-using-a-http-header">Request a Ticket Granting Ticket (Proxy TLS Client Authentication using a http header)</h3>
+
+<p>The cas server should be configured for X509 authentication on the login page for
+this to function properly.</p>
+
+<h3 id="request-a-ticket-granting-ticket-tls-client-authentication-from-the-servlet-container">Request a Ticket Granting Ticket (TLS Client Authentication from the servlet container)</h3>
+
+<p>The cas server should be configured for X509 authentication on the login page for
+this to function properly.</p>
+
+<h4 id="successful-response-3">Successful Response</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>201 Created
+Location: http://www.whatever.com/cas/v1/tickets/<span class="o">{</span>TGT <span class="nb">id</span><span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="multiple-credentials">Multiple Credentials</h2>
+
+<p>The CAS REST API machinery has the ability to use multiple <em>credential extractors</em> that are tasked with analyzing the request body in order to fetch credentials and pass them along. While by default expected credentials that may be extracted are based on username/password, additional modules automatically lend themselves into this design and inject their opinionated credential extractor into the REST engine automatically so that the final collection of credentials may be used for issuing tickets, etc. This is, in a sense, how the <a href="#x509-authentication">X.509 authentication</a> is integrated with the CAS REST Protocol.</p>
+
+<p>This indicates that you may pass along multiple credentials to the REST protocol in the request body and so long as CAS is configured to understand and extract those credentials and the authentication machinery is configured to also execute and validate those credentials. For instance, you may deliver a use case where two sets of credentials in form of username/password and OTP are provided to the REST protocol and CAS would then attempt to authenticate both credentials and produce a response on a successful validation, assuming that authentication strategies for username/password and OTP are properly configured in CAS.</p>
+
+<h2 id="cas-rest-clients">CAS REST Clients</h2>
+
+<p>In order to interact with the CAS REST API, a REST client must be used to submit credentials,
+receive tickets and validate them. The following Java REST client is available
+by <a href="https://github.com/pac4j/pac4j">pac4j</a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">org.pac4j.cas.profile.CasRestProfile</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.cas.client.rest.CasRestFormClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.cas.config.CasConfiguration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.cas.credentials.authenticator.CasRestAuthenticator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.cas.profile.CasProfile</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.core.context.JEEContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.core.context.WebContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.core.credentials.TokenCredentials</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.core.credentials.UsernamePasswordCredentials</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.pac4j.core.exception.HttpAction</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.mock.web.MockHttpServletRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.mock.web.MockHttpServletResponse</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestTestClient</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">)</span> <span class="kd">throws</span> <span class="nc">HttpAction</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">String</span> <span class="n">casUrlPrefix</span> <span class="o">=</span> <span class="s">"http://localhost:8080/cas"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="nc">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+        <span class="nc">String</span> <span class="n">serviceUrl</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="nc">CasConfiguration</span> <span class="n">casConfiguration</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CasConfiguration</span><span class="o">(</span><span class="n">casUrlPrefix</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="nc">CasRestAuthenticator</span> <span class="n">authenticator</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CasRestAuthenticator</span><span class="o">(</span><span class="n">casConfiguration</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="nc">CasRestFormClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CasRestFormClient</span><span class="o">(</span><span class="n">casConfiguration</span><span class="o">,</span><span class="s">"username"</span><span class="o">,</span><span class="s">"password"</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="nc">MockHttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MockHttpServletRequest</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="nc">MockHttpServletResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MockHttpServletResponse</span><span class="o">();</span>
+
+        <span class="kd">final</span> <span class="nc">WebContext</span> <span class="n">webContext</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JEEContext</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+        <span class="n">casConfiguration</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">webContext</span><span class="o">);</span>
+        <span class="nc">UsernamePasswordCredentials</span> <span class="n">credentials</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UsernamePasswordCredentials</span><span class="o">(</span><span class="n">username</span><span class="o">,</span><span class="n">password</span><span class="o">,</span><span class="s">"testclient"</span><span class="o">);</span>
+        <span class="nc">CasRestAuthenticator</span> <span class="n">restAuthenticator</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CasRestAuthenticator</span><span class="o">(</span><span class="n">casConfiguration</span><span class="o">);</span>
+        <span class="c1">// authenticate with credentials (validate credentials)</span>
+        <span class="n">restAuthenticator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">credentials</span><span class="o">,</span> <span class="n">webContext</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="nc">CasRestProfile</span> <span class="n">profile</span> <span class="o">=</span> <span class="o">(</span><span class="nc">CasRestProfile</span><span class="o">)</span> <span class="n">credentials</span><span class="o">.</span><span class="na">getUserProfile</span><span class="o">();</span>
+        <span class="c1">// get service ticket</span>
+        <span class="kd">final</span> <span class="nc">TokenCredentials</span> <span class="n">casCredentials</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">requestServiceTicket</span><span class="o">(</span><span class="n">serviceUrl</span><span class="o">,</span> <span class="n">profile</span><span class="o">,</span> <span class="n">webContext</span><span class="o">);</span>
+        <span class="c1">// validate service ticket</span>
+        <span class="kd">final</span> <span class="nc">CasProfile</span> <span class="n">casProfile</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">validateServiceTicket</span><span class="o">(</span><span class="n">serviceUrl</span><span class="o">,</span> <span class="n">casCredentials</span><span class="o">,</span> <span class="n">webContext</span><span class="o">);</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span><span class="nc">Object</span><span class="o">&gt;</span> <span class="n">attributes</span> <span class="o">=</span> <span class="n">casProfile</span><span class="o">.</span><span class="na">getAttributes</span><span class="o">();</span>
+        <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span><span class="nc">Object</span><span class="o">&gt;&gt;</span> <span class="n">mapEntries</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="na">entrySet</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">mapEntries</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">destroyTicketGrantingTicket</span><span class="o">(</span><span class="n">profile</span><span class="o">,</span><span class="n">webContext</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="throttling">Throttling</h2>
+
+<p>To understand how to throttling works in CAS, 
+please review <a href="../installation/Configuring-Authentication-Throttling.html">the available options</a>. 
+By default, throttling REST requests is turned off. 
+To activate this functionality, you will need to choose an appropriate throttler and activate it by declaring the relevant module. 
+The same throttling mechanism that handles the usual CAS server endpoints for authentication
+and ticket validation, etc is then activated for the REST endpoints that are supported for throttling.</p>
+
+<p>To see the relevant options, <a href="https://apereo.github.io/cas/development/configuration/Configuration-Properties.html#rest-api">please review this guide</a>.</p>
+
+<h2 id="swagger-api">Swagger API</h2>
+
+<p>CAS REST API may be automatically integrated with Swagger. <a href="../integration/Swagger-Integration.html">See this guide</a> for more info.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Protocols';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

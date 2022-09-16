@@ -1,0 +1,2583 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS Common Properties Overview</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="cas-common-properties">CAS Common Properties</h1>
+
+<p>This document describes a number of suggestions and configuration options that apply to and are common amongst a selection of CAS modules and features. 
+To see the full list of CAS properties, please <a href="Configuration-Properties.html">review this guide</a>.</p>
+
+<h2 id="what-is-configurationkey">What is <code class="language-plaintext highlighter-rouge">${configurationKey}</code>?</h2>
+
+<p>Many CAS <em>sub</em> settings are common and applicable to a number of modules and features. For example, in dealing with database authentication there are a number of database-related modules who own an individual setting to define the database driver. These settings would typically be defined as <code class="language-plaintext highlighter-rouge">cas.authn.feature1.database-driver=xyz</code> and <code class="language-plaintext highlighter-rouge">cas.authn.feature2.database-driver=abc</code>. Rather than duplicating the shared and common <code class="language-plaintext highlighter-rouge">database-driver</code> setting, this page attempts to collect only what might be common CAS settings across features and modules while referring to the specific feature under the path <code class="language-plaintext highlighter-rouge">${configurationKey}</code>. Therefor, the documentation for either <code class="language-plaintext highlighter-rouge">feature1</code> or <code class="language-plaintext highlighter-rouge">feature2</code> might allow one to find common database-related settings (such as the <code class="language-plaintext highlighter-rouge">database-driver</code>) under <code class="language-plaintext highlighter-rouge">${configurationKey}.database-driver</code> where <code class="language-plaintext highlighter-rouge">${configurationKey}</code> would either be <code class="language-plaintext highlighter-rouge">cas.authn.feature1</code> or <code class="language-plaintext highlighter-rouge">cas.authn.feature2</code> depending on feature at hand. The notes and documentation for each feature that wants to inherit from a common block of settings should always advertise the appropriate value for <code class="language-plaintext highlighter-rouge">${configurationKey}</code>.</p>
+
+<h2 id="naming-convention">Naming Convention</h2>
+
+<ul>
+  <li>
+    <p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled 
+and provided to CAS via other underlying frameworks and may have their own schemas and syntax. <strong>BE CAREFUL</strong> with the distinction.</p>
+  </li>
+  <li>
+    <p>Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. 
+This means if you somehow misspell a property definition or fail to adhere to the dot-notation syntax and such, your setting 
+is entirely refused by CAS and likely the feature it controls will never be activated in the way you intend.</p>
+  </li>
+</ul>
+
+<h2 id="indexed-settings">Indexed Settings</h2>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>.
+The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be incremented by the adopter to allow for distinct multiple configuration blocks:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.some.setting[0]=value1
+# cas.some.setting[1]=value2
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="trust-but-verify">Trust But Verify</h2>
+
+<p>If you are unsure about the meaning of a given CAS setting, do <strong>NOT</strong> simply turn it on without hesitation.
+Review the codebase or better yet, <a href="/cas/Mailing-Lists.html">ask questions</a> to clarify the intended behavior.</p>
+
+<div class="alert alert-info"><strong>Keep It Simple</strong><p>If you do not know or cannot tell what a setting does, you do not need it.</p></div>
+
+<h2 id="time-unit-of-measure">Time Unit of Measure</h2>
+
+<p>All CAS settings that deal with time units, unless noted otherwise,
+should support the duration syntax for full clarity on unit of measure:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="s2">"PT20S"</span>     <span class="nt">--</span> parses as <span class="s2">"20 seconds"</span>
+<span class="s2">"PT15M"</span>     <span class="nt">--</span> parses as <span class="s2">"15 minutes"</span>
+<span class="s2">"PT10H"</span>     <span class="nt">--</span> parses as <span class="s2">"10 hours"</span>
+<span class="s2">"P2D"</span>       <span class="nt">--</span> parses as <span class="s2">"2 days"</span>
+<span class="s2">"P2DT3H4M"</span>  <span class="nt">--</span> parses as <span class="s2">"2 days, 3 hours and 4 minutes"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The native numeric syntax is still supported though you will have to refer to the docs
+in each case to learn the exact unit of measure.</p>
+
+<h2 id="job-scheduling">Job Scheduling</h2>
+
+<p>A number of CAS components are given the ability to schedule background jobs to clean tokens, remove records, etc.
+The behavior of the scheduler can be controlled using the following settings:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.schedule.start-delay=PT10S
+# ${configurationKey}.schedule.repeat-interval=PT60S
+# ${configurationKey}.schedule.enabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="authentication-throttling">Authentication Throttling</h2>
+
+<p>Certain functionality in CAS, such as <a href="../installation/OAuth-OpenId-Authentication.html">OAuth</a> 
+or <a href="../protocol/REST-Protocol.html">REST API</a>, allow you to throttle requests to specific endpoints in addition to the more 
+generic authentication throttling functionality applied during the login flow and authentication attempts.</p>
+
+<p>To fully deliver this functionality, it is expected that <a href="../installation/Configuring-Authentication-Throttling.html">authentication throttling</a> is turned on.</p>
+
+<h2 id="authentication-credential-selection">Authentication Credential Selection</h2>
+
+<p>A number of authentication handlers are allowed to determine whether they can operate on the provided credential
+and as such lend themselves to be tried and tested during the authentication handler selection phase. The credential criteria
+may be one of the following options:</p>
+
+<ul>
+  <li>A regular expression pattern that is tested against the credential identifier</li>
+  <li>A fully qualified class name of your own design that looks similar to the below example:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.function.Predicate</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.authentication.Credential</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PredicateExample</span> <span class="kd">implements</span> <span class="nc">Predicate</span><span class="o">&lt;</span><span class="nc">Credential</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Credential</span> <span class="n">credential</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Examine the credential and return true/false</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>Path to an external Groovy script that looks similar to the below example:</li>
+</ul>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">org.apereo.cas.authentication.Credential</span>
+<span class="kn">import</span> <span class="nn">java.util.function.Predicate</span>
+
+<span class="kd">class</span> <span class="nc">PredicateExample</span> <span class="kd">implements</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">Credential</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="kd">final</span> <span class="n">Credential</span> <span class="n">credential</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// test and return result</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="password-encoding">Password Encoding</h2>
+
+<p>Certain aspects of CAS such as authentication handling support configuration of
+password encoding. Most options are based on Spring Security’s <a href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/crypto/password/PasswordEncoder.html">support for password encoding</a>.</p>
+
+<p>The following options related to password encoding support in CAS apply equally to a number of CAS components (authentication handlers, etc) given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.password-encoder.type=NONE|DEFAULT|STANDARD|BCRYPT|SCRYPT|PBKDF2
+# ${configurationKey}.password-encoder.character-encoding=
+# ${configurationKey}.password-encoder.encoding-algorithm=
+# ${configurationKey}.password-encoder.secret=
+# ${configurationKey}.password-encoder.strength=16
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following options are supported:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NONE</code></td>
+      <td>No password encoding (i.e. plain-text) takes place.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DEFAULT</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">DefaultPasswordEncoder</code> of CAS. For message-digest algorithms via <code class="language-plaintext highlighter-rouge">characterEncoding</code> and <code class="language-plaintext highlighter-rouge">encodingAlgorithm</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">BCRYPT</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">BCryptPasswordEncoder</code> based on the <code class="language-plaintext highlighter-rouge">strength</code> provided and an optional <code class="language-plaintext highlighter-rouge">secret</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SCRYPT</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">SCryptPasswordEncoder</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PBKDF2</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">Pbkdf2PasswordEncoder</code> based on the <code class="language-plaintext highlighter-rouge">strength</code> provided and an optional <code class="language-plaintext highlighter-rouge">secret</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">STANDARD</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">StandardPasswordEncoder</code> based on the <code class="language-plaintext highlighter-rouge">secret</code> provided.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SSHA</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">LdapShaPasswordEncoder</code> supports Ldap SHA and SSHA (salted-SHA). The values are base-64 encoded and have the label <code class="language-plaintext highlighter-rouge">{SHA}</code> (or <code class="language-plaintext highlighter-rouge">{SSHA}</code>) prepended to the encoded hash.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">GLIBC_CRYPT</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">GlibcCryptPasswordEncoder</code> based on the <a href="https://commons.apache.org/proper/commons-codec/archives/1.10/apidocs/org/apache/commons/codec/digest/Crypt.html"><code class="language-plaintext highlighter-rouge">encoding-algorithm</code></a>, <code class="language-plaintext highlighter-rouge">strength</code> provided and an optional <code class="language-plaintext highlighter-rouge">secret</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">org.example.MyEncoder</code></td>
+      <td>An implementation of <code class="language-plaintext highlighter-rouge">PasswordEncoder</code> of your own choosing.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">file:///path/to/script.groovy</code></td>
+      <td>Path to a Groovy script charged with handling password encoding operations.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In cases where you plan to design your own password encoder or write scripts to do so, 
+you may also need to ensure the overlay has access to <code class="language-plaintext highlighter-rouge">org.springframework.security:spring-security-core</code> at runtime. Make sure the artifact is marked as <code class="language-plaintext highlighter-rouge">provided</code>
+or <code class="language-plaintext highlighter-rouge">compileOnly</code> to avoid conflicts.</p>
+
+<p>If you need to design your own password encoding scheme where the type is specified as a fully qualified Java class name, the structure of the class would be
+ similar to the following:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">org.example.cas</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.codec.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.security.crypto.password.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyEncoder</span> <span class="kd">extends</span> <span class="nc">AbstractPasswordEncoder</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">encode</span><span class="o">(</span><span class="nc">CharSequence</span> <span class="n">rawPassword</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">salt</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>If you need to design your own password encoding scheme where the type is specified as a path to a Groovy script, the structure of the script would be similar
+ to the following:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.*</span>
+
+<span class="kt">def</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">run</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">rawPassword</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">generatedSalt</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">casApplicationContext</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s2">"Encoding password..."</span><span class="o">)</span>
+    <span class="k">return</span> <span class="o">...</span>
+<span class="o">}</span>
+
+<span class="kt">def</span> <span class="n">Boolean</span> <span class="nf">matches</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">rawPassword</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">encodedPassword</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">casApplicationContext</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>
+
+   <span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s2">"Does match or not ?"</span><span class="o">);</span>
+   <span class="k">return</span> <span class="o">...</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="authentication-principal-transformation">Authentication Principal Transformation</h2>
+
+<p>Authentication handlers that generally deal with username-password credentials
+can be configured to transform the user id prior to executing the authentication sequence.
+The following options may be used:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NONE</code></td>
+      <td>Do not apply any transformations.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UPPERCASE</code></td>
+      <td>Convert the username to uppercase.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">LOWERCASE</code></td>
+      <td>Convert the username to lowercase.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Authentication handlers as part of principal transformation may also be provided a path to a Groovy script to transform the provided username. The outline of the script may take on the following form:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kt">def</span> <span class="n">String</span> <span class="nf">run</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">providedUsername</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+    <span class="k">return</span> <span class="n">providedUsername</span><span class="o">.</span><span class="na">concat</span><span class="o">(</span><span class="s2">"SomethingElse"</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following options related to principal transformation support in CAS apply equally to a number of CAS components (authentication handlers, etc) given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.principal-transformation.pattern=(.+)@example.org
+# ${configurationKey}.principal-transformation.groovy.location=file:///etc/cas/config/principal.groovy
+# ${configurationKey}.principal-transformation.suffix=
+# ${configurationKey}.principal-transformation.case-conversion=NONE|UPPERCASE|LOWERCASE
+# ${configurationKey}.principal-transformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="cookie-properties">Cookie Properties</h2>
+
+<p>The following common properties configure cookie generator support in CAS.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.path=
+# ${configurationKey}.max-age=-1
+# ${configurationKey}.domain=
+# ${configurationKey}.name=
+# ${configurationKey}.secure=true
+# ${configurationKey}.http-only=true
+# ${configurationKey}.same-site-policy=none|lax|strict
+# ${configurationKey}.comment=CAS Cookie
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="cassandra-configuration">Cassandra Configuration</h2>
+
+<p>Control properties that are relevant to Cassandra,
+when CAS attempts to establish connections, run queries, etc.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.keyspace=
+# ${configurationKey}.contact-points=localhost:9042
+# ${configurationKey}.local-dc=
+# ${configurationKey}.consistency-level=ANY|ONE|TWO|THREE|QUORUM|LOCAL_QUORUM|ALL|EACH_QUORUM|LOCAL_SERIAL|SERIAL|LOCAL_ONE
+# ${configurationKey}.serial-consistency-level=ANY|ONE|TWO|THREE|QUORUM|LOCAL_QUORUM|ALL|EACH_QUORUM|LOCAL_SERIAL|SERIAL|LOCAL_ONE
+# ${configurationKey}.timeout=PT5S
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="hibernate--jdbc">Hibernate &amp; JDBC</h2>
+
+<p>Control global properties that are relevant to Hibernate,
+when CAS attempts to employ and utilize database resources,
+connections and queries.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.jdbc.show-sql=true
+# cas.jdbc.gen-ddl=true
+# cas.jdbc.case-insensitive=false
+# cas.jdbc.physical-table-names.{table-name}={new-table-name}
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="database-settings">Database Settings</h3>
+
+<p>The following options related to JPA/JDBC support in CAS apply equally to a number of CAS components (ticket registries, etc) given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.user=sa
+# ${configurationKey}.password=
+# ${configurationKey}.driver-class=org.hsqldb.jdbcDriver
+# ${configurationKey}.url=jdbc:hsqldb:mem:cas-hsql-database
+# ${configurationKey}.dialect=org.hibernate.dialect.HSQLDialect
+</span>
+<span class="c"># ${configurationKey}.fail-fast-timeout=1
+# ${configurationKey}.isolation-level-name=ISOLATION_READ_COMMITTED 
+# ${configurationKey}.health-query=
+# ${configurationKey}.isolate-internal-queries=false
+# ${configurationKey}.leak-threshold=10
+# ${configurationKey}.propagation-behaviorName=PROPAGATION_REQUIRED
+# ${configurationKey}.batchSize=1
+# ${configurationKey}.default-catalog=
+# ${configurationKey}.default-schema=
+# ${configurationKey}.ddl-auto=create-drop
+# ${configurationKey}.physical-naming-strategy-class-name=org.apereo.cas.hibernate.CasHibernatePhysicalNamingStrategy
+</span>
+<span class="c"># ${configurationKey}.autocommit=false
+# ${configurationKey}.idle-timeout=5000
+</span>
+<span class="c"># ${configurationKey}.data-source-name=
+# ${configurationKey}.data-source-roxy=false
+</span>
+<span class="c"># Hibernate-specific properties (i.e. `hibernate.globally_quoted_identifiers`)
+# ${configurationKey}.properties.property-name=propertyValue
+</span>
+<span class="c"># ${configurationKey}.pool.suspension=false
+# ${configurationKey}.pool.mi-size=6
+# ${configurationKey}.pool.max-size=18
+# ${configurationKey}.pool.max-wait=2000
+# ${configurationKey}.pool.timeout-millis=1000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="container-based-jdbc-connections">Container-based JDBC Connections</h3>
+
+<p>If you are planning to use a container-managed JDBC connection with CAS (i.e. JPA Ticket/Service Registry, etc)
+then you can set the <code class="language-plaintext highlighter-rouge">data-source-name</code> property on any of the configuration items that require a database
+connection. When using a container configured data source, many of the pool related parameters will not be used.
+If <code class="language-plaintext highlighter-rouge">data-source-name</code> is specified but the JNDI lookup fails, a data source will be created with the configured 
+(or default) CAS pool parameters.</p>
+
+<p>If you experience classloading errors while trying to use a container datasource, you can try 
+setting the <code class="language-plaintext highlighter-rouge">data-source-proxy</code> setting to true which will wrap the container datasource in
+a way that may resolve the error.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">data-source-name</code> property can be either a JNDI name for the datasource or a resource name prefixed with 
+<code class="language-plaintext highlighter-rouge">java:/comp/env/</code>. If it is a resource name then you need an entry in a <code class="language-plaintext highlighter-rouge">web.xml</code> that you can add to your
+CAS overlay. It should contain an entry like this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;resource-ref&gt;</span>
+    <span class="nt">&lt;res-ref-name&gt;</span>jdbc/casDataSource<span class="nt">&lt;/res-ref-name&gt;</span>
+    <span class="nt">&lt;res-type&gt;</span>javax.sql.DataSource<span class="nt">&lt;/res-type&gt;</span>
+    <span class="nt">&lt;res-auth&gt;</span>Container<span class="nt">&lt;/res-auth&gt;</span>
+<span class="nt">&lt;/resource-ref&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In Apache Tomcat a container datasource can be defined like this in the <code class="language-plaintext highlighter-rouge">context.xml</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;Resource</span> <span class="na">name=</span><span class="s">"jdbc/casDataSource"</span>
+    <span class="na">auth=</span><span class="s">"Container"</span>
+    <span class="na">type=</span><span class="s">"javax.sql.DataSource"</span>
+    <span class="na">driverClassName=</span><span class="s">"org.postgresql.Driver"</span>
+    <span class="na">url=</span><span class="s">"jdbc:postgresql://casdb.example.com:5432/xyz_db"</span>
+    <span class="na">username=</span><span class="s">"cas"</span>
+    <span class="na">password=</span><span class="s">"xyz"</span>
+    <span class="na">testWhileIdle=</span><span class="s">"true"</span>
+    <span class="na">testOnBorrow=</span><span class="s">"true"</span>
+    <span class="na">testOnReturn=</span><span class="s">"false"</span>
+    <span class="na">validationQuery=</span><span class="s">"select 1"</span>
+    <span class="na">validationInterval=</span><span class="s">"30000"</span>
+    <span class="na">timeBetweenEvictionRunsMillis=</span><span class="s">"30000"</span>
+    <span class="na">factory=</span><span class="s">"org.apache.tomcat.jdbc.pool.DataSourceFactory"</span>
+    <span class="na">minIdle=</span><span class="s">"0"</span>
+    <span class="na">maxIdle=</span><span class="s">"5"</span>
+    <span class="na">initialSize=</span><span class="s">"0"</span>
+    <span class="na">maxActive=</span><span class="s">"20"</span>
+    <span class="na">maxWait=</span><span class="s">"10000"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In Jetty, a pool can be put in JNDI with a <code class="language-plaintext highlighter-rouge">jetty.xml</code> or <code class="language-plaintext highlighter-rouge">jetty-env.xml</code> file like this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd"&gt;</span>
+
+<span class="nt">&lt;Configure</span> <span class="na">class=</span><span class="s">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;New</span> <span class="na">id=</span><span class="s">"datasource.cas"</span> <span class="na">class=</span><span class="s">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Arg&gt;&lt;/Arg&gt;</span> <span class="c">&lt;!-- empty scope arg is JVM scope --&gt;</span>
+    <span class="nt">&lt;Arg&gt;</span>jdbc/casDataSource<span class="nt">&lt;/Arg&gt;</span> <span class="c">&lt;!-- name that matches resource in web.xml--&gt;</span>
+    <span class="nt">&lt;Arg&gt;</span>
+        <span class="nt">&lt;New</span> <span class="na">class=</span><span class="s">"org.apache.commons.dbcp.BasicDataSource"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"driverClassName"</span><span class="nt">&gt;</span>oracle.jdbc.OracleDriver<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"url"</span><span class="nt">&gt;</span>jdbc:oracle:thin:@//casdb.example.com:1521/ntrs"<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"username"</span><span class="nt">&gt;</span>cas<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"password"</span><span class="nt">&gt;</span>xyz<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"validationQuery"</span><span class="nt">&gt;</span>select dummy from dual<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"testOnBorrow"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"testOnReturn"</span><span class="nt">&gt;</span>false<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"testWhileIdle"</span><span class="nt">&gt;</span>false<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"defaultAutoCommit"</span><span class="nt">&gt;</span>false<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"initialSize"</span><span class="nt">&gt;</span>0<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"maxActive"</span><span class="nt">&gt;</span>15<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"minIdle"</span><span class="nt">&gt;</span>0<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"maxIdle"</span><span class="nt">&gt;</span>5<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"maxWait"</span><span class="nt">&gt;</span>2000<span class="nt">&lt;/Set&gt;</span>
+        <span class="nt">&lt;/New&gt;</span>
+    <span class="nt">&lt;/Arg&gt;</span>
+<span class="nt">&lt;/New&gt;</span>
+<span class="nt">&lt;/Configure&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="signing--encryption">Signing &amp; Encryption</h2>
+
+<p>A number of components in CAS accept signing and encryption keys. In most scenarios if keys are not provided, CAS will 
+auto-generate them. The following instructions apply if you wish to manually and beforehand create the signing and encryption keys.</p>
+
+<p>Note that if you are asked to create a <a href="https://tools.ietf.org/html/rfc7517">JWK</a> of a certain size for the key, you are to use 
+the following set of commands to generate the token:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>wget https://raw.githubusercontent.com/apereo/cas/master/etc/jwk-gen.jar
+java <span class="nt">-jar</span> jwk-gen.jar <span class="nt">-t</span> oct <span class="nt">-s</span> <span class="o">[</span>size]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The outcome would be similar to:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oct"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"k"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The generated value for <code class="language-plaintext highlighter-rouge">k</code> needs to be assigned to the relevant CAS settings. Note that keys generated via 
+the above algorithm are processed by CAS using the Advanced Encryption Standard (<code class="language-plaintext highlighter-rouge">AES</code>) algorithm which is a 
+specification for the encryption of electronic data established by the U.S. National Institute of Standards and Technology.</p>
+
+<h3 id="settings">Settings</h3>
+
+<p>The following crypto options apply equally to relevant CAS 
+components (ticket registries, etc) given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.crypto.signing.key=
+# ${configurationKey}.crypto.signing.key-size=
+</span>
+<span class="c"># ${configurationKey}.crypto.encryption.key=
+# ${configurationKey}.crypto.encryption.key-size=
+</span>
+<span class="c"># ${configurationKey}.crypto.alg=AES
+# ${configurationKey}.crypto.enabled=false   
+</span>
+<span class="c"># ${configurationKey}.crypto.strategyType=ENCRYPT_AND_SIGN|SIGN_AND_ENCRYPT
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following cipher strategy types are available:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ENCRYPT_AND_SIGN</code></td>
+      <td>Default strategy; encrypt values, and then sign.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGN_AND_ENCRYPT</code></td>
+      <td>Sign values, and then encrypt.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="rsa-keys">RSA Keys</h3>
+
+<p>Certain features such as the ability to produce <a href="../installation/Configure-ServiceTicket-JWT.html">JWTs as CAS tickets</a> may allow you to use the <code class="language-plaintext highlighter-rouge">RSA</code> algorithm with public/private keypairs for signing and encryption. This behavior may prove useful generally in cases where the consumer of the CAS-encoded payload is an outsider and a client application that need not have access to the signing secrets directly and visibly and may only be given a half truth vis-a-vis a public key to verify the payload authenticity and decode it. This particular option makes little sense in situations where CAS itself is both a producer and a consumer of the payload.</p>
+
+<div class="alert alert-info"><strong>Remember</strong><p>Signing and encryption options are not mutually exclusive. While it would be rather nonsensical, it is entirely possible for CAS to use <code>AES</code> keys for signing and <code>RSA</code> keys for encryption, or vice versa.</p></div>
+
+<p>In order to enable RSA functionality for signing payloads, you will need to generate a private/public keypair via the following sample commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>openssl genrsa <span class="nt">-out</span> private.key 2048
+openssl rsa <span class="nt">-pubout</span> <span class="nt">-in</span> private.key <span class="nt">-out</span> public.key <span class="nt">-inform</span> PEM <span class="nt">-outform</span> DER
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The private key path (i.e. <code class="language-plaintext highlighter-rouge">file:///path/to/private.key</code>) needs to be configured for the signing key in CAS properties for the relevant feature. The public key needs to be shared with client applications and consumers of the payload in order to validate the payload signature.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.xyz.crypto.signing.key=file:///etc/cas/config/private.key
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info"><strong>Key Size</strong><p>Remember that RSA key sizes are required to be at least <code>2048</code> and above. Smaller key sizes are not accepted by CAS and will cause runtime errors. Choose wisely.</p></div>
+
+<p>In order to enable RSA functionality for encrypting payloads, you will need to essentially execute the reverse of the above operations. The client application will provide you with a public key which will be used to encrypt the payload and whose path (i.e. <code class="language-plaintext highlighter-rouge">file:///path/to/public.key</code>) needs to be configured for the encryption key in CAS properties for the relevant feature. Once the payload is submitted, the client should use its own private key to decode the payload and unpack it.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.xyz.crypto.encryption.key=file:///etc/cas/config/public.key
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="person-directory-principal-resolution">Person Directory Principal Resolution</h2>
+
+<p>The following options related to Person Directory support in CAS when it attempts to resolve and build the authenticated principal, given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.principal-attribute=uid,sAMAccountName,etc
+# ${configurationKey}.return-null=false
+# ${configurationKey}.principal-resolution-failure-fatal=false
+# ${configurationKey}.use-existing-principal-id=false
+# ${configurationKey}.attribute-resolution-enabled=true
+# ${configurationKey}.active-attribute-repository-ids=StubRepository,etc
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="influxdb-configuration">InfluxDb Configuration</h2>
+
+<p>The following options related to InfluxDb support in CAS apply equally to a number of CAS components given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.url=http://localhost:8086
+# ${configurationKey}.username=root
+# ${configurationKey}.password=root
+# ${configurationKey}.retention-policy=autogen
+# ${configurationKey}.drop-database=false
+# ${configurationKey}.points-to-flush=100
+# ${configurationKey}.batch-interval=PT5S
+# ${configurationKey}.consistency-level=ALL
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="hazelcast-configuration">Hazelcast Configuration</h2>
+
+<p>The following options related to Hazelcast support in CAS apply equally to a number of CAS components given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.members=123.456.789.000,123.456.789.001
+# ${configurationKey}.cluster.instance-name=localhost
+# ${configurationKey}.cluster.port=5701
+</span>
+<span class="c"># ${configurationKey}.license-key=
+# ${configurationKey}.enable-compression=false
+# ${configurationKey}.enable-management-center-scripting=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>More advanced Hazelcast configuration settings are listed below, given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.tcpip-enabled=true
+</span>
+<span class="c"># ${configurationKey}.cluster.partition-member-group-type=HOST_AWARE|CUSTOM|PER_MEMBER|ZONE_AWARE|SPI
+# ${configurationKey}.cluster.map-merge-policy=PUT_IF_ABSENT|HIGHER_HITS|DISCARD|PASS_THROUGH|EXPIRATION_TIME|LATEST_UPDATE|LATEST_ACCESS
+</span>
+<span class="c"># ${configurationKey}.cluster.eviction-policy=LRU
+# ${configurationKey}.cluster.max-no-heartbeat-seconds=300
+# ${configurationKey}.cluster.logging-type=slf4j
+# ${configurationKey}.cluster.port-auto-increment=true
+# ${configurationKey}.cluster.max-size=85
+# ${configurationKey}.cluster.backup-count=1
+# ${configurationKey}.cluster.async-backup-count=0
+# ${configurationKey}.cluster.max-size-policy=USED_HEAP_PERCENTAGE
+# ${configurationKey}.cluster.timeout=5
+</span>
+<span class="c"># ${configurationKey}.cluster.local-address=
+# ${configurationKey}.cluster.public-address=
+</span>
+<span class="c"># ${configurationKey}.cluster.outbound-ports[0]=45000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="static-wan-replication">Static WAN Replication</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.wan-replication.enabled=false
+# ${configurationKey}.cluster.wan-replication.replication-name=CAS
+</span>
+<span class="c"># ${configurationKey}.cluster.wan-replication.targets[0].endpoints=1.2.3.4,4.5.6.7
+# ${configurationKey}.cluster.wan-replication.targets[0].publisher-className=com.hazelcast.enterprise.wan.replication.WanBatchReplication
+# ${configurationKey}.cluster.wan-replication.targets[0].queue-full-behavior=THROW_EXCEPTION
+# ${configurationKey}.cluster.wan-replication.targets[0].acknowledge-type=ACK_ON_OPERATION_COMPLETE
+# ${configurationKey}.cluster.wan-replication.targets[0].queue-capacity=10000
+# ${configurationKey}.cluster.wan-replication.targets[0].batch-size=500
+# ${configurationKey}.cluster.wan-replication.targets[0].snapshot-enabled=false
+# ${configurationKey}.cluster.wan-replication.targets[0].batch-maximum-delay-milliseconds=1000
+# ${configurationKey}.cluster.wan-replication.targets[0].response-timeout-milliseconds=60000
+# ${configurationKey}.cluster.wan-replication.targets[0].executor-thread-count=2
+</span>
+<span class="c"># ${configurationKey}.cluster.wan-replication.targets[0].consistency-check-strategy=NONE|MERKLE_TREES
+# ${configurationKey}.cluster.wan-replication.targets[0].cluster-name=
+# ${configurationKey}.cluster.wan-replication.targets[0].publisher-id=
+# ${configurationKey}.cluster.wan-replication.targets[0].properties=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="multicast-discovery">Multicast Discovery</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.multicast-trusted-interfaces=
+# ${configurationKey}.cluster.multicast-enabled=false
+# ${configurationKey}.cluster.multicast-port=
+# ${configurationKey}.cluster.multicast-group=
+# ${configurationKey}.cluster.multicast-timeout=2
+# ${configurationKey}.cluster.multicast-time-to-live=32
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="aws-ec2-discovery">AWS EC2 Discovery</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.discovery.enabled=true
+</span>
+<span class="c"># ${configurationKey}.cluster.discovery.aws.access-ley=
+# ${configurationKey}.cluster.discovery.aws.secret-ley=
+</span>
+<span class="c"># ${configurationKey}.cluster.discovery.aws.iam-role=
+</span>
+<span class="c"># ${configurationKey}.cluster.discovery.aws.region=us-east-1
+# ${configurationKey}.cluster.discovery.aws.host-header=
+# ${configurationKey}.cluster.discovery.aws.security-group-name=
+# ${configurationKey}.cluster.discovery.aws.tag-key=
+# ${configurationKey}.cluster.discovery.aws.tag-value=
+# ${configurationKey}.cluster.discovery.aws.port=-1
+# ${configurationKey}.cluster.discovery.aws.connection-timeout-seconds=5
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="apache-jclouds-discovery">Apache jclouds Discovery</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.discovery.enabled=true
+</span>
+<span class="c"># ${configurationKey}.cluster.discovery.jclouds.provider=
+# ${configurationKey}.cluster.discovery.jclouds.identity=
+# ${configurationKey}.cluster.discovery.jclouds.credential=
+# ${configurationKey}.cluster.discovery.jclouds.endpoint=
+# ${configurationKey}.cluster.discovery.jclouds.zones=
+# ${configurationKey}.cluster.discovery.jclouds.regions=
+# ${configurationKey}.cluster.discovery.jclouds.tag-keys=
+# ${configurationKey}.cluster.discovery.jclouds.tag-values=
+# ${configurationKey}.cluster.discovery.jclouds.group=
+# ${configurationKey}.cluster.discovery.jclouds.port=-1
+# ${configurationKey}.cluster.discovery.jclouds.role-name=
+# ${configurationKey}.cluster.discovery.jclouds.credential-path=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="kubernetes-discovery">Kubernetes Discovery</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.discovery.enabled=true
+</span>
+<span class="c"># ${configurationKey}.service-dns=
+# ${configurationKey}.service-dns-timeout=-1
+# ${configurationKey}.service-name=
+# ${configurationKey}.service-label-name=
+# ${configurationKey}.service-label-value=
+# ${configurationKey}.cluster.discovery.kubernetes.namespace=
+# ${configurationKey}.resolve-not-ready-addresses=false
+# ${configurationKey}.cluster.discovery.kubernetes.kubernetes-master=
+# ${configurationKey}.api-token=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="docker-swarm-discovery">Docker Swarm Discovery</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.discovery.enabled=true
+</span>
+<span class="c"># ${configurationKey}.cluster.discovery.docker-swarm.dns-provider.enabled=true
+# ${configurationKey}.cluster.discovery.docker-swarm.dns-provider.service-name=
+# ${configurationKey}.cluster.discovery.docker-swarm.dns-provider.service-port=5701
+# ${configurationKey}.cluster.discovery.docker-swarm.dns-provider.peer-services=service-a,service-b,etc
+</span>
+<span class="c"># ${configurationKey}.cluster.discovery.docker-swarm.member-provider.enabled=true
+# ${configurationKey}.cluster.discovery.docker-swarm.member-provider.group-name=
+# ${configurationKey}.cluster.discovery.docker-swarm.member-provider.group-password=
+# ${configurationKey}.cluster.discovery.docker-swarm.member-provider.docker-network-names=
+# ${configurationKey}.cluster.discovery.docker-swarm.member-provider.docker-service-names=
+# ${configurationKey}.cluster.discovery.docker-swarm.member-provider.docker-service-labels=
+# ${configurationKey}.cluster.discovery.docker-swarm.member-provider.swarm-mgr-uri=
+# ${configurationKey}.cluster.discovery.docker-swarm.member-provider.skip-verify-ssl=false
+# ${configurationKey}.cluster.discovery.docker-swarm.member-provider.hazelcast-peer-port=5701
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="microsoft-azure-discovery">Microsoft Azure Discovery</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.cluster.discovery.enabled=true
+</span>
+<span class="c"># ${configurationKey}.cluster.discovery.azure.subscription-id=
+# ${configurationKey}.cluster.discovery.azure.client-id=
+# ${configurationKey}.cluster.discovery.azure.client-secret=
+# ${configurationKey}.cluster.discovery.azure.tenant-id=
+# ${configurationKey}.cluster.discovery.azure.cluster-id=
+# ${configurationKey}.cluster.discovery.azure.group-name=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="radius-configuration">RADIUS Configuration</h2>
+
+<p>The following options related to RADIUS support in CAS apply equally to a number of CAS components (authentication, etc) 
+given the component’s <em>configuration key</em>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">server</code> parameters defines identification values of authenticated service (CAS server), primarily <code class="language-plaintext highlighter-rouge">server.protocol</code>
+ for communication to RADIUS server identified by <code class="language-plaintext highlighter-rouge">client</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">client</code> parameters defines values for connecting RADIUS server. 
+Parameter <code class="language-plaintext highlighter-rouge">client.inetAddress</code> has possibility to contain more addresses separated by comma to define failover servers 
+when <code class="language-plaintext highlighter-rouge">failoverOnException</code> is set.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.server.nas-port-id=-1
+# ${configurationKey}.server.nas-real-port=-1
+# ${configurationKey}.server.protocol=EAP_MSCHAPv2
+# ${configurationKey}.server.retries=3
+# ${configurationKey}.server.nas-port-type=-1
+# ${configurationKey}.server.nas-port=-1
+# ${configurationKey}.server.nas-ip-address=
+# ${configurationKey}.server.nas-ipv6-address=
+# ${configurationKey}.server.nas-identifier=-1
+# ${configurationKey}.client.authentication-port=1812
+# ${configurationKey}.client.shared-secret=N0Sh@ar3d$ecReT
+# ${configurationKey}.client.socket-timeout=0
+# ${configurationKey}.client.inet-address=localhost
+# ${configurationKey}.client.accounting-port=1813
+# ${configurationKey}.failover-on-exception=false
+# ${configurationKey}.failover-on-authentication-failure=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="couchdb-configuration">CouchDb Configuration</h2>
+
+<p>The following options related to CouchDb support in CAS apply equally to a number of CAS components (ticket registries, etc) given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.couch-db.url=http://localhost:5984
+# ${configurationKey}.couch-db.username=
+# ${configurationKey}.couch-db.password=
+# ${configurationKey}.couch-db.socket-timeout=10000
+# ${configurationKey}.couch-db.connection-timeout=1000
+# ${configurationKey}.couch-db.drop-collection=false
+# ${configurationKey}.couch-db.max-connections=20
+# ${configurationKey}.couch-db.enable-ssl=
+# ${configurationKey}.couch-db.relaxed-ssl-settings=
+# ${configurationKey}.couch-db.caching=true
+# ${configurationKey}.couch-db.max-cache-entries=1000
+# ${configurationKey}.couch-db.max-object-size-bytes=8192
+# ${configurationKey}.couch-db.use-expect-continue=true
+# ${configurationKey}.couch-db.cleanup-idle-connections=true
+# ${configurationKey}.couch-db.create-if-not-exists=true
+# ${configurationKey}.couch-db.proxy-host=
+# ${configurationKey}.couch-db.proxy-port=-1
+</span>
+<span class="c"># Defaults are based on the feature name.
+# ${configurationKey}.couch-db.db-name=
+</span>
+<span class="c"># For the few features that can't have update conflicts automatically resolved.
+# ${configurationKey}.couch-db.retries=5
+</span>
+<span class="c"># Depending on the feature at hand, CAS may perform some actions asynchronously.
+# ${configurationKey}.couch-db.asynchronous=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="mongodb-configuration">MongoDb Configuration</h2>
+
+<p>The following options related to MongoDb support in CAS apply equally to a number of CAS components (ticket registries, etc) given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.mongo.host=localhost
+# ${configurationKey}.mongo.client-uri=localhost
+# ${configurationKey}.mongo.port=27017
+# ${configurationKey}.mongo.drop-collection=false
+# ${configurationKey}.mongo.socket-keep-alive=false
+# ${configurationKey}.mongo.password=
+</span>
+<span class="c"># ${configurationKey}.mongo.collection=cas-service-registry
+</span>
+<span class="c"># ${configurationKey}.mongo.database-name=cas-mongo-database
+# ${configurationKey}.mongo.timeout=5000
+# ${configurationKey}.mongo.user-id=
+# ${configurationKey}.mongo.write-concern=NORMAL
+# ${configurationKey}.mongo.read-concern=AVAILABLE
+# ${configurationKey}.mongo.read-preference=PRIMARY
+# ${configurationKey}.mongo.authentication-database-name=
+# ${configurationKey}.mongo.replica-set=
+# ${configurationKey}.mongo.ssl-enabled=false
+# ${configurationKey}.mongo.retry-writes=false
+</span>
+<span class="c"># ${configurationKey}.mongo.pool.life-time=60000
+# ${configurationKey}.mongo.pool.idle-time=30000
+# ${configurationKey}.mongo.pool.max-wait-time=60000
+# ${configurationKey}.mongo.pool.max-size=10
+# ${configurationKey}.mongo.pool.min-size=1
+# ${configurationKey}.mongo.pool.per-host=10
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="dynamodb-configuration">DynamoDb Configuration</h2>
+
+<p>The following options related to DynamoDb support in CAS apply equally to a number of CAS components (ticket registries, etc) given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.dynamo-db.drop-tables-on-startup=false
+# ${configurationKey}.dynamo-db.prevent-table-creation-on-startup=false
+# ${configurationKey}.dynamo-db.local-instance=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>AWS settings for this feature are available <a href="#amazon-integration-settings">here</a>.</p>
+
+<h2 id="restful-integrations">RESTful Integrations</h2>
+
+<p>The following options related to features in CAS that provide REST support to fetch and update data. These settings apply equally, given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.method=GET|POST
+# ${configurationKey}.order=0
+# ${configurationKey}.case-insensitive=false
+# ${configurationKey}.basic-auth-username=uid
+# ${configurationKey}.basic-auth-password=password
+# ${configurationKey}.url=https://rest.somewhere.org/attributes
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="redis-configuration">Redis Configuration</h2>
+
+<p>The following options related to Redis support in CAS apply equally to a number of CAS components (ticket registries, etc) given the component’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.redis.host=localhost
+# ${configurationKey}.redis.database=0
+# ${configurationKey}.redis.port=6380
+# ${configurationKey}.redis.password=
+# ${configurationKey}.redis.timeout=2000
+# ${configurationKey}.redis.use-ssl=false
+# ${configurationKey}.redis.read-from=MASTER
+</span>
+<span class="c"># ${configurationKey}.redis.pool.enabled=false
+# ${configurationKey}.redis.pool.max-active=20
+# ${configurationKey}.redis.pool.max-idle=8
+# ${configurationKey}.redis.pool.min-idle=0
+# ${configurationKey}.redis.pool.max-active=8
+# ${configurationKey}.redis.pool.max-wait=-1
+# ${configurationKey}.redis.pool.num-tests-per-eviction-run=0
+# ${configurationKey}.redis.pool.soft-min-evictable-idle-time-millis=0
+# ${configurationKey}.redis.pool.min-evictable-idle-time-millis=0
+# ${configurationKey}.redis.pool.lifo=true
+# ${configurationKey}.redis.pool.fairness=false
+# ${configurationKey}.redis.pool.test-on-create=false
+# ${configurationKey}.redis.pool.test-on-borrow=false
+# ${configurationKey}.redis.pool.test-on-return=false
+# ${configurationKey}.redis.pool.test-while-idle=false
+</span>
+<span class="c"># ${configurationKey}.redis.sentinel.master=mymaster
+# ${configurationKey}.redis.sentinel.node[0]=localhost:26377
+# ${configurationKey}.redis.sentinel.node[1]=localhost:26378
+# ${configurationKey}.redis.sentinel.node[2]=localhost:26379
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ddl-configuration">DDL Configuration</h2>
+
+<p>Note that the default value for Hibernate’s DDL setting is <code class="language-plaintext highlighter-rouge">create-drop</code> which may not be appropriate for use in production. Setting the value to
+<code class="language-plaintext highlighter-rouge">validate</code> may be more desirable, but any of the following options can be used:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">validate</code></td>
+      <td>Validate the schema, but make no changes to the database.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">update</code></td>
+      <td>Update the schema.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">create</code></td>
+      <td>Create the schema, destroying previous data.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">create-drop</code></td>
+      <td>Drop the schema at the end of the session.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">none</code></td>
+      <td>Do nothing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that during a version migration where any schema has changed <code class="language-plaintext highlighter-rouge">create-drop</code> will result
+in the loss of all data as soon as CAS is started. For transient data like tickets this is probably
+not an issue, but in cases like the audit table important data could be lost. Using <code class="language-plaintext highlighter-rouge">update</code>, while safe
+for data, is confirmed to result in invalid database state. <code class="language-plaintext highlighter-rouge">validate</code> or <code class="language-plaintext highlighter-rouge">none</code> settings
+are likely the only safe options for production use.</p>
+
+<p>For more information on configuration of transaction levels and propagation behaviors,
+please review <a href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/">this guide</a>.</p>
+
+<h2 id="saml2-service-provider-integrations">SAML2 Service Provider Integrations</h2>
+
+<p>The settings defined for each service provider simply attempt to automate the creation of 
+a <a href="../installation/Configuring-SAML2-Authentication.html#saml-services">SAML service definition</a> and nothing more. If you find the 
+applicable settings lack in certain areas, it is best to fall back onto the native configuration strategy for registering 
+SAML service providers with CAS which would depend on your service registry of choice.</p>
+
+<p>Each SAML service provider supports the following settings:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">metadata</code></td>
+      <td>Location of metadata for the service provider (i.e URL, path, etc)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>The name of the service provider registered in the service registry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">description</code></td>
+      <td>The description of the service provider registered in the service registry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">nameIdAttribute</code></td>
+      <td>Attribute to use when generating name ids for this service provider.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">nameIdFormat</code></td>
+      <td>The forced NameID Format identifier (i.e. <code class="language-plaintext highlighter-rouge">urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</code>).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">attributes</code></td>
+      <td>Attributes to release to the service provider, which may virtually be mapped and renamed.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signatureLocation</code></td>
+      <td>Signature location to verify metadata.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">entityIds</code></td>
+      <td>List of entity ids allowed for this service provider.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signResponses</code></td>
+      <td>Indicate whether responses should be signed. Default is <code class="language-plaintext highlighter-rouge">true</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signAssertions</code></td>
+      <td>Indicate whether assertions should be signed. Default is <code class="language-plaintext highlighter-rouge">false</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The only required setting that would activate the automatic configuration for a service provider is the presence and definition of metadata. All other settings are optional.</p>
+
+<p>The following options apply equally to SAML2 service provider integrations, given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.metadata=/etc/cas/saml/dropbox.xml
+# ${configurationKey}.name=SP Name
+# ${configurationKey}.description=SP Integration
+# ${configurationKey}.name-id-attribute=mail
+# ${configurationKey}.name-id-format=
+# ${configurationKey}.signature-location=
+# ${configurationKey}.attributes=
+# ${configurationKey}.entity-ids=
+# ${configurationKey}.sign-responses=
+# ${configurationKey}.sign-assertions=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="multifactor-authentication-providers">Multifactor Authentication Providers</h2>
+
+<p>All configurable multifactor authentication providers have these base properties available given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.rank=
+# ${configurationKey}.id=
+# ${configurationKey}.name=
+# ${configurationKey}.failure-mode=UNDEFINED
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="multifactor-authentication-bypass">Multifactor Authentication Bypass</h2>
+
+<p>The following bypass options apply equally to multifactor authentication providers given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.bypass.principal-attribute-name=bypass|skip
+# ${configurationKey}.bypass.principal-attribute-value=true|enabled.+
+</span>
+<span class="c"># ${configurationKey}.bypass.authentication-attribute-name=bypass|skip
+# ${configurationKey}.bypass.authentication-attribute-value=allowed.+|enabled.+
+</span>
+<span class="c"># ${configurationKey}.bypass.authentication-handler-name=AcceptUsers.+
+# ${configurationKey}.bypass.authentication-method-name=LdapAuthentication.+
+</span>
+<span class="c"># ${configurationKey}.bypass.credential-class-type=UsernamePassword.+
+</span>
+<span class="c"># ${configurationKey}.bypass.http-request-remote-address=127.+|example.*
+# ${configurationKey}.bypass.http-request-headers=header-X-.+|header-Y-.+
+</span>
+<span class="c"># ${configurationKey}.bypass.groovy.location=file:/etc/cas/config/mfa-bypass.groovy
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>If multifactor authentication bypass is determined via REST, 
+RESTful settings are available <a href="#restful-integrations">here</a> under the configuration key <code class="language-plaintext highlighter-rouge">${configurationKey}.bypass.rest</code>.</p>
+
+<h2 id="couchbase-integration-settings">Couchbase Integration Settings</h2>
+
+<p>The following options are shared and apply when CAS is configured to integrate with Couchbase (i.e ticket registry, etc), given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.addresses[0]=localhost
+# ${configurationKey}.cluster-username=
+# ${configurationKey}.cluster-password= 
+</span>
+<span class="c"># ${configurationKey}.bucket=testbucket    
+</span>
+<span class="c"># ${configurationKey}.connection-timeout=PT60S
+# ${configurationKey}.search-timeout=PT30S
+# ${configurationKey}.query-timeout=PT30S
+# ${configurationKey}.view-timeout=PT30S
+# ${configurationKey}.kv-timeout=PT30S 
+# ${configurationKey}.max-http-connections=PT30S
+# ${configurationKey}.scan-consistency=NOT_BOUNDED|REQUEST_PLUS
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="amazon-integration-settings">Amazon Integration Settings</h2>
+
+<p>The following options are shared and apply when CAS is configured to integrate with various 
+Amazon Web Service features, given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="rouge-code"><pre><span class="c"># Path to an external properties file that contains 'accessKey' and 'secretKey' fields.
+# ${configurationKey}.credentials-properties-file=file:/path/to/file.properties
+</span>
+<span class="c"># ${configurationKey}.credential-access-key=
+# ${configurationKey}.credential-secret-key=
+</span>
+<span class="c"># ${configurationKey}.endpoint=http://localhost:8000
+# ${configurationKey}.region=US_WEST_2|US_EAST_2|EU_WEST_2|&lt;REGION-NAME&gt;
+# ${configurationKey}.region-override=
+# ${configurationKey}.local-address=
+</span>
+<span class="c"># ${configurationKey}.max-error-retry=-1
+# ${configurationKey}.proxy-host=
+# ${configurationKey}.proxy-password=
+# ${configurationKey}.proxy-port=-1
+</span>
+<span class="c"># ${configurationKey}.read-capacity=10
+# ${configurationKey}.write-capacity=10
+# ${configurationKey}.connection-timeout=5000
+# ${configurationKey}.request-timeout=5000
+# ${configurationKey}.socket-timeout=5000
+# ${configurationKey}.use-gzip=false
+# ${configurationKey}.use-reaper=false
+# ${configurationKey}.use-throttle-retries=false
+# ${configurationKey}.use-tcp-keep-alive=false
+# ${configurationKey}.protocol=HTTPS
+# ${configurationKey}.client-execution-timeout=10000
+# ${configurationKey}.cache-response-metadata=false
+# ${configurationKey}.max-connections=10
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="memcached-integration-settings">Memcached Integration Settings</h2>
+
+<p>The following  options are shared and apply when CAS is configured to integrate with memcached (i.e ticket registry, etc), given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.memcached.servers=localhost:11211
+# ${configurationKey}.memcached.locator-type=ARRAY_MOD
+# ${configurationKey}.memcached.failure-mode=Redistribute
+# ${configurationKey}.memcached.hash-algorithm=FNV1_64_HASH
+# ${configurationKey}.memcached.should-optimize=false
+# ${configurationKey}.memcached.daemon=true
+# ${configurationKey}.memcached.max-reconnect-delay=-1
+# ${configurationKey}.memcached.use-nagle-algorithm=false
+# ${configurationKey}.memcached.shutdown-timeout-seconds=-1
+# ${configurationKey}.memcached.op-timeout=-1
+# ${configurationKey}.memcached.timeout-exception-threshold=2
+# ${configurationKey}.memcached.max-total=20
+# ${configurationKey}.memcached.max-idle=8
+# ${configurationKey}.memcached.min-idle=0
+</span>
+<span class="c"># ${configurationKey}.memcached.transcoder=KRYO|SERIAL|WHALIN|WHALINV1
+# ${configurationKey}.memcached.transcoder-compression-threshold=16384
+# ${configurationKey}.memcached.kryo-auto-reset=false
+# ${configurationKey}.memcached.kryo-objects-by-reference=false
+# ${configurationKey}.memcached.kryo-registration-required=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="password-policy-settings">Password Policy Settings</h2>
+
+<p>The following  options are shared and apply when CAS is configured to integrate with account sources and authentication strategies that support password policy enforcement and detection, given the provider’s <em>configuration key</em>. Note that certain setting may only be applicable if the underlying account source is LDAP and are only taken into account if the authentication strategy configured in CAS is able to honor and recognize them:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.type=GENERIC|AD|FreeIPA|EDirectory
+</span>
+<span class="c"># ${configurationKey}.enabled=true
+# ${configurationKey}.policy-attributes.account-locked=javax.security.auth.login.AccountLockedException
+# ${configurationKey}.login-failures=5
+# ${configurationKey}.warning-attribute-value=
+# ${configurationKey}.warning-attribute-name=
+# ${configurationKey}.display-warning-on-match=true
+# ${configurationKey}.warn-all=true
+# ${configurationKey}.warning-days=30
+# ${configurationKey}.account-state-handling-enabled=true
+</span>
+<span class="c"># An implementation of `org.ldaptive.auth.AuthenticationResponseHandler`
+# ${configurationKey}.custom-policy-class=com.example.MyAuthenticationResponseHandler
+</span>
+<span class="c"># ${configurationKey}.strategy=DEFAULT|GROOVY|REJECT_RESULT_CODE
+# ${configurationKey}.groovy.location=file:/etc/cas/config/password-policy.groovy
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="password-policy-strategies">Password Policy Strategies</h4>
+
+<p>Password policy strategy types are outlined below. The strategy evaluates the authentication response received from LDAP, etc and is allowed to review it upfront in order to further examine whether account state, messages and warnings is eligible for further investigation.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DEFAULT</code></td>
+      <td>Accepts the authentication response as is, and processes account state, if any.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">GROOVY</code></td>
+      <td>Examine the authentication response as part of a Groovy script dynamically. The responsibility of handling account state changes and warnings is entirely delegated to the script.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">REJECT_RESULT_CODE</code></td>
+      <td>An extension of the <code class="language-plaintext highlighter-rouge">DEFAULT</code> where account state is processed only if the result code of the authentication response is not blacklisted in the configuration. By default <code class="language-plaintext highlighter-rouge">INVALID_CREDENTIALS(49)</code> prevents CAS from handling account states.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If the password policy strategy is to be handed off to a Groovy script, the outline of the script may be as follows:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.*</span>
+<span class="kn">import</span> <span class="nn">org.ldaptive.auth.*</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.*</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.authentication.*</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.authentication.support.*</span>
+
+<span class="kt">def</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MessageDescriptor</span><span class="o">&gt;</span> <span class="n">run</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">response</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">configuration</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+    <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s2">"Handling password policy [{}] via ${configuration.getAccountStateHandler()}"</span><span class="o">,</span> <span class="n">response</span><span class="o">)</span>
+
+    <span class="kt">def</span> <span class="n">accountStateHandler</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="na">getAccountStateHandler</span><span class="o">()</span>
+    <span class="k">return</span> <span class="n">accountStateHandler</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">response</span><span class="o">,</span> <span class="n">configuration</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The parameters passed are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">response</code></td>
+      <td>The LDAP authentication response of type <code class="language-plaintext highlighter-rouge">org.ldaptive.auth.AuthenticationResponse</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">configuration</code></td>
+      <td>The LDAP password policy configuration carrying the account state handler defined.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logger</code></td>
+      <td>The object responsible for issuing log messages such as <code class="language-plaintext highlighter-rouge">logger.info(...)</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="email-notifications">Email Notifications</h2>
+
+<p>To learn more about this topic, <a href="../notifications/Sending-Email-Configuration.html">please review this guide</a>.</p>
+
+<p>The following options are shared and apply when CAS is configured to send email notifications, given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.mail.from=
+# ${configurationKey}.mail.text=
+# ${configurationKey}.mail.subject=
+# ${configurationKey}.mail.cc=
+# ${configurationKey}.mail.bcc=
+# ${configurationKey}.mail.reply-to=
+# ${configurationKey}.mail.validate-addresses=false
+# ${configurationKey}.mail.html=false
+</span>
+<span class="c"># ${configurationKey}.mail.attribute-name=mail
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following settings may also need to be defined to describe the mail server settings:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.mail.host=
+# spring.mail.port=
+# spring.mail.username=
+# spring.mail.password=
+# spring.mail.properties.mail.smtp.auth=true
+# spring.mail.properties.mail.smtp.starttls.enable=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="sms-notifications">SMS Notifications</h2>
+
+<p>The following options are shared and apply when CAS is configured to send SMS notifications, given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.sms.from=
+# ${configurationKey}.sms.text=
+# ${configurationKey}.sms.attribute-name=phone
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You will also need to ensure a provider is defined that is able to send SMS messages. To learn more about this 
+topic, <a href="../notifications/SMS-Messaging-Configuration.html">please review this guide</a>.</p>
+
+<h2 id="webflow-auto-configuration">Webflow Auto Configuration</h2>
+
+<p>Control aspects of webflow that relate to auto-configuration of webflow states, transitions and execution order.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.order=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="delegated-authentication-settings">Delegated Authentication Settings</h2>
+
+<p>The following options are shared and apply when CAS is configured to delegate authentication 
+to an external provider such as Yahoo, given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.id=
+# ${configurationKey}.secret=
+# ${configurationKey}.client-name=My Provider
+# ${configurationKey}.auto-redirect=false
+# ${configurationKey}.css-class=
+# ${configurationKey}.principal-attribute-id=
+# ${configurationKey}.enabled=true
+# ${configurationKey}.callback-url-type=PATH_PARAMETER|QUERY_PARAMETER|NONE
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following types are supported with callback URL resolution:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PATH_PARAMETER</code></td>
+      <td>When constructing a callback URL, client name is added to the url as a path parameter.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">QUERY_PARAMETER</code></td>
+      <td>When constructing a callback URL, client name is added to the url as a query parameter.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NONE</code></td>
+      <td>No client name is added to the url.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="delegated-authentication-openid-connect-settings">Delegated Authentication OpenID Connect Settings</h3>
+
+<p>The following options are shared and apply when CAS is configured to delegate authentication 
+to an external OpenID Connect provider such as Azure AD, given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.discovery-uri=
+# ${configurationKey}.logout-url=
+# ${configurationKey}.max-clock-skew=
+# ${configurationKey}.scope=
+# ${configurationKey}.use-nonce=
+# ${configurationKey}.preferred-jws-algorithm=
+# ${configurationKey}.response-mode=
+# ${configurationKey}.response-type=
+# ${configurationKey}.custom-params.param1=value1
+# ${configurationKey}.read-timeout=PT5S
+# ${configurationKey}.connect-timeout=PT5S
+# ${configurationKey}.expire-session-with-token=false
+# ${configurationKey}.token-expiration-advance=0
+# ${configurationKey}.disable-pkce=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ldap-connection-settings">LDAP Connection Settings</h2>
+
+<p>The following  options apply  to features that integrate with an LDAP server (i.e. authentication, attribute resolution, etc) given the provider’s <em>configuration key</em>:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.ldap-url=ldaps://ldap1.example.edu ldaps://ldap2.example.edu
+# ${configurationKey}.bind-dn=cn=-directory -manager,dc=example,dc=org
+# ${configurationKey}.bind-credential=Password
+</span>
+<span class="c"># ${configurationKey}.pool-passivator=NONE|BIND
+# ${configurationKey}.connection-strategy=
+# ${configurationKey}.connect-timeout=PT5S
+# ${configurationKey}.trust-certificates=
+# ${configurationKey}.trust-store=
+# ${configurationKey}.trust-store-password=
+# ${configurationKey}.trust-store-type=JKS|JCEKS|PKCS12
+# ${configurationKey}.keystore=
+# ${configurationKey}.keystore-password=
+# ${configurationKey}.keystore-type=JKS|JCEKS|PKCS12
+# ${configurationKey}.disable-pooling=false
+# ${configurationKey}.min-pool-size=3
+# ${configurationKey}.max-pool-size=10
+# ${configurationKey}.validate-on-checkout=true
+# ${configurationKey}.validate-periodically=true
+# ${configurationKey}.validate-period=PT5M
+# ${configurationKey}.validate-timeout=PT5S
+# ${configurationKey}.fail-fast=true
+# ${configurationKey}.idle-time=PT10M
+# ${configurationKey}.prune-period=PT2H
+# ${configurationKey}.block-wait-time=PT3S
+</span>
+<span class="c"># ${configurationKey}.use-start-tls=false
+# ${configurationKey}.response-timeout=PT5S
+# ${configurationKey}.allow-multiple-dns=false
+# ${configurationKey}.allow-multiple-entries=false
+# ${configurationKey}.follow-referrals=false
+# ${configurationKey}.binary-attributes=objectGUID,someOtherAttribute
+# ${configurationKey}.name=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="connection-initialization">Connection Initialization</h3>
+
+<p>LDAP connection configuration injected into the LDAP connection pool can be initialized with the following parameters:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Behavior</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bindDn</code>/<code class="language-plaintext highlighter-rouge">bindCredential</code> provided</td>
+      <td>Use the provided credentials to bind when initializing connections.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bindDn</code>/<code class="language-plaintext highlighter-rouge">bindCredential</code> set to <code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>Use a fast-bind strategy to initialize the pool.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bindDn</code>/<code class="language-plaintext highlighter-rouge">bindCredential</code> set to blank</td>
+      <td>Skip connection initializing; perform operations anonymously.</td>
+    </tr>
+    <tr>
+      <td>SASL mechanism provided</td>
+      <td>Use the given SASL mechanism to bind when initializing connections.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="passivators">Passivators</h3>
+
+<p>The following options can be used to passivate objects when they are checked back into the LDAP connection pool:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NONE</code></td>
+      <td>No passivation takes place.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">BIND</code></td>
+      <td>The default behavior which passivates a connection by performing a bind operation on it. This option requires the availability of bind credentials when establishing connections to LDAP.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="why-passivators">Why Passivators?</h4>
+
+<p>You may receive unexpected LDAP failures, when CAS is configured to authenticate using <code class="language-plaintext highlighter-rouge">DIRECT</code> or <code class="language-plaintext highlighter-rouge">AUTHENTICATED</code> types and LDAP is locked down to not allow anonymous binds/searches. Every second attempt with a given LDAP connection from the pool would fail if it was on the same connection as a failed login attempt, and the regular connection validator would similarly fail. When a connection is returned back to a pool, it still may contain the principal and credentials from the previous attempt. Before the next bind attempt using that connection, the validator tries to validate the connection again but fails because it’s no longer trying with the configured bind credentials but with whatever user DN was used in the previous step. Given the validation failure, the connection is closed and CAS would deny access by default. Passivators attempt to reconnect to LDAP with the configured bind credentials, effectively resetting the connection to what it should be after each bind request.</p>
+
+<p>Furthermore if you are seeing errors in the logs that resemble a <em>&lt;Operation exception encountered, reopening connection&gt;</em> type of message, this usually is an indication that the connection pool’s validation timeout established and created by CAS is greater than the timeout configured in the LDAP server, or more likely, in the load balancer in front of the LDAP servers. You can adjust the LDAP server session’s timeout for connections, or you can teach CAS to use a validity period that is equal or less than the LDAP server session’s timeout.</p>
+
+<h3 id="connection-strategies">Connection Strategies</h3>
+
+<p>If multiple URLs are provided as the LDAP url, this describes how each URL will be processed.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Provider</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ACTIVE_PASSIVE</code></td>
+      <td>First LDAP will be used for every request unless it fails and then the next shall be used.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ROUND_ROBIN</code></td>
+      <td>For each new connection the next url in the list will be used.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RANDOM</code></td>
+      <td>For each new connection a random LDAP url will be selected.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DNS_SRV</code></td>
+      <td>LDAP urls based on DNS SRV records of the configured/given LDAP url will be used.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="ldap-sasl-mechanisms">LDAP SASL Mechanisms</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.sasl-mechanism=GSSAPI|DIGEST_MD5|CRAM_MD5|EXTERNAL
+# ${configurationKey}.sasl-realm=EXAMPLE.COM
+# ${configurationKey}.sasl-authorization-id=
+# ${configurationKey}.sasl-mutual-auth=
+# ${configurationKey}.sasl-quality-of-protection=
+# ${configurationKey}.sasl-security-strength=
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldap-connection-validators">LDAP Connection Validators</h3>
+
+<p>The following LDAP validators can be used to test connection health status:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NONE</code></td>
+      <td>No validation takes place.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SEARCH</code></td>
+      <td>Validates a connection is healthy by performing a search operation. Validation is considered successful if the search result size is greater than zero.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">COMPARE</code></td>
+      <td>Validates a connection is healthy by performing a compare operation.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.validator.type=NONE|SEARCH|COMPARE
+# ${configurationKey}.validator.base-dn=
+# ${configurationKey}.validator.search-filter=(object-class=*)
+# ${configurationKey}.validator.scope=OBJECT|ONELEVEL|SUBTREE
+# ${configurationKey}.validator.attribute-name=objectClass
+# ${configurationKey}.validator.attribute-value=top
+# ${configurationKey}.validator.dn=
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldap-ssl-hostname-verification">LDAP SSL Hostname Verification</h3>
+
+<p>The following LDAP validators can be used to test connection health status:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DEFAULT</code></td>
+      <td>Default option to enable and force hostname verification of the LDAP SSL configuration.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ANY</code></td>
+      <td>Skip and ignore the hostname verification of the LDAP SSL configuration.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c">#${configurationKey}.hostname-verifier=DEFAULT|ANY
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldap-ssl-trust-managers">LDAP SSL Trust Managers</h3>
+
+<p>Trust managers are responsible for managing the trust material that is used when making LDAP trust decisions, 
+and for deciding whether credentials presented by a peer should be accepted.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DEFAULT</code></td>
+      <td>Default option to enable and force the default JVM trust managers.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ANY</code></td>
+      <td>Trust any client or server.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c">#${configurationKey}.trust-manager=DEFAULT|ANY
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldap-types">LDAP Types</h3>
+
+<p>A number of components/features in CAS allow you to explicitly indicate a <code class="language-plaintext highlighter-rouge">type</code> for the LDAP server, specially in cases where CAS needs to update an attribute, etc in LDAP (i.e. consent, password management, etc). The relevant setting would be:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c">#${configurationKey}.type=AD|FreeIPA|EDirectory|Generic
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following types are supported:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">AD</code></td>
+      <td>Active Directory.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">FreeIPA</code></td>
+      <td>FreeIPA Directory Server.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">EDirectory</code></td>
+      <td>NetIQ eDirectory.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">GENERIC</code></td>
+      <td>All other directory servers (i.e OpenLDAP, etc).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="ldap-authenticationsearch-settings">LDAP Authentication/Search Settings</h3>
+
+<p>In addition to common LDAP connection settings above, there are cases where CAS simply need to execute 
+authenticate against an LDAP server to fetch an account or set of attributes or execute a search query in general. 
+The following  options apply  given the provider’s <em>configuration key</em>:</p>
+
+<p><strong>Note:</strong> Failure to specify adequate properties such as <code class="language-plaintext highlighter-rouge">type</code>, <code class="language-plaintext highlighter-rouge">ldapUrl</code>, etc will simply deactivate LDAP  altogether silently.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.type=AD|AUTHENTICATED|DIRECT|ANONYMOUS
+</span>
+<span class="c"># ${configurationKey}.base-dn=dc=example,dc=org
+# ${configurationKey}.subtree-search=true
+# ${configurationKey}.search-filter=cn={user}
+# ${configurationKey}.page-size=0
+</span>
+<span class="c"># ${configurationKey}.enhance-with-entry-resolver=true
+# ${configurationKey}.deref-aliases=NEVER|SEARCHING|FINDING|ALWAYS
+# ${configurationKey}.dn-format=uid=%s,ou=people,dc=example,dc=org
+# ${configurationKey}.principal-attribute-password=password
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following authentication types are supported:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">AD</code></td>
+      <td>Active Directory - Users authenticate with <code class="language-plaintext highlighter-rouge">sAMAccountName</code> typically using a DN format.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">AUTHENTICATED</code></td>
+      <td>Manager bind/search type of authentication. If <code class="language-plaintext highlighter-rouge">principalAttributePassword</code> is empty then a user simple bind is done to validate credentials. Otherwise the given attribute is compared with the given <code class="language-plaintext highlighter-rouge">principalAttributePassword</code> using the <code class="language-plaintext highlighter-rouge">SHA</code> encrypted value of it.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DIRECT</code></td>
+      <td>Compute user DN from a format string and perform simple bind. This is relevant when no search is required to compute the DN needed for a bind operation. This option is useful when all users are under a single branch in the directory, e.g. <code class="language-plaintext highlighter-rouge">ou=Users,dc=example,dc=org</code>, or the username provided on the CAS login form is part of the DN, e.g. <code class="language-plaintext highlighter-rouge">uid=%s,ou=Users,dc=exmaple,dc=org</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ANONYMOUS</code></td>
+      <td>Similar semantics as <code class="language-plaintext highlighter-rouge">AUTHENTICATED</code> except no <code class="language-plaintext highlighter-rouge">bindDn</code> and <code class="language-plaintext highlighter-rouge">bindCredential</code> may be specified to initialize the connection. If <code class="language-plaintext highlighter-rouge">principalAttributePassword</code> is empty then a user simple bind is done to validate credentials. Otherwise the given attribute is compared with the given <code class="language-plaintext highlighter-rouge">principalAttributePassword</code> using the <code class="language-plaintext highlighter-rouge">SHA</code> encrypted value of it.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="ldap-search-entry-handlers">LDAP Search Entry Handlers</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.search-entry-handlers[0].type=
+</span>
+<span class="c"># ${configurationKey}.search-entry-handlers[0].case-change.dn-case-change=NONE|LOWER|UPPER
+# ${configurationKey}.search-entry-handlers[0].case-change.attribute-name-case-change=NONE|LOWER|UPPER
+# ${configurationKey}.search-entry-handlers[0].case-change.attribute-value-case-change=NONE|LOWER|UPPER
+# ${configurationKey}.search-entry-handlers[0].case-change.attribute-names=
+</span>
+<span class="c"># ${configurationKey}.search-entry-handlers[0].dn-attribute.dn-attribute-name=entryDN
+# ${configurationKey}.search-entry-handlers[0].dn-attribute.add-if-exists=false
+</span>
+<span class="c"># ${configurationKey}.search-entry-handlers[0].primary-group-id.group-filter=(&amp;(object-class=group)(object-sid={0}))
+# ${configurationKey}.search-entry-handlers[0].primary-group-id.base-dn=
+</span>
+<span class="c"># ${configurationKey}.search-entry-handlers[0].merge-attribute.merge-attribute-name=
+# ${configurationKey}.search-entry-handlers[0].merge-attribute.attribute-names=
+</span>
+<span class="c"># ${configurationKey}.search-entry-handlers[0].recursive.search-attribute=
+# ${configurationKey}.search-entry-handlers[0].recursive.merge-attributes=
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following types are supported:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CASE_CHANGE</code></td>
+      <td>Provides the ability to modify the case of search entry DNs, attribute names, and attribute values.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DN_ATTRIBUTE_ENTRY</code></td>
+      <td>Adds the entry DN as an attribute to the result set. Provides a client side implementation of RFC 5020.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MERGE</code></td>
+      <td>Merges the values of one or more attributes into a single attribute.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OBJECT_GUID</code></td>
+      <td>Handles the <code class="language-plaintext highlighter-rouge">objectGUID</code> attribute fetching and conversion.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">OBJECT_SID</code></td>
+      <td>Handles the <code class="language-plaintext highlighter-rouge">objectSid</code> attribute fetching and conversion.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PRIMARY_GROUP</code></td>
+      <td>Constructs the primary group SID and then searches for that group and puts it’s DN in the ‘memberOf’ attribute of the original search entry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RANGE_ENTRY</code></td>
+      <td>Rewrites attributes returned from Active Directory to include all values by performing additional searches.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RECURSIVE_ENTRY</code></td>
+      <td>This recursively searches based on a supplied attribute and merges those results into the original entry.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="ldap-multiple-base-dns">LDAP Multiple Base DNs</h3>
+
+<p>There may be scenarios where different parts of a single LDAP tree could be considered as base-dns. Rather than duplicating 
+the LDAP configuration block for each individual base-dn, each entry can be specified and joined together using a special delimiter character.
+The user DN is retrieved using the combination of all base-dn and DN resolvers in the order defined. DN resolution should fail if multiple DNs 
+are found. Otherwise the first DN found is returned.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># ${configurationKey}.base-dn=subtreeA,dc=example,dc=net|subtreeC,dc=example,dc=net
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Configuration';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

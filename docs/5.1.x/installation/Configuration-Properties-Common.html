@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS Properties Overview</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="cas-properties-overview">CAS Properties Overview</h1>
+
+<p>This document describes a number of suggestions and configuration options that apply
+to and are common amongst a selection of CAS modules and features.</p>
+
+<p>To see the full list of CAS properties, please <a href="Configuration-Properties.html">review this guide</a>.</p>
+
+<h2 id="naming-convention">Naming Convention</h2>
+
+<ul>
+  <li>
+    <p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided to CAS via other underlying frameworks and may have their own schemas and syntax. <strong>BE CAREFUL</strong> with the distinction.</p>
+  </li>
+  <li>
+    <p>Unrecognized properties are generally ignored by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition or fail to adhere to the dot-notation syntax and such, your setting is entirely ignored by CAS and likely the feature it controls will never be activated in the way you intend.</p>
+  </li>
+</ul>
+
+<h2 id="indexed-settings">Indexed Settings</h2>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>.
+The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be incremented by the adopter to allow for distinct multiple configuration blocks:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.some.setting[0]=value1
+# cas.some.setting[1]=value2
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="trust-but-verify">Trust But Verify</h2>
+
+<p>If you are unsure about the meaning of a given CAS setting, do <strong>NOT</strong> simply turn it on without hesitation.
+Review the codebase or better yet, <a href="/cas/Mailing-Lists.html">ask questions</a> to clarify the intended behavior.</p>
+
+<div class="alert alert-info"><strong>Keep It Simple</strong><p>If you do not know or cannot tell what a setting does, you do not need it.</p></div>
+
+<h2 id="time-unit-of-measure">Time Unit of Measure</h2>
+
+<p>All CAS settings that deal with time units, unless noted otherwise,
+should support the duration syntax for full clarity on unit of measure:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="s2">"PT20S"</span>     <span class="nt">--</span> parses as <span class="s2">"20 seconds"</span>
+<span class="s2">"PT15M"</span>     <span class="nt">--</span> parses as <span class="s2">"15 minutes"</span>
+<span class="s2">"PT10H"</span>     <span class="nt">--</span> parses as <span class="s2">"10 hours"</span>
+<span class="s2">"P2D"</span>       <span class="nt">--</span> parses as <span class="s2">"2 days"</span>
+<span class="s2">"P2DT3H4M"</span>  <span class="nt">--</span> parses as <span class="s2">"2 days, 3 hours and 4 minutes"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The native numeric syntax is still supported though you will have to refer to the docs
+in each case to learn the exact unit of measure.</p>
+
+<h2 id="authentication-credential-selection">Authentication Credential Selection</h2>
+
+<p>A number of authentication handlers are allowed to determine whether they can operate on the provided credential
+and as such lend themselves to be tried and tested during the authentication handler selection phase. The credential criteria
+may be one of the following options:</p>
+
+<ul>
+  <li>A regular expression pattern that is tested against the credential identifier</li>
+  <li>A fully qualified class name of your own design that looks similar to the below example:</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.function.Predicate</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.authentication.Credential</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PredicateExample</span> <span class="kd">implements</span> <span class="nc">Predicate</span><span class="o">&lt;</span><span class="nc">Credential</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Credential</span> <span class="n">credential</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Examine the credential and return true/false</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>Path to an external Groovy script that looks similar to the below example:</li>
+</ul>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">org.apereo.cas.authentication.Credential</span>
+<span class="kn">import</span> <span class="nn">java.util.function.Predicate</span>
+
+<span class="kd">class</span> <span class="nc">PredicateExample</span> <span class="kd">implements</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">Credential</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="kd">final</span> <span class="n">Credential</span> <span class="n">credential</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// test and return result</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="password-encoding">Password Encoding</h2>
+
+<p>Certain aspects of CAS such as authentication handling support configuration of
+password encoding. Most options are based on Spring Security’s <a href="http://docs.spring.io/spring-security/site/docs/current/apidocs/org/springframework/security/crypto/password/PasswordEncoder.html">support for password encoding</a>.</p>
+
+<p>The following options are supported:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NONE</code></td>
+      <td>No password encoding (i.e. plain-text) takes place.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">DEFAULT</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">DefaultPasswordEncoder</code> of CAS. For message-digest algorithms via <code class="language-plaintext highlighter-rouge">characterEncoding</code> and <code class="language-plaintext highlighter-rouge">encodingAlgorithm</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">BCRYPT</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">BCryptPasswordEncoder</code> based on the <code class="language-plaintext highlighter-rouge">strength</code> provided and an optional <code class="language-plaintext highlighter-rouge">secret</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SCRYPT</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">SCryptPasswordEncoder</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PBKDF2</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">Pbkdf2PasswordEncoder</code> based on the <code class="language-plaintext highlighter-rouge">strength</code> provided and an optional <code class="language-plaintext highlighter-rouge">secret</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">STANDARD</code></td>
+      <td>Use the <code class="language-plaintext highlighter-rouge">StandardPasswordEncoder</code> based on the <code class="language-plaintext highlighter-rouge">secret</code> provided.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">org.example.MyEncoder</code></td>
+      <td>An implementation of <code class="language-plaintext highlighter-rouge">PasswordEncoder</code> of your own choosing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="authentication-principal-transformation">Authentication Principal Transformation</h2>
+
+<p>Authentication handlers that generally deal with username-password credentials
+can be configured to transform the user id prior to executing the authentication sequence.
+The following options may be used:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NONE</code></td>
+      <td>Do not apply any transformations.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">UPPERCASE</code></td>
+      <td>Convert the username to uppercase.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">LOWERCASE</code></td>
+      <td>Convert the username to lowercase.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="hibernate--jdbc">Hibernate &amp; JDBC</h2>
+
+<p>Control global properties that are relevant to Hibernate,
+when CAS attempts to employ and utilize database resources,
+connections and queries.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.jdbc.showSql=true
+# cas.jdbc.genDdl=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="container-based-jdbc-connections">Container-based JDBC Connections</h2>
+
+<p>If you are planning to use a container-managed JDBC connection with CAS (i.e. JPA Ticket/Service Registry, etc)
+then you can set the <code class="language-plaintext highlighter-rouge">dataSourceName</code> property on any of the configuration items that require a database
+connection. When using a container configured data source, many of the pool related parameters will not be used.
+If <code class="language-plaintext highlighter-rouge">dataSourceName</code> is specified but the JNDI lookup fails, a data source will be created with the configured 
+(or default) CAS pool parameters.</p>
+
+<p>If you experience classloading errors while trying to use a container datasource, you can try 
+setting the <code class="language-plaintext highlighter-rouge">dataSourceProxy</code> setting to true which will wrap the container datasource in
+a way that may resolve the error.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">dataSourceName</code> property can be either a JNDI name for the datasource or a resource name prefixed with 
+<code class="language-plaintext highlighter-rouge">java:/comp/env/</code>. If it is a resource name then you need an entry in a <code class="language-plaintext highlighter-rouge">web.xml</code> that you can add to your
+CAS overlay. It should contain an entry like this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>    <span class="nt">&lt;resource-ref&gt;</span>
+        <span class="nt">&lt;res-ref-name&gt;</span>jdbc/casDataSource<span class="nt">&lt;/res-ref-name&gt;</span>
+        <span class="nt">&lt;res-type&gt;</span>javax.sql.DataSource<span class="nt">&lt;/res-type&gt;</span>
+        <span class="nt">&lt;res-auth&gt;</span>Container<span class="nt">&lt;/res-auth&gt;</span>
+    <span class="nt">&lt;/resource-ref&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In Apache Tomcat a container datasource can be defined like this in the <code class="language-plaintext highlighter-rouge">context.xml</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;Resource</span> <span class="na">name=</span><span class="s">"jdbc/casDataSource"</span>
+    <span class="na">auth=</span><span class="s">"Container"</span>
+    <span class="na">type=</span><span class="s">"javax.sql.DataSource"</span>
+    <span class="na">driverClassName=</span><span class="s">"org.postgresql.Driver"</span>
+    <span class="na">url=</span><span class="s">"jdbc:postgresql://casdb.example.com:5432/xyz_db"</span>
+    <span class="na">username=</span><span class="s">"cas"</span>
+    <span class="na">password=</span><span class="s">"xyz"</span>
+    <span class="na">testWhileIdle=</span><span class="s">"true"</span>
+    <span class="na">testOnBorrow=</span><span class="s">"true"</span>
+    <span class="na">testOnReturn=</span><span class="s">"false"</span>
+    <span class="na">validationQuery=</span><span class="s">"select 1"</span>
+    <span class="na">validationInterval=</span><span class="s">"30000"</span>
+    <span class="na">timeBetweenEvictionRunsMillis=</span><span class="s">"30000"</span>
+    <span class="na">factory=</span><span class="s">"org.apache.tomcat.jdbc.pool.DataSourceFactory"</span>
+    <span class="na">minIdle=</span><span class="s">"0"</span>
+    <span class="na">maxIdle=</span><span class="s">"5"</span>
+    <span class="na">initialSize=</span><span class="s">"0"</span>
+    <span class="na">maxActive=</span><span class="s">"20"</span>
+    <span class="na">maxWait=</span><span class="s">"10000"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In Jetty, a pool can be put in JNDI with a <code class="language-plaintext highlighter-rouge">jetty.xml</code> or <code class="language-plaintext highlighter-rouge">jetty-env.xml</code> file like this:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="cp">&lt;!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd"&gt;</span>
+
+<span class="nt">&lt;Configure</span> <span class="na">class=</span><span class="s">"org.eclipse.jetty.webapp.WebAppContext"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;New</span> <span class="na">id=</span><span class="s">"datasource.cas"</span> <span class="na">class=</span><span class="s">"org.eclipse.jetty.plus.jndi.Resource"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Arg&gt;&lt;/Arg&gt;</span> <span class="c">&lt;!-- empty scope arg is JVM scope --&gt;</span>
+    <span class="nt">&lt;Arg&gt;</span>jdbc/casDataSource<span class="nt">&lt;/Arg&gt;</span> <span class="c">&lt;!-- name that matches resource in web.xml--&gt;</span>
+    <span class="nt">&lt;Arg&gt;</span>
+        <span class="nt">&lt;New</span> <span class="na">class=</span><span class="s">"org.apache.commons.dbcp.BasicDataSource"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"driverClassName"</span><span class="nt">&gt;</span>oracle.jdbc.OracleDriver<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"url"</span><span class="nt">&gt;</span>jdbc:oracle:thin:@//casdb.example.com:1521/ntrs"<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"username"</span><span class="nt">&gt;</span>cas<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"password"</span><span class="nt">&gt;</span>xyz<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"validationQuery"</span><span class="nt">&gt;</span>select dummy from dual<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"testOnBorrow"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"testOnReturn"</span><span class="nt">&gt;</span>false<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"testWhileIdle"</span><span class="nt">&gt;</span>false<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"defaultAutoCommit"</span><span class="nt">&gt;</span>false<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"initialSize"</span><span class="nt">&gt;</span>0<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"maxActive"</span><span class="nt">&gt;</span>15<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"minIdle"</span><span class="nt">&gt;</span>0<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"maxIdle"</span><span class="nt">&gt;</span>5<span class="nt">&lt;/Set&gt;</span>
+            <span class="nt">&lt;Set</span> <span class="na">name=</span><span class="s">"maxWait"</span><span class="nt">&gt;</span>2000<span class="nt">&lt;/Set&gt;</span>
+        <span class="nt">&lt;/New&gt;</span>
+    <span class="nt">&lt;/Arg&gt;</span>
+<span class="nt">&lt;/New&gt;</span>
+<span class="nt">&lt;/Configure&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="signing--encryption">Signing &amp; Encryption</h2>
+
+<p>A number of components in CAS accept signing and encryption keys. In most scenarios if keys are not provided, CAS will auto-generate them. The following instructions apply if you wish to 
+manually and beforehand create the signing and encryption keys.</p>
+
+<p>Note that if you are asked to create a <a href="https://tools.ietf.org/html/rfc7517">JWK</a> 
+of a cerain size for the key, you are to use the following set of commands to generate the token:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>wget https://raw.githubusercontent.com/apereo/cas/master/etc/jwk-gen.jar
+java <span class="nt">-jar</span> jwk-gen.jar <span class="nt">-t</span> oct <span class="nt">-s</span> <span class="o">[</span>size]
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ddl-configuration">DDL Configuration</h2>
+
+<p>Note that the default value for Hibernate’s DDL setting is <code class="language-plaintext highlighter-rouge">create-drop</code>
+which may not be appropriate for use in production. Setting the value to
+<code class="language-plaintext highlighter-rouge">validate</code> may be more desirable, but any of the following options can be used:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">validate</code></td>
+      <td>Validate the schema, but make no changes to the database.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">update</code></td>
+      <td>Update the schema.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">create</code></td>
+      <td>Create the schema, destroying previous data.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">create-drop</code></td>
+      <td>Drop the schema at the end of the session.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For more information on configuration of transaction levels and propagation behaviors,
+please review <a href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/">this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

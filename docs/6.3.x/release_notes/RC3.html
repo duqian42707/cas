@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Release Notes</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="rc3-release-notes">RC3 Release Notes</h1>
+
+<p>We strongly recommend that you take advantage of the release candidates as they come out. Waiting for a <code class="language-plaintext highlighter-rouge">GA</code> release is only going to set 
+you up for unpleasant surprises. A <code class="language-plaintext highlighter-rouge">GA</code> is <a href="https://apereo.github.io/2017/03/08/the-myth-of-ga-rel/">a tag and nothing more</a>. Note that CAS 
+releases are <em>strictly</em> time-based releases; they are not scheduled or based on specific benchmarks, statistics or completion of features. To gain 
+confidence in a particular release, it is strongly recommended that you start early by experimenting with release candidates and/or follow-up snapshots.</p>
+
+<h2 id="apereo-membership">Apereo Membership</h2>
+
+<p>If you benefit from Apereo CAS as free and open-source software, we invite you to <a href="https://www.apereo.org/content/apereo-membership">join the Apereo Foundation</a> 
+and financially support the project at a capacity that best suits your deployment. Note that all development activity 
+is performed <em>almost exclusively</em> on a voluntary basis with no expectations, commitments or strings attached. Having the financial means to better 
+sustain engineering activities will allow the developer community to allocate <em>dedicated and committed</em> time for long-term support, 
+maintenance and release planning, especially when it comes to addressing critical and security issues in a timely manner. Funding will 
+ensure support for the software you rely on and you gain an advantage and say in the way Apereo, and the CAS project at that, runs 
+and operates. If you consider your CAS deployment to be a critical part of the identity and access management ecosystem, this is a viable option to consider.</p>
+
+<h2 id="get-involved">Get Involved</h2>
+
+<ul>
+  <li>Start your CAS deployment today. Try out features and <a href="/cas/Mailing-Lists.html">share feedback</a>.</li>
+  <li>Better yet, <a href="/cas/developer/Contributor-Guidelines.html">contribute patches</a>.</li>
+  <li>Suggest and apply documentation improvements.</li>
+</ul>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://github.com/apereo/cas/milestones">Release Schedule</a></li>
+  <li><a href="/cas/developer/Release-Policy.html">Release Policy</a></li>
+</ul>
+
+<h2 id="overlay">Overlay</h2>
+
+<p>In the <code class="language-plaintext highlighter-rouge">gradle.properties</code> of the <a href="../installation/WAR-Overlay-Installation.html">CAS WAR Overlay</a>, adjust the following setting:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="py">cas.version</span><span class="p">=</span><span class="s">6.3.0-RC3</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info">
+  <strong>System Requirements</strong><br />There are no changes to the minimum system/platform requirements for this release.
+</div>
+
+<h2 id="new--noteworthy">New &amp; Noteworthy</h2>
+
+<p>The following items are new improvements and enhancements presented in this release.</p>
+
+<h3 id="test-coverage-via-codecov">Test Coverage via CodeCov</h3>
+
+<p>CAS test coverage across all modules in the codebase has now reached <code class="language-plaintext highlighter-rouge">86%</code> and continues to climb. Additional validation rules are also applied 
+to fail all pull requests that fall below this threshold. This area will be closely monitored and improved
+as progress is made with the goal of hopefully reaching at least <code class="language-plaintext highlighter-rouge">88%</code> before the final GA release. Of course, 
+this will not be a blocker for the final release.</p>
+
+<h3 id="webauthn-fido2-support">WebAuthn FIDO2 Support</h3>
+
+<p>CAS can now support <a href="../mfa/FIDO2-WebAuthn-Authentication.html">WebAuthn FIDO2</a> for multifactor authentication.</p>
+
+<h3 id="service-authentication-policy">Service Authentication Policy</h3>
+
+<p>An additional <a href="../services/Configuring-Service-AuthN-Policy.html">authentication policy for services</a> is now 
+available to require allowed/defined authentication handlers.</p>
+
+<h3 id="delegated-authentication-sso-participation">Delegated Authentication SSO Participation</h3>
+
+<p>Participation in single sign-on sessions for applications that are 
+assigned a <a href="../integration/Delegate-Authentication.html#access-strategy">delegated authentication policy</a> can now be conditionally renewed
+if the single sign-on session is established using a disallowed provider for the application.</p>
+
+<h3 id="saml2-metadata-url-proxies">SAML2 Metadata URL Proxies</h3>
+
+<p>SAML2 application definitions whose metadata is retrieved from URLs can now specify a proxy endpoint in the application definition,
+in case the metadata is behind a proxy.</p>
+
+<h3 id="git-service-registry-groups">Git Service Registry Groups</h3>
+
+<p>Service definitions managed by <a href="../services/Git-Service-Management.html">Git Service Registry</a> are now given an option, on by default,
+to locate and group service definitions by their type, and store them in dedicated folders for easier management.</p>
+
+<h3 id="registered-service-properties">Registered Service Properties</h3>
+
+<p>Assigning <a href="../services/Configuring-Service-Custom-Properties.html">custom properties</a> to registered service definitions can now 
+take advantage of <a href="../configuration/Configuration-Spring-Expressions.html">Spring Expressions</a>.</p>
+
+<h2 id="other-stuff">Other Stuff</h2>
+
+<ul>
+  <li>Password reset verification attempts can now properly handle expired or invalid reset attempts in the authentication webflow.</li>
+  <li>Logged ascii-art statements are now routed to their own dedicated <code class="language-plaintext highlighter-rouge">AsciiArt</code> logging category.</li>
+  <li>Configuration distributed session store and its replication for OAuth, OpenID Connect and Delegated Authentication is corrected to determine the cookie path automatically if CAS is set to auto-configure the cookie path based on the context. This item would be specially applicable if the <code class="language-plaintext highlighter-rouge">autoConfigureCookiePath</code> is set to false.</li>
+  <li>Multiple LDAP base-dns can be specified and join together for a single LDAP configuration block using a special delimiter character.</li>
+  <li><a href="../ticketing/Ehcache-Ticket-Registry.html">Integration with Ehcache</a> gains a new setting to allow disk persistence.</li>
+  <li>CAS configuration properties based on an embedded <code class="language-plaintext highlighter-rouge">application.yml</code> can now recognize settings based on 
+active profiles via <code class="language-plaintext highlighter-rouge">classpath:/application-{profile}.yml</code> configuration files.</li>
+</ul>
+
+<h2 id="library-upgrades">Library Upgrades</h2>
+
+<ul>
+  <li>Cassandra Driver</li>
+  <li>Oshi</li>
+  <li>Twilio</li>
+  <li>JUnit</li>
+  <li>SnakeYAML</li>
+  <li>Eureka</li>
+  <li>Apache Tomcat</li>
+  <li>Spring</li>
+  <li>Spring Boot</li>
+  <li>Spring Data</li>
+  <li>JGit</li>
+  <li>Mockito</li>
+  <li>Spring Security</li>
+  <li>Spring Cloud</li>
+</ul>
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Planning';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

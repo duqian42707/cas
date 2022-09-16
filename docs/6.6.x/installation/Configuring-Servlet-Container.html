@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Servlet Container</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="servlet-container-configuration">Servlet Container Configuration</h1>
+
+<p>A number of container options are available to deploy CAS. The <a href="WAR-Overlay-Installation.html">WAR Overlay</a> guide
+describes how to build and deploy CAS.</p>
+
+<h2 id="how-do-i-choose">How Do I Choose?</h2>
+
+<p>There are is a wide range of servlet containers and servers on the menu. The selection criteria is outlined below:</p>
+
+<ul>
+  <li>Choose a technology that you are most familiar with and have the skills and patience to troubleshoot, tune and scale for the win.</li>
+  <li>Choose a technology that does not force your CAS configuration to be tied to any individual 
+servers/nodes in the cluster, as this will present auto-scaling issues and manual effort.</li>
+  <li>Choose a technology that works well with your network and firewall configuration and is performant and reliable enough based on your network topology.</li>
+  <li>Choose a technology that shows promising results under <em>your expected load</em>, having run <a href="../high_availability/High-Availability-Performance-Testing.html">performance and stress tests</a>.</li>
+  <li>Choose a technology that does not depend on outside processes, systems and manual work as much as possible, is self-reliant and self contained.</li>
+</ul>
+
+<h2 id="production-quality">Production Quality</h2>
+
+<p>All servlet containers presented here, embedded or otherwise, aim to be production ready. This means 
+that CAS ships with useful defaults out of the box that 
+may be overridden, if necessary and by default, CAS configures everything for you from development to production 
+in today’s platforms. In terms of their production quality, there is almost no 
+difference between using an embedded container vs. an external one.</p>
+
+<p>Unless there are specific, technical and reasonable objections, choosing an 
+embedded servlet container is almost always the better choice.</p>
+
+<h2 id="actuator-endpoints">Actuator Endpoints</h2>
+
+<p>The following endpoints are provided:</p>
+
+<div style="display:none" id="jdbcauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjdbcshutdownrestartpauseresume .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjdbcshutdownrestartpauseresume ');
+        $("ul#navPillsMenuscasmonitorendpointsjdbcshutdownrestartpauseresume").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjdbcshutdownrestartpauseresume li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjdbcshutdownrestartpauseresume">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#requiredPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#optionalPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#signingEncryptionPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#rdbmsPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#emailPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#ldapPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#authnPredicatePropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#passwordEncoderPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#principalTransformationPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjdbcshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcshutdownrestartpauseresume(this);" href="#passwordPolicyPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjdbcshutdownrestartpauseresume">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjdbcshutdownrestartpauseresume").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjdbcshutdownrestartpauseresume");
+        var id=$("#navPillsMenuscasmonitorendpointsjdbcshutdownrestartpauseresume a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjdbcshutdownrestartpauseresume").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjdbcshutdownrestartpauseresume").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjdbcshutdownrestartpauseresume").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="ldapauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsldapshutdownrestartpauseresume .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsldapshutdownrestartpauseresume ');
+        $("ul#navPillsMenuscasmonitorendpointsldapshutdownrestartpauseresume").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsldapshutdownrestartpauseresume li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsldapshutdownrestartpauseresume">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#requiredPropertiescasmonitorendpointsldapshutdownrestartpauseresume">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#optionalPropertiescasmonitorendpointsldapshutdownrestartpauseresume">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#signingEncryptionPropertiescasmonitorendpointsldapshutdownrestartpauseresume">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#rdbmsPropertiescasmonitorendpointsldapshutdownrestartpauseresume">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#emailPropertiescasmonitorendpointsldapshutdownrestartpauseresume">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#ldapPropertiescasmonitorendpointsldapshutdownrestartpauseresume">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#authnPredicatePropertiescasmonitorendpointsldapshutdownrestartpauseresume">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#passwordEncoderPropertiescasmonitorendpointsldapshutdownrestartpauseresume">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#principalTransformationPropertiescasmonitorendpointsldapshutdownrestartpauseresume">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsldapshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapshutdownrestartpauseresume(this);" href="#passwordPolicyPropertiescasmonitorendpointsldapshutdownrestartpauseresume">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsldapshutdownrestartpauseresume">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsldapshutdownrestartpauseresume"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsldapshutdownrestartpauseresume">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsldapshutdownrestartpauseresume"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsldapshutdownrestartpauseresume").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsldapshutdownrestartpauseresume");
+        var id=$("#navPillsMenuscasmonitorendpointsldapshutdownrestartpauseresume a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsldapshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsldapshutdownrestartpauseresume").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsldapshutdownrestartpauseresume").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsldapshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsldapshutdownrestartpauseresume").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsldapshutdownrestartpauseresume").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsldapshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsldapshutdownrestartpauseresume").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="jaasauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjaasshutdownrestartpauseresume .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjaasshutdownrestartpauseresume ');
+        $("ul#navPillsMenuscasmonitorendpointsjaasshutdownrestartpauseresume").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjaasshutdownrestartpauseresume li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjaasshutdownrestartpauseresume">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#requiredPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#optionalPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#signingEncryptionPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#rdbmsPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#emailPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#ldapPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#authnPredicatePropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#passwordEncoderPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#principalTransformationPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjaasshutdownrestartpauseresume" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasshutdownrestartpauseresume(this);" href="#passwordPolicyPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjaasshutdownrestartpauseresume">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjaasshutdownrestartpauseresume"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjaasshutdownrestartpauseresume">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjaasshutdownrestartpauseresume"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjaasshutdownrestartpauseresume").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjaasshutdownrestartpauseresume");
+        var id=$("#navPillsMenuscasmonitorendpointsjaasshutdownrestartpauseresume a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjaasshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjaasshutdownrestartpauseresume").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjaasshutdownrestartpauseresume").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjaasshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjaasshutdownrestartpauseresume").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjaasshutdownrestartpauseresume").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjaasshutdownrestartpauseresume li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjaasshutdownrestartpauseresume").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div class="accordion" id="shutdownrestartpauseresume">
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+</div>
+
+<p><br /></p>
+
+<h2 id="embedded">Embedded</h2>
+
+<p>Please see <a href="Configuring-Servlet-Container-Embedded.html">this guide</a>.</p>
+
+<h2 id="external">External</h2>
+
+<p>Please see <a href="Configuring-Servlet-Container-External.html">this guide</a></p>
+
+<h2 id="docker">Docker</h2>
+
+<p>You may also be interested to deploy CAS via <a href="https://www.docker.com/">Docker</a>.
+See <a href="Docker-Installation.html">this guide</a> for more info.</p>
+
+<h2 id="system-service">System Service</h2>
+
+<p>CAS can be easily started as Unix/Linux services using either <code class="language-plaintext highlighter-rouge">init.d</code> or <code class="language-plaintext highlighter-rouge">systemd</code>. To learn 
+more, please <a href="Configuring-Deployment-System-Service.html">visit this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Installation';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

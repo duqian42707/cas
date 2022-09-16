@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Shibboleth Integration</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="overview">Overview</h1>
+<p>CAS can be integrated with the <a href="http://shibboleth.net/">Shibboleth federated SSO platform</a> by a couple different strategies. It is possible to designate CAS to serve as the authentication provider for the Shibboleth IdP. With such a setup, when user is routed to the IdP, the following may take place:</p>
+
+<ul>
+  <li>If the user has already authenticated to CAS and has a valid CAS SSO session, the IdP will transparently perform the requested action, e.g. attribute release.</li>
+  <li>If the user does not have a valid CAS SSO session, the user will be redirected to CAS and must authenticate before the IDP proceeds with the requested action.</li>
+</ul>
+
+<h2 id="sso-for-shibboleth-idp-remoteuser">SSO for Shibboleth IdP (RemoteUser)</h2>
+
+<h3 id="configuration">Configuration</h3>
+
+<h4 id="include-cas-client-libraries-in-idp-deployable">Include CAS Client Libraries in IdP Deployable</h4>
+
+<p>Download the latest Java CAS Client Release and modify the IdP war deployable such that the following jars are included in the <code class="language-plaintext highlighter-rouge">./lib</code> installer folder, then redeploy the Idp with these files:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cas-client-<span class="nv">$VERSION</span>/modules/cas-client-core-<span class="nv">$VERSION</span>.jar</code></pre></figure>
+
+<h4 id="modify-shib_homeconfhandlerxml">Modify <code class="language-plaintext highlighter-rouge">$SHIB_HOME/conf/handler.xml</code></h4>
+
+<p>Define the <code class="language-plaintext highlighter-rouge">RemoteUser</code> authentication method to be used with CAS authentication.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- Remote User handler for CAS support --&gt;</span>
+<span class="nt">&lt;LoginHandler</span> <span class="na">xsi:type=</span><span class="s">"RemoteUser"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;AuthenticationMethod&gt;</span>
+    urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified
+  <span class="nt">&lt;/AuthenticationMethod&gt;</span>
+  <span class="nt">&lt;AuthenticationMethod&gt;</span>
+    urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
+  <span class="nt">&lt;/AuthenticationMethod&gt;</span>
+<span class="nt">&lt;/LoginHandler&gt;</span></code></pre></figure>
+
+<h4 id="modify-idp-deployable-webxml">Modify IdP Deployable <code class="language-plaintext highlighter-rouge">web.xml</code></h4>
+<p>Add the following XML blocks to the <code class="language-plaintext highlighter-rouge">web.xml</code> file for the IdP war deployable.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- For CAS client support --&gt;</span>
+<span class="nt">&lt;context-param&gt;</span>
+  <span class="nt">&lt;param-name&gt;</span>serverName<span class="nt">&lt;/param-name&gt;</span>
+  <span class="nt">&lt;param-value&gt;</span>${idp.hostname}<span class="nt">&lt;/param-value&gt;</span>
+<span class="nt">&lt;/context-param&gt;</span>
+CAS Filters
+<span class="c">&lt;!-- CAS client filters --&gt;</span>
+<span class="nt">&lt;filter&gt;</span>
+  <span class="nt">&lt;filter-name&gt;</span>CAS Authentication Filter<span class="nt">&lt;/filter-name&gt;</span>
+  <span class="nt">&lt;filter-class&gt;</span>
+      org.jasig.cas.client.authentication.AuthenticationFilter
+  <span class="nt">&lt;/filter-class&gt;</span>
+  <span class="nt">&lt;init-param&gt;</span>
+    <span class="nt">&lt;param-name&gt;</span>casServerLoginUrl<span class="nt">&lt;/param-name&gt;</span>
+    <span class="nt">&lt;param-value&gt;</span>${cas.server.url}login<span class="nt">&lt;/param-value&gt;</span>
+  <span class="nt">&lt;/init-param&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+
+<span class="nt">&lt;filter-mapping&gt;</span>
+  <span class="nt">&lt;filter-name&gt;</span>CAS Authentication Filter<span class="nt">&lt;/filter-name&gt;</span>
+  <span class="nt">&lt;url-pattern&gt;</span>/Authn/RemoteUser<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+
+<span class="nt">&lt;filter&gt;</span>
+  <span class="nt">&lt;filter-name&gt;</span>CAS Validation Filter<span class="nt">&lt;/filter-name&gt;</span>
+  <span class="nt">&lt;filter-class&gt;</span>
+    org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter
+  <span class="nt">&lt;/filter-class&gt;</span>
+  <span class="nt">&lt;init-param&gt;</span>
+    <span class="nt">&lt;param-name&gt;</span>casServerUrlPrefix<span class="nt">&lt;/param-name&gt;</span>
+    <span class="nt">&lt;param-value&gt;</span>${cas.server.url}<span class="nt">&lt;/param-value&gt;</span>
+  <span class="nt">&lt;/init-param&gt;</span>
+  <span class="nt">&lt;init-param&gt;</span>
+    <span class="nt">&lt;param-name&gt;</span>redirectAfterValidation<span class="nt">&lt;/param-name&gt;</span>
+    <span class="nt">&lt;param-value&gt;</span>true<span class="nt">&lt;/param-value&gt;</span>
+  <span class="nt">&lt;/init-param&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+
+<span class="nt">&lt;filter-mapping&gt;</span>
+  <span class="nt">&lt;filter-name&gt;</span>CAS Validation Filter<span class="nt">&lt;/filter-name&gt;</span>
+  <span class="nt">&lt;url-pattern&gt;</span>/Authn/RemoteUser<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+
+<span class="nt">&lt;filter&gt;</span>
+  <span class="nt">&lt;filter-name&gt;</span>CAS HttpServletRequest Wrapper Filter<span class="nt">&lt;/filter-name&gt;</span>
+  <span class="nt">&lt;filter-class&gt;</span>
+    org.jasig.cas.client.util.HttpServletRequestWrapperFilter
+  <span class="nt">&lt;/filter-class&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+
+<span class="nt">&lt;filter-mapping&gt;</span>
+  <span class="nt">&lt;filter-name&gt;</span>CAS HttpServletRequest Wrapper Filter<span class="nt">&lt;/filter-name&gt;</span>
+  <span class="nt">&lt;url-pattern&gt;</span>/Authn/RemoteUser<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span></code></pre></figure>
+
+<h4 id="enable-remoteuserhandler-in-idp-deployable-webxml">Enable <code class="language-plaintext highlighter-rouge">RemoteUserHandler</code> in Idp Deployable <code class="language-plaintext highlighter-rouge">web.xml</code></h4>
+<p>Ensure the following is defined:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- Servlet protected by container user for RemoteUser authentication --&gt;</span>
+<span class="nt">&lt;servlet&gt;</span>
+  <span class="nt">&lt;servlet-name&gt;</span>RemoteUserAuthHandler<span class="nt">&lt;/servlet-name&gt;</span>
+  <span class="nt">&lt;servlet-class&gt;</span>edu.internet2.middleware.shibboleth.idp.authn.provider.RemoteUserAuthServlet<span class="nt">&lt;/servlet-class&gt;</span>
+<span class="nt">&lt;/servlet&gt;</span>
+
+<span class="nt">&lt;servlet-mapping&gt;</span>
+  <span class="nt">&lt;servlet-name&gt;</span>RemoteUserAuthHandler<span class="nt">&lt;/servlet-name&gt;</span>
+  <span class="nt">&lt;url-pattern&gt;</span>/Authn/RemoteUser<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/servlet-mapping&gt;</span></code></pre></figure>
+
+<h2 id="sso-for-shibboleth-idp-external">SSO for Shibboleth IdP (External)</h2>
+<p>This is a Shibboleth IdP external authentication plugin that delegates the authentication to CAS. The advantage of using this component over the plain <code class="language-plaintext highlighter-rouge">RemoteUser</code> solution is the ability to utilize a full range of native CAS protocol features such as <code class="language-plaintext highlighter-rouge">renew</code> and <code class="language-plaintext highlighter-rouge">gateway</code>.</p>
+
+<p>The plugin is available for both Shibboleth Identity Provider <a href="https://github.com/Unicon/shib-cas-authn2">v2</a> and <a href="https://github.com/Unicon/shib-cas-authn3">v3</a>.</p>
+
+<h3 id="relying-party-entityid">Relying Party EntityId</h3>
+<p>The authentication plugin is able to pass the relying party’s entity ID over to the CAS server upon authentication requests. The entity ID is passed in form of a url parameter to the CAS server as such:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>https://sso.example.org/cas/login?service=&lt;authentication-plugin-url&gt;&amp;entityId=&lt;relying-party-entity-id&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="displaying-saml-mdui">Displaying SAML MDUI</h3>
+<p>The CAS server is able to recognize the <code class="language-plaintext highlighter-rouge">entityId</code> parameter and display SAML MDUI on the login page,
+that is provided by the metadata associated with the relying party. This means that CAS will also need to know
+about metadata sources that the identity provider uses.</p>
+
+<h3 id="configuration-1">Configuration</h3>
+
+<p>Support is enabled by including the following dependency in the Maven WAR overlay:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jasig.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-saml<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre></figure>
+
+<p>Then, adjust <code class="language-plaintext highlighter-rouge">cas-servlet.xml</code> with the following:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"samlDynamicMetadataUIParserAction"</span>
+  <span class="na">class=</span><span class="s">"org.jasig.cas.support.saml.web.flow.mdui.SamlMetadataUIParserAction"</span>
+  <span class="na">c:entityIdParameterName=</span><span class="s">"entityId"</span>
+  <span class="na">c:metadataAdapter-ref=</span><span class="s">"metadataAdapter"</span><span class="nt">/&gt;</span></code></pre></figure>
+
+<p>Metadata sources in the CAS server can be configured via the following ways:</p>
+
+<h4 id="static">Static</h4>
+<p>In this case, metadata sources are statically provided via classpath, file or url resources.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"metadataAdapter"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.support.saml.web.flow.mdui.StaticMetadataResolverAdapter"</span>
+      <span class="na">c:metadataResources-ref=</span><span class="s">"metadataResources"</span>
+      <span class="na">p:refreshIntervalInMinutes=</span><span class="s">"300"</span>
+      <span class="na">p:requireValidMetadata=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;util:map</span> <span class="na">id=</span><span class="s">"metadataResources"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"classpath:/sample-metadata.xml"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.opensaml.saml.metadata.resolver.filter.impl.MetadataFilterChain"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"filters"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;list</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/property&gt;</span>
+        <span class="nt">&lt;/bean&gt;</span>
+    <span class="nt">&lt;/entry&gt;</span>
+<span class="nt">&lt;/util:map&gt;</span></code></pre></figure>
+
+<h4 id="dynamic">Dynamic</h4>
+<p>In this case, metadata sources are provided via the
+<a href="https://spaces.internet2.edu/display/InCFederation/Metadata+Query+Protocol">Metadata Query Protocol</a>, which
+is a REST-like API for requesting and receiving arbitrary metadata. CAS will contact
+the metadata server to query for the metadata based on the <code class="language-plaintext highlighter-rouge">entityId</code> provided.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"metadataAdapter"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.support.saml.web.flow.mdui.DynamicMetadataResolverAdapter"</span>
+      <span class="na">c:metadataResources-ref=</span><span class="s">"metadataResources"</span>
+      <span class="na">p:refreshIntervalInMinutes=</span><span class="s">"300"</span>
+      <span class="na">p:requireValidMetadata=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;util:map</span> <span class="na">id=</span><span class="s">"metadataResources"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"http://&lt;metadata.queryserver.org&gt;/entities/"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.opensaml.saml.metadata.resolver.filter.impl.MetadataFilterChain"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"filters"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;list</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+  <span class="nt">&lt;/entry&gt;</span>
+<span class="nt">&lt;/util:map&gt;</span></code></pre></figure>
+
+<h4 id="configure-metadata-filters">Configure Metadata Filters</h4>
+<p>Metadata filters can be configured to validate and verify the received
+metadata in both scenarios. Filters typically check for validity of signaures,
+whether <code class="language-plaintext highlighter-rouge">validUntil</code> exists, etc. The following example attempts to validate
+the signature on the metadata via a pre-configured public key:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"metadataFilters"</span>
+    <span class="na">class=</span><span class="s">"org.opensaml.saml.metadata.resolver.filter.impl.MetadataFilterChain"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"filters"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;list&gt;</span>
+            <span class="c">&lt;!--
+            &lt;bean class="org.opensaml.saml.metadata.resolver.filter.impl.RequiredValidUntilFilter"
+                  c:maxValidity="0"  /&gt;
+            --&gt;</span>
+            <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.opensaml.saml.metadata.resolver.filter.impl.SignatureValidationFilter"</span>
+                  <span class="na">c:engine-ref=</span><span class="s">"trustEngine"</span> <span class="na">p:requireSignature=</span><span class="s">"false"</span>  <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/list&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"trustEngine"</span>
+    <span class="na">class=</span><span class="s">"org.opensaml.xmlsec.signature.support.impl.ExplicitKeySignatureTrustEngine"</span>
+        <span class="na">c:keyInfoResolver-ref=</span><span class="s">"keyInfoResolver"</span>
+        <span class="na">c:resolver-ref=</span><span class="s">"credentialResolver"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"keyInfoResolver"</span>
+  <span class="na">class=</span><span class="s">"org.opensaml.xmlsec.keyinfo.impl.BasicProviderKeyInfoCredentialResolver"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;constructor-arg</span> <span class="na">name=</span><span class="s">"keyInfoProviders"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;list&gt;</span>
+            <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.opensaml.xmlsec.keyinfo.impl.provider.RSAKeyValueProvider"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.opensaml.xmlsec.keyinfo.impl.provider.DSAKeyValueProvider"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.opensaml.xmlsec.keyinfo.impl.provider.DEREncodedKeyValueProvider"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.opensaml.xmlsec.keyinfo.impl.provider.InlineX509DataProvider"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/list&gt;</span>
+    <span class="nt">&lt;/constructor-arg&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"credentialResolver"</span>
+  <span class="na">class=</span><span class="s">"org.opensaml.security.credential.impl.StaticCredentialResolver"</span>
+      <span class="na">c:credential-ref=</span><span class="s">"credentialFactoryBean"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"credentialFactoryBean"</span>
+      <span class="na">class=</span><span class="s">"net.shibboleth.idp.profile.spring.relyingparty.security.credential.BasicResourceCredentialFactoryBean"</span>
+      <span class="na">p:publicKeyInfo=</span><span class="s">"classpath:inc-md-pub.pem"</span> <span class="nt">&gt;</span>
+<span class="nt">&lt;/bean&gt;</span></code></pre></figure>
+
+<p>You will need to modify your metadata retrieval process, whether static or dynamic,
+to adjust for the appropriate metadata filter if need be.</p>
+
+<h3 id="display-mdui">Display MDUI</h3>
+<p>Modify the <code class="language-plaintext highlighter-rouge">login-webflow.xml</code> to execute the <code class="language-plaintext highlighter-rouge">SamlMetadataUIParserAction</code> action
+when the login form is rendered:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;view-state</span> <span class="na">id=</span><span class="s">"viewLoginForm"</span> <span class="err">...</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;on-entry&gt;</span>
+        ...
+        <span class="nt">&lt;evaluate</span> <span class="na">expression=</span><span class="s">"samlMetadataUIParserAction"</span> <span class="nt">/&gt;</span>
+        ...
+    <span class="nt">&lt;/on-entry&gt;</span>
+    ...
+<span class="nt">&lt;/view-state&gt;</span></code></pre></figure>
+
+<p>A sample screenshot of the above configuration in action:</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/1205228/8120071/095c7628-1050-11e5-810e-7bce128391df.PNG" alt="capture" /></p>
+
+<h2 id="shibboleth-service-provider-proxy">Shibboleth Service Provider Proxy</h2>
+<p>The <a href="https://code.google.com/p/casshib/">CASShib project</a> “Shibbolizes” the CAS server and enables end applications to get authentication information from CAS rather than the Shibboleth Service Provider. CASShib is designed as an alternative to deploying the Shibboleth service provider for each application in order to:</p>
+
+<ul>
+  <li>Leverage Shibboleth’s sophisticated attribute release policy functionality to enable attribute releasing to services in the local environment.</li>
+  <li>Offer the chance for local applications to easily become federated services.</li>
+</ul>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

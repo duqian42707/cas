@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Multifactor Authentication</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="multifactor-authentication-mfa">Multifactor Authentication (MFA)</h1>
+
+<p>CAS provides a framework for multi-factor authentication (MFA). The design philosophy for MFA support follows from
+the observation that institutional security policies with respect to MFA vary dramatically. We provide first class
+API support for authenticating multiple credentials and a policy framework around authentication. The components
+could be extended in a straightforward fashion to provide higher-level behaviors such as Webflow logic to assist,
+for example, a credential upgrade scenario where a SSO session is started by a weaker credential but a particular
+service demands reauthentication with a stronger credential.</p>
+
+<p>The authentication subsystem in CAS natively supports handling multiple credentials. While the default login form
+and Webflow tier are designed for the simple case of accepting a single credential, all core API components that
+interface with the authentication subsystem accept one or more credentials to authenticate.</p>
+
+<p>Beyond support for multiple credentials, an extensible policy framework is available to apply policy arbitrarily.
+CAS ships with support for applying policy in the following areas:</p>
+
+<ul>
+  <li>Credential authentication success and failure.</li>
+  <li>Service-specific authentication requirements.</li>
+</ul>
+
+<h2 id="policybasedauthenticationmanager"><code class="language-plaintext highlighter-rouge">PolicyBasedAuthenticationManager</code></h2>
+<p>CAS ships with an authentication manager component that is fundamentally MFA-aware. It supports a number of
+policies, discussed above, that could facilitate a simple MFA design; for example, where multiple credentials are
+invariably required to start a CAS SSO session.</p>
+
+<h2 id="contextualauthenticationpolicy"><code class="language-plaintext highlighter-rouge">ContextualAuthenticationPolicy</code></h2>
+<p>Strategy pattern component for applying security policy in an arbitrary context. These components are assumed to be
+stateful once created.</p>
+
+<h2 id="contextualauthenticationpolicyfactory"><code class="language-plaintext highlighter-rouge">ContextualAuthenticationPolicyFactory</code></h2>
+<p>Factory class for creating stateful instances of <code class="language-plaintext highlighter-rouge">ContextualAuthenticationPolicy</code> that apply to a particular context.</p>
+
+<h2 id="acceptanyauthenticationpolicyfactory"><code class="language-plaintext highlighter-rouge">AcceptAnyAuthenticationPolicyFactory</code></h2>
+<p>Simple factory class that produces contextual security policies that always pass. This component is configured by
+default in some cases to provide backward compatibility with CAS 3.x.</p>
+
+<h2 id="requiredhandlerauthenticationpolicyfactory"><code class="language-plaintext highlighter-rouge">RequiredHandlerAuthenticationPolicyFactory</code></h2>
+<p>Factory that produces policy objects based on the security context of the service requesting a ticket. In particular the security
+context is based on the required authentication handlers that must have successfully validated credentials in order to access
+the service. A clarifying example is helpful; assume the following authentication components are defined in <code class="language-plaintext highlighter-rouge">deployerConfigContext.xml</code>:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"ldapHandler"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.authentication.LdapAuthenticationHandler"</span>
+      <span class="na">p:name=</span><span class="s">"ldapHandler"</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- Details elided for simplicity --&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"oneTimePasswordHandler"</span>
+      <span class="na">class=</span><span class="s">"com.example.cas.authentication.CustomOTPAuthenticationHandler"</span>
+      <span class="na">p:name=</span><span class="s">"oneTimePasswordHandler"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"authenticationManager"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.authentication.PolicyBasedAuthenticationManager"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;constructor-arg&gt;</span>
+    <span class="nt">&lt;map&gt;</span>
+      <span class="nt">&lt;entry</span> <span class="na">key-ref=</span><span class="s">"passwordHandler"</span> <span class="na">value=</span><span class="s">"#{ null }"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;entry</span> <span class="na">key-ref=</span><span class="s">"oneTimePasswordHandler"</span> <span class="na">value=</span><span class="s">"#{ null }"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/map&gt;</span>
+  <span class="nt">&lt;/constructor-arg&gt;</span>
+<span class="nt">&lt;/bean&gt;</span></code></pre></figure>
+
+<p>Assume also the following beans are defined in <code class="language-plaintext highlighter-rouge">applicationContext.xml</code>:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"centralAuthenticationService"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.CentralAuthenticationServiceImpl"</span>
+      <span class="na">c:authenticationManager-ref=</span><span class="s">"authenticationManager"</span>
+      <span class="na">c:logoutManager-ref=</span><span class="s">"logoutManager"</span>
+      <span class="na">c:servicesManager-ref=</span><span class="s">"servicesManager"</span>
+      <span class="na">c:serviceTicketExpirationPolicy-ref=</span><span class="s">"neverExpiresExpirationPolicy"</span>
+      <span class="na">c:serviceTicketRegistry-ref=</span><span class="s">"ticketRegistry"</span>
+      <span class="na">c:ticketGrantingTicketExpirationPolicy-ref=</span><span class="s">"neverExpiresExpirationPolicy"</span>
+      <span class="na">c:ticketGrantingTicketUniqueTicketIdGenerator-ref=</span><span class="s">"uniqueTicketIdGenerator"</span>
+      <span class="na">c:ticketRegistry-ref=</span><span class="s">"ticketRegistry"</span>
+      <span class="na">c:uniqueTicketIdGeneratorsForService-ref=</span><span class="s">"uniqueTicketIdGeneratorsForService"</span>
+      <span class="na">p:serviceContextAuthenticationPolicyFactory-ref=</span><span class="s">"casAuthenticationPolicy"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"casAuthenticationPolicy"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.authentication.RequiredHandlerAuthenticationPolicyFactory"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<p>With the above configuration in mind, the <a href="Service-Management.html">service management facility</a>
+may now be leveraged to register services that require specific kinds of credentials be used to access the service.
+The kinds of required credentials are specified by naming the authentication handlers that accept them, for example,
+<code class="language-plaintext highlighter-rouge">ldapHandler</code> and <code class="language-plaintext highlighter-rouge">oneTimePasswordHandler</code>. Thus a service could be registered that imposes security constraints like
+the following:</p>
+
+<p><em>Only permit users with SSO sessions created from both a username/password and OTP token to access this service.</em></p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Configuring SSO Session Cookie</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="sso-session-cookie">SSO Session Cookie</h1>
+<p>A ticket-granting cookie is an HTTP cookie set by CAS upon the establishment of a single sign-on session. 
+This cookie maintains login state for the client, and while it is valid, the client can present it to CAS in lieu of primary credentials. 
+Services can opt out of single sign-on through the <code class="language-plaintext highlighter-rouge">renew</code> parameter. See the <a href="../protocol/CAS-Protocol.html">CAS Protocol</a> for more info.</p>
+
+<p>The cookie value is linked to the active ticket-granting ticket, the remote IP address that initiated the request
+as well as the user agent that submitted the request. The final cookie value is then encrypted and signed.</p>
+
+<p>The secret keys are defined in the <code class="language-plaintext highlighter-rouge">cas.properties</code> file. These keys <strong>MUST</strong> be regenerated per your specific environment. Each key
+is a JSON Web Token with a defined length per the algorithm used for encryption and signing.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>The generation of the ticket-granting cookie is controlled via:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="c"># The encryption secret key. By default, must be a octet string of size 256.
+# tgc.encryption.key=
+</span>
+<span class="c"># The signing secret key. By default, must be a octet string of size 512.
+# tgc.signing.key=
+</span>
+<span class="c"># Decides whether SSO cookie should be created only under secure connections.
+# tgc.secure=true
+</span>
+<span class="c"># The expiration value of the SSO cookie
+# tgc.maxAge=-1
+</span>
+<span class="c"># The name of the SSO cookie
+# tgc.name=TGC
+</span>
+<span class="c"># The path to which the SSO cookie will be scoped
+# tgc.path=/cas
+</span>
+<span class="c"># Decides whether SSO Warning cookie should be created only under secure connections.
+# warn.cookie.secure=true
+</span>
+<span class="c"># The expiration value of the SSO Warning cookie
+# warn.cookie.maxAge=-1
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The cookie has the following properties:</p>
+
+<ol>
+  <li>It is marked as secure.</li>
+  <li>Depending on container support, the cookie would be marked as http-only automatically.</li>
+  <li>The cookie value is encrypted and signed via secret keys that need to be generated upon deployment.</li>
+</ol>
+
+<p>If keys are left undefined, on startup CAS will notice that no keys are defined and it will appropriately generate keys for you automatically. Your CAS logs will then show the following snippet:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>WARN <span class="o">[</span>org.jasig.cas.util.BaseStringCipherExecutor] - &lt;Secret key <span class="k">for </span>encryption is not defined. CAS will attempt to auto-generate the encryption key&gt;
+WARN <span class="o">[</span>org.jasig.cas.util.BaseStringCipherExecutor] - &lt;Generated encryption key ABC of size ... <span class="nb">.</span> The generated key MUST be added to CAS settings.&gt;
+WARN <span class="o">[</span>org.jasig.cas.util.BaseStringCipherExecutor] - &lt;Secret key <span class="k">for </span>signing is not defined. CAS will attempt to auto-generate the signing key&gt;
+WARN <span class="o">[</span>org.jasig.cas.util.BaseStringCipherExecutor] - &lt;Generated signing key XYZ of size ... <span class="nb">.</span> The generated key MUST be added to CAS settings.&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You should then grab each generated key for encryption and signing, and put them inside your cas.properties file for each now-enabled setting.</p>
+
+<p>If you wish you manually generate keys, you may <a href="https://github.com/mitreid-connect/json-web-key-generator">use the following tool</a>.</p>
+
+<h2 id="turn-off-cookie-encryptionsigning">Turn Off Cookie Encryption/Signing</h2>
+
+<p>To disable the cipher configuration for the SSO session cookie, adjust for the following in your
+<code class="language-plaintext highlighter-rouge">deployerConfigContext.xml</code> file:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"noOpCookieValueManager"</span> <span class="na">alias=</span><span class="s">"defaultCookieValueManager"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"noOpCipherExecutor"</span> <span class="na">alias=</span><span class="s">"defaultCookieCipherExecutor"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="cookie-generation-for-renewed-authentications">Cookie Generation for Renewed Authentications</h2>
+
+<p>By default, forced authentication requests that challenge the user for credentials
+either via the <a href="../protocol/CAS-Protocol.html"><code class="language-plaintext highlighter-rouge">renew</code> request parameter</a>
+or via <a href="Service-Management.html">the service-specific setting</a> of
+the CAS service registry will always generate the ticket-granting cookie
+nonetheless. What this means is, logging in to a non-SSO-participating application
+via CAS nonetheless creates a valid CAS single sign-on session that will be honored on a
+subsequent attempt to authenticate to a SSO-participating application.</p>
+
+<p>Plausibly, a CAS adopter may want this behavior to be different, such that logging in to a non-SSO-participating application
+via CAS either does not create a CAS SSO session and the SSO session it creates is not honored for authenticating subsequently
+to an SSO-participating application. This might better match user expectations.</p>
+
+<p>The controlling of this behavior is done via the <code class="language-plaintext highlighter-rouge">cas.properties</code> file:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c">##
+# Single Sign-On Session
+#
+# Indicates whether an SSO session should be created for renewed authentication requests.
+# create.sso.renewed.authn=true
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="sso-warning-session-cookie">SSO Warning Session Cookie</h1>
+<p>A warning cookie set by CAS upon the establishment of the SSO session at the request of the user on the CAS login page. The cookie is used later to warn and prompt
+the user before a service ticket is generated and access to the service application is granted.
+The cookie is controlled via:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="c"># Decides whether SSO Warning cookie should be created only under secure connections.
+# warn.cookie.secure=true
+</span>
+<span class="c"># The expiration value of the SSO Warning cookie
+# warn.cookie.maxAge=-1
+</span>
+<span class="c"># The name of the SSO Warning cookie
+# warn.cookie.name=CASPRIVACY
+</span>
+<span class="c"># The path to which the SSO Warning cookie will be scoped
+# warn.cookie.path=/cas
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

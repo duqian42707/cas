@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Service Management</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="service-management">Service Management</h1>
+
+<p>The CAS service management facility allows CAS server administrators to declare and configure which services
+(CAS clients) may make use of CAS in which ways. The core component of the service management facility is the
+service registry that stores one or more registered services
+containing metadata that drives a number of CAS behaviors:</p>
+
+<ul>
+  <li>Authorized services - Control which services may participate in a CAS SSO session.</li>
+  <li>Forced authentication - Provides administrative control for forced authentication.</li>
+  <li>Attribute release - Provide user details to services for authorization and personalization.</li>
+  <li>Proxy control - Further restrict authorized services by granting/denying proxy authentication capability.</li>
+  <li>Theme control - Define alternate CAS themes to be used for particular services.</li>
+</ul>
+
+<h2 id="service-management-webapp">Service Management Webapp</h2>
+
+<p>The service management webapp is a Web application that may be deployed along side CAS that provides a GUI
+to manage service registry data. The Service Management web application is available for demo at <a href="https://jasigcasmgmt.herokuapp.com/cas-services">https://jasigcasmgmt.herokuapp.com/cas-services</a></p>
+
+<p>The Services Management web application is a standalone application that helps one manage service registrations and
+entries via a customizable user interface. The management web application <em>MUST</em> share the same registry configuration as
+the CAS server itself so the entire system can load the same services data. To learn more about the management webapp,
+<a href="Installing-ServicesMgmt-Webapp.html">please see this guide</a>.</p>
+
+<h2 id="registered-services">Registered Services</h2>
+
+<p>Registered services present the following metadata:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>Required unique identifier. In most cases this is managed automatically by the <code class="language-plaintext highlighter-rouge">ServiceRegistryDao</code>. This <strong>MUST</strong> be a valid numeric value.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>Required name (255 characters or less).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">description</code></td>
+      <td>Optional free-text description of the service. (255 characters or less)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logo</code></td>
+      <td>Optional path to an image file that is the logo for this service. The image will be displayed on the login page along with the service description and name.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">serviceId</code></td>
+      <td>Required <a href="http://ant.apache.org/manual/dirtasks.html#patterns">Ant pattern</a> or <a href="http://docs.oracle.com/javase/tutorial/essential/regex/">regular expression</a> describing a logical service. A logical service defines one or more URLs where a service or services are located. The definition of the url pattern must be <strong>done carefully</strong> because it can open security breaches. For example, using Ant pattern, if you define the following service : <code class="language-plaintext highlighter-rouge">http://example.*/myService</code> to match <code class="language-plaintext highlighter-rouge">http://example.com/myService</code> and <code class="language-plaintext highlighter-rouge">http://example.fr/myService</code>, it’s a bad idea as it can be tricked by <code class="language-plaintext highlighter-rouge">http://example.hostattacker.com/myService</code>. The best way to proceed is to define the more precise url patterns.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">theme</code></td>
+      <td>Optional <a href="http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-themeresolver">Spring theme</a> that may be used to customize the CAS UI when the service requests a ticket. See <a href="User-Interface-Customization.html">this guide</a> for more details.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">proxyPolicy</code></td>
+      <td>Determines whether the service is able to proxy authentication, not whether the service accepts proxy authentication.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">evaluationOrder</code></td>
+      <td>Required value that determines relative order of evaluation of registered services. This flag is particularly important in cases where two service URL expressions cover the same services; evaluation order determines which registration is evaluated first.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">requiredHandlers</code></td>
+      <td>Set of authentication handler names that must successfully authenticate credentials in order to access the service. If defined, only the selected required handlers are chosen to respond to authentication requests from this registered service.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">attributeReleasePolicy</code></td>
+      <td>The policy that describes the set of attributes allows to be released to the application, as well as any other filtering logic needed to weed some out. See <a href="../integration/Attribute-Release.html">this guide</a> for more details on attribute release and filters.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logoutType</code></td>
+      <td>Defines how this service should be treated once the logout protocol is initiated. Acceptable values are <code class="language-plaintext highlighter-rouge">LogoutType.BACK_CHANNEL</code>, <code class="language-plaintext highlighter-rouge">LogoutType.FRONT_CHANNEL</code> or <code class="language-plaintext highlighter-rouge">LogoutType.NONE</code>. See <a href="Logout-Single-Signout.html">this guide</a> for more details on logout.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">usernameAttributeProvider</code></td>
+      <td>The provider configuration which dictates what value as the “username” should be sent back to the application. See <a href="../integration/Attribute-Release.html">this guide</a> for more details on attribute release and filters.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">accessStrategy</code></td>
+      <td>The strategy configuration that outlines and access rules for this service. It describes whether the service is allowed, authorized to participate in SSO, or can be granted access from the CAS perspective based on a particular attribute-defined role, aka RBAC. See <a href="../integration/Attribute-Release.html">this guide</a> for more details on attribute release and filters.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">publicKey</code></td>
+      <td>The public key associated with this service that is used to authorize the request by encrypting certain elements and attributes in the CAS validation protocol response, such as <a href="Configuring-Proxy-Authentication.html">the PGT</a> or <a href="../integration/ClearPass.html">the credential</a>. See <a href="../integration/Attribute-Release.html">this guide</a> for more details on attribute release and filters.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logoutUrl</code></td>
+      <td>URL endpoint for this service to receive logout requests. See <a href="Logout-Single-Signout.html">this guide</a> for more details</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">properties</code></td>
+      <td>Extra metadata associated with this service in form of key/value pairs. This is used to inject custom fields into the service definition, to be used later by extension modules to define additional behavior on a per-service basis. <a href="Configuring-Service-Custom-Properties.html">See this guide</a> for more info please.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">multifactorPolicy</code></td>
+      <td>The policy that describes the configuration required for this service authentication, typically for <a href="Configuring-Multifactor-Authentication.html">multifactor authentication</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="service-access-strategy">Service Access Strategy</h3>
+
+<p><a href="Configuring-Service-Access-Strategy.html">See this guide</a> for more info please.</p>
+
+<h3 id="proxy-authentication-policy">Proxy Authentication Policy</h3>
+
+<p><a href="Configuring-Service-Proxy-Policy.html">See this guide</a> for more info please.</p>
+
+<h3 id="service-custom-properties">Service Custom Properties</h3>
+
+<p><a href="Configuring-Service-Custom-Properties.html">See this guide</a> for more info please.</p>
+
+<h2 id="persisting-services">Persisting Services</h2>
+
+<p>The following options may be used to store services in CAS.</p>
+
+<h3 id="memory">Memory</h3>
+
+<p><a href="InMemory-Service-Management.html">See this guide</a> for more info please.</p>
+
+<h3 id="json">JSON</h3>
+
+<p><a href="JSON-Service-Management.html">See this guide</a> for more info please.</p>
+
+<h3 id="yaml">YAML</h3>
+
+<p><a href="YAML-Service-Management.html">See this guide</a> for more info please.</p>
+
+<h3 id="mongo">Mongo</h3>
+
+<p><a href="Mongo-Service-Management.html">See this guide</a> for more info please.</p>
+
+<h3 id="ldap">LDAP</h3>
+
+<p><a href="LDAP-Service-Management.html">See this guide</a> for more info please.</p>
+
+<h3 id="jpa">JPA</h3>
+
+<p><a href="JPA-Service-Management.html">See this guide</a> for more info please.</p>
+
+<h3 id="couchbase">Couchbase</h3>
+
+<p><a href="Couchbase-Service-Management.html">See this guide</a> for more info please.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

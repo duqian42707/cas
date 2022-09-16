@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - User Interface Customization</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="overview">Overview</h1>
+<p>Branding the CAS User Interface (UI) involves simply editing the CSS stylesheet and also a small collection of relatively simple JSP include files,
+also known as views. Optionally, you may also wish to modify the text displayed and/or add additional Javascript effects on these views.</p>
+
+<p>All the files that we’ll be discussing in this section that concern the theme are located in and referenced from: <code class="language-plaintext highlighter-rouge">/cas-server-webapp/src/main/webapp</code>.</p>
+
+<h1 id="browser-support">Browser Support</h1>
+<p>CAS user interface should properly and comfortably lend itself to all major browser vendors:</p>
+
+<ul>
+  <li>Google Chrome</li>
+  <li>Mozilla Firefox</li>
+  <li>Apple Safari</li>
+  <li>Microsoft Internet Explorer</li>
+</ul>
+
+<p>Note that certain older version of IE, particularly IE 9 and below may impose additional difficulty in getting the right UI configuration in place.</p>
+
+<h2 id="internet-explorer">Internet Explorer</h2>
+<p>To instruct CAS to render UI in compatibility mode, add the following to relevant UI components:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"IE=edge"</span><span class="nt">&gt;&lt;/meta&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="css">CSS</h2>
+<p>The default styles are all contained in a single file located in <code class="language-plaintext highlighter-rouge">css/cas.css</code>. This location is set in <code class="language-plaintext highlighter-rouge">WEB-INF/classes/cas-theme-default.properties</code>. If you would like to create your own <code class="language-plaintext highlighter-rouge">css/custom.css file</code>, for example, you will need to update <code class="language-plaintext highlighter-rouge">standard.custom.css.file</code> key in that file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>standard.custom.css.file<span class="o">=</span>/css/cas.css
+cas.javascript.file<span class="o">=</span>/js/cas.js
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="css-per-locale">CSS per Locale</h3>
+<p>Selecting CSS files per enabled locale would involve changing the <code class="language-plaintext highlighter-rouge">top.jsp</code> file to include the below sample code:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;</span><span class="err">%</span>
+    <span class="na">String</span> <span class="na">cssFileName = </span><span class="s">"cas.css"</span><span class="err">;</span> <span class="err">//</span> <span class="na">default</span>
+    <span class="na">Locale</span> <span class="na">locale = </span><span class="s">request.getLocale();</span>
+
+    <span class="na">if</span> <span class="err">(</span><span class="na">locale</span> <span class="err">!=</span> <span class="na">null</span> <span class="err">&amp;&amp;</span> <span class="na">locale.getLanguage</span><span class="err">()</span> <span class="err">!=</span> <span class="na">null</span><span class="err">){</span>
+       <span class="na">String</span> <span class="na">languageCssFileName = </span><span class="s">"cas_"</span> <span class="err">+</span> <span class="na">locale.getLanguage</span><span class="err">()</span> <span class="err">+</span> <span class="err">".</span><span class="na">css</span><span class="err">";</span>
+       <span class="na">cssFileName = </span><span class="s">languageCssFileName;</span> <span class="err">//</span><span class="na">ensure</span> <span class="na">this</span> <span class="na">file</span> <span class="na">exists</span>
+    <span class="err">}</span>
+
+<span class="err">%</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"/path/to/css/&lt;%=cssFileName%&gt;"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span><span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="responsive-design">Responsive Design</h3>
+<p>CSS media queries bring responsive design features to CAS which would allow adopter to focus on one theme for all appropriate devices and platforms. These queries are defined in the same <code class="language-plaintext highlighter-rouge">css/cas.css</code> file.</p>
+
+<h2 id="javascript">Javascript</h2>
+<p>If you need to add some JavaScript, feel free to append <code class="language-plaintext highlighter-rouge">js/cas.js</code>.</p>
+
+<p>You can also create your own <code class="language-plaintext highlighter-rouge">custom.js</code> file, for example, and call it from within <code class="language-plaintext highlighter-rouge">WEB-INF/view/jsp/default/ui/includes/bottom.jsp</code> like so:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"&lt;c:url value="</span><span class="err">/</span><span class="na">js</span><span class="err">/</span><span class="na">custom.js</span><span class="err">"</span> <span class="nt">/&gt;</span><span class="dl">"</span><span class="s2">&gt;</span><span class="nt">&lt;/script&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>If you are developing themes per service, each theme also has the ability to specify a custom <code class="language-plaintext highlighter-rouge">cas.js</code> file under the <code class="language-plaintext highlighter-rouge">cas.javascript.file</code> setting.</p>
+
+<p>The following Javascript libraries are utilized by CAS automatically:</p>
+
+<ul>
+  <li>JQuery</li>
+  <li>JQuery UI</li>
+  <li>JQuery Cookie</li>
+  <li><a href="http://benalman.com/projects/javascript-debug-console-log/">JavaScript Debug</a>: A simple wrapper for <code class="language-plaintext highlighter-rouge">console.log()</code></li>
+</ul>
+
+<h3 id="asynchronous-script-loading">Asynchronous Script Loading</h3>
+<p>CAS will attempt load the aforementioned script libraries asynchronously so as to not block the page rendering functionality.
+The loading of script files is handled by the <a href="http://headjs.com"><code class="language-plaintext highlighter-rouge">head.js</code> library</a> and is the responsibility of <code class="language-plaintext highlighter-rouge">cas.js</code> file.</p>
+
+<p>The only script that is loaded synchronously is the <code class="language-plaintext highlighter-rouge">head.js</code> library itself.</p>
+
+<p>Because scripts, and specially JQuery are loaded asynchronously, any custom Javascript that is placed inside the page
+that relies on these libraries may not immediately function on page load. CAS provides a callback function that allows
+adopters to be notified when script loading has completed and this would be a safe time to execute/load other Javascript-related
+functions that depend on JQuery inside the actual page.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nx">jqueryReady</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//Custom Javascript tasks can be carried out now via JQuery...</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="checking-capslock">Checking CAPSLOCK</h3>
+<p>CAS will display a brief warning when the CAPSLOCK key is turned on during the typing of the credential password. This check is enforced by the <code class="language-plaintext highlighter-rouge">cas.js</code> file.</p>
+
+<h3 id="browser-cookie-support">Browser Cookie Support</h3>
+<p>For CAS to honor a single sign-on session, the browser MUST support and accept cookies. CAS will notify the
+user if the browser has turned off its support for cookies. This behavior is controlled via the <code class="language-plaintext highlighter-rouge">cas.js</code> file.</p>
+
+<h3 id="preserving-anchor-fragments">Preserving Anchor Fragments</h3>
+<p>Anchors/fragments may be lost across redirects as the server-side handler of the form post ignores the client-side anchor, unless appended to the form POST url.
+This is needed if you want a CAS-authenticated application to be able to use anchors/fragments when bookmarking.</p>
+
+<h4 id="changes-to-casjs">Changes to <code class="language-plaintext highlighter-rouge">cas.js</code></h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="cm">/**
+ * Prepares the login form for submission by appending any URI
+ * fragment (hash) to the form action in order to propagate it
+ * through the re-direct (i.e. store it client side).
+ * @param form The login form object.
+ * @returns true to allow the form to be submitted.
+ */</span>
+<span class="kd">function</span> <span class="nx">prepareSubmit</span><span class="p">(</span><span class="nx">form</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Extract the fragment from the browser's current location.</span>
+    <span class="kd">var</span> <span class="nx">hash</span> <span class="o">=</span> <span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">);</span>
+
+    <span class="c1">// The fragment value may not contain a leading # symbol</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">hash</span> <span class="o">&amp;&amp;</span> <span class="nx">hash</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="dl">"</span><span class="s2">#</span><span class="dl">"</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">hash</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">#</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">hash</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Append the fragment to the current action so that it persists to the redirected URL.</span>
+    <span class="nx">form</span><span class="p">.</span><span class="nx">action</span> <span class="o">=</span> <span class="nx">form</span><span class="p">.</span><span class="nx">action</span> <span class="o">+</span> <span class="nx">hash</span><span class="p">;</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="changes-to-login-form">Changes to Login Form</h4>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;form:form</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">id=</span><span class="s">"fm1"</span> <span class="na">cssClass=</span><span class="s">"fm-v clearfix"</span>
+        <span class="na">commandName=</span><span class="s">"${commandName}"</span> <span class="na">htmlEscape=</span><span class="s">"true"</span>
+        <span class="na">onsubmit=</span><span class="s">"return prepareSubmit(this);"</span><span class="nt">&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="jsp">JSP</h2>
+<p>The default views are found at <code class="language-plaintext highlighter-rouge">WEB-INF/view/jsp/default/ui/</code>.</p>
+
+<p>Notice <code class="language-plaintext highlighter-rouge">top.jsp</code> and <code class="language-plaintext highlighter-rouge">bottom.jsp</code> include files located in the <code class="language-plaintext highlighter-rouge">../includes</code> directory. These serve as the layout template for the other JSP files, which get injected in between during compilation to create a complete HTML page.</p>
+
+<h4 id="tag-libraries">Tag Libraries</h4>
+<p>The following JSP tag libraries are used by the user interface:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;</span><span class="err">%@</span> <span class="na">taglib</span> <span class="na">prefix=</span><span class="s">"c"</span> <span class="na">uri=</span><span class="s">"http://java.sun.com/jsp/jstl/core"</span> <span class="err">%</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="err">%@</span> <span class="na">taglib</span> <span class="na">prefix=</span><span class="s">"spring"</span> <span class="na">uri=</span><span class="s">"http://www.springframework.org/tags"</span> <span class="err">%</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="err">%@</span> <span class="na">taglib</span> <span class="na">prefix=</span><span class="s">"form"</span> <span class="na">uri=</span><span class="s">"http://www.springframework.org/tags/form"</span> <span class="err">%</span><span class="nt">&gt;</span>
+<span class="nt">&lt;</span><span class="err">%@</span> <span class="na">taglib</span> <span class="na">prefix=</span><span class="s">"fn"</span> <span class="na">uri=</span><span class="s">"http://java.sun.com/jsp/jstl/functions"</span> <span class="err">%</span><span class="nt">&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="glossary-of-views">Glossary of Views</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>View</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casAccountDisabledView</code></td>
+      <td>Specific to Password Policy Enforcement; displayed in the event that authentication encounters an account that is disabled in the underlying account store (i.e. LDAP)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casAccountLockedView</code></td>
+      <td>Specific to Password Policy Enforcement; displayed in the event that authentication encounters an account that is locked in the underlying account store (i.e. LDAP)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casBadHoursView</code></td>
+      <td>Specific to Password Policy Enforcement; displayed when authentication encounters an account that is not allowed authentication within the current time window in the underlying account store (i.e. LDAP)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casBadWorkstationView</code></td>
+      <td>Specific to Password Policy Enforcement; displayed when authentication encounters an account that is not allowed authentication from the current workstation in the underlying account store (i.e. LDAP)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casExpiredPassView</code></td>
+      <td>Specific to Password Policy Enforcement; displayed in the event that authentication encounters an account that has expired in the underlying account store (i.e. LDAP)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casMustChangePassView</code></td>
+      <td>Specific to Password Policy Enforcement; displayed in the event that authentication encounters an account that must change its password in the underlying account store (i.e. LDAP)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casWarnPassView</code></td>
+      <td>Specific to Password Policy Enforcement; displayed when the user account is near expiration based on specified configuration (i.e. LDAP)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casConfirmView</code></td>
+      <td>Displayed when the user is warned before being redirected to the service.  This allows users to be made aware whenever an application uses CAS to log them in. (If they don’t elect the warning, they may not see any CAS screen when accessing an application that successfully relies upon an existing CAS single sign-on session.) Some CAS adopters remove the ‘warn’ checkbox in the CAS login view and don’t offer this interstitial advisement that single sign-on is happening.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casGenericSuccess</code></td>
+      <td>Displayed when the user has been logged in without providing a service to be redirected to.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casLoginView</code></td>
+      <td>Main login form.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">casLogoutView</code></td>
+      <td>Main logout view.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">serviceErrorView</code></td>
+      <td>Used in conjunction with the service registry feature, displayed when the service the user is trying to access is not allowed to use CAS. The default in-memory services registry configuration, in ‘deployerConfigContext.xml’, allows all users to obtain a service ticket to access all services.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">serviceErrorSsoView</code></td>
+      <td>Displayed when a user would otherwise have experienced non-interactive single sign-on to a service that is, per services registry configuration, disabled from participating in single sign-on. (In the default services registry registrations, all services are permitted to participate in single sign-on, so this view will not be displayed.)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="glossary-of-monitoring-views">Glossary of Monitoring Views</h4>
+<p>The monitoring views are found at <code class="language-plaintext highlighter-rouge">WEB-INF/view/jsp/monitoring/</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>View</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">viewConfig</code></td>
+      <td>Displayed when user attempts to view the state of the CAS application runtime and its configuration.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">viewSsoSessions</code></td>
+      <td>Displayed when user wishes to view the Single Sign-on Report.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">viewStatistics</code></td>
+      <td>Displayed when user wishes review the CAS server statistics.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="glossary-of-system-error-views">Glossary of System Error Views</h4>
+<p>The error views are found at <code class="language-plaintext highlighter-rouge">WEB-INF/view/jsp/</code>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>View</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">errors</code></td>
+      <td>Displayed when CAS experiences an error it doesn’t know how to handle (an unhandled Exception). For instance, CAS might be unable to access a database backing the services registry. This is the generic CAS error page. It’s important to brand it to provide an acceptable error experience to your users.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">authorizationFailure</code></td>
+      <td>Displayed when a user successfully authenticates to the services management web-based administrative UI included with CAS, but the user is not authorized to access that application.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="warning-before-accessing-application">Warning Before Accessing Application</h3>
+<p>CAS has the ability to warn the user before being redirected to the service. This allows users to be made aware whenever an application uses CAS to log them in.
+(If they don’t elect the warning, they may not see any CAS screen when accessing an application that successfully relies upon an existing CAS single sign-on session.)
+Some CAS adopters remove the ‘warn’ checkbox in the CAS login view and don’t offer this interstitial advisement that single sign-on is happening.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>...
+<span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"warn"</span> <span class="na">name=</span><span class="s">"warn"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="na">tabindex=</span><span class="s">"3"</span> <span class="na">accesskey=</span><span class="s">"&lt;spring:message code="</span><span class="na">screen.welcome.label.warn.accesskey</span><span class="err">"</span> <span class="nt">/&gt;</span>" type="checkbox" /&gt;
+<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"warn"</span><span class="nt">&gt;&lt;spring:message</span> <span class="na">code=</span><span class="s">"screen.welcome.label.warn"</span> <span class="nt">/&gt;&lt;/label&gt;</span>
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="i-am-at-a-public-workstation-authentication">“I am at a public workstation” authentication</h3>
+<p>CAS has the ability to allow the user to opt-out of SSO, by indicating on the login page that the authentication
+is happening at a public workstation. By electing to do so, CAS will not honor the subsequent SSO session
+and will not generate the TGC that is designed to do so.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>...
+<span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"publicWorkstation"</span> <span class="na">name=</span><span class="s">"publicWorkstation"</span> <span class="na">value=</span><span class="s">"false"</span> <span class="na">tabindex=</span><span class="s">"4"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"publicWorkstation"</span><span class="nt">&gt;&lt;spring:message</span> <span class="na">code=</span><span class="s">"screen.welcome.label.publicstation"</span> <span class="nt">/&gt;&lt;/label&gt;</span>
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="localization">Localization</h2>
+<p>The CAS Web application includes a number of localized message files:</p>
+
+<ul>
+  <li>English (US)</li>
+  <li>Spanish</li>
+  <li>French</li>
+  <li>Russian</li>
+  <li>Netherlands (Nederlands)</li>
+  <li>Swedish (Svenskt)</li>
+  <li>Italian (Italiano)</li>
+  <li>Urdu</li>
+  <li>Chinese (Simplified)</li>
+  <li>Dutch (Deutsch)</li>
+  <li>Japanese</li>
+  <li>Croatian</li>
+  <li>Czech</li>
+  <li>Slovenian</li>
+  <li>Polish</li>
+  <li>Portuguese (Brazil)</li>
+  <li>Turkish</li>
+  <li>Farsi</li>
+  <li>Arabic</li>
+</ul>
+
+<p>In order to “invoke” a specific language for the UI, the <code class="language-plaintext highlighter-rouge">/login</code> endpoint may be passed a <code class="language-plaintext highlighter-rouge">locale</code> parameter as such:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>https://cas.server.edu/login?locale=it
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Note that not all languages are complete and accurate across CAS server releases as translations are entirely dependent upon community contributions.
+For an accurate and complete list of localized messages, always refer to the English language bundle.</p>
+
+<h3 id="configuration">Configuration</h3>
+<p>All message bundles are marked under <code class="language-plaintext highlighter-rouge">messages_xx.properties</code> files at <code class="language-plaintext highlighter-rouge">WEB-INF/classes</code>. The default language bundle is for the
+English language and is thus called <code class="language-plaintext highlighter-rouge">messages.properties</code>. If there are any custom messages that need to be presented into views,
+they may also be formatted under <code class="language-plaintext highlighter-rouge">custom_messages.properties</code> files.</p>
+
+<p>Messages are then read on each JSP view via the following sample configuration:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;spring:message</span> <span class="na">code=</span><span class="s">"message.key"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In the event that the code is not found in the activated resource bundle, the code itself will be used verbatim.</p>
+
+<h2 id="themes">Themes</h2>
+<p>With the introduction of <a href="Service-Management.html">Service Management application</a>, deployers are now able to switch the themes based on different services. For example, you may want to have different login screens (different styles) for staff applications and student applications. Or, you want to show two layouts for day time and night time. This document could help you go through the basic settings to achieve this.</p>
+
+<p>Note that support for themes comes with the following components:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ServiceThemeResolver</code></td>
+      <td>can be configured to decorate CAS views based on the <code class="language-plaintext highlighter-rouge">theme</code> property of a given registered service in the Service Registry. The theme that is activated via this method will still preserve the default JSP views for CAS but will simply apply decorations such as CSS and Javascript to the views. The physical structure of views cannot be modified via this method.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RegisteredServiceThemeBasedViewResolver</code></td>
+      <td>If there is a need to present an entirely new set of views for a given service, such that the structure and layout of the page needs an overhaul with additional icons, images, text, etc then this component<code class="language-plaintext highlighter-rouge"> needs to be configured. This component will have the ability to resolve a new set of views that may entirely be different from the default JSPs. The </code>theme` property of a given registered service in the Service Registry will still need to be configured to note the set of views that are to be loaded.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="dynamic">Dynamic</h3>
+<p>Configuration of service-specific themes is backed by the Spring framework and provided by the following component:</p>
+
+<p>Furthermore, deployers may be able to use the functionality provided by the <code class="language-plaintext highlighter-rouge">ThemeChangeInterceptor</code> of 
+Spring framework to provide theme configuration per each request.</p>
+
+<h4 id="configuration-1">Configuration</h4>
+<ul>
+  <li>Add another theme properties file, which must be placed to the root of <code class="language-plaintext highlighter-rouge">/WEB-INF/classes</code> folder, name it as <code class="language-plaintext highlighter-rouge">theme_name.properties</code>. 
+Contents of this file should match the <code class="language-plaintext highlighter-rouge">cas-theme-default.properties</code> file.</li>
+  <li>Add the location of related styling files, such as CSS and Javascript in the file above.</li>
+  <li>Specify the name of your theme for the service definition under the <code class="language-plaintext highlighter-rouge">theme</code> property.</li>
+</ul>
+
+<h3 id="per-application">Per Application</h3>
+<p>Alternatively, CAS utilizes a service’s
+associated theme to selectively choose which set of UI views will be used to generate the standard views (<code class="language-plaintext highlighter-rouge">casLoginView.jsp</code>, etc). 
+This is specially useful in cases where the set of pages for a theme that are targeted
+for a different type of audience are entirely different structurally that simply
+using the dynamic mode is not practical to augment the default views. In such cases, new view pages may be required.</p>
+
+<h4 id="configuration-2">Configuration</h4>
+<ul>
+  <li>Clone the default set of view pages into a new directory based on the theme id (i.e. <code class="language-plaintext highlighter-rouge">/WEB-INF/view/jsp/&lt;theme-id&gt;/ui/</code>).</li>
+  <li>Specify the name of your theme for the service definition under the <code class="language-plaintext highlighter-rouge">theme</code> property.</li>
+</ul>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

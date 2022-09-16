@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Monitoring & Statistics</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="monitoring--statistics">Monitoring / Statistics</h1>
+
+<p>The following endpoints are available and secured by CAS:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/dashboard</code></td>
+      <td>The control panel to CAS server functionality and management.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status</code></td>
+      <td><a href="Configuring-Monitoring.html">Monitor CAS status and other underlying components</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/sso</code></td>
+      <td>Describes if there exists an active SSO session for this request tied to this browser session.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/swf</code></td>
+      <td>Describes the current configured state of CAS webflow in JSON.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/stats</code></td>
+      <td>Visual representation of CAS statistics with graphs and charts, etc.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/logging</code></td>
+      <td>Monitor CAS logs in a streaming fashion and review the audit log.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/config</code></td>
+      <td>Visual representation of application properties and configuration.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/ssosessions</code></td>
+      <td>Reports active SSO sessions. Examine attributes, services and log users out.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/services</code></td>
+      <td>Reports the collection of <a href="Service-Management.html">applications registered with CAS</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/trustedDevs</code></td>
+      <td>Reports on the <a href="Multifactor-TrustedDevice-Authentication.html">registered trusted devices/browsers</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/authnEvents</code></td>
+      <td>When enabled, reports on the <a href="Configuring-Authentication-Events.html">events captured by CAS</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/attrresolution</code></td>
+      <td>Examine resolution of user attributes via <a href="../integration/Attribute-Resolution.html">CAS attribute resolution</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/discovery</code></td>
+      <td>Advertises the CAS server’s profile, features and capabilities for auto-configuration of client applications.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#cas-endpoints">review this guide</a>.</p>
+
+<p>The following endpoints are secured and available 
+by <a href="http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html">Spring Boot actuators</a>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/autoconfig</code></td>
+      <td>Describes how the CAS application context is auto-configured.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/beans</code></td>
+      <td>Displays all CAS application context <strong>internal</strong> Spring beans.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/configprops</code></td>
+      <td>List of <strong>internal</strong> configuration properties.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/dump</code></td>
+      <td>Produces a thread dump for the running CAS server.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/env</code></td>
+      <td>Produces a collection of all application properties.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/health</code></td>
+      <td>Reports back general health status of the system, produced by various monitors.  When the application is secure, a simple <code class="language-plaintext highlighter-rouge">status</code> when accessed over an unauthenticated connection is presented, or full message details when authenticated.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/info</code></td>
+      <td>CAS version information and other system traits.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/metrics</code></td>
+      <td>Runtime metrics and stats.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/mappings</code></td>
+      <td>Describes how requests are mapped and handled by CAS.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/shutdown</code></td>
+      <td>Shut down the application via a <code class="language-plaintext highlighter-rouge">POST</code>. Disabled by default.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/restart</code></td>
+      <td>Restart the application via a <code class="language-plaintext highlighter-rouge">POST</code>. Disabled by default.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/status/refresh</code></td>
+      <td>Refresh the application configuration via a <code class="language-plaintext highlighter-rouge">POST</code> to let components reload and recognize new values.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Actuator endpoints provided by Spring Boot can also be visually managed and monitored via the <a href="Configuring-Monitoring-Administration.html">Spring Boot Administration Server</a>.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#spring-boot-endpoints">review this guide</a>.</p>
+
+<div class="alert alert-info"><strong>Obtaining Health Info</strong><p>Note that <code>/status</code> endpoint is kept mostly 
+as a legacy endpoint. If you wish to obtain health status of each monitor in detail, we recommend the <code>/status/health</code> endpoint instead.</p></div>
+
+<h2 id="security">Security</h2>
+
+<p>All urls that are scoped to the <code class="language-plaintext highlighter-rouge">/status</code> endpoint are modeled after Spring Boot’s own actuator endpoints
+and by default are considered <code class="language-plaintext highlighter-rouge">sensitive</code>. By default, no endpoint is enabled or allowed access.</p>
+
+<p>Endpoints may go through multiple levels and layers of security described here:</p>
+
+<ul>
+  <li>All endpoints may be globally considered <code class="language-plaintext highlighter-rouge">sensitive</code>.</li>
+  <li>Spring Boot’s actuator endpoints may be individually marked as <code class="language-plaintext highlighter-rouge">sensitive</code> or <code class="language-plaintext highlighter-rouge">enabled</code>.</li>
+  <li>Similarly, CAS endpoints may be individually marked as <code class="language-plaintext highlighter-rouge">sensitive</code> or <code class="language-plaintext highlighter-rouge">enabled</code>.</li>
+  <li>In the event that access to an endpoint is allowed, (i.e endpoint is enabled and is not marked as sensitive), CAS will attempt
+to control access by enforcing rules via IP address matching, delegating to itself, etc. The <code class="language-plaintext highlighter-rouge">/status</code> endpoint is always protected by an IP pattern. The other administrative endpoints however can optionally be protected by the CAS server. Failing to secure these endpoints via a CAS instance will have CAS fallback onto the IP range.
+    <ul>
+      <li>If you decide to protect other administrative endpoints via CAS itself, you will need to provide
+  a reference to the list of authorized users in the CAS configuration. You may also enforce authorization
+  rules via <a href="Configuring-Service-Access-Strategy.html">Service-based Access Strategy</a> features of CAS.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="alert alert-warning"><strong>Reverse Proxies</strong><p>Allowing access to the <code>/status</code> endpoint
+via IP address matching needs to be very carefully designed, specially in cases where CAS is deployed behind a proxy
+such as Apache. Be sure to test access rules and policies carefully or otherwise devise your own.</p></div>
+
+<h3 id="spring-security">Spring Security</h3>
+
+<p>Alternatively, you may design the security of CAS <code class="language-plaintext highlighter-rouge">/status</code> endpoints to take advantage
+of <a href="http://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html">Spring Security</a>.
+After all, that’s what <code class="language-plaintext highlighter-rouge">sensitive</code> is designed to do. Using this model and via CAS settings, you get to define 
+the authentication scheme (i.e. <code class="language-plaintext highlighter-rouge">BASIC</code>) as well
+as the protected/ignored paths and pre-defined “master” username/password that is used for authentication.
+If the password is left blank, a random password will be generated/printed in the logs by default.
+Besides the master credentials, backend authentication support via LDAP and JDBC storage facilities are also available.</p>
+
+<p>Support is enabled by including the following module in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-webapp-config-security<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#securing-endpoints-with-spring-security">review this guide</a>.</p>
+
+<h3 id="troubleshooting">Troubleshooting</h3>
+
+<p>To enable additional logging, configure the log4j configuration file to add the following
+levels:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>...
+<span class="nt">&lt;AsyncLogger</span> <span class="na">name=</span><span class="s">"org.pac4j"</span> <span class="na">level=</span><span class="s">"debug"</span> <span class="na">additivity=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"console"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"file"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/AsyncLogger&gt;</span>
+<span class="nt">&lt;AsyncLogger</span> <span class="na">name=</span><span class="s">"org.springframework.security"</span> <span class="na">level=</span><span class="s">"debug"</span> <span class="na">additivity=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"console"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"file"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/AsyncLogger&gt;</span>
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="monitors">Monitors</h2>
+
+<p>Monitors allow you to watch the internal state of a given CAS component.
+See <a href="Configuring-Monitoring.html">this guide</a> for more info.</p>
+
+<h2 id="distributed-tracing">Distributed Tracing</h2>
+
+<p>Support for distributed tracing of requests is enabled by including the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-sleuth<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="https://cloud.githubusercontent.com/assets/1205228/24955152/8798ad9c-1f97-11e7-8b9d-fccc3c306c42.png" alt="image" /></p>
+
+<p>For most users <a href="https://cloud.spring.io/spring-cloud-sleuth/">Sleuth</a> should be invisible, and all
+interactions with external systems should be instrumented automatically.</p>
+
+<p>Trace data is captured automatically and passed along to <a href="https://github.com/openzipkin/zipkin">Zipkin</a>, which helps 
+gather timing data needed to troubleshoot latency problems.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#sleuth-distributed-tracing">review this guide</a>.</p>
+
+<h3 id="troubleshooting-1">Troubleshooting</h3>
+
+<p>To enable additional logging, modify the logging configuration file to add the following:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre> <span class="nt">&lt;AsyncLogger</span> <span class="na">name=</span><span class="s">"org.springframework.cloud"</span> <span class="na">level=</span><span class="s">"debug"</span> <span class="na">additivity=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"casConsole"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"casFile"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/AsyncLogger&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="metrics">Metrics</h2>
+
+<p>Metrics allow to gain insight into the running CAS software, and provide ways to measure the behavior of critical components. 
+See <a href="Configuring-Metrics.html">this guide</a> for more info.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

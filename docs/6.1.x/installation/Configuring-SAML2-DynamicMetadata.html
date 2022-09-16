@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - SAML2 Metadata Management</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="saml2-metadata-management">SAML2 Metadata Management</h1>
+
+<p>Management of service provider metadata in a dynamic on-the-fly fashion may be accomplished via strategies outlined here.</p>
+
+<h2 id="administrative-endpoints">Administrative Endpoints</h2>
+
+<p>The following endpoints are provided by CAS:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Endpoint</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">samlIdPRegisteredServiceMetadataCache</code></td>
+      <td>Manage and control the cache that holds metadata instances for SAML service providers. Note the cache is specific to the JVM memory of the CAS server node and it’s <strong>NOT</strong> distributed or replicated. A <code class="language-plaintext highlighter-rouge">GET</code> operation produces the cached copy of the metadata for a given service provider, using the <code class="language-plaintext highlighter-rouge">serviceId</code> and <code class="language-plaintext highlighter-rouge">entityId</code> parameters. The <code class="language-plaintext highlighter-rouge">serviceId</code> parameter may be the numeric identifier for the registered service or its name. In case the service definition represents a metadata aggregate such as InCommon, the <code class="language-plaintext highlighter-rouge">entityId</code> parameter may be used to pinpoint and filter the exact entity within the aggregate. A <code class="language-plaintext highlighter-rouge">DELETE</code> operation will delete invalidate the metadata cache. If no parameters are provided, the metadata cache will be entirely invalidated. A <code class="language-plaintext highlighter-rouge">serviceId</code> parameter will force CAS to only invalidate the cached metadata instance for that service provider. The <code class="language-plaintext highlighter-rouge">serviceId</code> parameter may be the numeric identifier for the registered service or its name.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="metadata-query-protocol">Metadata Query Protocol</h2>
+
+<p>CAS also supports the <a href="https://spaces.internet2.edu/display/InCFederation/Metadata+Query+Protocol">Dynamic Metadata Query Protocol</a>
+which is a REST-like API for requesting and receiving arbitrary metadata. In order to configure a CAS SAML service to retrieve its metadata from a Metadata query server, the metadata location must be configured to point to the query server instance.</p>
+
+<p>MDQ may be configured using the below snippet as an example:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.support.saml.services.SamlRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"the-entity-id-of-the-sp"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SAMLService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10000003</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"evaluationOrder"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadataLocation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mdq.server.org/entities/{0}"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>…where <code class="language-plaintext highlighter-rouge">{0}</code> serves as an entityID placeholder for which metadata is to be queried. The placeholder is dynamically processed and replaced by CAS at runtime.</p>
+
+<h2 id="rest">REST</h2>
+
+<p>Similar to the Dynamic Metadata Query Protocol (MDQ), SAML service provider metadata may also be fetched using a more traditional REST interface. This is a simpler option that does not require one to deploy a compliant MDQ server and provides the flexibility of producing SP metadata using any programming language or framework.</p>
+
+<p>Support is enabled by including the following module in the overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-saml-idp-metadata-rest<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Use the below snippet as an example to fetch metadata from REST endpoints:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.support.saml.services.SamlRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"the-entity-id-of-the-sp"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SAMLService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10000003</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"evaluationOrder"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadataLocation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"rest://"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info"><strong>Metadata Location</strong><p>
+The metadata location in the registration record above simply needs to be specified as <code>rest://</code> to signal to CAS that SAML metadata for registered service provider must be fetched from REST endpoints defined in CAS configuration.
+</p></div>
+
+<p>Requests are submitted to REST endpoints with <code class="language-plaintext highlighter-rouge">entityId</code> as the parameter and <code class="language-plaintext highlighter-rouge">Content-Type: application/xml</code> as the header. Upon a successful <code class="language-plaintext highlighter-rouge">200 - OK</code> response status, CAS expects the body of the HTTP response to match the below snippet:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">  
+   </span><span class="nl">"id"</span><span class="p">:</span><span class="mi">1000</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"SAML Metadata For Service Provider"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"value"</span><span class="p">:</span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"signature"</span><span class="p">:</span><span class="s2">"..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-rest">see this guide</a>.</p>
+
+<h2 id="mongodb">MongoDb</h2>
+
+<p>Metadata documents may also be stored in and fetched from a MongoDb instance.  This may specially be used to avoid copying metadata files across CAS nodes in a cluster, particularly where one needs to deal with more than a few bilateral SAML integrations. Metadata documents are stored in and fetched from a single pre-defined collection that is taught to CAS via settings.  The outline of the document is as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>The identifier of the record.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>Indexed field which describes and names the metadata briefly.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">value</code></td>
+      <td>The XML document representing the metadata for the service provider.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signature</code></td>
+      <td>The contents of the signing certificate to validate metadata, if any.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Support is enabled by including the following module in the overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-saml-idp-metadata-mongo<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>SAML service definitions must then be designed as follows to allow CAS to fetch metadata documents from MongoDb instances:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.support.saml.services.SamlRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"the-entity-id-of-the-sp"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SAMLService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10000003</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"A MongoDb-based metadata resolver"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadataLocation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"mongodb://"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info"><strong>Metadata Location</strong><p>
+The metadata location in the registration record above simply needs to be specified as <code>mongodb://</code> to signal to CAS that 
+SAML metadata for registered service provider must be fetched from MongoDb data sources defined in CAS configuration. 
+</p></div>
+
+<p>To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-mongodb">see this guide</a>.</p>
+
+<h3 id="identity-provider-metadata">Identity Provider Metadata</h3>
+
+<p>Metadata artifacts that belong to CAS as a SAML2 identity provider may also be managed and stored via MongoDb. Artifacts such as the metadata, signing and encryption keys, etc are kept inside a MongoDb collection taught to CAS via settings as a single document that would have the following structure:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"signingCertificate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"signingKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"encryptionCertificate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"encryptionKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Note that the signing and encryption keys are expected to be encrypted and signed using CAS crypto keys. To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-mongodb">see this guide</a>.</p>
+
+<h2 id="jpa">JPA</h2>
+
+<p>Metadata documents may also be stored in and fetched from a relational database instance. This may specially be used to avoid copying metadata files across CAS nodes in a cluster, particularly where one needs to deal with more than a few bilateral SAML integrations. Metadata documents are stored in and fetched from a single pre-defined table  (i.e. <code class="language-plaintext highlighter-rouge">SamlMetadataDocument</code>) whose connection information is taught to CAS via settings and is automatically generated.  The outline of the table is as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>The identifier of the record.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>Indexed field which describes and names the metadata briefly.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">value</code></td>
+      <td>The XML document representing the metadata for the service provider.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signature</code></td>
+      <td>The contents of the signing certificate to validate metadata, if any.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Support is enabled by including the following module in the overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-saml-idp-metadata-jpa<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>SAML service definitions must then be designed as follows to allow CAS to fetch metadata documents from database  instances:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.support.saml.services.SamlRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"the-entity-id-of-the-sp"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SAMLService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10000003</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"A relational-db-based metadata resolver"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadataLocation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"jdbc://"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info"><strong>Metadata Location</strong><p>
+The metadata location in the registration record above simply needs to be specified as <code>jdbc://</code> to signal to CAS that SAML metadata for registered service provider must be fetched from JDBC data sources defined in CAS configuration. 
+</p></div>
+
+<p>To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-jpa">see this guide</a>.</p>
+
+<h3 id="identity-provider-metadata-1">Identity Provider Metadata</h3>
+
+<p>Metadata artifacts that belong to CAS as a SAML2 identity provider may also be managed and stored via JPA. Artifacts such as the metadata, signing and encryption keys, etc are kept
+inside a database table that would have the following structure:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>The identifier of the record.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signingCertificate</code></td>
+      <td>The signing certificate.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signingKey</code></td>
+      <td>The signing key.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">encryptionCertificate</code></td>
+      <td>The encryption certificate.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">encryptionKey</code></td>
+      <td>The encryption key.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">metadata</code></td>
+      <td>The SAML2 identity provider metadata.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that the signing and encryption keys are expected to be encrypted and signed using CAS crypto keys. To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-jpa">see this guide</a>.</p>
+
+<h2 id="couchdb">CouchDb</h2>
+
+<p>Metadata documents may also be stored in and fetched from a NoSQL database. This may specially be used to avoid copying metadata files across CAS nodes in a cluster, particularly where one needs to deal with more than a few bilateral SAML integrations. Metadata documents are stored in and fetched from a single pre-defined table  (i.e. <code class="language-plaintext highlighter-rouge">SamlMetadataDocument</code>) whose connection information is taught to CAS via settings and is automatically generated.  The outline of the database document is as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>The identifier of the record.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>Indexed field which describes and names the metadata briefly.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">value</code></td>
+      <td>The XML document representing the metadata for the service provider.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signature</code></td>
+      <td>The contents of the signing certificate to validate metadata, if any.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Support is enabled by including the following module in the overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-saml-idp-metadata-couchdb<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>SAML service definitions must then be designed as follows to allow CAS to fetch metadata documents from CouchDb instances:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.support.saml.services.SamlRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"the-entity-id-of-the-sp"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SAMLService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10000003</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"A relational-db-based metadata resolver"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadataLocation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"couchdb://"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info"><strong>Metadata Location</strong><p>
+The metadata location in the registration record above simply needs to be specified as <code>couchdb://</code> to signal to CAS that SAML metadata for registered service provider must be fetched from CouchDb as defined in CAS configuration.
+</p></div>
+
+<p>Note that the signing and encryption keys are expected to be encrypted and signed using CAS crypto keys. To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-couchdb">see this guide</a>.</p>
+
+<h3 id="identity-provider-metadata-2">Identity Provider Metadata</h3>
+
+<p>Metadata artifacts that belong to CAS as a SAML2 identity provider may also be managed and stored via CouchDb. Artifacts such as the metadata, signing and encryption keys, etc are kept
+inside a database with documents that would have the following structure:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>The identifier of the record.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signingCertificate</code></td>
+      <td>The signing certificate.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signingKey</code></td>
+      <td>The signing key.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">encryptionCertificate</code></td>
+      <td>The encryption certificate.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">encryptionKey</code></td>
+      <td>The encryption key.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">metadata</code></td>
+      <td>The SAML2 identity provider metadata.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that the signing and encryption keys are expected to be encrypted and signed using CAS crypto keys. To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-couchdb">see this guide</a>.</p>
+
+<h2 id="groovy">Groovy</h2>
+
+<p>A metadata location for a SAML service definition may  point to an external Groovy script, allowing the script to programmatically determine and build the metadata resolution machinery to be added to the collection of the existing resolvers.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.support.saml.services.SamlRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"the-entity-id-of-the-sp"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SAMLService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10000003</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"A Groovy-based metadata resolver"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadataLocation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"file:/etc/cas/config/groovy-metadata.groovy"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The outline of the script may be as follows:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.*</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.support.saml.*</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.support.saml.services.*</span>
+<span class="kn">import</span> <span class="nn">org.opensaml.saml.metadata.resolver.*</span>
+
+<span class="kt">def</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">MetadataResolver</span><span class="o">&gt;</span> <span class="n">run</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">registeredService</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">samlConfigBean</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">samlProperties</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">criteriaSet</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span>
+
+    <span class="cm">/*
+     Stuff happens where you build the relevant metadata resolver instance(s).
+     When done, simply wrap the results into a collection and return.
+     A null or empty collection will be ignored by CAS.
+  */</span>
+  <span class="kt">def</span> <span class="n">metadataResolver</span> <span class="o">=</span> <span class="o">...</span>
+   <span class="k">return</span> <span class="n">CollectionUtils</span><span class="o">.</span><span class="na">wrap</span><span class="o">(</span><span class="n">metadataResolver</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The parameters passed are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">registeredService</code></td>
+      <td>The object representing the corresponding service definition in the registry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">samlConfigBean</code></td>
+      <td>The object representing the OpenSAML configuration class holding various builder and marshaller factory instances.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">samlProperties</code></td>
+      <td>The object responsible for capturing the CAS SAML IdP properties defined in the configuration.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">criteriaSet</code></td>
+      <td>The object responsible for capturing the criteria for metadata solution, if any.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logger</code></td>
+      <td>The object responsible for issuing log messages such as <code class="language-plaintext highlighter-rouge">logger.info(...)</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="amazon-s3">Amazon S3</h2>
+
+<p>Metadata documents may also be stored in and fetched from a MongoDb instance.
+This may specially be used to avoid copying metadata files across CAS nodes in a cluster, particularly where one needs 
+to deal with more than a few bilateral SAML integrations. Metadata documents are stored in and fetched from a 
+single pre-defined bucket that is taught to CAS via settings.</p>
+
+<p>Support is enabled by including the following module in the overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-saml-idp-metadata-aws-s3<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>SAML service definitions must then be designed as follows to allow CAS to fetch metadata documents from MongoDb instances:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.support.saml.services.SamlRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"the-entity-id-of-the-sp(s)"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"SAMLService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10000003</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Amazon S3-based metadata resolver"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadataLocation"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"awss3://"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following parameters are expected for the Amazon S3 object metadata:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signature</code></td>
+      <td>The metadata signing certificate, if any.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="alert alert-info"><strong>Metadata Location</strong><p>
+The metadata location in the registration record above simply needs to be specified as <code>awss3://</code> to signal to CAS that 
+SAML metadata for registered service provider must be fetched from Amazon S3 defined in CAS configuration. 
+</p></div>
+
+<p>To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-amazon-s3">see this guide</a>.</p>
+
+<h3 id="identity-provider-metadata-3">Identity Provider Metadata</h3>
+
+<p>Metadata artifacts that belong to CAS as a SAML2 identity provider may also be managed and stored via Amazon S3 buckets. Artifacts such as the metadata, signing and encryption keys, etc are kept
+inside a bucket with metadata that would have the following structure:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>The identifier of the record.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signingCertificate</code></td>
+      <td>The signing certificate.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signingKey</code></td>
+      <td>The signing key.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">encryptionCertificate</code></td>
+      <td>The encryption certificate.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">encryptionKey</code></td>
+      <td>The encryption key.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The actual object’s content/body is expected to contain the SAML2 identity provider metadata. Note that the signing and encryption keys are expected to be encrypted and signed using CAS crypto keys.</p>
+
+<p>To see the relevant CAS properties, please <a href="../configuration/Configuration-Properties.html#saml-metadata-amazon-s3">see this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

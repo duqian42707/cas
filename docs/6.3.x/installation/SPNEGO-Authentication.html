@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - SPNEGO Authentication</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="spnego-authentication">SPNEGO Authentication</h1>
+
+<p><a href="http://en.wikipedia.org/wiki/SPNEGO">SPNEGO</a> is an authentication technology that is primarily used to provide
+transparent CAS authentication to browsers running on Windows running under Active Directory domain credentials.
+There are three actors involved: the client, the CAS server, and the Active Directory Domain Controller/KDC.</p>
+
+<ol>
+  <li>Client sends CAS:               HTTP <code class="language-plaintext highlighter-rouge">GET</code> to CAS for cas protected page</li>
+  <li>CAS responds:                   HTTP <code class="language-plaintext highlighter-rouge">401</code> - Access Denied <code class="language-plaintext highlighter-rouge">WWW-Authenticate: Negotiate</code></li>
+  <li>Client sends ticket request:    Kerberos(<code class="language-plaintext highlighter-rouge">KRB_TGS_REQ</code>) Requesting ticket for <code class="language-plaintext highlighter-rouge">HTTP/cas.example.com@REALM</code></li>
+  <li>Kerberos KDC responds:          Kerberos(<code class="language-plaintext highlighter-rouge">KRB_TGS_REP</code>) Granting ticket for <code class="language-plaintext highlighter-rouge">HTTP/cas.example.com@REALM</code></li>
+  <li>Client sends CAS:               HTTP <code class="language-plaintext highlighter-rouge">GET</code> Authorization: Negotiate w/SPNEGO Token</li>
+  <li>CAS responds:                   HTTP <code class="language-plaintext highlighter-rouge">200</code> - OK <code class="language-plaintext highlighter-rouge">WWW-Authenticate</code> w/SPNEGO response + requested page.</li>
+</ol>
+
+<p>The above interaction occurs only for the first request, when there is no CAS SSO session.
+Once CAS grants a ticket-granting ticket, the SPNEGO process will not happen again until the CAS
+ticket expires.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<ul>
+  <li>Client is logged in to a Windows Active Directory domain.</li>
+  <li>Supported browser.</li>
+  <li>CAS is running MIT kerberos against the AD domain controller.</li>
+</ul>
+
+<div class="alert alert-info"><strong>JCE Requirement</strong><p>It's safe to make sure you have the proper JCE bundle installed in your Java environment that is used by CAS, specially if you need to consume encrypted payloads issued by ADFS. Be sure to pick the right version of the JCE for your Java version. Java versions can be detected via the <code>java -version</code> command.</p></div>
+
+<div class="alert alert-info"><strong>Large Kerberos Tickets</strong><p>If organization users have large kerberos tickets, likely cause by being a member of a large number of groups, the Tomcat connector will need to have the <code>maxHttpHeaderSize</code> value increased from the default amount to allow the ticket to be passed to the CAS Server application.</p></div>
+
+<h2 id="components">Components</h2>
+
+<p>SPNEGO support is enabled by including the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-spnego-webflow<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="jcifs-sdk">JCIFS SDK</h3>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">jcifs-ext</code> library is no longer published to a public Maven repository. This means that you will need to download
+the necessary JAR files and include them in your build configuration. The SDK may be downloaded
+from <a href="https://github.com/apereo/cas/blob/master/support/cas-server-support-spnego/lib/jcifs-ext.jar">the CAS codebase</a>. Then,
+assuming the SDK is placed inside a <code class="language-plaintext highlighter-rouge">lib</code> directory of the <a href="../installation/WAR-Overlay-Installation.html">WAR overlay</a>
+directory, it can be referenced in the build configuration as such:</p>
+
+<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">implementation</span> <span class="nf">files</span><span class="o">(</span><span class="s2">"${projectDir}/lib/jcifs-ext.jar"</span><span class="o">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>The following steps are required to turn on the SPNEGO functionality.</p>
+
+<h3 id="create-spn-account">Create SPN Account</h3>
+
+<p>Create an Active Directory account for the Service Principal Name (SPN) and record the username. Password will be overwritten by the next step.</p>
+
+<h3 id="create-keytab-file">Create Keytab File</h3>
+
+<p>The keytab file enables a trust link between the CAS server and the Key Distribution Center (KDC); an Active Directory
+domain controller serves the role of KDC in this context.
+The <a href="http://technet.microsoft.com/en-us/library/cc753771.aspx"><code class="language-plaintext highlighter-rouge">ktpass</code> tool</a> is used to generate the keytab file,
+which contains a cryptographic key. Be sure to execute the command from an Active Directory domain controller as
+administrator (a member of domain administrators will not be able to use <code class="language-plaintext highlighter-rouge">ktpass</code> successfully).</p>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>C:<span class="se">\U</span>sers<span class="se">\a</span>dministrator.DOMAIN&gt;ktpass /out myspnaccount.keytab /princ HTTP/cas.example.com@REALM /pass <span class="k">*</span> /mapuser domain-account@YOUR.REALM /ptype KRB5_NT_PRINCIPAL /crypto RC4-HMAC-NT
+Targeting domain controller: DC.YOUR.REALM
+Successfully mapped HTTP/cas.example.com to domaine-account.
+Type the password <span class="k">for </span>HTTP/cas.example.com:
+Type the password again to confirm:
+Password succesfully <span class="nb">set</span><span class="o">!</span>
+Key created.
+Output keytab to myspnaccount.keytab:
+Keytab version: 0x502
+keysize 69 HTTP/cas.example.com@REALM ptype 1 <span class="o">(</span>KRB5_NT_PRINCIPAL<span class="o">)</span> vno 3 etype 0x17 <span class="o">(</span>RC4-HMAC<span class="o">)</span> keylength 16
+<span class="o">(</span>0x00112233445566778899aabbccddeeff<span class="o">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Using <code class="language-plaintext highlighter-rouge">ktpass</code> requires Active Directory admin permissions. If that is not an option, you may be able to use <code class="language-plaintext highlighter-rouge">ktab.exe</code> from <code class="language-plaintext highlighter-rouge">%JAVA_HOME%\bin\ktab.exe</code> that 
+is provided by the JDK:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>%JAVA_HOME%<span class="se">\b</span><span class="k">in</span><span class="se">\k</span>tab.exe <span class="nt">-a</span> service_xxx <span class="nt">-n</span> 0 <span class="nt">-k</span> cas.keytab
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-k</code> specifies key tab output file name and <code class="language-plaintext highlighter-rouge">-n 0</code> specifies the KNVO number if available and found for the user account. This value may match the <code class="language-plaintext highlighter-rouge">msDS-KeyVersionNumber</code> on the user account.</p>
+
+<p>Also note that the keytab file must be regenerated after password changes, if any.</p>
+
+<h3 id="test-spn-account">Test SPN Account</h3>
+
+<p>Install and configure MIT Kerberos V on the CAS server host(s). The following sample <code class="language-plaintext highlighter-rouge">krb5.conf</code> file may be used
+as a reference.</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="nn">[logging]</span>
+ <span class="py">default</span> <span class="p">=</span> <span class="s">FILE:/var/log/krb5libs.log</span>
+ <span class="py">kdc</span> <span class="p">=</span> <span class="s">FILE:/var/log/krb5kdc.log</span>
+ <span class="py">admin_server</span> <span class="p">=</span> <span class="s">FILE:/var/log/kadmind.log</span>
+
+<span class="nn">[libdefaults]</span>
+ <span class="py">ticket_lifetime</span> <span class="p">=</span> <span class="s">24000</span>
+ <span class="py">default_realm</span> <span class="p">=</span> <span class="s">YOUR.REALM.HERE</span>
+ <span class="py">default_keytab_name</span> <span class="p">=</span> <span class="s">/home/cas/kerberos/myspnaccount.keytab</span>
+ <span class="py">dns_lookup_realm</span> <span class="p">=</span> <span class="s">false</span>
+ <span class="py">dns_lookup_kdc</span> <span class="p">=</span> <span class="s">false</span>
+ <span class="py">default_tkt_enctypes</span> <span class="p">=</span> <span class="s">rc4-hmac</span>
+ <span class="py">default_tgs_enctypes</span> <span class="p">=</span> <span class="s">rc4-hmac</span>
+
+<span class="nn">[realms]</span>
+ <span class="py">YOUR.REALM.HERE</span> <span class="p">=</span> <span class="s">{</span>
+  <span class="py">kdc</span> <span class="p">=</span> <span class="s">your.kdc.your.realm.here:88</span>
+ <span class="err">}</span>
+
+<span class="nn">[domain_realm]</span>
+ <span class="py">.your.realm.here</span> <span class="p">=</span> <span class="s">YOUR.REALM.HERE</span>
+ <span class="py">your.realm.here</span> <span class="p">=</span> <span class="s">YOUR.REALM.HERE</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>It is important to note that <code class="language-plaintext highlighter-rouge">myspnaccount.keytab</code> is declared as default keytab, otherwise CAS may not be able to
+find it and will raise an exception similar to</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>KrbException: Invalid argument <span class="o">(</span>400<span class="o">)</span> - Cannot find key of appropriate <span class="nb">type </span>to decrypt AP REP <span class="nt">-RC4</span> with HMAC<span class="sb">`</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Then verify that your are able to <strong>read</strong> the keytab file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>klist <span class="nt">-k</span>
+Keytab name: FILE:/home/cas/kerberos/myspnaccount.keytab
+KVNO Principal
+<span class="nt">----</span> <span class="nt">--------------------------------------------------------------------------</span>
+   3 HTTP/cas.example.com@REALM
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Then verify that your are able to <strong>use</strong> the keytab file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>kinit <span class="nt">-k</span> HTTP/cas.example.com@REALM
+klist
+Ticket cache: FILE:/tmp/krb5cc_999
+Default principal: HTTP/cas.example.com@REALM
+
+Valid starting       Expires              Service principal
+12/08/2016 10:52:00  12/08/2016 20:52:00  krbtgt/REALM@REALM
+	renew <span class="k">until </span>12/08/2016 20:52:00
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="browser-configuration">Browser Configuration</h3>
+
+<ul>
+  <li>Internet Explorer - Enable <code class="language-plaintext highlighter-rouge">Integrated Windows Authentication</code> and add the CAS server URL to the <code class="language-plaintext highlighter-rouge">Local Intranet</code>
+zone.</li>
+  <li>Firefox - Set the <code class="language-plaintext highlighter-rouge">network.negotiate-auth.trusted-uris</code> configuration parameter in <code class="language-plaintext highlighter-rouge">about:config</code> to the CAS server
+URL, e.g. <code class="language-plaintext highlighter-rouge">https://cas.example.com</code>.</li>
+</ul>
+
+<h3 id="authentication-configuration">Authentication Configuration</h3>
+
+<p>Make sure you have at least specified the JCIFS Service Principal in the CAS configuration.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#spnego-authentication">review this guide</a>.
+To see the relevant list of CAS properties that deal with NTLM authentication,
+please <a href="../configuration/Configuration-Properties.html#ntlm-authentication">review this guide</a>.</p>
+
+<p>You may provide a JAAS <code class="language-plaintext highlighter-rouge">login.conf</code> file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>jcifs.spnego.initiate <span class="o">{</span>
+   com.sun.security.auth.module.Krb5LoginModule required <span class="nv">storeKey</span><span class="o">=</span><span class="nb">true </span><span class="nv">useKeyTab</span><span class="o">=</span><span class="nb">true </span><span class="nv">keyTab</span><span class="o">=</span><span class="s2">"/home/cas/kerberos/myspnaccount.keytab"</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+jcifs.spnego.accept <span class="o">{</span>
+   com.sun.security.auth.module.Krb5LoginModule required <span class="nv">storeKey</span><span class="o">=</span><span class="nb">true </span><span class="nv">useKeyTab</span><span class="o">=</span><span class="nb">true </span><span class="nv">keyTab</span><span class="o">=</span><span class="s2">"/home/cas/kerberos/myspnaccount.keytab"</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="client-selection-strategy">Client Selection Strategy</h2>
+
+<p>CAS provides a set of components that attempt to activate the SPNEGO flow conditionally,
+in case deployers need a configurable way to decide whether SPNEGO should be applied to the
+current authentication/browser request. The state that is available to the webflow
+is <code class="language-plaintext highlighter-rouge">evaluateClientRequest</code> which will attempt to start SPNEGO authentication
+or resume normally, depending on the client action strategy chosen below.</p>
+
+<h3 id="by-remote-ip">By Remote IP</h3>
+
+<p>Checks to see if the request’s remote ip address matches a predefine pattern.
+To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#spnego-authentication">review this guide</a>.</p>
+
+<h3 id="by-hostname">By Hostname</h3>
+
+<p>Checks to see if the request’s remote hostname matches a predefine pattern.
+To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#spnego-authentication">review this guide</a>.</p>
+
+<h3 id="by-ldap-attribute">By LDAP Attribute</h3>
+
+<p>Checks an LDAP instance for the remote hostname, to locate a pre-defined attribute whose mere existence
+would allow the webflow to resume to SPNEGO.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#spnego-authentication">review this guide</a>.</p>
+
+<h2 id="logging">Logging</h2>
+
+<p>To enable additional logging, configure the log4j configuration file to add the following levels:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>...
+<span class="nt">&lt;Logger</span> <span class="na">name=</span><span class="s">"jcifs.spnego"</span> <span class="na">level=</span><span class="s">"debug"</span> <span class="na">additivity=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"console"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"file"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Logger&gt;</span>
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<ul>
+  <li>Failure unspecified at GSS-API level</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>Caused by: GSSException: Failure unspecified at GSS-API level <span class="o">(</span>Mechanism level: Invalid argument <span class="o">(</span>400<span class="o">)</span> - Cannot find key of appropriate <span class="nb">type </span>to decrypt AP REP - AES256 CTS mode with HMAC SHA1-96<span class="o">)</span>
+        at sun.security.jgss.krb5.Krb5Context.acceptSecContext<span class="o">(</span>Unknown Source<span class="o">)</span>
+        at sun.security.jgss.GSSContextImpl.acceptSecContext<span class="o">(</span>Unknown Source<span class="o">)</span>
+        at sun.security.jgss.GSSContextImpl.acceptSecContext<span class="o">(</span>Unknown Source<span class="o">)</span>
+        ... 280 more
+Caused by: KrbException: Invalid argument <span class="o">(</span>400<span class="o">)</span> - Cannot find key of appropriate <span class="nb">type </span>to decrypt 
+AP REP - AES256 CTS mode with HMAC SHA1-96
+        at sun.security.krb5.KrbApReq.authenticate<span class="o">(</span>Unknown Source<span class="o">)</span>
+        at sun.security.krb5.KrbApReq.&lt;init&gt;<span class="o">(</span>Unknown Source<span class="o">)</span>
+        at sun.security.jgss.krb5.InitSecContextToken.&lt;init&gt;<span class="o">(</span>Unknown Source<span class="o">)</span>
+        ... 283 more
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>It’s very likely that you have the wrong path to <code class="language-plaintext highlighter-rouge">.keytab</code> file. The KVNO in the keytab file must be identical with the KVNO stored in the Active Directory. Active Directory is raising the KVNO with every execution of ktpass, as part of its <code class="language-plaintext highlighter-rouge">msDS-KeyVersionNumber</code>.</p>
+
+<p>Other possible causes include:</p>
+
+<ol>
+  <li>The service principal in the in the CAS configuration is not identical with that from the keytab. (param <code class="language-plaintext highlighter-rouge">/princ</code> from ktpass)</li>
+  <li>There is no key for the <code class="language-plaintext highlighter-rouge">enctype</code> sent with the ticket by Active Directory. (param <code class="language-plaintext highlighter-rouge">/crypto</code> from <code class="language-plaintext highlighter-rouge">ktpass</code> and set in the <code class="language-plaintext highlighter-rouge">krb5.conf/permitted_enctypes+default_tkt_enctypes</code>).</li>
+  <li>The KVNO from the ticket is different than the KVNO in the keytab (param <code class="language-plaintext highlighter-rouge">/kvno</code> from <code class="language-plaintext highlighter-rouge">ktpass</code>).</li>
+</ol>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Authentication';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

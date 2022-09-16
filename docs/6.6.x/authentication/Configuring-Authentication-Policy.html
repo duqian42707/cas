@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Configuring Authentication Policy</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="authentication-policy">Authentication Policy</h1>
+
+<p>CAS presents a number of strategies for handling authentication 
+security policies. Policies in general control the following:</p>
+
+<ol>
+  <li>Should the authentication chain be stopped after a certain kind of authentication failure?</li>
+  <li>Given multiple authentication handlers in a chain, what constitutes a successful authentication event?</li>
+</ol>
+
+<p>Policies are typically activated after:</p>
+
+<ol>
+  <li>An authentication failure has occurred.</li>
+  <li>The authentication chain has finished execution.</li>
+</ol>
+
+<p>Typical use cases of authentication policies may include:</p>
+
+<ol>
+  <li>Enforce a specific authentication’s successful execution, for the entire authentication event to be considered successful.</li>
+  <li>Ensure a specific class of failure is not evident in the authentication chain’s execution log.</li>
+  <li>Ensure that all authentication schemes in the chain are executed successfully, for the entire authentication event to be considered successful.</li>
+</ol>
+
+<h3 id="actuator-endpoints">Actuator Endpoints</h3>
+
+<p>The following endpoints are provided by CAS:</p>
+
+<div style="display:none" id="jdbcauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjdbcauthenticationPolicies .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjdbcauthenticationPolicies ');
+        $("ul#navPillsMenuscasmonitorendpointsjdbcauthenticationPolicies").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjdbcauthenticationPolicies li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjdbcauthenticationPolicies">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#requiredPropertiescasmonitorendpointsjdbcauthenticationPolicies">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#optionalPropertiescasmonitorendpointsjdbcauthenticationPolicies">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#signingEncryptionPropertiescasmonitorendpointsjdbcauthenticationPolicies">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#rdbmsPropertiescasmonitorendpointsjdbcauthenticationPolicies">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#emailPropertiescasmonitorendpointsjdbcauthenticationPolicies">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#ldapPropertiescasmonitorendpointsjdbcauthenticationPolicies">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjdbcauthenticationPolicies">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#authnPredicatePropertiescasmonitorendpointsjdbcauthenticationPolicies">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#passwordEncoderPropertiescasmonitorendpointsjdbcauthenticationPolicies">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#principalTransformationPropertiescasmonitorendpointsjdbcauthenticationPolicies">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjdbcauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcauthenticationPolicies(this);" href="#passwordPolicyPropertiescasmonitorendpointsjdbcauthenticationPolicies">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjdbcauthenticationPolicies">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjdbcauthenticationPolicies"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjdbcauthenticationPolicies">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjdbcauthenticationPolicies"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjdbcauthenticationPolicies").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjdbcauthenticationPolicies");
+        var id=$("#navPillsMenuscasmonitorendpointsjdbcauthenticationPolicies a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjdbcauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjdbcauthenticationPolicies").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjdbcauthenticationPolicies").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjdbcauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjdbcauthenticationPolicies").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjdbcauthenticationPolicies").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjdbcauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjdbcauthenticationPolicies").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="ldapauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsldapauthenticationPolicies .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsldapauthenticationPolicies ');
+        $("ul#navPillsMenuscasmonitorendpointsldapauthenticationPolicies").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsldapauthenticationPolicies li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsldapauthenticationPolicies">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#requiredPropertiescasmonitorendpointsldapauthenticationPolicies">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#optionalPropertiescasmonitorendpointsldapauthenticationPolicies">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsldapauthenticationPolicies">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#signingEncryptionPropertiescasmonitorendpointsldapauthenticationPolicies">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsldapauthenticationPolicies">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#rdbmsPropertiescasmonitorendpointsldapauthenticationPolicies">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsldapauthenticationPolicies">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#emailPropertiescasmonitorendpointsldapauthenticationPolicies">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsldapauthenticationPolicies">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#ldapPropertiescasmonitorendpointsldapauthenticationPolicies">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsldapauthenticationPolicies">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#authnPredicatePropertiescasmonitorendpointsldapauthenticationPolicies">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsldapauthenticationPolicies">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#passwordEncoderPropertiescasmonitorendpointsldapauthenticationPolicies">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsldapauthenticationPolicies">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#principalTransformationPropertiescasmonitorendpointsldapauthenticationPolicies">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsldapauthenticationPolicies">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsldapauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapauthenticationPolicies(this);" href="#passwordPolicyPropertiescasmonitorendpointsldapauthenticationPolicies">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsldapauthenticationPolicies">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsldapauthenticationPolicies">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsldapauthenticationPolicies">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsldapauthenticationPolicies"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsldapauthenticationPolicies">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsldapauthenticationPolicies">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsldapauthenticationPolicies"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsldapauthenticationPolicies").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsldapauthenticationPolicies").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsldapauthenticationPolicies");
+        var id=$("#navPillsMenuscasmonitorendpointsldapauthenticationPolicies a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsldapauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsldapauthenticationPolicies").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsldapauthenticationPolicies").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsldapauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsldapauthenticationPolicies").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsldapauthenticationPolicies").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsldapauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsldapauthenticationPolicies").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="jaasauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjaasauthenticationPolicies .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjaasauthenticationPolicies ');
+        $("ul#navPillsMenuscasmonitorendpointsjaasauthenticationPolicies").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjaasauthenticationPolicies li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjaasauthenticationPolicies">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#requiredPropertiescasmonitorendpointsjaasauthenticationPolicies">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#optionalPropertiescasmonitorendpointsjaasauthenticationPolicies">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjaasauthenticationPolicies">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#signingEncryptionPropertiescasmonitorendpointsjaasauthenticationPolicies">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjaasauthenticationPolicies">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#rdbmsPropertiescasmonitorendpointsjaasauthenticationPolicies">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjaasauthenticationPolicies">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#emailPropertiescasmonitorendpointsjaasauthenticationPolicies">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjaasauthenticationPolicies">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#ldapPropertiescasmonitorendpointsjaasauthenticationPolicies">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjaasauthenticationPolicies">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#authnPredicatePropertiescasmonitorendpointsjaasauthenticationPolicies">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjaasauthenticationPolicies">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#passwordEncoderPropertiescasmonitorendpointsjaasauthenticationPolicies">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjaasauthenticationPolicies">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#principalTransformationPropertiescasmonitorendpointsjaasauthenticationPolicies">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjaasauthenticationPolicies">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjaasauthenticationPolicies" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasauthenticationPolicies(this);" href="#passwordPolicyPropertiescasmonitorendpointsjaasauthenticationPolicies">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjaasauthenticationPolicies">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjaasauthenticationPolicies">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjaasauthenticationPolicies">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjaasauthenticationPolicies"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjaasauthenticationPolicies">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjaasauthenticationPolicies">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjaasauthenticationPolicies"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjaasauthenticationPolicies").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjaasauthenticationPolicies");
+        var id=$("#navPillsMenuscasmonitorendpointsjaasauthenticationPolicies a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjaasauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjaasauthenticationPolicies").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjaasauthenticationPolicies").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjaasauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjaasauthenticationPolicies").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjaasauthenticationPolicies").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjaasauthenticationPolicies li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjaasauthenticationPolicies").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div class="accordion" id="authenticationPolicies">
+    
+
+    
+
+    
+    
+</div>
+
+<p><br /></p>
+
+<h2 id="policies">Policies</h2>
+
+<p>Authentication policies can be managed via the following strategies.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Storage</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>All</td>
+      <td><a href="Configuring-Authentication-Policy-All.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Any</td>
+      <td><a href="Configuring-Authentication-Policy-Any.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Global</td>
+      <td><a href="Configuring-Authentication-Policy-Global.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Groovy</td>
+      <td><a href="Configuring-Authentication-Policy-Groovy.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Not Prevented</td>
+      <td><a href="Configuring-Authentication-Policy-NotPrevented.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Required</td>
+      <td><a href="Configuring-Authentication-Policy-Required.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>REST</td>
+      <td><a href="Configuring-Authentication-Policy-REST.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Source Selection</td>
+      <td><a href="Configuring-Authentication-Policy-SourceSelection.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Unique Principal</td>
+      <td><a href="Configuring-Authentication-Policy-UniquePrincipal.html">See this guide</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Authentication policies may also be defined on a per application 
+basis. See <a href="../services/Configuring-Service-AuthN-Policy.html">this guide</a> for more info.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Authentication';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

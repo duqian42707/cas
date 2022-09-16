@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Services Management Webapp</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="services-management-webapp">Services Management Webapp</h1>
+
+<p>The services management webapp is no longer part of the CAS server and
+is a standalone Spring Boot web application that ships with an embedded Apache Tomcat container.</p>
+
+<ul>
+  <li>The management webapp is used to add/edit/delete all the CAS services.</li>
+  <li>The CAS server loads/relies on all these defined CAS services to process all incoming requests.</li>
+</ul>
+
+<div class="alert alert-warning"><strong>Synchronized Configuration</strong><p>
+You <strong>MUST</strong> keep in mind that both applications (the CAS server and the services management webapp)
+share the <strong>same</strong> service registry configuration for CAS services.
+</p></div>
+
+<p>The management web application is purely an administrative interface that may be deployed in a completely different environment separate from CAS. It allows CAS administrators and application owners delegated access so they can manage and modify policies associated with their applications. The operational capacity of the CAS server itself is not in any way tied to the deployment status of the management web application; you may decide to take the application offline for maintenance or completely remove it from your deployment scenario at any given time.</p>
+
+<p>Note that for certain type of service registry backends, deploying the management web application is a requirement since it acts as the interface fronting CRUD operations that deal with the storage backend. The absence of the management web application means that you will need to find alternative tooling to <em>manually</em> interact with your registry of choice and the storage backend it employs.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>The source code repository for the CAS management web application is <a href="https://github.com/apereo/cas-management">located here</a>.</p>
+
+<h3 id="maven">Maven</h3>
+
+<p>A template overlay for the management webapp is <a href="https://github.com/apereo/cas-services-management-overlay">provided here</a>.</p>
+
+<h3 id="gradle">Gradle</h3>
+
+<p>A template overlay for the management webapp is <a href="https://github.com/apereo/cas-services-management--gradle-overlay">provided here</a>.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#management-webapp">review this guide</a>.</p>
+
+<p>The management web application is primarily controlled by a <code class="language-plaintext highlighter-rouge">management.yml|properties</code> file. However, all strategies outlined in <a href="Configuration-Management.html">CAS configuration management</a> equally apply here as well in the way that settings are defined, passed and resolved. The primary difference of course is the name of the configuration file.</p>
+
+<h2 id="services-registry">Services Registry</h2>
+
+<p>The <a href="Service-Management.html">persistence storage</a> for services <strong>MUST</strong> be the same as that of the CAS server. The same service registry component that is configured for the CAS server, including module and settings, needs to be configured in the same exact way for the management web application.</p>
+
+<h2 id="user-attributes">User Attributes</h2>
+<p>The set of user attributes defined in the CAS Server’s <a href="Configuration-Properties.html#authentication-attributes">authentication attributes</a> or <a href="Attribute-Resolution.html">attribute resolution</a> configurations should be mapped in the Service Management webapp’s configuration using the <a href="Configuration-Properties.html#attributes">stub-based attribute repository</a>. This will make the attributes available for selction in the management webapp’s various user attributes-related dropdowns.</p>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>Access to the management webapp can be configured via the following strategies.</p>
+
+<h3 id="cas-server">CAS Server</h3>
+
+<p>The management web application can be configured to authenticate against a CAS server. To activate this mode, simply specify the location of the CAS server via configuration settings. To disable this mode, blank out the settings that describe the external CAS server.</p>
+
+<p>If this strategy is used, access strategy rules can then further be controlled via the outlined strategies for authorization.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#management-webapp">review this guide</a>.</p>
+
+<h3 id="ip-address">IP Address</h3>
+
+<p>The management web application can be configured to allow anonymous access if the request’s IP address matches a predefined regular expression. To disable this mode, blank out the settings that describe the external CAS server. If this strategy is used, access strategy and authorized rules do not apply as the resolved identity is simply anonymous.</p>
+
+<div class="alert alert-danger"><strong>Be Careful</strong><p>Keep in mind that this authentication
+mechanism should only be enabled for internal network clients with relatively static IP addresses.</p></div>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#management-webapp">review this guide</a>.</p>
+
+<h3 id="anonymous">Anonymous</h3>
+
+<p>The management web application can be configured to allow anonymous access if no other authentication strategy is defined. This mode is mostly useful for development and testing while additional warnings show up in the logs that explain the caveats of this option.</p>
+
+<div class="alert alert-danger"><strong>Be Careful</strong><p>Be sure to specify an authentication strategy, as failure to do so would effectively leave the management web application open for access.</p></div>
+
+<h2 id="authorization">Authorization</h2>
+
+<p>Learn how to control access to the management web application. The following options describe how authorization rules for authenticated users are generated and made available to the management web application. Once roles, permissions and such are produced then the user authenticated profile that is now fully populated is compared to rules required and defined by the cas management web application for access. Essentially, the following steps execute:</p>
+
+<ol>
+  <li>Load roles and permissions required of authenticated users to have to enter the management web application.</li>
+  <li>Authenticate a given user and establish a profile.</li>
+  <li>Populate profile with authorization rules that contain roles, permissions, etc.</li>
+  <li>Compare the profile against required rules and permissions.</li>
+</ol>
+
+<h3 id="static-list-of-users">Static List of Users</h3>
+
+<h4 id="properties">Properties</h4>
+
+<p>By default, access is limited to a static list of users whose credentials may be specified in a single properties file which is watched and monitored at runtime for changes and reloaded automatically. The format of the file which houses a list of authorized users to access the web application mimics that of Spring Security, which is:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># casuser=notused,ROLE_ADMIN
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The format of the file is as such:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">casuser</code>: This is the authenticated user id received from CAS</li>
+  <li><code class="language-plaintext highlighter-rouge">notused</code>: This is the password field that isn’t used by CAS. You could literally put any value you want in its place.</li>
+  <li><code class="language-plaintext highlighter-rouge">ROLE_ADMIN</code>: Role assigned to the authorized user as an attribute, which is then cross checked against CAS configuration.</li>
+</ul>
+
+<h4 id="json--yaml">JSON &amp; YAML</h4>
+
+<p>File-based authorization rules may also be specified inside a single <code class="language-plaintext highlighter-rouge">.json</code> or <code class="language-plaintext highlighter-rouge">.yml</code> that maps usernames to roles and permissions. A JSON example follows:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"casuser"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.mgmt.authz.json.UserAuthorizationDefinition"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"roles"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"ROLE_ADMIN"</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"permissions"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"CAN_DO_XYZ"</span><span class="w"> </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="attribute">Attribute</h3>
+
+<p>Alternatively, the authorization generator examines the CAS validation response and principal for attributes
+and will grant access if an attribute name matches the value of <code class="language-plaintext highlighter-rouge">adminRoles</code> defined in the configuration.</p>
+
+<h3 id="ldap">LDAP</h3>
+
+<p>Access to the management web application may also be controlled directly by querying an LDAP server, via the following modes.</p>
+
+<h4 id="groups">Groups</h4>
+
+<p>The authorization framework will search for groups of which the user is a member. Retrieved groups and roles are the compared with the management webapp configuration to find a match (i.e. <code class="language-plaintext highlighter-rouge">ROLE_ADMIN</code>).</p>
+
+<h4 id="attributes">Attributes</h4>
+
+<p>The authorization framework will examine the attributes assigned to the user, looking for a predefined role attribute to compare with the configuration for access (i.e. <code class="language-plaintext highlighter-rouge">ROLE_ADMIN</code>).</p>
+
+<p>Support is enabled by including the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-management-webapp-support-ldap<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#ldap-authorization">review this guide</a>.</p>
+
+<h3 id="custom">Custom</h3>
+
+<p>You may also decide to design your own authorization generator for the management web application:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="kn">package</span> <span class="nn">org.apereo.cas.support</span><span class="o">;</span>
+
+<span class="nd">@Configuration</span><span class="o">(</span><span class="s">"myConfiguration"</span><span class="o">)</span>
+<span class="nd">@EnableConfigurationProperties</span><span class="o">(</span><span class="nc">CasConfigurationProperties</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyConfiguration</span> <span class="o">{</span>
+
+ <span class="cm">/**
+  * Decide how roles and permissions should be stuffed into the authenticated profile.
+  */</span>
+  <span class="nd">@Bean</span>
+  <span class="kd">public</span> <span class="nc">AuthorizationGenerator</span> <span class="nf">authorizationGenerator</span><span class="o">()</span> <span class="o">{</span>
+      <span class="o">...</span>
+  <span class="o">}</span>
+
+ <span class="cm">/**
+  * Decide the profile should be compared to the required rules for access.
+  */</span>
+  <span class="nd">@Bean</span>
+  <span class="kd">public</span> <span class="nc">Authorizer</span> <span class="nf">managementWebappAuthorizer</span><span class="o">()</span> <span class="o">{</span>
+      <span class="o">...</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><a href="Configuration-Management-Extensions.html">See this guide</a> to learn more about how to register configurations into the CAS runtime.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

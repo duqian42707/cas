@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Release Process</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../index.html">
+                    <img class="undecorated" src="../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="cas-41x-release-process">CAS 4.1.x Release Process</h1>
+<p>This page documents the steps that a release engineer should take for cutting a CAS server release.</p>
+
+<h2 id="environment-review">Environment Review</h2>
+
+<ul>
+  <li>Sanity test pending CAS release by testing protocol and major features.</li>
+  <li>Ensure criteria for a release has been met and that there are no outstanding JIRA issues, etc.</li>
+  <li>Ensure all outstanding changes are committed.</li>
+  <li>Ensure all tests pass on CI</li>
+  <li>Set up your environment :
+    <ul>
+      <li>Load your SSH key on your local computer and ensure this SSH key is also referenced in Github</li>
+      <li>Ensure your <code class="language-plaintext highlighter-rouge">settings.xml</code> file has the Sonatype repository defined with the appropriate credentials:</li>
+    </ul>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;servers&gt;</span>
+	<span class="nt">&lt;server&gt;</span>
+	  <span class="nt">&lt;id&gt;</span>sonatype-nexus-snapshots<span class="nt">&lt;/id&gt;</span>
+	  <span class="nt">&lt;username&gt;</span>uid<span class="nt">&lt;/username&gt;</span>
+	  <span class="nt">&lt;password&gt;</span>psw<span class="nt">&lt;/password&gt;</span>
+	<span class="nt">&lt;/server&gt;</span>
+	<span class="nt">&lt;server&gt;</span>
+	  <span class="nt">&lt;id&gt;</span>sonatype-nexus-staging<span class="nt">&lt;/id&gt;</span>
+	  <span class="nt">&lt;username&gt;</span>uid<span class="nt">&lt;/username&gt;</span>
+	  <span class="nt">&lt;password&gt;</span>psw<span class="nt">&lt;/password&gt;</span>
+	<span class="nt">&lt;/server&gt;</span>
+<span class="nt">&lt;/servers&gt;</span></code></pre></figure>
+
+<ul>
+  <li>Checkout the CAS project :</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">mkdir </span>casrelease
+<span class="nb">cd </span>casrelease
+git clone git@github.com:Apereo/cas.git</code></pre></figure>
+
+<ul>
+  <li>Ensure conformity before release by executing the following goals from the project root:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mvn <span class="nt">-o</span> notice:check
+mvn <span class="nt">-o</span> license:check
+mvn <span class="nt">-o</span> checkstyle:check
+mvn <span class="nt">-o</span> findbugs:findbugs
+mvn <span class="nt">-o</span> javadoc:javadoc</code></pre></figure>
+
+<p>If notice and license checks fail, the <code class="language-plaintext highlighter-rouge">notice:generate</code> and <code class="language-plaintext highlighter-rouge">license:format</code> goals <a href="https://wiki.jasig.org/display/LIC/maven-notice-plugin">may be used</a> to help remedy the situation.
+All other checks and reported issues need to be resolved manually.</p>
+
+<h2 id="preparing-the-release">Preparing the Release</h2>
+
+<p>Ensure you use JDK 7 by running the following command:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">java <span class="nt">-version</span></code></pre></figure>
+
+<p>Prepare for release by running prepare goal of Maven Release Plugin, which prompts for version numbers:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">MAVEN_OPTS</span><span class="o">=</span><span class="s2">"-Xmx2048m -XX:MaxPermSize=128m"</span>
+mvn release:prepare</code></pre></figure>
+
+<p>Alternatively, you may specify the release version number directly on the command line:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">MAVEN_OPTS</span><span class="o">=</span><span class="s2">"-Xmx2048m -XX:MaxPermSize=128m"</span>
+mvn <span class="nt">-DreleaseVersion</span><span class="o">=</span>x.y.z <span class="nt">-DdevelopmentVersion</span><span class="o">=</span>a.b.c release:prepare</code></pre></figure>
+
+<h2 id="performing-the-release">Performing the Release</h2>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mvn release:perform</code></pre></figure>
+
+<p>Follow the process for <a href="https://wiki.jasig.org/display/JCH/Deploying+Maven+Artifacts">deploying artifacts to Maven Central</a> via Sonatype OSS repository.</p>
+
+<ul>
+  <li>Log into <a href="https://oss.sonatype.org">https://oss.sonatype.org</a>.</li>
+  <li>Find the staged repository for CAS artifacts created by the <code class="language-plaintext highlighter-rouge">mvn release:perform</code> goal.</li>
+  <li>“Close” the repository.</li>
+  <li>“Release” the repository.  Both c and d should be accompanied by email confirmation.</li>
+</ul>
+
+<h2 id="housekeeping">Housekeeping</h2>
+
+<ul>
+  <li>Close <a href="https://github.com/Apereo/cas/milestones">the milestone</a> for this release.</li>
+  <li>Find <a href="https://github.com/Apereo/cas/releases">the release</a> that is mapped to the released tag, update the description with the list of resolved/fixed issues and publish it as released.</li>
+</ul>
+
+<p>To generate the changelog and release notes, use the below steps:</p>
+
+<ol>
+  <li>Download and install <a href="https://github.com/lalitkapoor/github-changes">this tool</a></li>
+  <li>Generate a github access token <a href="https://github.com/settings/tokens">here</a></li>
+  <li>Execute the following command:</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">github-changes <span class="nt">-o</span> Apereo <span class="nt">-r</span> cas <span class="nt">-b</span> x.y.z <span class="nt">-k</span> &lt;TOKEN&gt; <span class="nt">-a</span> <span class="nt">--use-commit-body</span></code></pre></figure>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">x.y.z</code> is the name of the branch that is released. The output will be saved in <code class="language-plaintext highlighter-rouge">ChangeLog.md</code> file. Comb
+through the file, edit, format and paste the final content under the release tag.</p>
+
+<ul>
+  <li>Send an announcement message to @cas-announce, @cas-user and @cas-dev mailing lists. A template follows:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">CAS Community,
+
+CAS x.y.z is available <span class="k">for </span>testing and evaluation. We encourage adopters to grab 
+this release from Maven Central, integrate into your environment, and provide feedback.
+
+Regards,
+John Smith</code></pre></figure>
+
+<h2 id="post-release">Post Release</h2>
+
+<h3 id="documentation">Documentation</h3>
+<ul>
+  <li>Documentation site is available under the <code class="language-plaintext highlighter-rouge">gh-changes</code> branch. Check it out.</li>
+  <li>Copy the contents of the <code class="language-plaintext highlighter-rouge">development</code> directory to a new directory to match the new CAS release version (i.e <code class="language-plaintext highlighter-rouge">4.0.0</code>)</li>
+  <li>Navigate to <code class="language-plaintext highlighter-rouge">Older-Version.md</code> page and include a link to the new directory that points to the new release.</li>
+  <li>Modify the root <code class="language-plaintext highlighter-rouge">index.html</code> file of the <code class="language-plaintext highlighter-rouge">current</code> folder to point to the latest stable release such that <code class="language-plaintext highlighter-rouge">location.href = "../4.0.0/index.html";</code></li>
+  <li>Push the changes to the repository.</li>
+</ul>
+
+<h2 id="common-issues">Common Issues</h2>
+<p>If you’re preparing and cutting the release, please be wary of the following possible issues:</p>
+
+<h3 id="ssh-authentication-private-keys-passphrase-prompt-hangs">SSH Authentication: private key’s passphrase prompt hangs</h3>
+<p>SSH authentication with git on Windows is unable to cache the private key’s password regardless of any authorized SSH agent running in the background. The maven-release-plugin currently is unable to actually present the password prompt.</p>
+
+<p>To mitigate the problem, you will need to modify the release.properties file, and switch the authentication scheme from SSH to HTTPS.</p>
+
+<h3 id="directory-is-outside-the-repository-error">“Directory is outside the repository” error</h3>
+<p>When the maven-release plugin attempts to add/commit/push back files to the repository from the project directory, you might receive the error that the directory is outside the repository! This has to do with the fact that the plugin and git consider path names to the project directory to be case-sensitive while Windows does not. In other words, git might consider the project repository directory to be available at “c:\project”, while the current directory is pointed to “C:\project”.</p>
+
+<p>To mitigate the problem, simply “CD” into the directory path of the working directory given by git, based on the console output.</p>
+
+<h3 id="dependencies-cannot-be-foundresolved-error">“Dependencies cannot be found/resolved” error</h3>
+<p>Once you have prepped the release and start to execute <code class="language-plaintext highlighter-rouge">release:perform</code>, the maven-release plugin will attempt to checkout the prepped release from source first and run through the build to upload artifacts. You may at this stage encounter the error that artifact dependencies (that are based on the new tagged release) cannot be found. For example, if you have prepped the release V4-RC1 and are attempting to cut it,  you may receive the error that certain modules for V4-RC1 cannot be resolved during the build.</p>
+
+<p>To mitigate the issue, navigate to the <code class="language-plaintext highlighter-rouge">target\checkout</code> directory and run <code class="language-plaintext highlighter-rouge">mvn install</code> once to locally capture the newly tagged artifacts. You may alternatively, checkout the CAS project again, switch to the tag and perform <code class="language-plaintext highlighter-rouge">mvn -o install -Pnocheck</code>.</p>
+
+<h3 id="java-heap-space-out-of-memory-errors">Java heap space “Out of memory” errors</h3>
+<p>Depending on settings, the build might run out of Java heap space. You can tweak settings through <code class="language-plaintext highlighter-rouge">JAVA_OPTS</code> and <code class="language-plaintext highlighter-rouge">MAVEN_OPTS</code> and allow more via the <code class="language-plaintext highlighter-rouge">-Xmx</code> parameter. Usually, <code class="language-plaintext highlighter-rouge">2g</code> should suffice on a 64-bit Java VM:</p>
+
+<p><code class="language-plaintext highlighter-rouge">export MAVEN_OPTS="-Xmx2048m"</code></p>
+
+<h3 id="the-build-is-sluggish">The build is sluggish</h3>
+
+<p>The current CAS build runs a number of checks and processes as it progresses forward in the release process. Disabling these checks will help speed up the build because, the maven-release plugin attempts to run all said checks for all modules prior to processing the active module during the build. In other words, if the build is attempting to process module C, it will run the checks for modules A and B…and then it moves on to C. Similarly, if the build is at module D, it will yet again run all checks for modules, A, B and C before it starts with D.</p>
+
+<p>You can disable some of these checks in the Maven’s <code class="language-plaintext highlighter-rouge">settings.xml</code> file. Here are some of the steps you can through configuration ignore by setting them to <em><code class="language-plaintext highlighter-rouge">true</code></em>:</p>
+
+<div class="alert alert-danger"><strong>Caution!</strong><p>You must ensure that all above checks do actually pass, separately and independently, if you do decide to disable them in the build process.</p></div>
+
+<ul>
+  <li>Skip running tests (Tests still would have to be compiled): <code class="language-plaintext highlighter-rouge">&lt;skipTests&gt;true&lt;skipTests&gt;</code></li>
+  <li>Checkstyle checks: <code class="language-plaintext highlighter-rouge">&lt;checkstyle.skip&gt;true&lt;/checkstyle.skip&gt;</code></li>
+  <li>License checks: <code class="language-plaintext highlighter-rouge">&lt;license.skip&gt;true&lt;/license.skip&gt;</code></li>
+  <li>Notice file checks: <code class="language-plaintext highlighter-rouge">&lt;notice.skip&gt;true&lt;/notice.skip&gt;</code></li>
+  <li>Dependency version checks: <code class="language-plaintext highlighter-rouge">&lt;versions.skip&gt;true&lt;/versions.skip&gt;</code></li>
+  <li>FindBugs checks: <code class="language-plaintext highlighter-rouge">&lt;findbugs.skip&gt;true&lt;/findbugs.skip&gt;</code></li>
+</ul>
+
+<p>The current Maven build contains a <code class="language-plaintext highlighter-rouge">nocheck</code> profile that encapsulates the above settings. The profile may be invoked via <code class="language-plaintext highlighter-rouge">-Pnocheck</code> parameter.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../javascripts/URI.js"></script>
+<script src="../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Long Term Authentication</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="long-term-authentication">Long Term Authentication</h1>
+<p>This feature, also known as <em>Remember Me</em>, extends the length of the SSO session beyond the typical period of hours
+such that users can go days or weeks without having to log in to CAS. See the
+<a href="../planning/Security-Guide.html">security guide</a>
+for discussion of security concerns related to long term authentication.</p>
+
+<h3 id="policy-and-deployment-considerations">Policy and Deployment Considerations</h3>
+<p>While users can elect to establish a long term authentication session, the duration is established through
+configuration as a matter of security policy. Deployers must determine the length of long term authentication sessions
+by weighing convenience against security risks. The length of the long term authentication session is configured
+(somewhat unhelpfully) in seconds, but the Google calculator provides a convenient converter:</p>
+
+<p><a href="https://www.google.com/search?q=2+weeks+in+seconds&amp;oq=2+weeks+in+seconds">2 weeks in seconds</a></p>
+
+<p>The use of long term authentication sessions dramatically increases the length of time ticket-granting tickets are
+stored in the ticket registry. Loss of a ticket-granting ticket corresponding to a long-term SSO session would require
+the user to re-authenticate to CAS. A security policy that requires that long term authentication sessions MUST NOT
+be terminated prior to their natural expiration would mandate a ticket registry component that provides for durable storage, such as the <code class="language-plaintext highlighter-rouge">JpaTicketRegistry</code>.</p>
+
+<h3 id="component-configuration">Component Configuration</h3>
+<p>Long term authentication requires configuring CAS components in Spring configuration, modification of the CAS login
+webflow, and UI customization of the login form. The length of the long term authentication session is represented
+in following sections by the following property:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre># Long term authentication session length in seconds
+rememberMeDuration=1209600
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The duration of the long term authentication session is configured in two different places:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">ticketExpirationPolicies.xml</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ticketGrantingTicketCookieGenerator.xml</code></li>
+</ol>
+
+<p>Update the ticket-granting ticket expiration policy in <code class="language-plaintext highlighter-rouge">ticketExpirationPolicies.xml</code> to accommodate both long term
+and stardard sessions.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+   | The following policy applies to standard CAS SSO sessions.
+   | Default 2h (7200s) sliding expiration with default 8h (28800s) maximum lifetime.
+   --&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"standardSessionTGTExpirationPolicy"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.ticket.support.TicketGrantingTicketExpirationPolicy"</span>
+      <span class="na">p:maxTimeToLiveInSeconds=</span><span class="s">"${tgt.maxTimeToLiveInSeconds:28800}"</span>
+      <span class="na">p:timeToKillInSeconds=</span><span class="s">"${tgt.timeToKillInSeconds:7200}"</span><span class="nt">/&gt;</span>
+
+<span class="c">&lt;!--
+   | The following policy applies to long term CAS SSO sessions.
+   | Default duration is two weeks (1209600s).
+   --&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"longTermSessionTGTExpirationPolicy"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.ticket.support.TimeoutExpirationPolicy"</span>
+      <span class="na">c:timeToKillInMilliSeconds=</span><span class="s">"#{ ${rememberMeDuration:1209600} * 1000 }"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"grantingTicketExpirationPolicy"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.ticket.support.RememberMeDelegatingExpirationPolicy"</span>
+      <span class="na">p:sessionExpirationPolicy-ref=</span><span class="s">"standardSessionTGTExpirationPolicy"</span>
+      <span class="na">p:rememberMeExpirationPolicy-ref=</span><span class="s">"longTermSessionTGTExpirationPolicy"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<p>Update the CASTGC cookie expiration in <code class="language-plaintext highlighter-rouge">ticketGrantingTicketCookieGenerator.xml</code> to match the long term authentication
+duration:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"ticketGrantingTicketCookieGenerator"</span> <span class="na">class=</span><span class="s">"org.jasig.cas.web.support.CookieRetrievingCookieGenerator"</span>
+      <span class="na">p:cookieSecure=</span><span class="s">"true"</span>
+      <span class="na">p:cookieMaxAge=</span><span class="s">"-1"</span>
+      <span class="na">p:rememberMeMaxAge=</span><span class="s">"${rememberMeDuration:1209600}"</span>
+      <span class="na">p:cookieName=</span><span class="s">"CASTGC"</span>
+      <span class="na">p:cookiePath=</span><span class="s">"/cas"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<p>Modify the <code class="language-plaintext highlighter-rouge">PolicyBasedAuthenticationManager</code> bean in <code class="language-plaintext highlighter-rouge">deployerConfigContext.xml</code> to include the
+<code class="language-plaintext highlighter-rouge">RememberMeAuthenticationMetaDataPopulator</code> component that flags long-term SSO sessions:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"authenticationManager"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.authentication.PolicyBasedAuthenticationManager"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;constructor-arg&gt;</span>
+    <span class="nt">&lt;map&gt;</span>
+      <span class="nt">&lt;entry</span> <span class="na">key-ref=</span><span class="s">"passwordHandler"</span> <span class="na">value-ref=</span><span class="s">"ldapPrincipalResolver"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/map&gt;</span>
+  <span class="nt">&lt;/constructor-arg&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"authenticationMetaDataPopulators"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;list&gt;</span>
+      <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.jasig.cas.authentication.SuccessfulHandlerMetaDataPopulator"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.jasig.cas.authentication.principal.RememberMeAuthenticationMetaDataPopulator"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/list&gt;</span>
+  <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span></code></pre></figure>
+
+<h3 id="webflow-configuration">Webflow Configuration</h3>
+<p>Two sections of <code class="language-plaintext highlighter-rouge">login-webflow.xml</code> require changes:</p>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">credential</code> variable declaration</li>
+  <li><code class="language-plaintext highlighter-rouge">viewLoginForm</code> action state</li>
+</ol>
+
+<p>Change the <code class="language-plaintext highlighter-rouge">credential</code> variable declaration as follows:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;var</span> <span class="na">name=</span><span class="s">"credential"</span> <span class="na">class=</span><span class="s">"org.jasig.cas.authentication.RememberMeUsernamePasswordCredential"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<p>Change the <code class="language-plaintext highlighter-rouge">viewLoginForm</code> action state as follows:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;view-state</span> <span class="na">id=</span><span class="s">"viewLoginForm"</span> <span class="na">view=</span><span class="s">"casLoginView"</span> <span class="na">model=</span><span class="s">"credential"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;binder&gt;</span>
+    <span class="nt">&lt;binding</span> <span class="na">property=</span><span class="s">"username"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;binding</span> <span class="na">property=</span><span class="s">"password"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;binding</span> <span class="na">property=</span><span class="s">"rememberMe"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/binder&gt;</span>
+  <span class="nt">&lt;on-entry&gt;</span>
+    <span class="nt">&lt;set</span> <span class="na">name=</span><span class="s">"viewScope.commandName"</span> <span class="na">value=</span><span class="s">"'credential'"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/on-entry&gt;</span>
+  <span class="nt">&lt;transition</span> <span class="na">on=</span><span class="s">"submit"</span> <span class="na">bind=</span><span class="s">"true"</span> <span class="na">validate=</span><span class="s">"true"</span> <span class="na">to=</span><span class="s">"realSubmit"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/view-state&gt;</span></code></pre></figure>
+
+<h3 id="user-interface-customization">User Interface Customization</h3>
+<p>A checkbox or other suitable control must be added to the CAS login form to allow user selection of long term
+authentication. We recommend adding a checkbox control to <code class="language-plaintext highlighter-rouge">casLoginView.jsp</code> as in the following code snippet.
+The only functional consideration is that the name of the form element is <em>rememberMe</em>.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"rememberMe"</span> <span class="na">id=</span><span class="s">"rememberMe"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"rememberMe"</span><span class="nt">&gt;</span>Remember Me<span class="nt">&lt;/label&gt;</span></code></pre></figure>
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - X.509 Authentication</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="x509-authentication">X.509 Authentication</h1>
+<p>CAS X.509 authentication components provide a mechanism to authenticate users who present client certificates during
+the SSL/TLS handshake process. The X.509 components require configuration outside the CAS application since the
+SSL handshake happens outside the servlet layer where the CAS application resides. There is no particular requirement
+on deployment architecture (i.e. Apache reverse proxy, load balancer SSL termination) other than any client
+certificate presented in the SSL handshake be accessible to the servlet container as a request attribute named
+<code class="language-plaintext highlighter-rouge">javax.servlet.request.X509Certificate</code>. This happens naturally for configurations that terminate SSL connections
+directly at the servlet container and when using Apache/mod_jk; for other architectures it may be necessary to do
+additional work.</p>
+
+<h2 id="x509-components">X.509 Components</h2>
+<p>X.509 support is enabled by including the following dependency in the Maven WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.jasig.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-x509-webflow<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>CAS provides an X.509 authentication handler, a handful of X.509-specific principal resolvers, some certificate
+revocation machinery, and some Webflow actions to provide for non-interactive authentication.</p>
+
+<h3 id="x509credentialsauthenticationhandler"><code class="language-plaintext highlighter-rouge">X509CredentialsAuthenticationHandler</code></h3>
+<p>The X.509 handler technically performs additional checks <em>after</em> the real SSL client authentication process performed
+by the Web server terminating the SSL connection. Since an SSL peer may be configured to accept a wide range of
+certificates, the CAS X.509 handler provides a number of properties that place additional restrictions on
+acceptable client certificates.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"x509CredentialsAuthenticationHandler"</span> <span class="na">alias=</span><span class="s">"primaryAuthenticationHandler"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following settings are applicable:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.x509.authn.crl.checkAll=false
+# cas.x509.authn.crl.throw.failure=true
+# cas.x509.authn.crl.refresh.interval=
+# cas.x509.authn.revocation.policy.threshold=
+# cas.x509.authn.trusted.issuer.dnpattern=
+# cas.x509.authn.max.path.length=
+# cas.x509.authn.max.path.length.unspecified=
+# cas.x509.authn.check.key.usage=
+# cas.x509.authn.require.key.usage=
+# cas.x509.authn.subject.dnpattern=
+# cas.x509.authn.principal.descriptor=
+# cas.x509.authn.principal.serial.no.prefix=
+# cas.x509.authn.principal.value.delim=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="principal-resolver-components">Principal Resolver Components</h2>
+
+<h3 id="x509subjectprincipalresolver"><code class="language-plaintext highlighter-rouge">X509SubjectPrincipalResolver</code></h3>
+<p>Creates a principal ID from a format string composed of components from the subject distinguished name.
+The following configuration snippet produces principals of the form <code class="language-plaintext highlighter-rouge">cn@example.com</code>. For example, given a
+certificate with the subject <code class="language-plaintext highlighter-rouge">DC=edu, DC=vt/UID=jacky, CN=Jascarnella Ellagwonto</code> it would produce the ID
+<code class="language-plaintext highlighter-rouge">jacky@vt.edu</code>.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"x509SubjectPrincipalResolver"</span> <span class="na">alias=</span><span class="s">"primaryPrincipalResolver"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="x509subjectdnprincipalresolver"><code class="language-plaintext highlighter-rouge">X509SubjectDNPrincipalResolver</code></h3>
+<p>Creates a principal ID from the certificate subject distinguished name.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"x509SubjectDNPrincipalResolver"</span> <span class="na">alias=</span><span class="s">"primaryPrincipalResolver"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="x509serialnumberprincipalresolver"><code class="language-plaintext highlighter-rouge">X509SerialNumberPrincipalResolver</code></h3>
+<p>Creates a principal ID from the certificate serial number.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"x509SerialNumberPrincipalResolver"</span> <span class="na">alias=</span><span class="s">"primaryPrincipalResolver"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="x509serialnumberandissuerdnprincipalresolver"><code class="language-plaintext highlighter-rouge">X509SerialNumberAndIssuerDNPrincipalResolver</code></h3>
+<p>Creates a principal ID by concatenating the certificate serial number, a delimiter, and the issuer DN.
+The serial number may be prefixed with an optional string.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"x509SerialNumberAndIssuerDNPrincipalResolver"</span> <span class="na">alias=</span><span class="s">"primaryPrincipalResolver"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="x509subjectalternativenameupnprincipalresolver"><code class="language-plaintext highlighter-rouge">X509SubjectAlternativeNameUPNPrincipalResolver</code></h3>
+<p>Adds support the embedding of a <code class="language-plaintext highlighter-rouge">UserPrincipalName</code> object as a <code class="language-plaintext highlighter-rouge">SubjectAlternateName</code> extension within an X509 certificate,
+allowing properly-empowered certificates to be used for network logon (via SmartCards, or alternately by ‘soft certs’ in certain environments).
+This resolver extracts the Subject Alternative Name UPN extension from the provided certificate if available as a resolved principal id.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"x509SubjectAlternativeNameUPNPrincipalResolver"</span> <span class="na">alias=</span><span class="s">"primaryPrincipalResolver"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="certificate-revocation-checking-components">Certificate Revocation Checking Components</h2>
+<p>CAS provides a flexible policy engine for certificate revocation checking. This facility arose due to lack of
+configurability in the revocation machinery built into the JSSE.</p>
+
+<p>The following configuration is shared by all components:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">unavailableCRLPolicy</code></td>
+      <td>Policy applied when CRL data is unavailable upon fetching. (default=<code class="language-plaintext highlighter-rouge">DenyRevocationPolicy</code>)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">expiredCRLPolicy</code></td>
+      <td>Policy applied when CRL data is expired. (default=<code class="language-plaintext highlighter-rouge">ThresholdExpiredCRLRevocationPolicy</code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The following policies are available by default:</p>
+
+<p>| Policy                                <br />
+|————————————–
+| <code class="language-plaintext highlighter-rouge">allowRevocationPolicy
+| </code>denyRevocationPolicy<code class="language-plaintext highlighter-rouge">
+| </code>thresholdExpiredCRLRevocationPolicy`</p>
+
+<h3 id="resourcecrlrevocationchecker"><code class="language-plaintext highlighter-rouge">ResourceCRLRevocationChecker</code></h3>
+<p>Performs a certificate revocation check against a CRL hosted at a fixed location. The CRL is fetched at periodic intervals and cached.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"resourceCrlRevocationChecker"</span> <span class="na">alias=</span><span class="s">"x509RevocationChecker"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;util:set</span> <span class="na">id=</span><span class="s">"x509CrlResources"</span> <span class="nt">/&gt;</span>
+...
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"allowRevocationPolicy"</span> <span class="na">alias=</span><span class="s">"x509ResourceUnavailableRevocationPolicy"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"thresholdExpiredCRLRevocationPolicy"</span> <span class="na">alias=</span><span class="s">"x509ResourceExpiredRevocationPolicy"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="crldistributionpointrevocationchecker"><code class="language-plaintext highlighter-rouge">CRLDistributionPointRevocationChecker</code></h3>
+<p>Performs certificate revocation checking against the CRL URI(s) mentioned in the certificate <em>cRLDistributionPoints</em>
+extension field. The component leverages a cache to prevent excessive IO against CRL endpoints; CRL data is fetched
+if does not exist in the cache or if it is expired.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"crlDistributionPointRevocationChecker"</span> <span class="na">alias=</span><span class="s">"x509RevocationChecker"</span> <span class="nt">/&gt;</span>
+...
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"allowRevocationPolicy"</span> <span class="na">alias=</span><span class="s">"x509CrlUnavailableRevocationPolicy"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"thresholdExpiredCRLRevocationPolicy"</span> <span class="na">alias=</span><span class="s">"x509CrlExpiredRevocationPolicy"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="crl-fetching-configuration">CRL Fetching Configuration</h2>
+<p>By default, all revocation checks use the <code class="language-plaintext highlighter-rouge">ResourceCRLFetcher</code> component to fetch the CRL resource from the specified location.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"resourceCrlFetcher"</span> <span class="na">alias=</span><span class="s">"x509CrlFetcher"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following alternatives are available:</p>
+
+<h3 id="ldaptiveresourcecrlfetcher"><code class="language-plaintext highlighter-rouge">LdaptiveResourceCRLFetcher</code></h3>
+<p>Fetches a CRL resource from a preconfigured attribute, in the event that the CRL resource is an LDAP instance.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"ldaptiveResourceCRLFetcher"</span> <span class="na">alias=</span><span class="s">"x509CrlFetcher"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"customLdapSearchExecutor"</span> <span class="na">alias=</span><span class="s">"ldaptiveResourceCRLSearchExecutor"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"customLdapConnectionConfig"</span> <span class="na">alias=</span><span class="s">"ldaptiveResourceCRLConnectionConfig"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="poolingldaptiveresourcecrlfetcher"><code class="language-plaintext highlighter-rouge">PoolingLdaptiveResourceCRLFetcher</code></h3>
+<p>Fetches a CRL resource from a preconfigured attribute, in the event that the CRL resource is an LDAP instance. This component is able to use connection pooling.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"poolingLdaptiveResourceCRLFetcher"</span> <span class="na">alias=</span><span class="s">"x509CrlFetcher"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"customLdapConnectionPool"</span> <span class="na">alias=</span><span class="s">"poolingLdaptiveConnectionPool"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"customLdapSearchExecutor"</span> <span class="na">alias=</span><span class="s">"poolingLdaptiveResourceCRLSearchExecutor"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">"customLdapConnectionConfig"</span> <span class="na">alias=</span><span class="s">"poolingLdaptiveResourceCRLConnectionConfig"</span> <span class="nt">/&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="x509-configuration">X.509 Configuration</h2>
+<p>X.509 configuration requires substantial configuration outside the CAS Web application. The configuration of Web
+server SSL components varies dramatically with software and is outside the scope of this document. We offer some
+general advice for SSL configuration:</p>
+
+<ul>
+  <li>Configuring SSL components for optional client certificate behavior generally provides better user experience.
+Requiring client certificates prevents SSL negotiation in cases where the certificate is not present, which prevents
+user-friendly server-side error messages.</li>
+  <li>Accept certificates only from trusted issuers, generally those within your PKI.</li>
+  <li>Specify all certificates in the certificate chain(s) of allowed issuers.</li>
+</ul>
+
+<h2 id="x509-webflow-configuration">X.509 Webflow Configuration</h2>
+
+<p>Replace all instances of the <code class="language-plaintext highlighter-rouge">generateLoginTicket</code> transition in other states with <code class="language-plaintext highlighter-rouge">startX509Authenticate</code>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,4575 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS Properties</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="cas-properties">CAS Properties</h1>
+
+<p>Various properties can be specified in CAS <a href="Configuration-Management.html">either inside configuration files or as command
+line switches</a>. This section provides a list common CAS properties and
+references to the underlying modules that consume them.</p>
+
+<div class="alert alert-info"><strong>Be Selective</strong><p>
+This section is meant as a guide only. Do <strong>NOT</strong> copy/paste the entire collection of settings
+into your CAS configuration; rather pick only the properties that you need.</p></div>
+
+<p>Note that property names can be specified
+in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code>
+and <code class="language-plaintext highlighter-rouge">CAS_SOME_PROPERTY</code> are all valid names.</p>
+
+<p>The following list of properties are controlled by and provided to CAS. Each block, for most use cases, corresponds
+to a specific CAS module that is expected to be included in the final CAS distribution prepared during the build
+and deployment process.</p>
+
+<div class="alert alert-info"><strong>YAGNI</strong><p>Note that for nearly ALL use cases,
+simply declaring and configuring properties listed below is sufficient. You should NOT have to
+explicitly massage a CAS XML configuration file to design an authentication handler,
+create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.</p></div>
+
+<h2 id="remember">Remember</h2>
+
+<ul>
+  <li>
+    <p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>.
+All other settings are controlled and provided to CAS via other underlying frameworks and may have their own schemas
+and syntax. <strong>BE CAREFUL</strong> with the distinction.</p>
+  </li>
+  <li>
+    <p>Unrecognized properties are ignored by CAS and/or frameworks upon which CAS depends. This means if you somehow
+misspell a property definition or fail to adhere to the dot-notation syntax and such, your setting is entirely
+ignored by CAS and likely the feature it controls will never be activated in the way you intend.</p>
+  </li>
+  <li>
+    <p>If you are unsure about the meaning of a given CAS setting, do <strong>NOT</strong> simply turn it on without hesitation.
+Review the codebase or better yet, <a href="/cas/Mailing-Lists.html">ask questions</a> to clarify the intended behavior.</p>
+  </li>
+</ul>
+
+<h2 id="configuration-storage">Configuration Storage</h2>
+
+<p>The following settings are to be loaded by the CAS configuration server, which bootstraps
+the entire CAS running context. They are to be put inside the <code class="language-plaintext highlighter-rouge">src/main/resources/bootstrap.properties</code>.
+See <a href="Configuration-Management.html">this guide</a> for more info.</p>
+
+<h3 id="native">Native</h3>
+
+<p>Load settings from external properties/yaml configuration files.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.profiles.active=native
+# spring.cloud.config.server.native.searchLocations=file:///etc/cas/config
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="git-repository">Git Repository</h3>
+
+<p>Load settings from an internal/external Git repository.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.profiles.active=default
+# spring.cloud.config.server.git.uri=https://github.com/repoName/config
+# spring.cloud.config.server.git.uri=file://${user.home}/config
+# spring.cloud.config.server.git.username=
+# spring.cloud.config.server.git.password=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="vault">Vault</h3>
+
+<p>Load settings from <a href="Configuration-Properties-Security.html">HasiCorp’s Vault</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.cloud.vault.host=127.0.0.1
+# spring.cloud.vault.port=8200
+# spring.cloud.vault.connectionTimeout=3000
+# spring.cloud.vault.readTimeout=5000
+# spring.cloud.vault.enabled=true
+# spring.cloud.vault.fail-fast=true
+# spring.cloud.vault.token=1305dd6a-a754-f145-3563-2fa90b0773b7
+# spring.cloud.vault.scheme=http
+# spring.cloud.vault.generic.enabled=true
+# spring.cloud.vault.generic.backend=secret
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="mongodb">MongoDb</h3>
+
+<p>Load settings from MongoDb.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.spring.cloud.mongo.uri=mongodb://casuser:Mellon@ds061954.mongolab.com:61954/jasigcas
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="configuration-security">Configuration Security</h2>
+
+<p>Encrypt and decrypt configuration via Spring Cloud.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.cloud.config.server.encrypt.enabled=true
+# encrypt.keyStore.location=file:///etc/cas/casconfigserver.jks
+# encrypt.keyStore.password=keystorePassword
+# encrypt.keyStore.alias=DaKey
+# encrypt.keyStore.secret=changeme
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To learn more about how sensitive CAS settings can be
+secured, <a href="Configuration-Properties-Security.html">please review this guide</a>.</p>
+
+<h2 id="cloud-configuration-bus">Cloud Configuration Bus</h2>
+
+<p>CAS uses the Spring Cloud Bus to manage configuration in a distributed deployment. Spring Cloud Bus links nodes of a
+distributed system with a lightweight message broker.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.cloud.bus.enabled=false
+# spring.cloud.bus.refresh.enabled=true
+# spring.cloud.bus.env.enabled=true
+# spring.cloud.bus.destination=CasCloudBus
+# spring.cloud.bus.ack.enabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To learn more about this topic, <a href="Configuration-Management.html">please review this guide</a>.</p>
+
+<h3 id="rabbitmq">RabbitMQ</h3>
+
+<p>Broadcast CAS configuration updates to other nodes in the cluster via <a href="http://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_rabbitmq_binder">RabbitMQ</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.rabbitmq.host=
+# spring.rabbitmq.port=
+# spring.rabbitmq.username=
+# spring.rabbitmq.password=
+</span>
+<span class="c"># Or all of the above in one line
+# spring.rabbitmq.addresses=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="kafka">Kafka</h3>
+
+<p>Broadcast CAS configuration updates to other nodes in the cluster via <a href="http://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_apache_kafka_binder">Kafka</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.cloud.stream.bindings.output.content-type=application/json
+# spring.cloud.stream.kafka.binder.zkNodes=...
+# spring.cloud.stream.kafka.binder.brokers=...
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="embedded-tomcat">Embedded Tomcat</h2>
+
+<p>The following properties are related to the embedded Tomcat container that ships with CAS.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre><span class="py">server.contextPath</span><span class="p">=</span><span class="s">/cas</span>
+<span class="py">server.port</span><span class="p">=</span><span class="s">8443</span>
+<span class="py">server.ssl.keyStore</span><span class="p">=</span><span class="s">file:/etc/cas/thekeystore</span>
+<span class="py">server.ssl.keyStorePassword</span><span class="p">=</span><span class="s">changeit</span>
+<span class="py">server.ssl.keyPassword</span><span class="p">=</span><span class="s">changeit</span>
+<span class="c"># server.ssl.ciphers=
+# server.ssl.clientAuth=
+# server.ssl.enabled=
+# server.ssl.keyAlias=
+# server.ssl.keyStoreProvider=
+# server.ssl.keyStoreType=
+# server.ssl.protocol=
+# server.ssl.trustStore=
+# server.ssl.trustStorePassword=
+# server.ssl.trustStoreProvider=
+# server.ssl.trustStoreType=
+</span>
+<span class="py">server.tomcat.basedir</span><span class="p">=</span><span class="s">build/tomcat</span>
+
+<span class="py">server.tomcat.accesslog.enabled</span><span class="p">=</span><span class="s">true</span>
+<span class="py">server.tomcat.accesslog.pattern</span><span class="p">=</span><span class="s">%t %a "%r" %s (%D ms)</span>
+<span class="py">server.tomcat.accesslog.suffix</span><span class="p">=</span><span class="s">.log</span>
+
+<span class="py">server.tomcat.maxHttpHeaderSize</span><span class="p">=</span><span class="s">20971520</span>
+<span class="py">server.tomcat.maxThreads</span><span class="p">=</span><span class="s">5</span>
+<span class="py">server.tomcat.portHeader</span><span class="p">=</span><span class="s">X-Forwarded-Port</span>
+<span class="py">server.tomcat.protocolHeader</span><span class="p">=</span><span class="s">X-Forwarded-Proto</span>
+<span class="py">server.tomcat.protocolHeaderHttpsValue</span><span class="p">=</span><span class="s">https</span>
+<span class="py">server.tomcat.remoteIpHeader</span><span class="p">=</span><span class="s">X-FORWARDED-FOR</span>
+<span class="py">server.tomcat.uriEncoding</span><span class="p">=</span><span class="s">UTF-8</span>
+
+<span class="py">server.useForwardHeaders</span><span class="p">=</span><span class="s">true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="embedded-tomcat-httpajp">Embedded Tomcat HTTP/AJP</h2>
+
+<p>Enable HTTP/AJP connections for the embedded Tomcat container.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.server.http.port=8080
+# cas.server.http.protocol=org.apache.coyote.http11.Http11NioProtocol
+# cas.server.http.enabled=true
+# cas.server.connectionTimeout=20000
+</span>
+<span class="c"># cas.server.ajp.secure=false
+# cas.server.ajp.enabled=false
+# cas.server.ajp.proxyPort=-1
+# cas.server.ajp.protocol=AJP/1.3
+# cas.server.ajp.asyncTimeout=5000
+# cas.server.ajp.scheme=http
+# cas.server.ajp.maxPostSize=20971520
+# cas.server.ajp.port=8009
+# cas.server.ajp.enableLookups=false
+# cas.server.ajp.redirectPort=-1
+# cas.server.ajp.allowTrace=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="embedded-tomcat-extended-access-log">Embedded Tomcat Extended Access Log</h2>
+
+<p>Enable the <a href="https://tomcat.apache.org/tomcat-8.0-doc/api/org/apache/catalina/valves/ExtendedAccessLogValve.html">extended access log</a>
+for the embedded Tomcat container.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.server.extAccessLog.enabled=false
+# cas.server.extAccessLog.pattern=c-ip s-ip cs-uri sc-status time X-threadname x-H(secure) x-H(remoteUser)
+# cas.server.extAccessLog.suffix=.log
+# cas.server.extAccessLog.prefix=localhost_access_extended
+# cas.server.extAccessLog.directory=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="cas-server">CAS Server</h2>
+
+<p>Identify the CAS server. <code class="language-plaintext highlighter-rouge">name</code> and <code class="language-plaintext highlighter-rouge">prefix</code> are always required settings.</p>
+
+<p>A CAS host is automatically appended to the ticket ids generated by CAS.
+If none is specified, one is automatically detected and used by CAS.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.server.name=https://cas.example.org:8443
+# cas.server.prefix=https://cas.example.org:8443/cas
+# cas.host.name=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="admin-status-endpoints">Admin Status Endpoints</h2>
+
+<p>The following properties describe access controls and settings for the <code class="language-plaintext highlighter-rouge">/status</code>
+endpoint of CAS which provides administrative functionality and oversight into the CAS software.
+To learn more about this topic, <a href="Monitoring-Statistics.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="c"># endpoints.enabled=true
+# endpoints.sensitive=true
+# management.contextPath=/status
+# endpoints.restart.enabled=false
+# endpoints.shutdown.enabled=false
+</span>
+<span class="c"># IP address may be enough to protect all endpoints.
+# If you wish to protect the admin pages via CAS itself, configure the rest.
+# cas.adminPagesSecurity.ip=127\.0\.0\.1
+# cas.adminPagesSecurity.loginUrl=https://sso.example.org/cas/login
+# cas.adminPagesSecurity.service=https://sso.example.org/cas/status/dashboard
+# cas.adminPagesSecurity.users=file:/etc/cas/config/adminusers.properties
+# cas.adminPagesSecurity.adminRoles=ROLE_ADMIN
+</span>
+<span class="c"># cas.adminPagesSecurity.actuatorEndpointsEnabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The format of the <code class="language-plaintext highlighter-rouge">adminusers.properties</code> file which houses a list of authorized users to access the admin pages via CAS is:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># casuser=notused,ROLE_ADMIN
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The format of the file is as such:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">casuser</code>: This is the authenticated user id received from CAS</li>
+  <li><code class="language-plaintext highlighter-rouge">notused</code>: This is the password field that isn’t used by CAS. You could literally put any value you want in its place.</li>
+  <li><code class="language-plaintext highlighter-rouge">ROLE_ADMIN</code>: Role assigned to the authorized user, which is then cross checked against CAS configuration.</li>
+</ul>
+
+<h2 id="web-application-session">Web Application Session</h2>
+
+<p>Control the web application session behavior.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># server.session.timeout=300
+# server.session.cookie.httpOnly=true
+# server.session.trackingModes=COOKIE
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="views">Views</h2>
+
+<p>Control how CAS should treat views and other UI elements.</p>
+
+<p>To learn more about this topic, <a href="User-Interface-Customization-Views.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="py">spring.thymeleaf.encoding</span><span class="p">=</span><span class="s">UTF-8</span>
+<span class="py">spring.thymeleaf.cache</span><span class="p">=</span><span class="s">false</span>
+<span class="c"># spring.thymeleaf.prefix=classpath:/templates/
+</span>
+<span class="c"># cas.view.cas2.success=protocol/2.0/casServiceValidationSuccess
+# cas.view.cas2.failure=protocol/2.0/casServiceValidationFailure
+# cas.view.cas2.proxy.success=protocol/2.0/casProxySuccessView
+# cas.view.cas2.proxy.failure=protocol/2.0/casProxyFailureView
+</span>
+<span class="c"># cas.view.cas3.success=protocol/3.0/casServiceValidationSuccess
+# cas.view.cas3.failure=protocol/3.0/casServiceValidationFailure
+# cas.view.cas3.releaseProtocolAttributes=true
+</span>
+<span class="c"># cas.view.defaultRedirectUrl=https://www.github.com
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="logging">Logging</h2>
+
+<p>Control the location and other settings of the CAS logging configuration.
+To learn more about this topic, <a href="Logging.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># logging.config=file:/etc/cas/log4j2.xml
+</span><span class="py">server.contextParameters.isLog4jAutoInitializationDisabled</span><span class="p">=</span><span class="s">true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To disable log sanitization, start the container with the system property <code class="language-plaintext highlighter-rouge">CAS_TICKET_ID_SANITIZE_SKIP=true</code>.</p>
+
+<h2 id="aspectj-configuration">AspectJ Configuration</h2>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.aop.auto=true
+# spring.aop.proxyTargetClass=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="authentication-attributes">Authentication Attributes</h2>
+
+<p>Set of authentication attributes that are retrieved by the principal resolution process,
+typically via some component of <a href="..\integration\Attribute-Resolution.html">Person Directory</a>
+from a number of attribute sources unless noted otherwise by the specific authentication scheme.</p>
+
+<p>If multiple attribute repository sources are defined, they are added into a list
+and their results are cached and merged.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.attributeRepository.expireInMinutes=30
+# cas.authn.attributeRepository.maximumCacheSize=10000
+# cas.authn.attributeRepository.merger=REPLACE|ADD|MERGE
+</span>
+<span class="c"># Attributes that you wish to resolve for the principal
+# cas.authn.attributeRepository.attributes.uid=uid
+# cas.authn.attributeRepository.attributes.displayName=displayName
+# cas.authn.attributeRepository.attributes.cn=commonName
+# cas.authn.attributeRepository.attributes.affiliation=groupMembership
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Since all attributes for all sources are defined in the same common block,
+that means all sources will attempt to resolve the same block of defined attributes equally.
+CAS does not care about the source owner of attributes. It finds them where they can be found and otherwise, it moves on.
+This means that certain number of attributes can be resolved via one source, and the remaining attributes
+may be resolved via another. If there are commonalities across sources, the merger shall decide the final result and behavior.</p>
+
+<p>The story in plain english is:</p>
+
+<ul>
+  <li>I have a bunch of attributes that I wish to resolve for the authenticated principal.</li>
+  <li>I have a bunch of sources from which said attributes are retrieved.</li>
+  <li>Figure it out.</li>
+</ul>
+
+<p>Note that attribute repository sources, if/when defined, execute in a specific order.
+This is important to take into account when attribute merging may take place. The order is:</p>
+
+<ol>
+  <li>LDAP</li>
+  <li>JDBC</li>
+  <li>JSON</li>
+  <li>Groovy</li>
+  <li>Static Stub</li>
+</ol>
+
+<p>Note that if no other attribute source is defined and if attributes are not directly retrieved
+as part of primary authentication, then a stub/static source will be created
+based on the defined attributes, if any.</p>
+
+<p>Note that if no <em>explicit</em> attribute mappings are defined, all permitted attributes on the record
+may be retrieved by CAS from the attribute repository and made available to the principal. On the other hand,
+if explicit attribute mappings are defined, then <em>only mapped attributes</em> are retrieved.</p>
+
+<h3 id="ldap">LDAP</h3>
+
+<p>If you wish to directly and separately retrieve attributes from an LDAP source,
+the following settings are then relevant:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.attributeRepository.ldap.ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.authn.attributeRepository.ldap.useSsl=true
+# cas.authn.attributeRepository.ldap.useStartTls=false
+# cas.authn.attributeRepository.ldap.connectTimeout=5000
+# cas.authn.attributeRepository.ldap.baseDn=dc=example,dc=org
+# cas.authn.attributeRepository.ldap.userFilter=cn={0}
+# cas.authn.attributeRepository.ldap.subtreeSearch=true
+# cas.authn.attributeRepository.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.authn.attributeRepository.ldap.bindCredential=Password
+# cas.authn.attributeRepository.ldap.trustCertificates=
+# cas.authn.attributeRepository.ldap.keystore=
+# cas.authn.attributeRepository.ldap.keystorePassword=
+# cas.authn.attributeRepository.ldap.keystoreType=JKS|JCEKS|PKCS12
+# cas.authn.attributeRepository.ldap.minPoolSize=3
+# cas.authn.attributeRepository.ldap.maxPoolSize=10
+# cas.authn.attributeRepository.ldap.validateOnCheckout=true
+# cas.authn.attributeRepository.ldap.validatePeriodically=true
+# cas.authn.attributeRepository.ldap.validatePeriod=600
+# cas.authn.attributeRepository.ldap.failFast=true
+# cas.authn.attributeRepository.ldap.idleTime=500
+# cas.authn.attributeRepository.ldap.prunePeriod=600
+# cas.authn.attributeRepository.ldap.blockWaitTime=5000
+# cas.authn.attributeRepository.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="groovy">Groovy</h3>
+
+<p>If you wish to directly and separately retrieve attributes from a Groovy script,
+the following settings are then relevant:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.attributeRepository.groovy.config.location=file:/etc/cas/attributes.groovy
+# cas.authn.attributeRepository.groovy.caseInsensitive=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The Groovy script may be designed as:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.List</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span>
+
+<span class="kd">class</span> <span class="nc">SampleGroovyPersonAttributeDao</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;&gt;</span> <span class="n">run</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">def</span> <span class="n">uid</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+        <span class="kt">def</span> <span class="n">casProperties</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">casApplicationContext</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s2">"[{}]: The received uid is {}"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">simpleName</span><span class="o">,</span> <span class="n">uid</span><span class="o">)</span>
+        <span class="k">return</span><span class="o">[</span><span class="nl">username:</span><span class="o">[</span><span class="n">uid</span><span class="o">],</span> <span class="nl">likes:</span><span class="o">[</span><span class="s2">"cheese"</span><span class="o">,</span> <span class="s2">"food"</span><span class="o">],</span> <span class="nl">id:</span><span class="o">[</span><span class="mi">1234</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">,</span><span class="mi">5</span><span class="o">],</span> <span class="nl">another:</span><span class="s2">"attribute"</span><span class="o">]</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="json">JSON</h3>
+
+<p>If you wish to directly and separately retrieve attributes from a static JSON source,
+the following settings are then relevant:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.attributeRepository.json.config.location=file://etc/cas/attribute-repository.json
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The format of the file may be:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"user1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"firstName"</span><span class="p">:[</span><span class="s2">"Json1"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"lastName"</span><span class="p">:[</span><span class="s2">"One"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"user2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"firstName"</span><span class="p">:[</span><span class="s2">"Json2"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"eduPersonAffiliation"</span><span class="p">:[</span><span class="s2">"employee"</span><span class="p">,</span><span class="w"> </span><span class="s2">"student"</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="jdbc">JDBC</h3>
+
+<p>If you wish to directly and separately retrieve attributes from a JDBC source,
+the following settings are then relevant:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.attributeRepository.jdbc.singleRow=true
+# cas.authn.attributeRepository.jdbc.requireAllAttributes=true
+# cas.authn.attributeRepository.jdbc.caseCanonicalization=NONE|LOWER|UPPER
+# cas.authn.attributeRepository.jdbc.queryType=OR|AND
+</span>
+<span class="c"># Used only when there is a mapping of many rows to one user
+# cas.authn.attributeRepository.jdbc.columnMappings.columnAttrName1=columnAttrValue1
+# cas.authn.attributeRepository.jdbc.columnMappings.columnAttrName2=columnAttrValue2
+# cas.authn.attributeRepository.jdbc.columnMappings.columnAttrName3=columnAttrValue3
+</span>
+<span class="c"># cas.authn.attributeRepository.jdbc.sql=SELECT * FROM table WHERE {0}
+# cas.authn.attributeRepository.jdbc.username=uid
+# cas.authn.attributeRepository.jdbc.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.authn.attributeRepository.jdbc.isolateInternalQueries=false
+# cas.authn.attributeRepository.jdbc.url=jdbc:hsqldb:mem:cas-hsql-database
+# cas.authn.attributeRepository.jdbc.failFast=true
+# cas.authn.attributeRepository.jdbc.isolationLevelName=ISOLATION_READ_COMMITTED
+# cas.authn.attributeRepository.jdbc.dialect=org.hibernate.dialect.HSQLDialect
+# cas.authn.attributeRepository.jdbc.leakThreshold=10
+# cas.authn.attributeRepository.jdbc.propagationBehaviorName=PROPAGATION_REQUIRED
+# cas.authn.attributeRepository.jdbc.batchSize=1
+# cas.authn.attributeRepository.jdbc.user=sa
+# cas.authn.attributeRepository.jdbc.ddlAuto=create-drop
+# cas.authn.attributeRepository.jdbc.password=
+# cas.authn.attributeRepository.jdbc.autocommit=false
+# cas.authn.attributeRepository.jdbc.driverClass=org.hsqldb.jdbcDriver
+# cas.authn.attributeRepository.jdbc.idleTimeout=5000
+# cas.authn.attributeRepository.jdbc.pool.suspension=false
+# cas.authn.attributeRepository.jdbc.pool.minSize=6
+# cas.authn.attributeRepository.jdbc.pool.maxSize=18
+# cas.authn.attributeRepository.jdbc.pool.maxWait=2000
+</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="default-bundle">Default Bundle</h3>
+
+<p>If you wish to release a default bundle of attributes to all applications,
+and you would rather not duplicate the same attribute per every service definition,
+then the following settings are relevant:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># You can see those attributes when using cas/p3/serviceValidate or other protocols able to show multiple attributes
+# cas.authn.attributeRepository.defaultAttributesToRelease=cn,givenName,uid,affiliation
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To learn more about this topic, <a href="../integration/Attribute-Release.html">please review this guide</a>.</p>
+
+<h2 id="principal-resolution">Principal Resolution</h2>
+
+<p>In the event that a separate resolver is put into place, control
+how the final principal should be constructed by default.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.personDirectory.principalAttribute=
+# cas.personDirectory.returnNull=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="authentication-policy">Authentication Policy</h2>
+
+<p>Global authentication policy that is applied when
+CAS attempts to vend and validate tickets.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.policy.requiredHandlerAuthenticationPolicyEnabled=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="any">Any</h3>
+
+<p>Satisfied if any handler succeeds. Supports a tryAll flag to avoid short circuiting
+and try every handler even if one prior succeeded.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.policy.any.tryAll=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="all">All</h3>
+
+<p>Satisfied if and only if all given credentials are successfully authenticated.
+Support for multiple credentials is new in CAS and this handler
+would only be acceptable in a multi-factor authentication situation.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.policy.all.enabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="notprevented">NotPrevented</h3>
+
+<p>Satisfied if an only if the authentication event is not blocked by a <code class="language-plaintext highlighter-rouge">PreventedException</code>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.policy.notPrevented.enabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="required">Required</h3>
+
+<p>Satisfied if an only if a specified handler successfully authenticates its credential.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.policy.req.tryAll=false
+# cas.authn.policy.req.handlerName=handlerName
+# cas.authn.policy.req.enabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="authentication-throttling">Authentication Throttling</h2>
+
+<p>CAS provides a facility for limiting failed login attempts to support password guessing and related abuse scenarios.
+To learn more about this topic, <a href="Configuring-Authentication-Throttling.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.throttle.usernameParameter=username
+# cas.authn.throttle.startDelay=10000
+# cas.authn.throttle.repeatInterval=20000
+# cas.authn.throttle.appcode=CAS
+</span>
+<span class="c"># cas.authn.throttle.failure.threshold=100
+# cas.authn.throttle.failure.code=AUTHENTICATION_FAILED
+# cas.authn.throttle.failure.rangeSeconds=60
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="database">Database</h3>
+
+<p>Queries the data source used by the CAS audit facility to prevent successive failed login attempts for a particular username from the
+same IP address.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.throttle.jdbc.auditQuery=SELECT AUD_DATE FROM COM_AUDIT_TRAIL WHERE AUD_CLIENT_IP = ? AND AUD_USER = ? AND AUD_ACTION = ? AND APPLIC_CD = ? AND AUD_DATE &gt;= ? ORDER BY AUD_DATE DESC
+# cas.authn.throttle.jdbc.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.authn.throttle.jdbc.isolateInternalQueries=false
+# cas.authn.throttle.jdbc.url=jdbc:hsqldb:mem:cas-hsql-database
+# cas.authn.throttle.jdbc.failFast=true
+# cas.authn.throttle.jdbc.isolationLevelName=ISOLATION_READ_COMMITTED
+# cas.authn.throttle.jdbc.dialect=org.hibernate.dialect.HSQLDialect
+# cas.authn.throttle.jdbc.leakThreshold=10
+# cas.authn.throttle.jdbc.propagationBehaviorName=PROPAGATION_REQUIRED
+# cas.authn.throttle.jdbc.batchSize=1
+# cas.authn.throttle.jdbc.user=sa
+# cas.authn.throttle.jdbc.ddlAuto=create-drop
+# cas.authn.throttle.jdbc.maxAgeDays=180
+# cas.authn.throttle.jdbc.password=
+# cas.authn.throttle.jdbc.autocommit=false
+# cas.authn.throttle.jdbc.driverClass=org.hsqldb.jdbcDriver
+# cas.authn.throttle.jdbc.idleTimeout=5000
+</span>
+<span class="c"># cas.authn.throttle.jdbc.pool.suspension=false
+# cas.authn.throttle.jdbc.pool.minSize=6
+# cas.authn.throttle.jdbc.pool.maxSize=18
+# cas.authn.throttle.jdbc.pool.maxWait=2000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="adaptive-authentication">Adaptive Authentication</h2>
+
+<p>Control how CAS authentication should adapt itself to incoming client requests.
+To learn more about this topic, <a href="Configuring-Adaptive-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.adaptive.rejectCountries=United.+
+# cas.authn.adaptive.rejectBrowsers=Gecko.+
+# cas.authn.adaptive.rejectIpAddresses=127.+
+</span>
+<span class="c"># cas.authn.adaptive.requireMultifactor.mfa-duo=127.+|United.+|Gecko.+
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="googlemaps-geotracking">GoogleMaps GeoTracking</h2>
+
+<p>Used to geo-profile authentication events.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.googleMaps.apiKey=
+# cas.googleMaps.clientId=
+# cas.googleMaps.clientSecret=
+# cas.googleMaps.connectTimeout=3000
+# cas.googleMaps.googleAppsEngine=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="maxmind-geotracking">Maxmind GeoTracking</h2>
+
+<p>Used to geo-profile authentication events.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.maxmind.cityDatabase=file:/etc/cas/maxmind/GeoLite2-City.mmdb
+# cas.maxmind.countryDatabase=file:/etc/cas/maxmind/GeoLite2-Country.mmdb
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="digest-authentication">Digest Authentication</h2>
+
+<p>To learn more about this topic, <a href="Digest-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.digest.users.casuser=3530292c24102bac7ced2022e5f1036a
+# cas.authn.digest.users.anotheruser=7530292c24102bac7ced2022e5f1036b
+# cas.authn.digest.realm=CAS
+# cas.authn.digest.authenticationMethod=auth
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="radius-authentication">Radius Authentication</h2>
+
+<p>To learn more about this topic, <a href="RADIUS-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.radius.server.nasPortId=-1
+# cas.authn.radius.server.nasRealPort=-1
+# cas.authn.radius.server.protocol=EAP_MSCHAPv2
+# cas.authn.radius.server.retries=3
+# cas.authn.radius.server.nasPortType=-1
+# cas.authn.radius.server.nasPort=-1
+# cas.authn.radius.server.nasIpAddress=
+# cas.authn.radius.server.nasIpv6Address=
+# cas.authn.radius.server.nasIdentifier=-1
+</span>
+<span class="c"># cas.authn.radius.client.authenticationPort=1812
+# cas.authn.radius.client.sharedSecret=N0Sh@ar3d$ecReT
+# cas.authn.radius.client.socketTimeout=0
+# cas.authn.radius.client.inetAddress=localhost
+# cas.authn.radius.client.accountingPort=1813
+</span>
+<span class="c"># cas.authn.radius.failoverOnException=false
+# cas.authn.radius.failoverOnAuthenticationFailure=false
+</span>
+<span class="c"># cas.authn.radius.passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.radius.passwordEncoder.characterEncoding=
+# cas.authn.radius.passwordEncoder.encodingAlgorithm=
+# cas.authn.radius.passwordEncoder.secret=
+# cas.authn.radius.passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.radius.principalTransformation.suffix=
+# cas.authn.radius.principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.radius.principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="file-authentication">File Authentication</h2>
+
+<p>To learn more about this topic, <a href="Whitelist-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.file.separator=::
+# cas.authn.file.filename=
+</span>
+<span class="c"># cas.authn.file.passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.file.passwordEncoder.characterEncoding=
+# cas.authn.file.passwordEncoder.encodingAlgorithm=
+# cas.authn.file.passwordEncoder.secret=
+# cas.authn.file.passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.file.principalTransformation.suffix=
+# cas.authn.file.principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.file.principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="reject-users-authentication">Reject Users Authentication</h2>
+
+<p>To learn more about this topic, <a href="Blacklist-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.reject.users=user1,user2
+</span>
+<span class="c"># cas.authn.reject.passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.reject.passwordEncoder.characterEncoding=
+# cas.authn.reject.passwordEncoder.encodingAlgorithm=
+# cas.authn.reject.passwordEncoder.secret=
+# cas.authn.reject.passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.reject.principalTransformation.suffix=
+# cas.authn.reject.principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.reject.principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="database-authentication">Database Authentication</h2>
+
+<p>To learn more about this topic, <a href="Database-Authentication.html">please review this guide</a>.</p>
+
+<h3 id="query">Query</h3>
+
+<p>Authenticates a user by comparing the user password (which can be encoded with a password encoder) against the password on record determined by a configurable database query.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.jdbc.query[0].sql=SELECT password FROM table WHERE name=?
+# cas.authn.jdbc.query[0].healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.authn.jdbc.query[0].isolateInternalQueries=false
+# cas.authn.jdbc.query[0].url=jdbc:hsqldb:mem:cas-hsql-database
+# cas.authn.jdbc.query[0].failFast=true
+# cas.authn.jdbc.query[0].isolationLevelName=ISOLATION_READ_COMMITTED
+# cas.authn.jdbc.query[0].dialect=org.hibernate.dialect.HSQLDialect
+# cas.authn.jdbc.query[0].leakThreshold=10
+# cas.authn.jdbc.query[0].propagationBehaviorName=PROPAGATION_REQUIRED
+# cas.authn.jdbc.query[0].batchSize=1
+# cas.authn.jdbc.query[0].user=user
+# cas.authn.jdbc.query[0].ddlAuto=create-drop
+# cas.authn.jdbc.query[0].maxAgeDays=180
+# cas.authn.jdbc.query[0].password=secret
+# cas.authn.jdbc.query[0].autocommit=false
+# cas.authn.jdbc.query[0].driverClass=org.hsqldb.jdbcDriver
+# cas.authn.jdbc.query[0].idleTimeout=5000
+# cas.authn.jdbc.query[0].credentialCriteria=
+</span>
+<span class="c"># cas.authn.jdbc.query[0].passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.jdbc.query[0].passwordEncoder.characterEncoding=
+# cas.authn.jdbc.query[0].passwordEncoder.encodingAlgorithm=
+# cas.authn.jdbc.query[0].passwordEncoder.secret=
+# cas.authn.jdbc.query[0].passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.jdbc.query[0].principalTransformation.suffix=
+# cas.authn.jdbc.query[0].principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.jdbc.query[0].principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="search">Search</h3>
+
+<p>Searches for a user record by querying against a username and password; the user is authenticated if at least one result is found.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.jdbc.search[0].fieldUser=
+# cas.authn.jdbc.search[0].tableUsers=
+# cas.authn.jdbc.search[0].fieldPassword=
+# cas.authn.jdbc.search[0].healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.authn.jdbc.search[0].isolateInternalQueries=false
+# cas.authn.jdbc.search[0].url=jdbc:hsqldb:mem:cas-hsql-database
+# cas.authn.jdbc.search[0].failFast=true
+# cas.authn.jdbc.search[0].isolationLevelName=ISOLATION_READ_COMMITTED
+# cas.authn.jdbc.search[0].dialect=org.hibernate.dialect.HSQLDialect
+# cas.authn.jdbc.search[0].leakThreshold=10
+# cas.authn.jdbc.search[0].propagationBehaviorName=PROPAGATION_REQUIRED
+# cas.authn.jdbc.search[0].batchSize=1
+# cas.authn.jdbc.search[0].user=sa
+# cas.authn.jdbc.search[0].ddlAuto=create-drop
+# cas.authn.jdbc.search[0].maxAgeDays=180
+# cas.authn.jdbc.search[0].password=
+# cas.authn.jdbc.search[0].autocommit=false
+# cas.authn.jdbc.search[0].driverClass=org.hsqldb.jdbcDriver
+# cas.authn.jdbc.search[0].idleTimeout=5000
+# cas.authn.jdbc.search[0].credentialCriteria=
+</span>
+<span class="c"># cas.authn.jdbc.search[0].passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.jdbc.search[0].passwordEncoder.characterEncoding=
+# cas.authn.jdbc.search[0].passwordEncoder.encodingAlgorithm=
+# cas.authn.jdbc.search[0].passwordEncoder.secret=
+# cas.authn.jdbc.search[0].passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.jdbc.search[0].principalTransformation.suffix=
+# cas.authn.jdbc.search[0].principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.jdbc.search[0].principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="bind">Bind</h3>
+
+<p>Authenticates a user by attempting to create a database connection using the username and (hashed) password.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.jdbc.bind[0].healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.authn.jdbc.bind[0].isolateInternalQueries=false
+# cas.authn.jdbc.bind[0].url=jdbc:hsqldb:mem:cas-hsql-database
+# cas.authn.jdbc.bind[0].failFast=true
+# cas.authn.jdbc.bind[0].isolationLevelName=ISOLATION_READ_COMMITTED
+# cas.authn.jdbc.bind[0].dialect=org.hibernate.dialect.HSQLDialect
+# cas.authn.jdbc.bind[0].leakThreshold=10
+# cas.authn.jdbc.bind[0].propagationBehaviorName=PROPAGATION_REQUIRED
+# cas.authn.jdbc.bind[0].batchSize=1
+# cas.authn.jdbc.bind[0].user=sa
+# cas.authn.jdbc.bind[0].ddlAuto=create-drop
+# cas.authn.jdbc.bind[0].maxAgeDays=180
+# cas.authn.jdbc.bind[0].password=
+# cas.authn.jdbc.bind[0].autocommit=false
+# cas.authn.jdbc.bind[0].driverClass=org.hsqldb.jdbcDriver
+# cas.authn.jdbc.bind[0].idleTimeout=5000
+# cas.authn.jdbc.bind[0].credentialCriteria=
+</span>
+<span class="c"># cas.authn.jdbc.bind[0].passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.jdbc.bind[0].passwordEncoder.characterEncoding=
+# cas.authn.jdbc.bind[0].passwordEncoder.encodingAlgorithm=
+# cas.authn.jdbc.bind[0].passwordEncoder.secret=
+# cas.authn.jdbc.bind[0].passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.jdbc.bind[0].principalTransformation.suffix=
+# cas.authn.jdbc.bind[0].principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.jdbc.bind[0].principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="encode">Encode</h3>
+
+<p>A JDBC querying handler that will pull back the password and the private salt value for a user and validate the encoded
+password using the public salt value. Assumes everything is inside the same database table. Supports settings for
+number of iterations as well as private salt.</p>
+
+<p>This password encoding method combines the private Salt and the public salt which it prepends to the password before hashing.
+If multiple iterations are used, the bytecode hash of the first iteration is rehashed without the salt values. The final hash
+is converted to hex before comparing it to the database value.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.jdbc.encode[0].numberOfIterations=0
+# cas.authn.jdbc.encode[0].numberOfIterationsFieldName=numIterations
+# cas.authn.jdbc.encode[0].saltFieldName=salt
+# cas.authn.jdbc.encode[0].staticSalt=
+# cas.authn.jdbc.encode[0].sql=
+# cas.authn.jdbc.encode[0].algorithmName=
+# cas.authn.jdbc.encode[0].passwordFieldName=password
+# cas.authn.jdbc.encode[0].healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.authn.jdbc.encode[0].isolateInternalQueries=false
+# cas.authn.jdbc.encode[0].url=jdbc:hsqldb:mem:cas-hsql-database
+# cas.authn.jdbc.encode[0].failFast=true
+# cas.authn.jdbc.encode[0].isolationLevelName=ISOLATION_READ_COMMITTED
+# cas.authn.jdbc.encode[0].dialect=org.hibernate.dialect.HSQLDialect
+# cas.authn.jdbc.encode[0].leakThreshold=10
+# cas.authn.jdbc.encode[0].propagationBehaviorName=PROPAGATION_REQUIRED
+# cas.authn.jdbc.encode[0].batchSize=1
+# cas.authn.jdbc.encode[0].user=sa
+# cas.authn.jdbc.encode[0].ddlAuto=create-drop
+# cas.authn.jdbc.encode[0].maxAgeDays=180
+# cas.authn.jdbc.encode[0].password=
+# cas.authn.jdbc.encode[0].autocommit=false
+# cas.authn.jdbc.encode[0].driverClass=org.hsqldb.jdbcDriver
+# cas.authn.jdbc.encode[0].idleTimeout=5000
+# cas.authn.jdbc.encode[0].credentialCriteria=
+</span>
+<span class="c"># cas.authn.jdbc.encode[0].passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.jdbc.encode[0].passwordEncoder.characterEncoding=
+# cas.authn.jdbc.encode[0].passwordEncoder.encodingAlgorithm=
+# cas.authn.jdbc.encode[0].passwordEncoder.secret=
+# cas.authn.jdbc.encode[0].passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.jdbc.encode[0].principalTransformation.suffix=
+# cas.authn.jdbc.encode[0].principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.jdbc.encode[0].principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="mongodb-authentication">MongoDb Authentication</h2>
+
+<p>To learn more about this topic, <a href="MongoDb-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mongo.mongoHostUri=mongodb://uri
+# cas.authn.mongo.usernameAttribute=username
+# cas.authn.mongo.attributes=
+# cas.authn.mongo.passwordAttribute=password
+# cas.authn.mongo.collectionName=users
+</span>
+<span class="c"># cas.authn.mongo.principalTransformation.suffix=
+# cas.authn.mongo.principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.mongo.principalTransformation.prefix=
+</span>
+<span class="c"># cas.authn.mongo.passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.mongo.passwordEncoder.characterEncoding=
+# cas.authn.mongo.passwordEncoder.encodingAlgorithm=
+# cas.authn.mongo.passwordEncoder.secret=
+# cas.authn.mongo.passwordEncoder.strength=16
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ldap-authentication">Ldap Authentication</h2>
+
+<p>CAS authenticates a username/password against an LDAP directory such as Active Directory or OpenLDAP.
+There are numerous directory architectures and we provide configuration for four common cases.</p>
+
+<ul>
+  <li>Active Directory - Users authenticate with <code class="language-plaintext highlighter-rouge">sAMAccountName</code>.</li>
+  <li>Authenticated Search - Manager bind/search
+    <ul>
+      <li>If <code class="language-plaintext highlighter-rouge">principalAttributePassword</code> is empty then a user simple bind is done to validate credentials</li>
+      <li>otherwise the given attribute is compared with the given <code class="language-plaintext highlighter-rouge">principalAttributePassword</code> using the <code class="language-plaintext highlighter-rouge">SHA</code> encrypted value of it</li>
+    </ul>
+  </li>
+  <li>Anonymous Search - Anonymous search
+    <ul>
+      <li>If <code class="language-plaintext highlighter-rouge">principalAttributePassword</code> is empty then a user simple bind is done to validate credentials</li>
+      <li>otherwise the given attribute is compared with the given <code class="language-plaintext highlighter-rouge">principalAttributePassword</code> using the <code class="language-plaintext highlighter-rouge">SHA</code> encrypted value of it</li>
+    </ul>
+  </li>
+  <li>Direct Bind - Compute user DN from format string and perform simple bind. This is relevant when
+no search is required to compute the DN needed for a bind operation. There are two requirements for this use case:
+    <ol>
+      <li>All users are under a single branch in the directory, e.g. <code class="language-plaintext highlighter-rouge">ou=Users,dc=example,dc=org</code>.</li>
+      <li>The username provided on the CAS login form is part of the DN, e.g. <code class="language-plaintext highlighter-rouge">uid=%s,ou=Users,dc=exmaple,dc=org</code>.</li>
+    </ol>
+  </li>
+</ul>
+
+<p>Note that CAS will automatically create the appropriate components internally
+based on the settings specified below. If you wish to authenticate against more than one LDAP
+server, simply increment the index and specify the settings for the next LDAP server.</p>
+
+<p><strong>Note:</strong> Failure to specify adequate properties such as <code class="language-plaintext highlighter-rouge">type</code>, <code class="language-plaintext highlighter-rouge">ldapUrl</code>, <code class="language-plaintext highlighter-rouge">baseDn</code>, etc
+will simply deactivate LDAP authentication altogether silently.</p>
+
+<p>To learn more about this topic, <a href="LDAP-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.ldap[0].type=AD|AUTHENTICATED|DIRECT|ANONYMOUS|SASL
+</span>
+<span class="c"># cas.authn.ldap[0].ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.authn.ldap[0].useSsl=true
+# cas.authn.ldap[0].useStartTls=false
+# cas.authn.ldap[0].connectTimeout=5000
+# cas.authn.ldap[0].baseDn=dc=example,dc=org
+# cas.authn.ldap[0].userFilter=cn={user}
+# cas.authn.ldap[0].subtreeSearch=true
+# cas.authn.ldap[0].usePasswordPolicy=true
+# cas.authn.ldap[0].bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.authn.ldap[0].bindCredential=Password
+</span>
+<span class="c"># cas.authn.ldap[0].poolPassivator=NONE|CLOSE|BIND
+# cas.authn.ldap[0].enhanceWithEntryResolver=true
+# cas.authn.ldap[0].dnFormat=uid=%s,ou=people,dc=example,dc=org
+# cas.authn.ldap[0].principalAttributeId=uid
+# cas.authn.ldap[0].principalAttributePassword=userPassword
+# Give an attribute list released from LDAP to CAS, could be used with attributeRepository.defaultAttributesToRelease to be visible on CAS P3 serviceValidate
+# cas.authn.ldap[0].principalAttributeList=sn,cn:commonName,givenName,eduPersonTargettedId:SOME_IDENTIFIER
+# cas.authn.ldap[0].allowMultiplePrincipalAttributeValues=true
+# cas.authn.ldap[0].additionalAttributes=
+# cas.authn.ldap[0].credentialCriteria=
+</span>
+<span class="c"># cas.authn.ldap[0].saslMechanism=GSSAPI|DIGEST_MD5|CRAM_MD5|EXTERNAL
+# cas.authn.ldap[0].saslRealm=EXAMPLE.COM
+# cas.authn.ldap[0].saslAuthorizationId=
+# cas.authn.ldap[0].saslMutualAuth=
+# cas.authn.ldap[0].saslQualityOfProtection=
+# cas.authn.ldap[0].saslSecurityStrength=
+</span>
+<span class="c"># cas.authn.ldap[0].trustCertificates=
+# cas.authn.ldap[0].keystore=
+# cas.authn.ldap[0].keystorePassword=
+# cas.authn.ldap[0].keystoreType=JKS|JCEKS|PKCS12
+</span>
+<span class="c"># cas.authn.ldap[0].minPoolSize=3
+# cas.authn.ldap[0].maxPoolSize=10
+# cas.authn.ldap[0].validateOnCheckout=true
+# cas.authn.ldap[0].validatePeriodically=true
+# cas.authn.ldap[0].validatePeriod=600
+</span>
+<span class="c"># cas.authn.ldap[0].failFast=true
+# cas.authn.ldap[0].idleTime=5000
+# cas.authn.ldap[0].prunePeriod=5000
+# cas.authn.ldap[0].blockWaitTime=5000
+</span>
+<span class="c"># cas.authn.ldap[0].providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+# cas.authn.ldap[0].allowMultipleDns=false
+</span>
+<span class="c"># cas.authn.ldap[0].passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.ldap[0].passwordEncoder.characterEncoding=
+# cas.authn.ldap[0].passwordEncoder.encodingAlgorithm=
+# cas.authn.ldap[0].passwordEncoder.secret=
+# cas.authn.ldap[0].passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.ldap[0].principalTransformation.suffix=
+# cas.authn.ldap[0].principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.ldap[0].principalTransformation.prefix=
+</span>
+<span class="c"># cas.authn.ldap[0].passwordPolicy.enabled=true
+# cas.authn.ldap[0].passwordPolicy.policyAttributes.accountLocked=javax.security.auth.login.AccountLockedException
+# cas.authn.ldap[0].passwordPolicy.loginFailures=5
+# cas.authn.ldap[0].passwordPolicy.warningAttributeValue=
+# cas.authn.ldap[0].passwordPolicy.warningAttributeName=
+# cas.authn.ldap[0].passwordPolicy.displayWarningOnMatch=true
+# cas.authn.ldap[0].passwordPolicy.warnAll=true
+# cas.authn.ldap[0].passwordPolicy.warningDays=30
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="rest-authentication">REST Authentication</h2>
+
+<p>This allows the CAS server to reach to a remote REST endpoint via a <code class="language-plaintext highlighter-rouge">POST</code>.
+To learn more about this topic, <a href="Rest-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.rest.uri=https://...
+</span>
+<span class="c"># cas.authn.rest.passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.rest.passwordEncoder.characterEncoding=
+# cas.authn.rest.passwordEncoder.encodingAlgorithm=
+# cas.authn.rest.passwordEncoder.secret=
+# cas.authn.rest.passwordEncoder.strength=16
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="google-apps-authentication">Google Apps Authentication</h2>
+
+<p>Authenticate via CAS into Google Apps services and applications.
+To learn more about this topic, <a href="../integration/Google-Apps-Integration.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.googleApps.publicKeyLocation=file:/etc/cas/public.key
+# cas.googleApps.keyAlgorithm=RSA
+# cas.googleApps.privateKeyLocation=file:/etc/cas/private.key
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="openid-authentication">OpenID Authentication</h2>
+
+<p>Allow CAS to become an OpenID authentication provider.
+To learn more about this topic, <a href="../protocol/OpenID-Protocol.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.openid.enforceRpId=false
+# cas.authn.openid.principal.principalAttribute=
+# cas.authn.openid.principal.returnNull=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="spnego-authentication">SPNEGO Authentication</h2>
+
+<p>To learn more about this topic, <a href="SPNEGO-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.spnego.kerberosConf=
+# cas.authn.spnego.mixedModeAuthentication=false
+# cas.authn.spnego.cachePolicy=600
+# cas.authn.spnego.timeout=300000
+# cas.authn.spnego.jcifsServicePrincipal=HTTP/cas.example.com@EXAMPLE.COM
+# cas.authn.spnego.jcifsNetbiosWins=
+# cas.authn.spnego.loginConf=
+# cas.authn.spnego.ntlmAllowed=true
+# cas.authn.spnego.hostNamePatternString=.+
+# cas.authn.spnego.jcifsUsername=
+# cas.authn.spnego.useSubjectCredsOnly=false
+# cas.authn.spnego.supportedBrowsers=MSIE,Trident,Firefox,AppleWebKit
+# cas.authn.spnego.jcifsDomainController=
+# cas.authn.spnego.dnsTimeout=2000
+# cas.authn.spnego.hostNameClientActionStrategy=hostnameSpnegoClientAction
+# cas.authn.spnego.kerberosKdc=172.10.1.10
+# cas.authn.spnego.alternativeRemoteHostAttribute=alternateRemoteHeader
+# cas.authn.spnego.jcifsDomain=
+# cas.authn.spnego.ipsToCheckPattern=127.+
+# cas.authn.spnego.kerberosDebug=
+# cas.authn.spnego.send401OnAuthenticationFailure=true
+# cas.authn.spnego.kerberosRealm=EXAMPLE.COM
+# cas.authn.spnego.ntlm=false
+# cas.authn.spnego.principalWithDomainName=false
+# cas.authn.spnego.jcifsServicePassword=
+# cas.authn.spnego.jcifsPassword=
+# cas.authn.spnego.spnegoAttributeName=distinguishedName
+</span>
+<span class="c"># cas.authn.spnego.principal.principalAttribute=
+# cas.authn.spnego.principal.returnNull=false
+</span>
+<span class="c"># cas.authn.spnego.ldap.ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.authn.spnego.ldap.baseDn=dc=example,dc=org
+# cas.authn.spnego.ldap.userFilter=cn={user}
+# cas.authn.spnego.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.authn.spnego.ldap.bindCredential=Password
+# cas.authn.spnego.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+# cas.authn.spnego.ldap.connectTimeout=5000
+# cas.authn.spnego.ldap.trustCertificates=
+# cas.authn.spnego.ldap.keystore=
+# cas.authn.spnego.ldap.keystorePassword=
+# cas.authn.spnego.ldap.keystoreType=JKS|JCEKS|PKCS12
+# cas.authn.spnego.ldap.minPoolSize=3
+# cas.authn.spnego.ldap.maxPoolSize=10
+# cas.authn.spnego.ldap.validateOnCheckout=true
+# cas.authn.spnego.ldap.validatePeriodically=true
+# cas.authn.spnego.ldap.validatePeriod=600
+# cas.authn.spnego.ldap.failFast=true
+# cas.authn.spnego.ldap.idleTime=500
+# cas.authn.spnego.ldap.prunePeriod=600
+# cas.authn.spnego.ldap.blockWaitTime=5000
+# cas.authn.spnego.ldap.subtreeSearch=true
+# cas.authn.spnego.ldap.useSsl=true
+# cas.authn.spnego.ldap.useStartTls=false
+# cas.authn.spnego.ldap.baseDn=false
+# cas.authn.spnego.ldap.searchFilter=host={0}
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="jaas-authentication">JAAS Authentication</h2>
+
+<p>To learn more about this topic, <a href="JAAS-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.jaas.realm=CAS
+# cas.authn.jaas.kerberosKdcSystemProperty=
+# cas.authn.jaas.kerberosRealmSystemProperty=
+</span>
+<span class="c"># cas.authn.jaas.passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.jaas.passwordEncoder.characterEncoding=
+# cas.authn.jaas.passwordEncoder.encodingAlgorithm=
+# cas.authn.jaas.passwordEncoder.secret=
+# cas.authn.jaas.passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.jaas.principalTransformation.suffix=
+# cas.authn.jaas.principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.jaas.principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="stormpath-authentication">Stormpath Authentication</h2>
+
+<p>To learn more about this topic, <a href="Stormpath-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.stormpath.apiKey=
+# cas.authn.stormpath.secretkey=
+# cas.authn.stormpath.applicationId=
+</span>
+<span class="c"># cas.authn.stormpath.principalTransformation.suffix=
+# cas.authn.stormpath.principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.stormpath.principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="remote-address-authentication">Remote Address Authentication</h2>
+
+<p>To learn more about this topic, <a href="Remote-Address-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.remoteAddress.ipAddressRange=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="accept-users-authentication">Accept Users Authentication</h2>
+
+<div class="alert alert-warning"><strong>Default Credentials</strong><p>To test the default authentication scheme in CAS,
+use <strong>casuser</strong> and <strong>Mellon</strong> as the username and password respectively. These are automatically
+configured via the static authencation handler, and <strong>MUST</strong> be removed from the configuration
+prior to production rollouts.</p></div>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.accept.users=
+</span>
+<span class="c"># cas.authn.accept.passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.accept.passwordEncoder.characterEncoding=
+# cas.authn.accept.passwordEncoder.encodingAlgorithm=
+# cas.authn.accept.passwordEncoder.secret=
+# cas.authn.accept.passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.accept.principalTransformation.suffix=
+# cas.authn.accept.principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.accept.principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="x509-authentication">X509 Authentication</h2>
+
+<p>To learn more about this topic, <a href="X509-Authentication.html">please review this guide</a>.</p>
+
+<h3 id="crl-fetching--revocation">CRL Fetching / Revocation</h3>
+
+<p>CAS provides a flexible policy engine for certificate revocation checking. This facility arose due to lack of
+configurability in the revocation machinery built into the JSSE.</p>
+
+<p>Available policies cover the following events:</p>
+
+<ul>
+  <li>CRL Expiration</li>
+  <li>CRL Unavailability</li>
+</ul>
+
+<p>In either event, the following options are available:</p>
+
+<ul>
+  <li>Allow authentication to proceed.</li>
+  <li>Deny authentication and block.</li>
+  <li>Applicable to CRL expiration, throttle the request whereby expired data is permitted up
+to a threshold period of time but not afterward.</li>
+</ul>
+
+<p>Revocation certificate checking can be carried out in one of the following ways:</p>
+
+<ul>
+  <li>None.</li>
+  <li>A CRL hosted at a fixed location. The CRL is fetched at periodic intervals and cached.</li>
+  <li>The CRL URI(s) mentioned in the certificate <code class="language-plaintext highlighter-rouge">cRLDistributionPoints</code> extension field. Caches are available to prevent excessive
+IO against CRL endpoints; CRL data is fetched if does not exist in the cache or if it is expired.</li>
+</ul>
+
+<p>To fetch CRLs, the following options are available:</p>
+
+<ul>
+  <li>By default, all revocation checks use fixed resources to fetch the CRL resource from the specified location.</li>
+  <li>A CRL resource may be fetched from a pre-configured attribute, in the event that the CRL resource location is an LDAP URI.</li>
+</ul>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.x509.crlExpiredPolicy=DENY|ALLOW|THRESHOLD
+# cas.authn.x509.crlUnavailablePolicy=DENY|ALLOW|THRESHOLD
+# cas.authn.x509.crlResourceExpiredPolicy=DENY|ALLOW|THRESHOLD
+# cas.authn.x509.crlResourceUnavailablePolicy=DENY|ALLOW|THRESHOLD
+</span>
+<span class="c"># cas.authn.x509.revocationChecker=NONE|CRL|RESOURCE
+# cas.authn.x509.crlFetcher=RESOURCE|LDAP
+</span>
+<span class="c"># cas.authn.x509.crlResources[0]=file:/...
+</span>
+<span class="c"># cas.authn.x509.cacheMaxElementsInMemory=1000
+# cas.authn.x509.cacheDiskOverflow=false
+# cas.authn.x509.cacheEternal=false
+# cas.authn.x509.cacheTimeToLiveSeconds=7200
+# cas.authn.x509.cacheTimeToIdleSeconds=1800
+</span>
+<span class="c"># cas.authn.x509.checkKeyUsage=false
+# cas.authn.x509.revocationPolicyThreshold=172800
+</span>
+<span class="c"># cas.authn.x509.regExSubjectDnPattern=.+
+# cas.authn.x509.regExTrustedIssuerDnPattern=.+
+# cas.authn.x509.trustedIssuerDnPattern=.+
+</span>
+<span class="c"># cas.authn.x509.principalDescriptor=
+# cas.authn.x509.maxPathLength=1
+# cas.authn.x509.throwOnFetchFailure=false
+# cas.authn.x509.valueDelimiter=,
+# cas.authn.x509.checkAll=false
+# cas.authn.x509.requireKeyUsage=false
+# cas.authn.x509.serialNumberPrefix=SERIALNUMBER=
+# cas.authn.x509.refreshIntervalSeconds=3600
+# cas.authn.x509.maxPathLengthAllowUnspecified=false
+</span>
+<span class="c"># cas.authn.x509.ldap.ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.authn.x509.ldap.useSsl=true
+# cas.authn.x509.ldap.useStartTls=false
+# cas.authn.x509.ldap.connectTimeout=5000
+# cas.authn.x509.ldap.baseDn=dc=example,dc=org
+# cas.authn.x509.ldap.searchFilter=cn=X509
+# cas.authn.x509.ldap.subtreeSearch=true
+# cas.authn.x509.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.authn.x509.ldap.bindCredential=Password
+# cas.authn.x509.ldap.trustCertificates=
+# cas.authn.x509.ldap.keystore=
+# cas.authn.x509.ldap.keystorePassword=
+# cas.authn.x509.ldap.keystoreType=JKS|JCEKS|PKCS12
+# cas.authn.x509.ldap.minPoolSize=3
+# cas.authn.x509.ldap.maxPoolSize=10
+# cas.authn.x509.ldap.validateOnCheckout=true
+# cas.authn.x509.ldap.validatePeriodically=true
+# cas.authn.x509.ldap.validatePeriod=600
+# cas.authn.x509.ldap.failFast=true
+# cas.authn.x509.ldap.idleTime=500
+# cas.authn.x509.ldap.prunePeriod=600
+# cas.authn.x509.ldap.blockWaitTime=5000
+# cas.authn.x509.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+</span>
+<span class="c"># cas.authn.x509.principal.principalAttribute=
+# cas.authn.x509.principal.returnNull=false
+# cas.authn.x509.principalType=SERIAL_NO|SERIAL_NO_DN|SUBJECT|SUBJECT_ALT_NAME|SUBJECT_DN
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="shiro-authentication">Shiro Authentication</h2>
+
+<p>To learn more about this topic, <a href="Shiro-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.shiro.requiredPermissions=value1,value2,...
+# cas.authn.shiro.requiredRoles=value1,value2,...
+# cas.authn.shiro.config.location=classpath:shiro.ini
+</span>
+<span class="c"># cas.authn.shiro.passwordEncoder.type=NONE|DEFAULT|STANDARD|BCRYPT
+# cas.authn.shiro.passwordEncoder.characterEncoding=
+# cas.authn.shiro.passwordEncoder.encodingAlgorithm=
+# cas.authn.shiro.passwordEncoder.secret=
+# cas.authn.shiro.passwordEncoder.strength=16
+</span>
+<span class="c"># cas.authn.shiro.principalTransformation.suffix=
+# cas.authn.shiro.principalTransformation.caseConversion=NONE|UPPERCASE|LOWERCASE
+# cas.authn.shiro.principalTransformation.prefix=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ntlm-authentication">NTLM Authentication</h2>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.ntlm.includePattern=
+# cas.authn.ntlm.loadBalance=true
+# cas.authn.ntlm.domainController=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="trusted-authentication">Trusted Authentication</h2>
+
+<p>To learn more about this topic, <a href="Trusted-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.trusted.principalAttribute=
+# cas.authn.trusted.returnNull=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ws-fed-authentication">WS-Fed Authentication</h2>
+
+<p>To learn more about this topic, <a href="../integration/ADFS-Integration.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.wsfed.identityProviderUrl=https://adfs.example.org/adfs/ls/
+# cas.authn.wsfed.identityProviderIdentifier=https://adfs.example.org/adfs/services/trust
+# cas.authn.wsfed.relyingPartyIdentifier=urn:cas:localhost
+# cas.authn.wsfed.attributesType=WSFED
+# cas.authn.wsfed.signingCertificateResources=classpath:adfs-signing.crt
+# cas.authn.wsfed.tolerance=10000
+# cas.authn.wsfed.identityAttribute=upn
+# cas.authn.wsfed.attributeResolverEnabled=true
+# cas.authn.wsfed.autoRedirect=true
+</span>
+<span class="c"># cas.authn.wsfed.principal.principalAttribute=
+# cas.authn.wsfed.principal.returnNull=false
+</span>
+<span class="c"># Private/Public keypair used to decrypt assertions, if any.
+# cas.authn.wsfed.encryptionPrivateKey=classpath:private.key
+# cas.authn.wsfed.encryptionCertificate=classpath:certificate.crt
+# cas.authn.wsfed.encryptionPrivateKeyPassword=NONE
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="multifactor-authentication">Multifactor Authentication</h2>
+
+<p>To learn more about this topic, <a href="Configuring-Multifactor-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.globalProviderId=mfa-duo
+</span>
+<span class="c"># cas.authn.mfa.globalPrincipalAttributeNameTriggers=memberOf,eduPersonPrimaryAffiliation
+# cas.authn.mfa.globalPrincipalAttributeValueRegex=faculty|staff
+</span>
+<span class="c"># cas.authn.mfa.restEndpoint=https://entity.example.org/mfa
+</span>
+<span class="c"># cas.authn.mfa.requestParameter=authn_method
+# cas.authn.mfa.globalFailureMode=CLOSED
+# cas.authn.mfa.authenticationContextAttribute=authnContextClass
+# cas.authn.mfa.contentType=application/cas
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="multifactor-trusted-devicebrowser">Multifactor Trusted Device/Browser</h3>
+
+<p>To learn more about this topic, <a href="Multifactor-TrustedDevice-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.trusted.authenticationContextAttribute=isFromTrustedMultifactorAuthentication
+# cas.authn.mfa.trusted.encryptionKey=
+# cas.authn.mfa.trusted.signingKey=
+# cas.authn.mfa.trusted.cipherEnabled=true
+# cas.authn.mfa.trusted.deviceRegistrationEnabled=true
+# cas.authn.mfa.trusted.expiration=30
+# cas.authn.mfa.trusted.timeUnit=SECONDS|MINUTES|HOURS|DAYS
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="jdbc-storage">JDBC Storage</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.trusted.jpa.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.authn.mfa.trusted.jpa.isolateInternalQueries=false
+# cas.authn.mfa.trusted.jpa.url=jdbc:hsqldb:mem:cas-jdbc-storage
+# cas.authn.mfa.trusted.jpa.failFast=true
+# cas.authn.mfa.trusted.jpa.dialect=org.hibernate.dialect.HSQLDialect
+# cas.authn.mfa.trusted.jpa.leakThreshold=10
+# cas.authn.mfa.trusted.jpa.batchSize=1
+# cas.authn.mfa.trusted.jpa.defaultCatalog=
+# cas.authn.mfa.trusted.jpa.defaultSchema=
+# cas.authn.mfa.trusted.jpa.user=sa
+# cas.authn.mfa.trusted.jpa.ddlAuto=create-drop
+# cas.authn.mfa.trusted.jpa.password=
+# cas.authn.mfa.trusted.jpa.autocommit=false
+# cas.authn.mfa.trusted.jpa.driverClass=org.hsqldb.jdbcDriver
+# cas.authn.mfa.trusted.jpa.idleTimeout=5000
+</span>
+<span class="c"># cas.authn.mfa.trusted.jpa.pool.suspension=false
+# cas.authn.mfa.trusted.jpa.pool.minSize=6
+# cas.authn.mfa.trusted.jpa.pool.maxSize=18
+# cas.authn.mfa.trusted.jpa.pool.maxWait=2000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="mongodb-storage">MongoDb Storage</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.trusted.mongodb.clientUri=
+# cas.authn.mfa.trusted.mongodb.dropCollection=false
+# cas.authn.mfa.trusted.mongodb.collection=MongoDbCasTrustedAuthnMfaRepository
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="rest-storage">REST Storage</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.trusted.rest.endpoint=https://api.example.org/trustedBrowser
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="cleaner">Cleaner</h3>
+
+<p>A cleaner process is scheduled to run in the background to clean up expired and stale tickets.
+This section controls how that process should behave.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.trusted.cleaner.startDelay=10000
+# cas.authn.mfa.trusted.cleaner.repeatInterval=60000
+# cas.authn.mfa.trusted.cleaner.enabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="google-authenticator">Google Authenticator</h3>
+
+<p>To learn more about this topic, <a href="GoogleAuthenticator-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.gauth.windowSize=3
+# cas.authn.mfa.gauth.issuer=
+# cas.authn.mfa.gauth.codeDigits=6
+# cas.authn.mfa.gauth.label=
+# cas.authn.mfa.gauth.timeStepSize=30
+# cas.authn.mfa.gauth.rank=0
+# cas.authn.mfa.gauth.trustedDeviceEnabled=true
+</span>
+<span class="c"># cas.authn.mfa.gauth.bypass.principalAttributeName=bypass|skip
+# cas.authn.mfa.gauth.bypass.principalAttributeValue=true|enabled.+
+# cas.authn.mfa.gauth.bypass.authenticationAttributeName=bypass|skip
+# cas.authn.mfa.gauth.bypass.authenticationAttributeValue=allowed.+|enabled.+
+# cas.authn.mfa.gauth.bypass.authenticationHandlerName=AcceptUsers.+
+# cas.authn.mfa.gauth.bypass.authenticationMethodName=LdapAuthentication.+
+# cas.authn.mfa.gauth.bypass.credentialClassType=UsernamePassword.+
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="google-authenticator-mongodb">Google Authenticator MongoDb</h4>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.gauth.mongodb.clientUri=
+# cas.authn.mfa.gauth.mongodb.dropCollection=false
+# cas.authn.mfa.gauth.mongodb.collection=MongoDbGoogleAuthenticatorRepository
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="google-authenticator-jpa">Google Authenticator JPA</h4>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.gauth.jpa.database.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.authn.mfa.gauth.jpa.database.isolateInternalQueries=false
+# cas.authn.mfa.gauth.jpa.database.url=jdbc:hsqldb:mem:cas-gauth
+# cas.authn.mfa.gauth.jpa.database.failFast=true
+# cas.authn.mfa.gauth.jpa.database.dialect=org.hibernate.dialect.HSQLDialect
+# cas.authn.mfa.gauth.jpa.database.leakThreshold=10
+# cas.authn.mfa.gauth.jpa.database.batchSize=1
+# cas.authn.mfa.gauth.jpa.database.user=sa
+# cas.authn.mfa.gauth.jpa.database.ddlAuto=create-drop
+# cas.authn.mfa.gauth.jpa.database.password=
+# cas.authn.mfa.gauth.jpa.database.autocommit=false
+# cas.authn.mfa.gauth.jpa.database.driverClass=org.hsqldb.jdbcDriver
+# cas.authn.mfa.gauth.jpa.database.idleTimeout=5000
+</span>
+<span class="c"># cas.authn.mfa.gauth.jpa.database.pool.suspension=false
+# cas.authn.mfa.gauth.jpa.database.pool.minSize=6
+# cas.authn.mfa.gauth.jpa.database.pool.maxSize=18
+# cas.authn.mfa.gauth.jpa.database.pool.maxWait=2000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="yubikey">YubiKey</h3>
+
+<p>To learn more about this topic, <a href="YubiKey-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.yubikey.clientId=
+# cas.authn.mfa.yubikey.secretKey=
+# cas.authn.mfa.yubikey.rank=0
+# cas.authn.mfa.yubikey.apiUrls=
+# cas.authn.mfa.yubikey.trustedDeviceEnabled=true
+</span>
+<span class="c"># cas.authn.mfa.yubikey.bypass.principalAttributeName=bypass|skip
+# cas.authn.mfa.yubikey.bypass.principalAttributeValue=true|enabled.+
+# cas.authn.mfa.yubikey.bypass.authenticationAttributeName=bypass|skip
+# cas.authn.mfa.yubikey.bypass.authenticationAttributeValue=allowed.+|enabled.+
+# cas.authn.mfa.yubikey.bypass.authenticationHandlerName=AcceptUsers.+
+# cas.authn.mfa.yubikey.bypass.authenticationMethodName=LdapAuthentication.+
+# cas.authn.mfa.yubikey.bypass.credentialClassType=UsernamePassword.+
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="radius-otp">Radius OTP</h3>
+
+<p>To learn more about this topic, <a href="RADIUS-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.radius.failoverOnAuthenticationFailure=false
+# cas.authn.mfa.radius.failoverOnException=false
+# cas.authn.mfa.radius.rank=0
+# cas.authn.mfa.radius.trustedDeviceEnabled=true
+</span>
+<span class="c"># cas.authn.mfa.radius.client.socketTimeout=0
+# cas.authn.mfa.radius.client.sharedSecret=N0Sh@ar3d$ecReT
+# cas.authn.mfa.radius.client.authenticationPort=1812
+# cas.authn.mfa.radius.client.accountingPort=1813
+# cas.authn.mfa.radius.client.inetAddress=localhost
+</span>
+<span class="c"># cas.authn.mfa.radius.server.retries=3
+# cas.authn.mfa.radius.server.nasPortType=-1
+# cas.authn.mfa.radius.server.protocol=EAP_MSCHAPv2
+# cas.authn.mfa.radius.server.nasRealPort=-1
+# cas.authn.mfa.radius.server.nasPortId=-1
+# cas.authn.mfa.radius.server.nasIdentifier=-1
+# cas.authn.mfa.radius.server.nasPort=-1
+# cas.authn.mfa.radius.server.nasIpAddress=
+# cas.authn.mfa.radius.server.nasIpv6Address=
+</span>
+<span class="c"># cas.authn.mfa.radius.bypass.principalAttributeName=bypass|skip
+# cas.authn.mfa.radius.bypass.principalAttributeValue=true|enabled.+
+# cas.authn.mfa.radius.bypass.authenticationAttributeName=bypass|skip
+# cas.authn.mfa.radius.bypass.authenticationAttributeValue=allowed.+|enabled.+
+# cas.authn.mfa.radius.bypass.authenticationHandlerName=AcceptUsers.+
+# cas.authn.mfa.radius.bypass.authenticationMethodName=LdapAuthentication.+
+# cas.authn.mfa.radius.bypass.credentialClassType=UsernamePassword.+
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="duosecurity">DuoSecurity</h3>
+
+<p>To learn more about this topic, <a href="DuoSecurity-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.duo.duoSecretKey=
+# cas.authn.mfa.duo.rank=0
+# cas.authn.mfa.duo.duoApplicationKey=
+# cas.authn.mfa.duo.duoIntegrationKey=
+# cas.authn.mfa.duo.duoApiHost=
+# cas.authn.mfa.duo.trustedDeviceEnabled=true
+</span>
+<span class="c"># cas.authn.mfa.duo.bypass.principalAttributeName=bypass|skip
+# cas.authn.mfa.duo.bypass.principalAttributeValue=true|enabled.+
+# cas.authn.mfa.duo.bypass.authenticationAttributeName=bypass|skip
+# cas.authn.mfa.duo.bypass.authenticationAttributeValue=allowed.+|enabled.+
+# cas.authn.mfa.duo.bypass.authenticationHandlerName=AcceptUsers.+
+# cas.authn.mfa.duo.bypass.authenticationMethodName=LdapAuthentication.+
+# cas.authn.mfa.duo.bypass.credentialClassType=UsernamePassword.+
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="authy">Authy</h3>
+
+<p>To learn more about this topic, <a href="AuthyAuthenticator-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.mfa.authy.apiKey=
+# cas.authn.mfa.authy.apiUrl=
+# cas.authn.mfa.authy.phoneAttribute=phone
+# cas.authn.mfa.authy.mailAttribute=mail
+# cas.authn.mfa.authy.forceVerification=true
+# cas.authn.mfa.authy.trustedDeviceEnabled=true
+</span>
+<span class="c"># cas.authn.mfa.authy.bypass.principalAttributeName=bypass|skip
+# cas.authn.mfa.authy.bypass.principalAttributeValue=true|enabled.+
+# cas.authn.mfa.authy.bypass.authenticationAttributeName=bypass|skip
+# cas.authn.mfa.authy.bypass.authenticationAttributeValue=allowed.+|enabled.+
+# cas.authn.mfa.authy.bypass.authenticationHandlerName=AcceptUsers.+
+# cas.authn.mfa.authy.bypass.authenticationMethodName=LdapAuthentication.+
+# cas.authn.mfa.authy.bypass.credentialClassType=UsernamePassword.+
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="authentication-exceptions">Authentication Exceptions</h2>
+
+<p>Map custom authentication exceptions in the CAS webflow and link them to custom messages defined in message bundles.</p>
+
+<p>To learn more about this topic, <a href="Webflow-Customization-Exceptions.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.exceptions.exceptions=value1,value2,...
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="saml-core">Saml Core</h2>
+
+<p>Control core SAML functionality within CAS.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlCore.ticketidSaml2=false
+# cas.samlCore.skewAllowance=0
+# cas.samlCore.attributeNamespace=http://www.ja-sig.org/products/cas/
+# cas.samlCore.issuer=localhost
+# cas.samlCore.securityManager=org.apache.xerces.util.SecurityManager
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="saml-idp">Saml IdP</h2>
+
+<p>Allow CAS to become a SAML2 identity provider.
+To learn more about this topic, <a href="Configuring-SAML2-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.samlIdp.entityId=https://cas.example.org/idp
+# cas.authn.samlIdp.hostName=cas.example.org
+# cas.authn.samlIdp.scope=example.org
+</span>
+<span class="c"># cas.authn.samlIdp.metadata.cacheExpirationMinutes=30
+# cas.authn.samlIdp.metadata.failFast=true
+# cas.authn.samlIdp.metadata.location=/etc/cas/saml
+# cas.authn.samlIdp.metadata.privateKeyAlgName=RSA
+# cas.authn.samlIdp.metadata.requireValidMetadata=true
+</span>
+<span class="c"># cas.authn.samlIdp.metadata.basicAuthnUsername=
+# cas.authn.samlIdp.metadata.basicAuthnPassword=
+# cas.authn.samlIdp.metadata.supportedContentTypes=
+</span>
+<span class="c"># cas.authn.samlIdp.logout.forceSignedLogoutRequests=true
+# cas.authn.samlIdp.logout.singleLogoutCallbacksDisabled=false
+</span>
+<span class="c"># cas.authn.samlIdp.response.skewAllowance=0
+# cas.authn.samlIdp.response.signError=false
+# cas.authn.samlIdp.response.overrideSignatureCanonicalizationAlgorithm=
+# cas.authn.samlIdp.response.useAttributeFriendlyName=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="saml-sps">Saml SPs</h2>
+
+<p>Allow CAS to register and enable a number of built-in SAML service provider integrations.
+To learn more about this topic, <a href="../integration/Configuring-SAML-SP-Integrations.html">please review this guide</a>.</p>
+
+<h3 id="dropbox">Dropbox</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.dropbox.metadata=/etc/cas/saml/dropbox.xml
+# cas.samlSP.dropbox.name=Dropbox
+# cas.samlSP.dropbox.description=Dropbox Integration
+# cas.samlSP.dropbox.nameIdAttribute=mail
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="testshib">TestShib</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.testShib.metadata=http://www.testshib.org/metadata/testshib-providers.xml
+# cas.samlSP.testShib.name=TestShib
+# cas.samlSP.testShib.description=TestShib Integration
+# cas.samlSP.testShib.attributes=eduPersonPrincipalName
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="office365">Office365</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.office365.metadata=/etc/cas/saml/azure.xml
+# cas.samlSP.office365.name=O365
+# cas.samlSP.office365.description=O365 Integration
+# cas.samlSP.office365.nameIdAttribute=scopedImmutableID
+# cas.samlSP.office365.attributes=IDPEmail,ImmutableID
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="samanage">SAManage</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.saManage.metadata=/etc/cas/saml/samanage.xml
+# cas.samlSP.saManage.name=SAManage
+# cas.samlSP.saManage.description=SAManage Integration
+# cas.samlSP.saManage.nameIdAttribute=mail
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="workday">Workday</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.workday.metadata=/etc/cas/saml/workday.xml
+# cas.samlSP.workday.name=Workday
+# cas.samlSP.workday.description=Workday Integration
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="salesforce">Salesforce</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.salesforce.metadata=/etc/cas/saml/salesforce.xml
+# cas.samlSP.salesforce.name=Salesforce
+# cas.samlSP.salesforce.description=Salesforce Integration
+# cas.samlSP.salesforce.attributes=mail,eduPersonPrincipalName
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="box">Box</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.box.metadata=/etc/cas/saml/box.xml
+# cas.samlSP.box.name=Box
+# cas.samlSP.box.description=Box Integration
+# cas.samlSP.box.attributes=email,firstName,lastName
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="service-now">Service Now</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.serviceNow.metadata=/etc/cas/saml/serviceNow.xml
+# cas.samlSP.serviceNow.name=ServiceNow
+# cas.samlSP.serviceNow.description=serviceNow Integration
+# cas.samlSP.serviceNow.attributes=eduPersonPrincipalName
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="net-partner">Net Partner</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.netPartner.metadata=/etc/cas/saml/netPartner.xml
+# cas.samlSP.netPartner.name=Net Partner
+# cas.samlSP.netPartner.description=Net Partner Integration
+# cas.samlSP.netPartner.nameIdAttribute=studentId
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="webex">Webex</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlSP.webex.metadata=/etc/cas/saml/webex.xml
+# cas.samlSP.webex.name=Webex
+# cas.samlSP.webex.description=Webex Integration
+# cas.samlSP.webex.nameIdAttribute=email
+# cas.samlSP.webex.attributes=firstName,lastName,
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="openid-connect">OpenID Connect</h2>
+
+<p>Allow CAS to become an OpenID Connect provider (OP).
+To learn more about this topic, <a href="OIDC-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.oidc.issuer=http://localhost:8080/cas/oidc
+# cas.authn.oidc.skew=5
+# cas.authn.oidc.jwksFile=file:/keystore.jwks
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="pac4j">Pac4j</h2>
+
+<p>Act as a proxy, and delegate authentication to external identity providers.
+To learn more about this topic, <a href="../integration/Delegate-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.typedIdUsed=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="cas">CAS</h3>
+
+<p>Delegate authentication to an external CAS server.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.cas.loginUrl=
+# cas.authn.pac4j.cas.protocol=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="facebook">Facebook</h3>
+
+<p>Delegate authentication to Facebook.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.facebook.fields=
+# cas.authn.pac4j.facebook.id=
+# cas.authn.pac4j.facebook.secret=
+# cas.authn.pac4j.facebook.scope=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="twitter">Twitter</h3>
+
+<p>Delegate authentication to Twitter.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.twitter.id=
+# cas.authn.pac4j.twitter.secret=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="openid-connect-1">OpenID Connect</h3>
+
+<p>Delegate authentication to an external OpenID Connect server.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.oidc.discoveryUri=
+# cas.authn.pac4j.oidc.maxClockSkew=
+# cas.authn.pac4j.oidc.customParamKey2=
+# cas.authn.pac4j.oidc.customParamValue2=
+# cas.authn.pac4j.oidc.id=
+# cas.authn.pac4j.oidc.secret=
+# cas.authn.pac4j.oidc.customParamKey1=
+# cas.authn.pac4j.oidc.customParamValue1=
+# cas.authn.pac4j.oidc.useNonce=
+# cas.authn.pac4j.oidc.preferredJwsAlgorithm=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="saml">SAML</h3>
+
+<p>Delegate authentication to an external SAML2 IdP (do not use the <code class="language-plaintext highlighter-rouge">resource:</code> or <code class="language-plaintext highlighter-rouge">classpath:</code> prefixes for the <code class="language-plaintext highlighter-rouge">keystorePath</code> or <code class="language-plaintext highlighter-rouge">identityProviderMetadataPath</code> property).</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.saml.keystorePassword=
+# cas.authn.pac4j.saml.privateKeyPassword=
+# cas.authn.pac4j.saml.serviceProviderEntityId=
+# cas.authn.pac4j.saml.serviceProviderMetadataPath=
+# cas.authn.pac4j.saml.keystorePath=
+# cas.authn.pac4j.saml.maximumAuthenticationLifetime=
+# cas.authn.pac4j.saml.identityProviderMetadataPath=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The callback url for the SAML identity provider will be the CAS login page plus the <code class="language-plaintext highlighter-rouge">client_name=SAML2Client</code> query string.
+If the <code class="language-plaintext highlighter-rouge">serviceProviderEntityId</code> is not defined, its value will be the CAS login page URL (without any query string).</p>
+
+<p>So you must configure your SAML IdP accordingly.</p>
+
+<h3 id="yahoo">Yahoo</h3>
+
+<p>Delegate authentication to Yahoo.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.yahoo.id=
+# cas.authn.pac4j.yahoo.secret=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="dropbox-1">Dropbox</h3>
+
+<p>Delegate authentication to Dropbox.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.dropbox.id=
+# cas.authn.pac4j.dropbox.secret=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="github">Github</h3>
+
+<p>Delegate authentication to Github.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.github.id=
+# cas.authn.pac4j.github.secret=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="foursquare">Foursquare</h3>
+
+<p>Delegate authentication to Foursquare.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.foursquare.id=
+# cas.authn.pac4j.foursquare.secret=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="windowslive">WindowsLive</h3>
+
+<p>Delegate authentication to WindowsLive.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.windowsLive.id=
+# cas.authn.pac4j.windowsLive.secret=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="google">Google</h3>
+
+<p>Delegate authentication to Google.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.google.id=
+# cas.authn.pac4j.google.secret=
+# cas.authn.pac4j.google.scope=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="linkedin">LinkedIn</h3>
+
+<p>Delegate authentication to LinkedIn.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pac4j.linkedIn.id=
+# cas.authn.pac4j.linkedIn.secret=
+# cas.authn.pac4j.linkedIn.fields=
+# cas.authn.pac4j.linkedIn.scope=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="oauth2">OAuth2</h2>
+
+<p>Allows CAS to act as an OAuth2 provider. Here you can control how
+long various tokens issued by CAS should last, etc.</p>
+
+<p>To learn more about this topic, <a href="OAuth-OpenId-Authentication.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.oauth.refreshToken.timeToKillInSeconds=2592000
+</span>
+<span class="c"># cas.authn.oauth.code.timeToKillInSeconds=30
+# cas.authn.oauth.code.numberOfUses=1
+</span>
+<span class="c"># cas.authn.oauth.accessToken.timeToKillInSeconds=7200
+# cas.authn.oauth.accessToken.maxTimeToLiveInSeconds=28800
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="localization">Localization</h2>
+
+<p>To learn more about this topic, <a href="User-Interface-Customization-Localization.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.locale.paramName=locale
+# cas.locale.defaultValue=en
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="global-sso-behavior">Global SSO Behavior</h2>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.sso.missingService=true
+# cas.sso.renewedAuthn=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="warning-cookie">Warning Cookie</h2>
+
+<p>Created by CAS if and when users are to be warned when accessing CAS protected services.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.warningCookie.path=
+# cas.warningCookie.maxAge=-1
+# cas.warningCookie.domain=
+# cas.warningCookie.name=CASPRIVACY
+# cas.warningCookie.secure=true
+# cas.warningCookie.httpOnly=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ticket-granting-cookie">Ticket Granting Cookie</h2>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.tgc.path=
+# cas.tgc.maxAge=-1
+# cas.tgc.domain=
+# cas.tgc.signingKey=
+# cas.tgc.name=TGC
+# cas.tgc.encryptionKey=
+# cas.tgc.secure=true
+# cas.tgc.httpOnly=true
+# cas.tgc.rememberMeMaxAge=1209600
+# cas.tgc.cipherEnabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="logout">Logout</h2>
+
+<p>Control various settings related to CAS logout functionality.
+To learn more about this topic, <a href="Logout-Single-Signout.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.logout.followServiceRedirects=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="single-logout">Single Logout</h2>
+
+<p>To learn more about this topic, <a href="Logout-Single-Signout.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.slo.disabled=false
+# cas.slo.asynchronous=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="clearpass">Clearpass</h2>
+
+<p>Capture and cache user credentials and optionally release them to trusted applications.
+To learn more about this topic, <a href="../integration/ClearPass.html">please review this guide</a>.</p>
+
+<div class="alert alert-warning"><strong>Usage Warning!</strong><p>ClearPass is turned off by default.
+Think <strong>VERY CAREFULLY</strong> before turning on this feature, as it <strong>MUST</strong> be
+the last resort in getting an integration to work...maybe not even then.</p></div>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.clearpass.cacheCredential=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="message-bundles">Message Bundles</h2>
+
+<p>To learn more about this topic, <a href="User-Interface-Customization-Localization.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.messageBundle.encoding=UTF-8
+# cas.messageBundle.fallbackSystemLocale=false
+# cas.messageBundle.cacheSeconds=180
+# cas.messageBundle.useCodeMessage=true
+# cas.messageBundle.baseNames=classpath:custom_messages,classpath:messages
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="shibboleth-attribute-resolver">Shibboleth Attribute Resolver</h2>
+
+<p>To learn more about this topic, <a href="../integration/Attribute-Resolution.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.shibAttributeResolver.resources=classpath:/attribute-resolver.xml
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="audits">Audits</h2>
+
+<p>Control how audit messages are formatted.
+To learn more about this topic, <a href="Audits.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.audit.auditFormat=DEFAULT
+# cas.audit.ignoreAuditFailures=false
+# cas.audit.singlelineSeparator=|
+# cas.audit.useSingleLine=false
+# cas.audit.appCode=CAS
+# cas.audit.alternateServerAddrHeaderName=
+# cas.audit.alternateClientAddrHeaderName=X-Forwarded-For
+# cas.audit.useServerHostAddress=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="database-1">Database</h3>
+
+<p>Store audit logs inside a database.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.audit.jdbc.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.audit.jdbc.isolateInternalQueries=false
+# cas.audit.jdbc.url=jdbc:hsqldb:mem:cas-hsql-database
+# cas.audit.jdbc.failFast=true
+# cas.audit.jdbc.isolationLevelName=ISOLATION_READ_COMMITTED
+# cas.audit.jdbc.dialect=org.hibernate.dialect.HSQLDialect
+# cas.audit.jdbc.leakThreshold=10
+# cas.audit.jdbc.propagationBehaviorName=PROPAGATION_REQUIRED
+# cas.audit.jdbc.batchSize=1
+# cas.audit.jdbc.user=sa
+# cas.audit.jdbc.ddlAuto=create-drop
+# cas.audit.jdbc.maxAgeDays=180
+# cas.audit.jdbc.password=
+# cas.audit.jdbc.autocommit=false
+# cas.audit.jdbc.driverClass=org.hsqldb.jdbcDriver
+# cas.audit.jdbc.idleTimeout=5000
+</span>
+<span class="c"># cas.audit.jdbc.pool.suspension=false
+# cas.audit.jdbc.pool.minSize=6
+# cas.audit.jdbc.pool.maxSize=18
+# cas.audit.jdbc.pool.maxWait=2000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="monitoring">Monitoring</h2>
+
+<p>To learn more about this topic, <a href="Monitoring-Statistics.html">please review this guide</a>.</p>
+
+<h3 id="ticket-granting-tickets">Ticket Granting Tickets</h3>
+
+<p>Decide how CAS should monitor the generation of TGTs.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.monitor.tgt.warn.threshold=10
+# cas.monitor.tgt.warn.evictionThreshold=0
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="service-tickets">Service Tickets</h3>
+
+<p>Decide how CAS should monitor the generation of STs.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.monitor.st.warn.threshold=10
+# cas.monitor.st.warn.evictionThreshold=0
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="cache-monitors">Cache Monitors</h3>
+
+<p>Decide how CAS should monitor the internal state of various cache storage services.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.monitor.warn.threshold=10
+# cas.monitor.warn.evictionThreshold=0
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="database-2">Database</h3>
+
+<p>Decide how CAS should monitor the internal state of JDBC connections used
+for authentication or attribute retrieval.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.monitor.jdbc.validationQuery=SELECT 1
+# cas.monitor.jdbc.maxWait=5000
+# cas.monitor.jdbc.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.monitor.jdbc.isolateInternalQueries=false
+# cas.monitor.jdbc.url=jdbc:hsqldb:mem:cas-hsql-database
+# cas.monitor.jdbc.failFast=true
+# cas.monitor.jdbc.isolationLevelName=ISOLATION_READ_COMMITTED
+# cas.monitor.jdbc.dialect=org.hibernate.dialect.HSQLDialect
+# cas.monitor.jdbc.leakThreshold=10
+# cas.monitor.jdbc.propagationBehaviorName=PROPAGATION_REQUIRED
+# cas.monitor.jdbc.batchSize=1
+# cas.monitor.jdbc.user=sa
+# cas.monitor.jdbc.ddlAuto=create-drop
+# cas.monitor.jdbc.maxAgeDays=180
+# cas.monitor.jdbc.password=
+# cas.monitor.jdbc.autocommit=false
+# cas.monitor.jdbc.driverClass=org.hsqldb.jdbcDriver
+# cas.monitor.jdbc.idleTimeout=5000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldap-connection-pool">LDAP Connection Pool</h3>
+
+<p>Decide how CAS should monitor the internal state of LDAP connections
+used for authentication, etc.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre><span class="c"># Define the thread pool that will ping on the LDAP connection pool.
+# cas.monitor.ldap.pool.suspension=false
+# cas.monitor.ldap.pool.minSize=6
+# cas.monitor.ldap.pool.maxSize=18
+# cas.monitor.ldap.pool.maxWait=2000
+</span>
+<span class="c"># cas.monitor.ldap.maxWait=5000
+</span>
+<span class="c"># Define the LDAP connection pool settings for monitoring
+# cas.monitor.ldap.ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.monitor.ldap.baseDn=dc=example,dc=org
+# cas.monitor.ldap.userFilter=cn={user}
+# cas.monitor.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.monitor.ldap.bindCredential=Password
+# cas.monitor.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+# cas.monitor.ldap.connectTimeout=5000
+# cas.monitor.ldap.trustCertificates=
+# cas.monitor.ldap.keystore=
+# cas.monitor.ldap.keystorePassword=
+# cas.monitor.ldap.keystoreType=JKS|JCEKS|PKCS12
+# cas.monitor.ldap.minPoolSize=3
+# cas.monitor.ldap.maxPoolSize=10
+# cas.monitor.ldap.validateOnCheckout=true
+# cas.monitor.ldap.validatePeriodically=true
+# cas.monitor.ldap.validatePeriod=600
+# cas.monitor.ldap.failFast=true
+# cas.monitor.ldap.idleTime=500
+# cas.monitor.ldap.prunePeriod=600
+# cas.monitor.ldap.blockWaitTime=5000
+# cas.monitor.ldap.subtreeSearch=true
+# cas.monitor.ldap.useSsl=true
+# cas.monitor.ldap.useStartTls=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="memory">Memory</h3>
+
+<p>Decide how CAS should monitor the internal state of JVM memory available at runtime.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.monitor.freeMemThreshold=10
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="themes">Themes</h2>
+
+<p>To learn more about this topic, <a href="User-Interface-Customization-Themes.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.theme.paramName=theme
+# cas.theme.defaultThemeName=cas-theme-default
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="acceptable-usage-policy">Acceptable Usage Policy</h2>
+
+<p>Decide how CAS should attempt to determine whether AUP is accepted.
+To learn more about this topic, <a href="Webflow-Customization-AUP.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.acceptableUsagePolicy.aupAttributeName=aupAccepted
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldap-1">Ldap</h3>
+
+<p>If AUP is controlled via LDAP, decide how choices should be remembered back inside the LDAP instance.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.acceptableUsagePolicy.ldap.ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.acceptableUsagePolicy.ldap.baseDn=dc=example,dc=org
+# cas.acceptableUsagePolicy.ldap.userFilter=cn={user}
+# cas.acceptableUsagePolicy.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.acceptableUsagePolicy.ldap.bindCredential=Password
+# cas.acceptableUsagePolicy.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+# cas.acceptableUsagePolicy.ldap.connectTimeout=5000
+# cas.acceptableUsagePolicy.ldap.trustCertificates=
+# cas.acceptableUsagePolicy.ldap.keystore=
+# cas.acceptableUsagePolicy.ldap.keystorePassword=
+# cas.acceptableUsagePolicy.ldap.keystoreType=JKS|JCEKS|PKCS12
+# cas.acceptableUsagePolicy.ldap.minPoolSize=3
+# cas.acceptableUsagePolicy.ldap.maxPoolSize=10
+# cas.acceptableUsagePolicy.ldap.validateOnCheckout=true
+# cas.acceptableUsagePolicy.ldap.validatePeriodically=true
+# cas.acceptableUsagePolicy.ldap.validatePeriod=600
+# cas.acceptableUsagePolicy.ldap.failFast=true
+# cas.acceptableUsagePolicy.ldap.idleTime=500
+# cas.acceptableUsagePolicy.ldap.prunePeriod=600
+# cas.acceptableUsagePolicy.ldap.blockWaitTime=5000
+# cas.acceptableUsagePolicy.ldap.useSsl=true
+# cas.acceptableUsagePolicy.ldap.useStartTls=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="events">Events</h2>
+
+<p>Decide how CAS should track authentication events.
+To learn more about this topic, <a href="Configuring-Authentication-Events.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.events.trackGeolocation=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="database-3">Database</h3>
+
+<p>Decide how CAS should store authentication events inside a database instance.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.events.jpa.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.events.jpa.isolateInternalQueries=false
+# cas.events.jpa.url=jdbc:hsqldb:mem:cas-events
+# cas.events.jpa.failFast=true
+# cas.events.jpa.dialect=org.hibernate.dialect.HSQLDialect
+# cas.events.jpa.leakThreshold=10
+# cas.events.jpa.batchSize=1
+# cas.events.jpa.defaultCatalog=
+# cas.events.jpa.defaultSchema=
+# cas.events.jpa.user=sa
+# cas.events.jpa.ddlAuto=create-drop
+# cas.events.jpa.password=
+# cas.events.jpa.autocommit=false
+# cas.events.jpa.driverClass=org.hsqldb.jdbcDriver
+# cas.events.jpa.idleTimeout=5000
+</span>
+<span class="c"># cas.events.jpa.pool.suspension=false
+# cas.events.jpa.pool.minSize=6
+# cas.events.jpa.pool.maxSize=18
+# cas.events.jpa.pool.maxWait=2000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="mongodb-1">Mongodb</h3>
+
+<p>Decide how CAS should store authentication events inside a MongoDb instance.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.events.mongodb.clientUri=
+# cas.events.mongodb.dropCollection=false
+# cas.events.mongodb.collection=MongoDbCasEventRepository
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="http-web-requests">Http Web Requests</h2>
+
+<p>Control how CAS should respond and validate incoming HTTP requests.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.httpWebRequest.header.xframe=false
+# cas.httpWebRequest.header.xss=false
+# cas.httpWebRequest.header.hsts=false
+# cas.httpWebRequest.header.xcontent=false
+# cas.httpWebRequest.header.cache=false
+</span>
+<span class="c"># cas.httpWebRequest.web.forceEncoding=true
+# cas.httpWebRequest.web.encoding=UTF-8
+</span>
+<span class="c"># cas.httpWebRequest.allowMultiValueParameters=false
+# cas.httpWebRequest.onlyPostParams=username,password
+# cas.httpWebRequest.paramsToCheck=ticket,service,renew,gateway,warn,method,target,SAMLart,pgtUrl,pgt,pgtId,pgtIou,targetService,entityId,token
+</span>
+<span class="py">spring.http.encoding.charset</span><span class="p">=</span><span class="s">UTF-8</span>
+<span class="py">spring.http.encoding.enabled</span><span class="p">=</span><span class="s">true</span>
+<span class="py">spring.http.encoding.force</span><span class="p">=</span><span class="s">true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="http-client">Http Client</h2>
+
+<p>Control how CAS should attempt to contact resources on the web
+via its own Http Client. This is most commonly used when responding
+to ticket validation events and/or single logout.</p>
+
+<p>In the event that local certificates are to be imported into the CAS running environment,
+a local truststore is provided by CAS to improve portability of configuration across environments.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.httpClient.connectionTimeout=5000
+# cas.httpClient.asyncTimeout=5000
+# cas.httpClient.readTimeout=5000
+</span>
+<span class="c"># cas.httpClient.truststore.psw=changeit
+# cas.httpClient.truststore.file=classpath:/truststore.jks
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="service-registry">Service Registry</h2>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.serviceRegistry.watcherEnabled=true
+# cas.serviceRegistry.repeatInterval=120000
+# cas.serviceRegistry.startDelay=15000
+# cas.serviceRegistry.initFromJson=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="resource-based-service-registry">Resource-based Service Registry</h3>
+
+<p>If the underlying service registry is using local system resources
+to locate service definitions, decide how those resources should be found.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.serviceRegistry.config.location=classpath:/services
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To learn more about this topic, <a href="JSON-Service-Management.html">please review this guide</a>
+or <a href="YAML-Service-Management.html">this guide</a>.</p>
+
+<h3 id="mongo-service-registry">Mongo Service Registry</h3>
+
+<p>Store CAS service definitions inside a MongoDb instance.
+To learn more about this topic, <a href="Mongo-Service-Management.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.serviceRegistry.mongo.idleTimeout=30000
+# cas.serviceRegistry.mongo.port=27017
+# cas.serviceRegistry.mongo.dropCollection=false
+# cas.serviceRegistry.mongo.socketKeepAlive=false
+# cas.serviceRegistry.mongo.userPassword=
+# cas.serviceRegistry.mongo.serviceRegistryCollection=cas-service-registry
+# cas.serviceRegistry.mongo.timeout=5000
+# cas.serviceRegistry.mongo.userId=
+# cas.serviceRegistry.mongo.writeConcern=NORMAL
+# cas.serviceRegistry.mongo.host=localhost
+</span>
+<span class="c"># cas.serviceRegistry.mongo.conns.lifetime=60000
+# cas.serviceRegistry.mongo.conns.perHost=10
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldap-service-registry">Ldap Service Registry</h3>
+
+<p>Control how CAS services should be found inside an LDAP instance.
+To learn more about this topic, <a href="LDAP-Service-Management.html">please review this guide</a></p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.serviceRegistry.ldap.serviceDefinitionAttribute=description
+# cas.serviceRegistry.ldap.idAttribute=uid
+# cas.serviceRegistry.ldap.objectClass=casRegisteredService
+</span>
+<span class="c"># cas.serviceRegistry.ldap.ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.serviceRegistry.ldap.baseDn=dc=example,dc=org
+# cas.serviceRegistry.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.serviceRegistry.ldap.bindCredential=Password
+# cas.serviceRegistry.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+# cas.serviceRegistry.ldap.connectTimeout=5000
+# cas.serviceRegistry.ldap.trustCertificates=
+# cas.serviceRegistry.ldap.keystore=
+# cas.serviceRegistry.ldap.keystorePassword=
+# cas.serviceRegistry.ldap.keystoreType=JKS|JCEKS|PKCS12
+# cas.serviceRegistry.ldap.minPoolSize=3
+# cas.serviceRegistry.ldap.maxPoolSize=10
+# cas.serviceRegistry.ldap.validateOnCheckout=true
+# cas.serviceRegistry.ldap.validatePeriodically=true
+# cas.serviceRegistry.ldap.validatePeriod=600
+# cas.serviceRegistry.ldap.failFast=true
+# cas.serviceRegistry.ldap.idleTime=500
+# cas.serviceRegistry.ldap.prunePeriod=600
+# cas.serviceRegistry.ldap.blockWaitTime=5000
+# cas.serviceRegistry.ldap.useSsl=true
+# cas.serviceRegistry.ldap.useStartTls=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="couchbase-service-registry">Couchbase Service Registry</h3>
+
+<p>Control how CAS services should be found inside a Couchbase instance.
+To learn more about this topic, <a href="Couchbase-Service-Management.html">please review this guide</a></p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.serviceRegistry.couchbase.nodeSet=localhost:8091
+# cas.serviceRegistry.couchbase.password=
+# cas.serviceRegistry.couchbase.queryEnabled=true
+# cas.serviceRegistry.couchbase.bucket=default
+# cas.serviceRegistry.couchbase.timeout=10
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="database-service-registry">Database Service Registry</h3>
+
+<p>Control how CAS services should be found inside a database instance.
+To learn more about this topic, <a href="JPA-Service-Management.html">please review this guide</a></p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.serviceRegistry.jpa.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.serviceRegistry.jpa.isolateInternalQueries=false
+# cas.serviceRegistry.jpa.url=jdbc:hsqldb:mem:cas-service-registry
+# cas.serviceRegistry.jpa.failFast=true
+# cas.serviceRegistry.jpa.dialect=org.hibernate.dialect.HSQLDialect
+# cas.serviceRegistry.jpa.leakThreshold=10
+# cas.serviceRegistry.jpa.batchSize=1
+# cas.serviceRegistry.jpa.defaultCatalog=
+# cas.serviceRegistry.jpa.defaultSchema=
+# cas.serviceRegistry.jpa.user=sa
+# cas.serviceRegistry.jpa.ddlAuto=create-drop
+# cas.serviceRegistry.jpa.password=
+# cas.serviceRegistry.jpa.autocommit=false
+# cas.serviceRegistry.jpa.driverClass=org.hsqldb.jdbcDriver
+# cas.serviceRegistry.jpa.idleTimeout=5000
+</span>
+<span class="c"># cas.serviceRegistry.jpa.pool.suspension=false
+# cas.serviceRegistry.jpa.pool.minSize=6
+# cas.serviceRegistry.jpa.pool.maxSize=18
+# cas.serviceRegistry.jpa.pool.maxWait=2000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ticket-registry">Ticket Registry</h2>
+
+<p>To learn more about this topic, <a href="Configuring-Ticketing-Components.html">please review this guide</a>.</p>
+
+<h3 id="cleaner-1">Cleaner</h3>
+
+<p>A cleaner process is scheduled to run in the background to clean up expired and stale tickets.
+This section controls how that process should behave.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.cleaner.appId=cas-ticket-registry-cleaner
+# cas.ticket.registry.cleaner.startDelay=10000
+# cas.ticket.registry.cleaner.repeatInterval=60000
+# cas.ticket.registry.cleaner.enabled=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="jpa-ticket-registry">JPA Ticket Registry</h3>
+
+<p>To learn more about this topic, <a href="JPA-Ticket-Registry.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.jpa.jpaLockingTimeout=3600
+# cas.ticket.registry.jpa.healthQuery=SELECT 1 FROM INFORMATION_SCHEMA.SYSTEM_USERS
+# cas.ticket.registry.jpa.isolateInternalQueries=false
+# cas.ticket.registry.jpa.url=jdbc:hsqldb:mem:cas-ticket-registry
+# cas.ticket.registry.jpa.failFast=true
+# cas.ticket.registry.jpa.dialect=org.hibernate.dialect.HSQLDialect
+# cas.ticket.registry.jpa.leakThreshold=10
+# cas.ticket.registry.jpa.jpaLockingTgtEnabled=true
+# cas.ticket.registry.jpa.batchSize=1
+# cas.ticket.registry.jpa.defaultCatalog=
+# cas.ticket.registry.jpa.defaultSchema=
+# cas.ticket.registry.jpa.user=sa
+# cas.ticket.registry.jpa.ddlAuto=create-drop
+# cas.ticket.registry.jpa.password=
+# cas.ticket.registry.jpa.autocommit=false
+# cas.ticket.registry.jpa.driverClass=org.hsqldb.jdbcDriver
+# cas.ticket.registry.jpa.idleTimeout=5000
+</span>
+<span class="c"># cas.ticket.registry.jpa.pool.suspension=false
+# cas.ticket.registry.jpa.pool.minSize=6
+# cas.ticket.registry.jpa.pool.maxSize=18
+# cas.ticket.registry.jpa.pool.maxWait=2000
+</span>
+<span class="c"># cas.ticket.registry.jpa.crypto.signing.key=
+# cas.ticket.registry.jpa.crypto.signing.keySize=512
+# cas.ticket.registry.jpa.crypto.encryption.key=
+# cas.ticket.registry.jpa.crypto.encryption.keySize=16
+# cas.ticket.registry.jpa.crypto.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="couchbase-ticket-registry">Couchbase Ticket Registry</h3>
+
+<p>To learn more about this topic, <a href="Couchbase-Ticket-Registry.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.couchbase.timeout=10
+# cas.ticket.registry.couchbase.nodeSet=localhost:8091
+# cas.ticket.registry.couchbase.password=
+# cas.ticket.registry.couchbase.queryEnabled=true
+# cas.ticket.registry.couchbase.bucket=default
+</span>
+<span class="c"># cas.ticket.registry.couchbase.crypto.signing.key=
+# cas.ticket.registry.couchbase.crypto.signing.keySize=512
+# cas.ticket.registry.couchbase.crypto.encryption.key=
+# cas.ticket.registry.couchbase.crypto.encryption.keySize=16
+# cas.ticket.registry.couchbase.crypto.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="hazelcast-ticket-registry">Hazelcast Ticket Registry</h3>
+
+<p>To learn more about this topic, <a href="Hazelcast-Ticket-Registry.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.hazelcast.pageSize=500
+# cas.ticket.registry.hazelcast.mapName=tickets
+# cas.ticket.registry.hazelcast.configLocation=
+</span>
+<span class="c"># cas.ticket.registry.hazelcast.cluster.evictionPolicy=LRU
+# cas.ticket.registry.hazelcast.cluster.maxNoHeartbeatSeconds=300
+# cas.ticket.registry.hazelcast.cluster.multicastEnabled=false
+# cas.ticket.registry.hazelcast.cluster.evictionPercentage=10
+# cas.ticket.registry.hazelcast.cluster.tcpipEnabled=true
+# cas.ticket.registry.hazelcast.cluster.members=localhost
+# cas.ticket.registry.hazelcast.cluster.loggingType=slf4j
+# cas.ticket.registry.hazelcast.cluster.instanceName=localhost
+# cas.ticket.registry.hazelcast.cluster.port=5701
+# cas.ticket.registry.hazelcast.cluster.portAutoIncrement=true
+# cas.ticket.registry.hazelcast.cluster.maxHeapSizePercentage=85
+# cas.ticket.registry.hazelcast.cluster.backupCount=1
+# cas.ticket.registry.hazelcast.cluster.asyncBackupCount=0
+# cas.ticket.registry.hazelcast.cluster.maxSizePolicy=USED_HEAP_PERCENTAGE
+# cas.ticket.registry.hazelcast.cluster.timeout=5
+</span>
+<span class="c"># cas.ticket.registry.hazelcast.cluster.multicastTrustedInterfaces=
+# cas.ticket.registry.hazelcast.cluster.multicastPort=
+# cas.ticket.registry.hazelcast.cluster.multicastGroup=
+# cas.ticket.registry.hazelcast.cluster.multicastTimeout=2
+# cas.ticket.registry.hazelcast.cluster.multicastTimeToLive=32
+</span>
+<span class="c"># cas.ticket.registry.hazelcast.crypto.signing.key=
+# cas.ticket.registry.hazelcast.crypto.signing.keySize=512
+# cas.ticket.registry.hazelcast.crypto.encryption.key=
+# cas.ticket.registry.hazelcast.crypto.encryption.keySize=16
+# cas.ticket.registry.hazelcast.crypto.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="infinispan-ticket-registry">Infinispan Ticket Registry</h3>
+
+<p>To learn more about this topic, <a href="Infinispan-Ticket-Registry.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.infinispan.cacheName=
+# cas.ticket.registry.infinispan.configLocation=/infinispan.xml
+</span>
+<span class="c"># cas.ticket.registry.infinispan.crypto.signing.key=
+# cas.ticket.registry.infinispan.crypto.signing.keySize=512
+# cas.ticket.registry.infinispan.crypto.encryption.key=
+# cas.ticket.registry.infinispan.crypto.encryption.keySize=16
+# cas.ticket.registry.infinispan.crypto.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="inmemory-ticket-registry">InMemory Ticket Registry</h3>
+
+<p>This is typically the default ticket registry instance where tickets
+are kept inside the runtime environment memory.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.inMemory.loadFactor=1
+# cas.ticket.registry.inMemory.concurrency=20
+# cas.ticket.registry.inMemory.initialCapacity=1000
+</span>
+<span class="c"># cas.ticket.registry.inMemory.crypto.signing.key=
+# cas.ticket.registry.inMemory.crypto.signing.keySize=512
+# cas.ticket.registry.inMemory.crypto.encryption.key=
+# cas.ticket.registry.inMemory.crypto.encryption.keySize=16
+# cas.ticket.registry.inMemory.crypto.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ehcache-ticket-registry">Ehcache Ticket Registry</h3>
+
+<p>To learn more about this topic, <a href="Ehcache-Ticket-Registry.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.ehcache.replicateUpdatesViaCopy=true
+# cas.ticket.registry.ehcache.cacheManagerName=ticketRegistryCacheManager
+# cas.ticket.registry.ehcache.replicatePuts=true
+# cas.ticket.registry.ehcache.replicateUpdates=true
+# cas.ticket.registry.ehcache.memoryStoreEvictionPolicy=LRU
+# cas.ticket.registry.ehcache.configLocation=classpath:/ehcache-replicated.xml
+# cas.ticket.registry.ehcache.maximumBatchSize=100
+# cas.ticket.registry.ehcache.shared=false
+# cas.ticket.registry.ehcache.replicationInterval=10000
+# cas.ticket.registry.ehcache.cacheTimeToLive=2147483647
+# cas.ticket.registry.ehcache.diskExpiryThreadIntervalSeconds=0
+# cas.ticket.registry.ehcache.replicateRemovals=true
+# cas.ticket.registry.ehcache.maxChunkSize=5000000
+# cas.ticket.registry.ehcache.maxElementsOnDisk=0
+# cas.ticket.registry.ehcache.maxElementsInCache=0
+# cas.ticket.registry.ehcache.maxElementsInMemory=10000
+# cas.ticket.registry.ehcache.cacheName=org.apereo.cas.ticket.TicketCache
+# cas.ticket.registry.ehcache.eternal=false
+# cas.ticket.registry.ehcache.loaderAsync=true
+# cas.ticket.registry.ehcache.replicatePutsViaCopy=true
+# cas.ticket.registry.ehcache.cacheTimeToIdle=0
+# cas.ticket.registry.ehcache.persistence=LOCALTEMPSWAP|NONE|LOCALRESTARTABLE|DISTRIBUTED
+# cas.ticket.registry.ehcache.synchronousWrites=
+</span>
+<span class="c"># cas.ticket.registry.ehcache.crypto.signing.key=
+# cas.ticket.registry.ehcache.crypto.signing.keySize=512
+# cas.ticket.registry.ehcache.crypto.encryption.key=
+# cas.ticket.registry.ehcache.crypto.encryption.keySize=16
+# cas.ticket.registry.ehcache.crypto.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ignite-ticket-registry">Ignite Ticket Registry</h3>
+
+<p>To learn more about this topic, <a href="Ignite-Ticket-Registry.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.ignite.keyAlgorithm=
+# cas.ticket.registry.ignite.protocol=
+# cas.ticket.registry.ignite.trustStorePassword=
+# cas.ticket.registry.ignite.keyStoreType=
+# cas.ticket.registry.ignite.keyStoreFilePath=
+# cas.ticket.registry.ignite.keyStorePassword=
+# cas.ticket.registry.ignite.trustStoreType=
+# cas.ticket.registry.ignite.igniteAddresses=localhost:47500
+# cas.ticket.registry.ignite.trustStoreFilePath=
+# cas.ticket.registry.ignite.heartbeatFrequency=2000
+# cas.ticket.registry.ignite.joinTimeout=1000
+# cas.ticket.registry.ignite.localAddress=
+# cas.ticket.registry.ignite.localPort=-1
+# cas.ticket.registry.ignite.networkTimeout=5000
+# cas.ticket.registry.ignite.socketTimeout=5000
+# cas.ticket.registry.ignite.threadPriority=10
+# cas.ticket.registry.ignite.forceServerMode=false
+</span>
+<span class="c"># cas.ticket.registry.ignite.ticketsCache.writeSynchronizationMode=FULL_SYNC
+# cas.ticket.registry.ignite.ticketsCache.atomicityMode=TRANSACTIONAL
+# cas.ticket.registry.ignite.ticketsCache.cacheName=TicketsCache
+# cas.ticket.registry.ignite.ticketsCache.cacheMode=REPLICATED
+</span>
+<span class="c"># cas.ticket.registry.ignite.crypto.signing.key=
+# cas.ticket.registry.ignite.crypto.signing.keySize=512
+# cas.ticket.registry.ignite.crypto.encryption.key=
+# cas.ticket.registry.ignite.crypto.encryption.keySize=16
+# cas.ticket.registry.ignite.crypto.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="memcached-ticket-registry">Memcached Ticket Registry</h3>
+
+<p>To learn more about this topic, <a href="Memcached-Ticket-Registry.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.registry.memcached.servers=localhost:11211
+# cas.ticket.registry.memcached.locatorType=ARRAY_MOD
+# cas.ticket.registry.memcached.failureMode=Redistribute
+# cas.ticket.registry.memcached.hashAlgorithm=FNV1_64_HASH
+</span>
+<span class="c"># cas.ticket.registry.memcached.crypto.signing.key=
+# cas.ticket.registry.memcached.crypto.signing.keySize=512
+# cas.ticket.registry.memcached.crypto.encryption.key=
+# cas.ticket.registry.memcached.crypto.encryption.keySize=16
+# cas.ticket.registry.memcached.crypto.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="protocol-ticket-security">Protocol Ticket Security</h2>
+
+<p>Controls whether tickets issued by the CAS server should be secured via signing and encryption.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.security.cipherEnabled=true
+# cas.ticket.security.encryptionKey=
+# cas.ticket.security.signingKey=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="service-ticket">Service Ticket</h2>
+
+<p>Controls the expiration policy of service tickets, as well as other properties
+applicable to STs.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.st.maxLength=20
+</span>
+<span class="c"># cas.ticket.st.numberOfUses=1
+# cas.ticket.st.timeToKillInSeconds=10
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="proxy-granting-ticket">Proxy Granting Ticket</h2>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.pgt.maxLength=50
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="proxy-tickets">Proxy Tickets</h2>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.pt.timeToKillInSeconds=10
+# cas.ticket.pt.numberOfUses=1
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="ticket-granting-ticket">Ticket Granting Ticket</h2>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.tgt.onlyTrackMostRecentSession=true
+# cas.ticket.tgt.maxLength=50
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="tgt-expiration-policy">TGT Expiration Policy</h2>
+
+<h3 id="default">Default</h3>
+
+<p>Provides a hard-time out as well as a sliding window.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># Set to a negative value to never expire tickets
+# cas.ticket.tgt.maxTimeToLiveInSeconds=28800
+# cas.ticket.tgt.timeToKillInSeconds=7200
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="remember-me">Remember Me</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.tgt.rememberMe.enabled=true
+# cas.ticket.tgt.rememberMe.timeToKillInSeconds=28800
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="timeout">Timeout</h3>
+
+<p>The expiration policy applied to TGTs provides for most-recently-used expiration policy, similar to a Web server session timeout.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.tgt.timeout.maxTimeToLiveInSeconds=28800
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="throttled-timeout">Throttled Timeout</h3>
+
+<p>The throttled timeout policy extends the Timeout policy with the concept of throttling where a ticket may be used at most every N seconds.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.tgt.throttledTimeout.timeToKillInSeconds=28800
+# cas.ticket.tgt.throttledTimeout.timeInBetweenUsesInSeconds=5
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="hard-timeout">Hard Timeout</h3>
+
+<p>The hard timeout policy provides for finite ticket lifetime as measured from the time of creation.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.ticket.tgt.hardTimeout.timeToKillInSeconds=28800
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="management-webapp">Management Webapp</h2>
+
+<p>To learn more about this topic, <a href="Installing-ServicesMgmt-Webapp.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.mgmt.adminRoles=ROLE_ADMIN
+# cas.mgmt.userPropertiesFile=classpath:/user-details.properties
+# cas.mgmt.serverName=https://localhost:8443
+# cas.mgmt.defaultLocale=en
+</span>
+<span class="c"># cas.mgmt.authzAttributes=memberOf,groupMembership
+</span>
+<span class="c"># cas.mgmt.ldapAuthz.rolePrefix=ROLE_
+# cas.mgmt.ldapAuthz.allowMultipleResults=false
+# cas.mgmt.ldapAuthz.searchFilter=cn={user}
+# cas.mgmt.ldapAuthz.baseDn=dc=example,dc=org
+# cas.mgmt.ldapAuthz.roleAttribute=uugid
+# cas.mgmt.ldapAuthz.ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.mgmt.ldapAuthz.baseDn=dc=example,dc=org
+# cas.mgmt.ldapAuthz.userFilter=cn={user}
+# cas.mgmt.ldapAuthz.bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.mgmt.ldapAuthz.bindCredential=Password
+# cas.mgmt.ldapAuthz.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+# cas.mgmt.ldapAuthz.connectTimeout=5000
+# cas.mgmt.ldapAuthz.trustCertificates=
+# cas.mgmt.ldapAuthz.keystore=
+# cas.mgmt.ldapAuthz.keystorePassword=
+# cas.mgmt.ldapAuthz.keystoreType=JKS|JCEKS|PKCS12
+# cas.mgmt.ldapAuthz.minPoolSize=3
+# cas.mgmt.ldapAuthz.maxPoolSize=10
+# cas.mgmt.ldapAuthz.validateOnCheckout=true
+# cas.mgmt.ldapAuthz.validatePeriodically=true
+# cas.mgmt.ldapAuthz.validatePeriod=600
+# cas.mgmt.ldapAuthz.failFast=true
+# cas.mgmt.ldapAuthz.idleTime=500
+# cas.mgmt.ldapAuthz.prunePeriod=600
+# cas.mgmt.ldapAuthz.blockWaitTime=5000
+# cas.mgmt.ldapAuthz.subtreeSearch=true
+# cas.mgmt.ldapAuthz.useSsl=true
+# cas.mgmt.ldapAuthz.useStartTls=false
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="google-recaptcha-integration">Google reCAPTCHA Integration</h2>
+
+<p>Display Google’s reCAPTCHA widget on the CAS login page.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.googleRecaptcha.verifyUrl=https://www.google.com/recaptcha/api/siteverify
+# cas.googleRecaptcha.siteKey=
+# cas.googleRecaptcha.secret=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="google-analytics-integration">Google Analytics Integration</h2>
+
+<p>To learn more about this topic, <a href="../integration/Configuring-Google-Analytics.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.googleAnalytics.googleAnalyticsTrackingId=
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="spring-webflow">Spring Webflow</h2>
+
+<p>Control how Spring Webflow’s conversational session state should be managed by CAS,
+and all other webflow related settings.</p>
+
+<p>To learn more about this topic, <a href="Webflow-Customization.html">please review this guide</a> or <a href="Webflow-Customization-Sessions.html">this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.webflow.autoconfigure=true
+# cas.webflow.alwaysPauseRedirect=false
+# cas.webflow.refresh=true
+# cas.webflow.redirectSameState=false
+</span>
+<span class="c"># cas.webflow.session.lockTimeout=30
+# cas.webflow.session.compress=false
+# cas.webflow.session.maxConversations=5
+# cas.webflow.session.storage=true
+</span>
+<span class="c"># Manage session storage via Hazelcast
+# cas.webflow.session.hzLocation=classpath:/hazelcast.xml
+</span>
+<span class="c"># Manage session storage via Mongo
+# spring.data.mongodb.host=mongo-srv
+# spring.data.mongodb.port=27018
+# spring.data.mongodb.database=prod
+</span>
+<span class="c"># Manage session storage via Redis
+# spring.redis.host=localhost
+# spring.redis.password=secret
+# spring.redis.port=6379
+</span>
+<span class="c"># cas.webflow.signing.key=
+# cas.webflow.signing.keySize=512
+</span>
+<span class="c"># cas.webflow.encryption.keySize=16
+# cas.webflow.encryption.key=
+</span>
+<span class="c"># cas.webflow.alg=AES
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="rest-api">REST API</h2>
+
+<p>To learn more about this topic, <a href="../protocol/REST-Protocol.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.rest.attributeName=
+# cas.rest.attributeValue=
+# cas.rest.throttler=neverThrottle
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="metrics--performance-stats">Metrics &amp; Performance Stats</h2>
+
+<p>To learn more about this topic, <a href="Monitoring-Statistics.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.metrics.loggerName=perfStatsLogger
+# cas.metrics.refreshInterval=30
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="groovy-shell">Groovy Shell</h2>
+
+<p>Control access and configuration of the embedded Groovy shell in CAS.
+To learn more about this topic, <a href="Configuring-Groovy-Console.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c"># shell.commandRefreshInterval=15
+# shell.commandPathPatterns=classpath*:/commands/**
+# shell.auth.simple.user.name=
+# shell.auth.simple.user.password=
+# shell.ssh.enabled=true
+# shell.ssh.port=2000
+# shell.telnet.enabled=false
+# shell.telnet.port=5000
+# shell.ssh.authTimeout=3000
+# shell.ssh.idleTimeout=30000
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="saml-metadata-ui">Saml Metadata UI</h2>
+
+<p>Control how SAML MDUI elements should be displayed on the main CAS login page
+in the event that CAS is handling authentication for an external SAML2 IdP.</p>
+
+<p>To learn more about this topic, <a href="../integration/Shibboleth.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.samlMetadataUi.requireValidMetadata=true
+# cas.samlMetadataUi.repeatInterval=120000
+# cas.samlMetadataUi.startDelay=30000
+# cas.samlMetadataUi.resources=classpath:/sp-metadata::classpath:/pub.key,http://md.incommon.org/InCommon/InCommon-metadata.xml::classpath:/inc-md-pub.key
+# cas.samlMetadataUi.maxValidity=0
+# cas.samlMetadataUi.requireSignedRoot=false
+# cas.samlMetadataUi.parameter=entityId
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="hibernate--jdbc">Hibernate &amp; JDBC</h2>
+
+<p>Control global properties that are relevant to Hibernate,
+when CAS attempts to employ and utilize database resources,
+connections and queries.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.jdbc.showSql=true
+# cas.jdbc.genDdl=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="password-management">Password Management</h2>
+
+<p>Allow the user to update their account password, etc in-place.
+To learn more about this topic, <a href="Password-Policy-Enforcement.html">please review this guide</a>.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pm.enabled=true
+</span>
+<span class="c"># Minimum 8 and Maximum 10 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet, 1 Number and 1 Special Character
+# cas.authn.pm.policyPattern=^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&amp;])[A-Za-z\\d$@$!%*?&amp;]{8,10}
+</span>
+<span class="c"># cas.authn.pm.reset.text=Reset your password with this link: %s
+# cas.authn.pm.reset.subject=Password Reset Request
+# cas.authn.pm.reset.from=
+# cas.authn.pm.reset.expirationMinutes=1
+# cas.authn.pm.reset.emailAttribute=mail
+# cas.authn.pm.reset.securityQuestionsAttributes.attrQuestion1=attrAnswer1
+# cas.authn.pm.reset.securityQuestionsAttributes.attrQuestion2=attrAnswer2
+# cas.authn.pm.reset.securityQuestionsAttributes.attrQuestion3=attrAnswer3
+</span>
+<span class="c"># Used to sign/encrypt the password-reset link
+# cas.authn.pm.reset.security.encryptionKey=
+# cas.authn.pm.reset.security.signingKey=
+</span>
+<span class="c"># spring.mail.host=
+# spring.mail.port=
+# spring.mail.username=
+# spring.mail.password=
+# spring.mail.testConnection=true
+# spring.mail.properties.mail.smtp.auth=true
+# spring.mail.properties.mail.smtp.starttls.enable=true
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldap-2">LDAP</h3>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.authn.pm.ldap.type=GENERIC|AD
+# cas.authn.pm.ldap.ldapUrl=ldaps://ldap1.example.edu,ldaps://ldap2.example.edu,...
+# cas.authn.pm.ldap.useSsl=true
+# cas.authn.pm.ldap.useStartTls=false
+# cas.authn.pm.ldap.connectTimeout=5000
+# cas.authn.pm.ldap.baseDn=dc=example,dc=org
+# cas.authn.pm.ldap.userFilter=cn={user}
+# cas.authn.pm.ldap.subtreeSearch=true
+# cas.authn.pm.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
+# cas.authn.pm.ldap.bindCredential=Password
+# cas.authn.pm.ldap.trustCertificates=
+# cas.authn.pm.ldap.keystore=
+# cas.authn.pm.ldap.keystorePassword=
+# cas.authn.pm.ldap.keystoreType=JKS|JCEKS|PKCS12
+# cas.authn.pm.ldap.minPoolSize=3
+# cas.authn.pm.ldap.maxPoolSize=10
+# cas.authn.pm.ldap.validateOnCheckout=true
+# cas.authn.pm.ldap.validatePeriodically=true
+# cas.authn.pm.ldap.validatePeriod=600
+# cas.authn.pm.ldap.failFast=true
+# cas.authn.pm.ldap.idleTime=500
+# cas.authn.pm.ldap.prunePeriod=600
+# cas.authn.pm.ldap.blockWaitTime=5000
+# cas.authn.pm.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Logging Configuration</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+            <div id="dev-doc-info" class="alert alert-danger" role="alert">
+                <h3>WORKERS AHEAD!</h3>
+                <p>You are viewing the <strong>development</strong> documentation for the Apereo CAS server. <strong>The
+                    functionality presented here <a href="https://github.com/apereo/cas/milestones">is not officially released
+                        yet</a></strong>.
+                    This is a work in progress and will be continually updated as development moves forward. <strong>You are
+                        most encouraged to test the changes presented.</strong>
+            </div>
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="logging">Logging</h1>
+
+<p>CAS provides a logging facility that logs important informational events like authentication success and
+failure; it can be customized to produce additional information for troubleshooting. CAS uses the Slf4j
+Logging framework as a facade for the <a href="http://logging.apache.org">Log4j engine</a> by default.</p>
+
+<p>The default log4j configuration file is located in <code class="language-plaintext highlighter-rouge">src/main/resources/log4j2.xml</code> of the <code class="language-plaintext highlighter-rouge">cas-server-webapp-resources</code> 
+source module. In the <code class="language-plaintext highlighter-rouge">cas.war</code> it is found at the root of the <code class="language-plaintext highlighter-rouge">cas-server-webapp-resources*.jar</code>. 
+The cas-overlay comes with an external log42.xml in etc/cas/config and a property 
+<code class="language-plaintext highlighter-rouge">logging.config=file:/etc/cas/config/log4j2.xml</code> set to reference it. 
+By default logging is set to <code class="language-plaintext highlighter-rouge">INFO</code> for all functionality related to <code class="language-plaintext highlighter-rouge">org.apereo.cas</code> code.
+For debugging and diagnostic purposes you may want to set these levels to <code class="language-plaintext highlighter-rouge">DEBUG</code> or <code class="language-plaintext highlighter-rouge">TRACE</code>.</p>
+
+<div class="alert alert-warning"><strong>Production</strong><p>You should always run everything under
+<code>WARN</code>. In production warnings and errors are things you care about. Everything else is just diagnostics. Only
+turn up <code>DEBUG</code> or <code>INFO</code> if you need to research a particular issue.</p></div>
+
+<h2 id="actuator-endpoints">Actuator Endpoints</h2>
+
+<p>The following endpoints are provided:</p>
+
+<div style="display:none" id="jdbcauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjdbcloggingConfigloggerslogfile .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjdbcloggingConfigloggerslogfile ');
+        $("ul#navPillsMenuscasmonitorendpointsjdbcloggingConfigloggerslogfile").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjdbcloggingConfigloggerslogfile li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjdbcloggingConfigloggerslogfile">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#requiredPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#optionalPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#signingEncryptionPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#rdbmsPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#emailPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#ldapPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#authnPredicatePropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#passwordEncoderPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#principalTransformationPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjdbcloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcloggingConfigloggerslogfile(this);" href="#passwordPolicyPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjdbcloggingConfigloggerslogfile">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjdbcloggingConfigloggerslogfile").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjdbcloggingConfigloggerslogfile");
+        var id=$("#navPillsMenuscasmonitorendpointsjdbcloggingConfigloggerslogfile a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjdbcloggingConfigloggerslogfile").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjdbcloggingConfigloggerslogfile").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjdbcloggingConfigloggerslogfile").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="ldapauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsldaploggingConfigloggerslogfile .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsldaploggingConfigloggerslogfile ');
+        $("ul#navPillsMenuscasmonitorendpointsldaploggingConfigloggerslogfile").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsldaploggingConfigloggerslogfile li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsldaploggingConfigloggerslogfile">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#requiredPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#optionalPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#signingEncryptionPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#rdbmsPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#emailPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#ldapPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#authnPredicatePropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#passwordEncoderPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#principalTransformationPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsldaploggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldaploggingConfigloggerslogfile(this);" href="#passwordPolicyPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsldaploggingConfigloggerslogfile">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsldaploggingConfigloggerslogfile"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsldaploggingConfigloggerslogfile">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsldaploggingConfigloggerslogfile"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsldaploggingConfigloggerslogfile").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsldaploggingConfigloggerslogfile");
+        var id=$("#navPillsMenuscasmonitorendpointsldaploggingConfigloggerslogfile a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsldaploggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsldaploggingConfigloggerslogfile").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsldaploggingConfigloggerslogfile").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsldaploggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsldaploggingConfigloggerslogfile").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsldaploggingConfigloggerslogfile").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsldaploggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsldaploggingConfigloggerslogfile").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="jaasauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjaasloggingConfigloggerslogfile .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjaasloggingConfigloggerslogfile ');
+        $("ul#navPillsMenuscasmonitorendpointsjaasloggingConfigloggerslogfile").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjaasloggingConfigloggerslogfile li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjaasloggingConfigloggerslogfile">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#requiredPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#optionalPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#signingEncryptionPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#rdbmsPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#emailPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#ldapPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#authnPredicatePropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#passwordEncoderPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#principalTransformationPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjaasloggingConfigloggerslogfile" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasloggingConfigloggerslogfile(this);" href="#passwordPolicyPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjaasloggingConfigloggerslogfile">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjaasloggingConfigloggerslogfile").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjaasloggingConfigloggerslogfile");
+        var id=$("#navPillsMenuscasmonitorendpointsjaasloggingConfigloggerslogfile a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjaasloggingConfigloggerslogfile").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjaasloggingConfigloggerslogfile").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjaasloggingConfigloggerslogfile").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div class="accordion" id="loggingConfigloggerslogfile">
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+</div>
+
+<p><br /></p>
+
+<h2 id="cas-custom-log4j2-plugins">CAS Custom Log4j2 plugins</h2>
+
+<p>The log4j2.xml file use by CAS includes custom Log4j2 plugins:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">CasAppender</code>: The CasAppender wraps another regular appender and removes sensitive values from the log entries
+such as Ticket Granting Tickets or Proxy Granting Tickets.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">ExceptionOnlyFilter</code>: In order to allow CAS to freely log unexpected errors at WARN and ERROR without obscuring everything 
+with stacktraces, exceptions in the logs are disabled by default but there are log4j2.xml properties that can
+turn them back on. By default, all exceptions are written to a dedicated stacktrace rolling log file
+and this is done using a custom ExceptionOnlyFilter nested in the CasAppender.</p>
+  </li>
+</ul>
+
+<h2 id="log4j2-properties">Log4j2 Properties</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">log4j2.xml</code> file includes properties for various settings and those can be set in the properties section
+of the <code class="language-plaintext highlighter-rouge">log4j2.xml</code> file, in a property file called <code class="language-plaintext highlighter-rouge">log4j2.component.properties</code> on the classpath, or as system 
+properties. If setting properties in a <code class="language-plaintext highlighter-rouge">log4j2.component.properties</code>, be sure to include:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="py">Log4jContextSelector</span><span class="p">=</span><span class="s">org.apache.logging.log4j.core.async.AsyncLoggerContextSelector</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>in order to keep using asynchronous logging which CAS sets by default. 
+To turn off asynchronous logging, include the following in <code class="language-plaintext highlighter-rouge">log4j2.component.properites</code> or as a system property:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="py">Log4jContextSelector</span><span class="p">=</span><span class="s">org.apache.logging.log4j.core.selector.BasicContextSelector</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>It is often helpful to externalize the <code class="language-plaintext highlighter-rouge">log4j2.xml</code> file to a system path to preserve settings between upgrades.
+The location of <code class="language-plaintext highlighter-rouge">log4j2.xml</code> file by default is on the runtime classpath and can be controlled
+via the CAS properties.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscaslogging">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescaslogging" data-bs-toggle="tab" href="#requiredPropertiescaslogging">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescaslogging" data-bs-toggle="tab" href="#optionalPropertiescaslogging">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescaslogging">
+        <a class="nav-link" id="linkSigningEncryptioncaslogging" data-bs-toggle="tab" href="#signingEncryptionPropertiescaslogging">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescaslogging">
+        <a class="nav-link" id="linkRdbmscaslogging" data-bs-toggle="tab" href="#rdbmsPropertiescaslogging">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescaslogging">
+        <a class="nav-link" id="linkEmailcaslogging" data-bs-toggle="tab" href="#emailPropertiescaslogging">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescaslogging">
+        <a class="nav-link" id="linkLdapcaslogging" data-bs-toggle="tab" href="#ldapPropertiescaslogging">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescaslogging">
+        <a class="nav-link" id="linkAuthnPredicatecaslogging" data-bs-toggle="tab" href="#authnPredicatePropertiescaslogging">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescaslogging">
+        <a class="nav-link" id="linkPasswordEncodercaslogging" data-bs-toggle="tab" href="#passwordEncoderPropertiescaslogging">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescaslogging">
+        <a class="nav-link" id="linkPrincipalTransformationcaslogging" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcaslogging(this);" href="#principalTransformationPropertiescaslogging">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescaslogging">
+        <a class="nav-link" id="linkPasswordPolicycaslogging" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcaslogging(this);" href="#passwordPolicyPropertiescaslogging">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiescaslogging" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcaslogging(this);" href="#thirdPartyPropertiescaslogging">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcaslogging(this);" id="linkNotescaslogging" data-bs-toggle="tab" href="#notescaslogging">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcaslogging">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescaslogging">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescaslogging">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescaslogging"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescaslogging">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescaslogging">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescaslogging"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiescaslogging">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiescaslogging">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiescaslogging"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescaslogging">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.6.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescaslogging").remove()
+        
+        
+            $("#linkRdbmscaslogging").remove()
+        
+        
+            $("#linkEmailcaslogging").remove()
+        
+        
+            $("#linkSigningEncryptioncaslogging").remove()
+        
+        
+            $("#linkRequiredPropertiescaslogging").remove()
+        
+        
+            $("#linkPasswordPolicycaslogging").remove()
+        
+        
+            $("#linkPrincipalTransformationcaslogging").remove()
+        
+        
+            $("#linkPasswordEncodercaslogging").remove()
+        
+        
+            $("#linkAuthnPredicatecaslogging").remove()
+        
+        
+            $("#linkLdapcaslogging").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscaslogging");
+        var id=$("#navPillsMenuscaslogging a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescaslogging li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescaslogging").closest("table").remove()
+            $("#navRequiredPropertiesLeftcaslogging").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescaslogging li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescaslogging").closest("table").remove()
+            $("#navOptionalPropertiesLeftcaslogging").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescaslogging li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescaslogging").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<p>To disable log sanitization, start the container with the system property <code class="language-plaintext highlighter-rouge">CAS_TICKET_ID_SANITIZE_SKIP=true</code>.</p>
+
+<h3 id="log-levels">Log Levels</h3>
+
+<p>While log levels can directly be massaged via the native <code class="language-plaintext highlighter-rouge">log4j2.xml</code> syntax, they may also be modified
+using the usual CAS properties.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuslogginglevel">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertieslogginglevel" data-bs-toggle="tab" href="#requiredPropertieslogginglevel">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertieslogginglevel" data-bs-toggle="tab" href="#optionalPropertieslogginglevel">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertieslogginglevel">
+        <a class="nav-link" id="linkSigningEncryptionlogginglevel" data-bs-toggle="tab" href="#signingEncryptionPropertieslogginglevel">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertieslogginglevel">
+        <a class="nav-link" id="linkRdbmslogginglevel" data-bs-toggle="tab" href="#rdbmsPropertieslogginglevel">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertieslogginglevel">
+        <a class="nav-link" id="linkEmaillogginglevel" data-bs-toggle="tab" href="#emailPropertieslogginglevel">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertieslogginglevel">
+        <a class="nav-link" id="linkLdaplogginglevel" data-bs-toggle="tab" href="#ldapPropertieslogginglevel">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertieslogginglevel">
+        <a class="nav-link" id="linkAuthnPredicatelogginglevel" data-bs-toggle="tab" href="#authnPredicatePropertieslogginglevel">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertieslogginglevel">
+        <a class="nav-link" id="linkPasswordEncoderlogginglevel" data-bs-toggle="tab" href="#passwordEncoderPropertieslogginglevel">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertieslogginglevel">
+        <a class="nav-link" id="linkPrincipalTransformationlogginglevel" data-bs-toggle="tab" onclick="javascript:enablePropertiesTablogginglevel(this);" href="#principalTransformationPropertieslogginglevel">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertieslogginglevel">
+        <a class="nav-link" id="linkPasswordPolicylogginglevel" data-bs-toggle="tab" onclick="javascript:enablePropertiesTablogginglevel(this);" href="#passwordPolicyPropertieslogginglevel">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertieslogginglevel" data-bs-toggle="tab" onclick="javascript:enablePropertiesTablogginglevel(this);" href="#thirdPartyPropertieslogginglevel">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTablogginglevel(this);" id="linkNoteslogginglevel" data-bs-toggle="tab" href="#noteslogginglevel">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentlogginglevel">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertieslogginglevel">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertieslogginglevel">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertieslogginglevel"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertieslogginglevel">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertieslogginglevel">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertieslogginglevel"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertieslogginglevel">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertieslogginglevel">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertieslogginglevel"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="noteslogginglevel">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/development/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertieslogginglevel").remove()
+        
+        
+            $("#linkRdbmslogginglevel").remove()
+        
+        
+            $("#linkEmaillogginglevel").remove()
+        
+        
+            $("#linkSigningEncryptionlogginglevel").remove()
+        
+        
+            $("#linkRequiredPropertieslogginglevel").remove()
+        
+        
+            $("#linkPasswordPolicylogginglevel").remove()
+        
+        
+            $("#linkPrincipalTransformationlogginglevel").remove()
+        
+        
+            $("#linkPasswordEncoderlogginglevel").remove()
+        
+        
+            $("#linkAuthnPredicatelogginglevel").remove()
+        
+        
+            $("#linkLdaplogginglevel").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuslogginglevel");
+        var id=$("#navPillsMenuslogginglevel a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertieslogginglevel li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertieslogginglevel").closest("table").remove()
+            $("#navRequiredPropertiesLeftlogginglevel").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertieslogginglevel li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertieslogginglevel").closest("table").remove()
+            $("#navOptionalPropertiesLeftlogginglevel").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertieslogginglevel li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertieslogginglevel").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h3 id="refresh-interval">Refresh Interval</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">log4j2.xml</code> itself controls the refresh interval of the logging configuration. Log4j has the ability
+to automatically detect changes to the configuration file and reconfigure itself. If the <code class="language-plaintext highlighter-rouge">monitorInterval</code>
+attribute is specified on the configuration element and is set to a non-zero value then the file will be
+checked the next time a log event is evaluated and/or logged and the <code class="language-plaintext highlighter-rouge">monitorInterval</code> has elapsed since
+the last check. This will allow you to adjust the log levels and configuration without restarting the
+server environment.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c">&lt;!-- Specify the refresh internal in seconds. --&gt;</span>
+<span class="nt">&lt;Configuration</span> <span class="na">monitorInterval=</span><span class="s">"15"</span> <span class="err">...</span><span class="nt">&gt;</span>
+    ...
+<span class="nt">&lt;/Configuration&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="appenders">Appenders</h3>
+
+<p>Appenders are responsible for delivering log events to their destination. Appenders usually are only responsible for writing the event data to the 
+target destination. In most cases they delegate responsibility for formatting the event to a layout. Some appenders wrap other appenders so that they can modify the log event, 
+handle a failure in an <code class="language-plaintext highlighter-rouge">Appender</code>, route the event to a subordinate <code class="language-plaintext highlighter-rouge">Appender</code> based on advanced filtering criteria or provide similar 
+functionality that does not directly format the event for viewing. <code class="language-plaintext highlighter-rouge">Appender</code>s always have a name so that they can be referenced from <code class="language-plaintext highlighter-rouge">Logger</code>s.</p>
+
+<p>The following <code class="language-plaintext highlighter-rouge">Appender</code> elements are only a partial collection of available options.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layout</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">AsyncAppender</code></td>
+      <td>Accepts references to other Appenders and causes LogEvents to be written to them on a separate Thread.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CassandraAppender</code></td>
+      <td>Writes its output to an Apache Cassandra database. A keyspace and table must be configured ahead of time, and the columns should be mapped in a configuration file.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ConsoleAppender</code></td>
+      <td>Writes its output to either <code class="language-plaintext highlighter-rouge">System.out</code> or <code class="language-plaintext highlighter-rouge">System.err</code> with <code class="language-plaintext highlighter-rouge">System.out</code> being the default target.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">FailoverAppender</code></td>
+      <td>Wraps a set of appenders. If the primary Appender fails the secondary appenders will be tried in order until one succeeds or there are no more secondaries to try.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">FileAppender</code></td>
+      <td>Writes to the File named in the <code class="language-plaintext highlighter-rouge">fileName</code> parameter.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CsvParameterLayout</code></td>
+      <td>Converts an event’s parameters into a CSV record, ignoring the message.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">JDBCAppender</code></td>
+      <td>Writes log events to a relational database table using standard JDBC.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">JPAAppender</code></td>
+      <td>Writes log events to a relational database table using the Java Persistence API <code class="language-plaintext highlighter-rouge">2.1</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">HttpAppender</code></td>
+      <td>Sends log events over HTTP. A Layout must be provided to format the log event.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">KafkaAppender</code></td>
+      <td>Logs events to an Apache Kafka topic. Each log event is sent as a Kafka record.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NoSQLAppender</code></td>
+      <td>Writes log events to a NoSQL database; Provider implementations currently exist for MongoDB and Apache CouchDB.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RoutingAppender</code></td>
+      <td>Evaluates log events and then routes them to a subordinate <code class="language-plaintext highlighter-rouge">Appender</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SMTPAppender</code></td>
+      <td>Sends an e-mail when a specific logging event occurs, typically on errors or fatal errors.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">JeroMQ</code></td>
+      <td>The ZeroMQ appender uses the JeroMQ library to send log events to one or more ZeroMQ endpoints.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RollingFileAppender</code></td>
+      <td>Writes to the File named in the fileName parameter and rolls the file over according the <code class="language-plaintext highlighter-rouge">TriggeringPolicy</code> and the <code class="language-plaintext highlighter-rouge">RolloverPolicy</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RewriteAppender</code></td>
+      <td>Allows the log event to be manipulated before it is processed by another <code class="language-plaintext highlighter-rouge">Appender</code>. This can be used to mask sensitive information such as passwords or to inject information into each event.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For full details, please review the official <a href="http://logging.apache.org">Log4j documentation</a></p>
+
+<h3 id="log-patterns">Log Patterns</h3>
+
+<p>By default most appenders that are provided via the <code class="language-plaintext highlighter-rouge">log4j2.xml</code> file use
+pattern-based layouts to format log messages. The following alternative layouts may also be used:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layout</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CsvParameterLayout</code></td>
+      <td>Converts an event’s parameters into a CSV record, ignoring the message.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">GelfLayout</code></td>
+      <td>Lays out events in the Graylog Extended Log Format (<code class="language-plaintext highlighter-rouge">GELF</code>).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">HTMLLayout</code></td>
+      <td>Generates an HTML page and adds each LogEvent to a row in a table</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">JSONLayout</code></td>
+      <td>Creates log events in well-formed or fragmented JSON.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">PatternLayout</code></td>
+      <td>Formats the log even based on a conversion pattern.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RFC5424Layout</code></td>
+      <td>Formats log events in accordance with <a href="https://tools.ietf.org/html/rfc5424">RFC 5424</a>, the enhanced Syslog specification.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SerializedLayout</code></td>
+      <td>Log events are transformed into byte arrays useful in JMS or socket connections.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SyslogLayout</code></td>
+      <td>Formats log events as BSD Syslog records.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">XMLLayout</code></td>
+      <td>Creates log events in well-formed or fragmented XML.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">YamlLayout</code></td>
+      <td>Creates log events in YAML.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To learn more about nuances and configuration settings for each, please refer to the <a href="http://logging.apache.org">official Log4J guides</a>.</p>
+
+<h2 id="log-file-rotation">Log File Rotation</h2>
+
+<p>The default configuration specifies triggering policies for rolling over logs, at startup, size or at 
+specific times. These policies apply to <code class="language-plaintext highlighter-rouge">RollingFile</code> appenders.</p>
+
+<p>For example, the following XML fragment defines policies that rollover the log when the 
+JVM starts, when the log size reaches <code class="language-plaintext highlighter-rouge">10</code> megabytes, and when the current date no longer matches the log’s start date.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;RollingFile</span> <span class="na">name=</span><span class="s">"file"</span> <span class="na">fileName=</span><span class="s">"${baseDir}/cas.log"</span> <span class="na">append=</span><span class="s">"true"</span>
+                    <span class="na">filePattern=</span><span class="s">"${baseDir}/cas-%d{yyyy-MM-dd-HH}-%i.log"</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;Policies&gt;</span>
+        <span class="nt">&lt;OnStartupTriggeringPolicy</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;SizeBasedTriggeringPolicy</span> <span class="na">size=</span><span class="s">"10 MB"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;TimeBasedTriggeringPolicy</span> <span class="na">interval=</span><span class="s">"24"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/Policies&gt;</span>
+    ...
+<span class="nt">&lt;/RollingFile&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The triggering policies determines <strong>if</strong> a rollover should be performed and rollover strategy 
+can also be design to indicate <strong>how</strong> that should be done. If no strategy is configured, the default will be used.</p>
+
+<p>To find more a comprehensive documentation, please <a href="http://logging.apache.org">review the guides here</a>.</p>
+
+<h3 id="rollover-strategy">Rollover Strategy</h3>
+
+<p>Customized rollover strategies provide a delete action that gives users more control over what files 
+are deleted at rollover time than what was possible with the DefaultRolloverStrategy max 
+attribute. The delete action lets users configure one or more conditions that select 
+the files to delete relative to a base directory.</p>
+
+<p>For example, the following appender at rollover time deletes all files under the base 
+directory that match the <code class="language-plaintext highlighter-rouge">*/*.log</code> glob and are <code class="language-plaintext highlighter-rouge">7</code> days old or older.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;RollingFile</span> <span class="na">name=</span><span class="s">"file"</span> <span class="na">fileName=</span><span class="s">"${baseDir}/cas.log"</span> <span class="na">append=</span><span class="s">"true"</span>
+             <span class="na">filePattern=</span><span class="s">"${baseDir}/cas-%d{yyyy-MM-dd-HH}-%i.log"</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;DefaultRolloverStrategy</span> <span class="na">max=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;Delete</span> <span class="na">basePath=</span><span class="s">"${baseDir}"</span> <span class="na">maxDepth=</span><span class="s">"2"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;IfFileName</span> <span class="na">glob=</span><span class="s">"*/*.log"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;IfLastModified</span> <span class="na">age=</span><span class="s">"7d"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/Delete&gt;</span>
+    <span class="nt">&lt;/DefaultRolloverStrategy&gt;</span>
+    ...
+<span class="nt">&lt;/RollingFile&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To find more a comprehensive documentation, please <a href="http://logging.apache.org">review the guides here</a>.</p>
+
+<h2 id="log-data-sanitation">Log Data Sanitation</h2>
+
+<p>For security purposes, CAS by default will attempt to remove ticket-granting ticket and proxy-granting ticket ids from all log data.
+This will of course include messages that are routed to a log destination by the logging framework as well as all audit messages.</p>
+
+<p>A sample follows below:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>WHO: audit:unknown
+WHAT: TGT-<span class="k">******************</span>123456-cas01.example.org
+ACTION: TICKET_GRANTING_TICKET_DESTROYED
+APPLICATION: CAS
+WHEN: Sat Jul 12 04:10:35 PDT 2014
+CLIENT IP ADDRESS: ...
+SERVER IP ADDRESS: ...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Certain number of characters are left at the trailing end of the ticket id to assist with troubleshooting and diagnostics.</p>
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Logs & Audits';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

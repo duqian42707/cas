@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>Views - User Interface Customization - CAS</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="views">Views</h1>
+
+<p>The views are found inside the CAS web application in the <code class="language-plaintext highlighter-rouge">WEB-INF\lib\cas-server-support-thymeleaf-&lt;cas.version&gt;.jar</code> in the 
+templates folder. Add any views that require customization to the <code class="language-plaintext highlighter-rouge">src/main/resources/templates</code> folder in the CAS overlay project.<br />
+Any files found in that module can be overridden by putting them in the same location under
+<code class="language-plaintext highlighter-rouge">src/main/resources</code> in the CAS overlay project. The Gradle build script for the overlay has tasks that help get resources 
+from the CAS web application to the correct location in the CAS overlay.</p>
+
+<p>Views also may be externalized outside the web application conditionally and individually, provided the external path 
+via CAS settings. If a view template file is not found at the externalized path, the default one that ships with CAS will be used as the fallback.</p>
+
+<p>Views may also be found using an external URL in CAS settings that is responsible to produce the full view body in 
+the response. This URL endpoint will receive the available request headers as well as the following headers in its request:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">owner</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">template</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">resource</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">theme</code>, if available</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">locale</code>, if available</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Upon a successful <code class="language-plaintext highlighter-rouge">200</code> status result, the response body is expected to contain the view that will be rendered by CAS.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#views">review this guide</a>.</p>
+
+<h2 id="thymeleaf">Thymeleaf</h2>
+
+<p>CAS uses <a href="https://www.thymeleaf.org">Thymeleaf</a> for its markup rendering engine. Each template is decorated by <code class="language-plaintext highlighter-rouge">layout.html</code> template file, which provides a layout structure for the template’s content. Individual components optimized for re-use among multiple templates are stored in the <code class="language-plaintext highlighter-rouge">src/main/resources/templates/fragments</code> folder, and referenced by the templates in <code class="language-plaintext highlighter-rouge">src/main/resources/templates</code>.</p>
+
+<p>Refer to the <a href="https://www.thymeleaf.org/">Thymeleaf documentation</a> for more information on its use and syntax.</p>
+
+<h2 id="warning-before-accessing-application">Warning Before Accessing Application</h2>
+
+<p>CAS has the ability to warn the user before being redirected to the service. This allows users to be made aware whenever an application uses CAS to log them in.
+(If they don’t elect the warning, they may not see any CAS screen when accessing an application that successfully relies upon an existing CAS single sign-on session.)
+Some CAS adopters remove the ‘warn’ checkbox in the CAS login view and don’t offer this interstitial advisement that single sign-on is happening.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>...
+<span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"warn"</span>
+       <span class="na">name=</span><span class="s">"warn"</span>
+       <span class="na">value=</span><span class="s">"true"</span>
+       <span class="na">tabindex=</span><span class="s">"3"</span>
+       <span class="na">th:accesskey=</span><span class="s">"#{screen.welcome.label.warn.accesskey}"</span>
+       <span class="na">type=</span><span class="s">"checkbox"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"warn"</span> <span class="na">th:utext=</span><span class="s">"#{screen.welcome.label.warn}"</span><span class="nt">/&gt;</span>
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="custom-fields">Custom Fields</h2>
+
+<p>CAS allows on the ability to dynamically extend the login form by including additional fields, to be populated by the user.
+Such fields are taught to CAS using settings and are then bound to the authentication flow and made available to all
+authentication handlers that wish to impose additional processes and rules using said fields.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#views">review this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'User Interface';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

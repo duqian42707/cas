@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Configuration Server</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="configuration-server---spring-cloud">Configuration Server - Spring Cloud</h1>
+
+<p>CAS is able to use an external and central configuration server to obtain state and settings. The configuration server provides a very abstract way for CAS (and
+all of its other clients) to obtain settings from a variety of sources, such as file system, <code class="language-plaintext highlighter-rouge">git</code> or <code class="language-plaintext highlighter-rouge">svn</code> repositories, MongoDb databases, Vault, etc. The
+beauty of this solution is that to the CAS web application server, it matters not where settings come from and it has no knowledge of the underlying property
+sources. It talks to the configuration server to locate settings and move on.</p>
+
+<div class="alert alert-info"><strong>Configuration Security</strong><p>This is a very good strategy to ensure configuration settings
+are not scattered around various deployment environments leading to a more secure deployment. The configuration server need not be
+exposed to the outside world, and it can safely and secure be hidden behind firewalls, etc allowing access to only authorized clients
+such as the CAS server web application.</p></div>
+
+<p>A full comprehensive guide is provided by the <a href="https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html">Spring Cloud project</a>.</p>
+
+<h2 id="spring-cloud-configuration-server-overlay">Spring Cloud Configuration Server Overlay</h2>
+
+<p>The configuration server itself, similar to CAS, can be deployed using the <a href="../installation/WAR-Overlay-Initializr.html">CAS Initializr</a>.</p>
+
+<script type="text/javascript">
+
+function tabClicked(idx) {
+  var radius = "0px 5px 5px 5px";
+  if (idx != 0) {
+    radius = "5px 5px 5px 5px";
+  }
+  $(".tab-pane .highlight>pre.highlight").css("border-radius", radius);
+  switch (idx) {
+    case 0:
+      $("div #mavenorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 1:
+      $("div #gradleorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 2:
+      $("div #bomorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+  }
+}
+
+</script>
+
+<div style="display: block">
+
+<ul class="nav nav-pills">
+  <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(0)" data-bs-toggle="tab" href="#mavenorgapereocascasserverwebappconfigserver">Maven</a></li>
+  <li class="nav-item"><a class="nav-link active" onclick="javascript:tabClicked(1)" data-bs-toggle="tab" href="#gradleorgapereocascasserverwebappconfigserver">Gradle</a></li>
+
+  
+    <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(2)" data-bs-toggle="tab" href="#bomorgapereocascasserverwebappconfigserver">BOM</a></li>
+  
+
+  <li role="presentation" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" onclick="javascript:tabClicked(3)" data-bs-toggle="dropdown" href="#" role="button">Resources
+      <span class="caret"></span>
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-webapp-config-server', 'cas-overlay');">Generate CAS Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-webapp-config-server', 'cas-mgmt-overlay');">Generate CAS Management Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-webapp-config-server', 'cas-config-server-overlay');">Generate CAS Configuration Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-discovery-server-overlay');">Generate CAS Discovery Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-bootadmin-server-overlay');">Generate CAS Spring Boot Admin Server WAR Overlay</a>
+    </div>
+  </li>
+</ul>
+
+
+<div class="cas-module-tabs tab-content clearfix">
+
+
+
+  <div class="tab-pane fade in" id="mavenorgapereocascasserverwebappconfigserver">
+    
+
+    <span>
+      
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-webapp-config-server<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+    </span>
+  
+  </div>
+
+
+  <div class="tab-pane fade in active show" id="gradleorgapereocascasserverwebappconfigserver">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-webapp-config-server:${project.'cas.version'}"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+
+  </div>
+
+
+  <div class="tab-pane fade in" id="bomorgapereocascasserverwebappconfigserver">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">dependencyManagement</span> <span class="o">{</span>
+  <span class="n">imports</span> <span class="o">{</span>
+    <span class="n">mavenBom</span> <span class="s2">"org.apereo.cas:cas-server-support-bom:${project.'cas.version'}"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>  
+  <span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-webapp-config-server"</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+  
+  </div>
+
+</div>
+
+</div>
+
+<p>In addition to the <a href="Configuration-Management.html#overview">strategies outlined here</a>, the configuration server may load CAS settings and properties via the
+following order and mechanics:</p>
+
+<ol>
+  <li>Profile-specific application properties outside of your packaged web application (<code class="language-plaintext highlighter-rouge">application-{profile}.properties|yml</code>)</li>
+  <li>Profile-specific application properties packaged inside your jar (<code class="language-plaintext highlighter-rouge">application-{profile}.properties|yml</code>)</li>
+  <li>Application properties outside of your packaged jar (<code class="language-plaintext highlighter-rouge">application.properties|yml</code>).</li>
+  <li>Application properties packaged inside your jar (<code class="language-plaintext highlighter-rouge">application.properties|yml</code>).</li>
+</ol>
+
+<p>The configuration and behavior of the configuration server is also controlled by its own
+<code class="language-plaintext highlighter-rouge">src/main/resources/bootstrap.properties</code> file. By default, it runs under port <code class="language-plaintext highlighter-rouge">8888</code> at <code class="language-plaintext highlighter-rouge">/casconfigserver</code> inside an embedded Apache Tomcat server whose
+endpoints are protected with basic authentication where the default credentials are <code class="language-plaintext highlighter-rouge">casuser</code> and an auto-generated password defined
+in <code class="language-plaintext highlighter-rouge">src/main/resources/application.properties</code>.</p>
+
+<p>Furthermore, by default it runs under a <code class="language-plaintext highlighter-rouge">native</code> profile described below.</p>
+
+<p>The following endpoints are secured and exposed by the configuration server:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/encrypt</code></td>
+      <td>Accepts a <code class="language-plaintext highlighter-rouge">POST</code> to encrypt CAS configuration settings.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/decrypt</code></td>
+      <td>Accepts a <code class="language-plaintext highlighter-rouge">POST</code> to decrypt CAS configuration settings.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/actuator/refresh</code></td>
+      <td>Accepts a <code class="language-plaintext highlighter-rouge">POST</code> and attempts to refresh the internal state of configuration server.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/actuator/env</code></td>
+      <td>Accepts a <code class="language-plaintext highlighter-rouge">GET</code> and describes all configuration sources of the configuration server.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/actuator/cas/default</code></td>
+      <td>Describes what the configuration server knows about the <code class="language-plaintext highlighter-rouge">default</code> settings profile.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/actuator/cas/native</code></td>
+      <td>Describes what the configuration server knows about the <code class="language-plaintext highlighter-rouge">native</code> settings profile.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Once you have the configuration server deployed and assuming the credentials used to secure the configuration server match the example below, you can observe
+the collection of settings via:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>curl <span class="nt">-u</span> casuser:Mellon https://config.server.url:8888/casconfigserver/cas/native
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Assuming actuator endpoints are enabled in the configuration, you can also observe the collection of property sources that provide settings to the configuration
+server:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>curl <span class="nt">-u</span> casuser:Mellon https://config.server.url:8888/casconfigserver/actuator/env
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info"><strong>Actuator Endpoints</strong><p>
+Remember that actuator endpoints typically are prefixed with <code>/actuator</code>.
+</p></div>
+
+<h2 id="spring-cloud-configuration-server-clients">Spring Cloud Configuration Server Clients</h2>
+
+<p>To let the CAS server web application (or any other client for that matter) talk to the configuration server, the following settings need to be applied to CAS’
+own <code class="language-plaintext highlighter-rouge">src/main/resources/bootstrap.properties</code> file. The properties to configure the CAS server web application as the client of the configuration server must
+necessarily be read in before the rest of the application’s configuration is read from the configuration server, during the <em>bootstrap</em> phase.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudconfig">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudconfig" data-bs-toggle="tab" href="#requiredPropertiesspringcloudconfig">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudconfig" data-bs-toggle="tab" href="#optionalPropertiesspringcloudconfig">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudconfig">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudconfig" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudconfig">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudconfig">
+        <a class="nav-link" id="linkRdbmsspringcloudconfig" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudconfig">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudconfig">
+        <a class="nav-link" id="linkEmailspringcloudconfig" data-bs-toggle="tab" href="#emailPropertiesspringcloudconfig">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudconfig">
+        <a class="nav-link" id="linkLdapspringcloudconfig" data-bs-toggle="tab" href="#ldapPropertiesspringcloudconfig">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudconfig">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudconfig" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudconfig">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudconfig">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudconfig" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudconfig">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudconfig">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudconfig" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudconfig(this);" href="#principalTransformationPropertiesspringcloudconfig">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudconfig">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudconfig" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudconfig(this);" href="#passwordPolicyPropertiesspringcloudconfig">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudconfig" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudconfig(this);" href="#thirdPartyPropertiesspringcloudconfig">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudconfig(this);" id="linkNotesspringcloudconfig" data-bs-toggle="tab" href="#notesspringcloudconfig">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudconfig">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudconfig">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudconfig">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudconfig"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudconfig">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudconfig">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudconfig"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudconfig">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudconfig">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudconfig"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudconfig">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.6.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudconfig").remove()
+        
+        
+            $("#linkRdbmsspringcloudconfig").remove()
+        
+        
+            $("#linkEmailspringcloudconfig").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudconfig").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudconfig").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudconfig").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudconfig").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudconfig").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudconfig").remove()
+        
+        
+            $("#linkLdapspringcloudconfig").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudconfig");
+        var id=$("#navPillsMenusspringcloudconfig a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudconfig li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudconfig").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudconfig").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudconfig li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudconfig").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudconfig").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudconfig li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudconfig").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<p>Remember that configuration server serves property sources from <code class="language-plaintext highlighter-rouge">/{name}/{profile}/{label}</code> to applications, where the default bindings in the client app are
+the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="s2">"name"</span> <span class="o">=</span> <span class="k">${</span><span class="nv">spring</span><span class="p">.application.name</span><span class="k">}</span>
+<span class="s2">"profile"</span> <span class="o">=</span> <span class="k">${</span><span class="nv">spring</span><span class="p">.profiles.active</span><span class="k">}</span>
+<span class="s2">"label"</span> <span class="o">=</span> <span class="s2">"master"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>All of them can be overridden by setting <code class="language-plaintext highlighter-rouge">spring.cloud.config.*</code> (where <code class="language-plaintext highlighter-rouge">*</code> is <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">profile</code> or <code class="language-plaintext highlighter-rouge">label</code>). The “label” is useful for rolling back to previous
+versions of configuration; with the default Config Server implementation it can be a git label, branch name or commit id. Label can also be provided as a
+comma-separated list, in which case the items in the list are tried on-by-one until one succeeds. This can be useful when working on a feature branch, for
+instance, when you might want to align the config label with your branch, but make it optional (e.g. <code class="language-plaintext highlighter-rouge">spring.cloud.config.label=myfeature,develop</code>).</p>
+
+<p>To lean more about how CAS allows you to reload configuration changes, please <a href="Configuration-Management-Reload.html">review this guide</a>.</p>
+
+<h2 id="spring-cloud-configuration-server-sources">Spring Cloud Configuration Server Sources</h2>
+
+<p>Various configuration profiles exist to determine how configuration server should retrieve properties and settings.</p>
+
+<ul>
+  <li><a href="Configuration-Server-Management-SpringCloud-Default.html">Default</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-Native.html">Native</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-REST.html">REST</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-AmazonS3.html">Amazon S3</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-AmazonSecretManager.html">Amazon Secret Manager</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-AmazonSSM.html">Amazon SSM</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-AzureKeyVault.html">Azure KeyVault</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-DynamoDb.html">DynamoDb</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-HashiCorpConsul.html">HashiCorp Consul</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-HashiCorpVault.html">HashiCorp Vault</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-JDBC.html">JDBC</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-MongoDb.html">MongoDb</a></li>
+  <li><a href="Configuration-Server-Management-SpringCloud-ZooKeeper.html">ZooKeeper</a></li>
+</ul>
+
+<p>The cloud configuration modules provided above may also be used verbatim inside a CAS server overlay. Remember that the
+primary objective for these modules is to retrieve settings and properties from a source. While they are mostly and primarily useful when activated inside the
+Spring Cloud Configuration server and can be set to honor profiles and such, they nonetheless may also be used inside a CAS server overlay directly to fetch
+settings from a source while running in standalone mode. In such scenarios, all sources of configuration regardless of format or syntax will work alongside each
+other to retrieve settings and you can certainly mix and match as you see fit.</p>
+
+<h3 id="spring-cloud-configuration-server-composite-sources">Spring Cloud Configuration Server Composite Sources</h3>
+
+<p>In some scenarios you may wish to pull configuration data from multiple environment repositories. To do this just enable multiple profiles in your configuration
+server’s application properties or YAML file. If, for example, you want to pull configuration data from a Git repository as well as a SVN repository you would
+set the following properties for your configuration server.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">profiles</span><span class="pi">:</span>
+    <span class="na">active</span><span class="pi">:</span> <span class="s">git, svn</span>
+  <span class="na">cloud</span><span class="pi">:</span>
+    <span class="na">config</span><span class="pi">:</span>
+      <span class="na">server</span><span class="pi">:</span>
+        <span class="na">svn</span><span class="pi">:</span>
+          <span class="na">uri</span><span class="pi">:</span> <span class="s">file:///path/to/svn/repo</span>
+          <span class="na">order</span><span class="pi">:</span> <span class="m">2</span>
+        <span class="na">git</span><span class="pi">:</span>
+          <span class="na">uri</span><span class="pi">:</span> <span class="s">file:///path/to/git/repo</span>
+          <span class="na">order</span><span class="pi">:</span> <span class="m">1</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In addition to each repo specifying a URI, you can also specify an <code class="language-plaintext highlighter-rouge">order</code> property. The <code class="language-plaintext highlighter-rouge">order</code> property allows you to specify the priority order for all your
+repositories. The lower the numerical value of the order property the higher priority it will have. The priority order of a repository will help resolve any
+potential conflicts between repositories that contain values for the same properties.</p>
+
+<h3 id="spring-cloud-configuration-server-property-overrides">Spring Cloud Configuration Server Property Overrides</h3>
+
+<p>The configuration server has an “overrides” feature that allows the operator to provide configuration properties to all applications that cannot be accidentally
+changed by the application using the normal change events and hooks. To declare overrides add a map of name-value pairs
+to <code class="language-plaintext highlighter-rouge">spring.cloud.config.server.overrides</code>.</p>
+
+<p>For example:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">cloud</span><span class="pi">:</span>
+    <span class="na">config</span><span class="pi">:</span>
+      <span class="na">server</span><span class="pi">:</span>
+        <span class="na">overrides</span><span class="pi">:</span>
+          <span class="na">foo</span><span class="pi">:</span> <span class="s">bar</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>This will cause the CAS server (as the client of the configuration server) to read <code class="language-plaintext highlighter-rouge">foo=bar</code> independent of its own configuration.</p>
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Configuration';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Duo Security Authentication</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+            <div id="dev-doc-info" class="alert alert-danger" role="alert">
+                <h3>WORKERS AHEAD!</h3>
+                <p>You are viewing the <strong>development</strong> documentation for the Apereo CAS server. <strong>The
+                    functionality presented here <a href="https://github.com/apereo/cas/milestones">is not officially released
+                        yet</a></strong>.
+                    This is a work in progress and will be continually updated as development moves forward. <strong>You are
+                        most encouraged to test the changes presented.</strong>
+            </div>
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="duo-security-authentication">Duo Security Authentication</h1>
+
+<p><a href="https://www.duo.com">Duo Security</a> is a two-step verification service the provides 
+additional security for access to institutional and personal data.</p>
+
+<p>Duo offers several options for authenticating users:</p>
+
+<ul>
+  <li>a mobile push notification and one-button verification of identity to a smartphone (requires the free Duo Mobile app)</li>
+  <li>a one-time code generated on a smartphone</li>
+  <li>a one-time code generated by Duo and sent to a handset via SMS text messaging</li>
+  <li>a telephone call from that will prompt you to validate the login request</li>
+</ul>
+
+<script type="text/javascript">
+
+function tabClicked(idx) {
+  var radius = "0px 5px 5px 5px";
+  if (idx != 0) {
+    radius = "5px 5px 5px 5px";
+  }
+  $(".tab-pane .highlight>pre.highlight").css("border-radius", radius);
+  switch (idx) {
+    case 0:
+      $("div #mavenorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 1:
+      $("div #gradleorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 2:
+      $("div #bomorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+  }
+}
+
+</script>
+
+<div style="display: block">
+
+<ul class="nav nav-pills">
+  <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(0)" data-bs-toggle="tab" href="#mavenorgapereocascasserversupportduo">Maven</a></li>
+  <li class="nav-item"><a class="nav-link active" onclick="javascript:tabClicked(1)" data-bs-toggle="tab" href="#gradleorgapereocascasserversupportduo">Gradle</a></li>
+
+  
+    <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(2)" data-bs-toggle="tab" href="#bomorgapereocascasserversupportduo">BOM</a></li>
+  
+
+  <li role="presentation" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" onclick="javascript:tabClicked(3)" data-bs-toggle="dropdown" href="#" role="button">Resources
+      <span class="caret"></span>
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-duo', 'cas-overlay');">Generate CAS Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-duo', 'cas-mgmt-overlay');">Generate CAS Management Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-duo', 'cas-config-server-overlay');">Generate CAS Configuration Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-discovery-server-overlay');">Generate CAS Discovery Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-bootadmin-server-overlay');">Generate CAS Spring Boot Admin Server WAR Overlay</a>
+    </div>
+  </li>
+</ul>
+
+
+<div class="cas-module-tabs tab-content clearfix">
+
+
+
+  <div class="tab-pane fade in" id="mavenorgapereocascasserversupportduo">
+    
+
+    <span>
+      
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-duo<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+    </span>
+  
+  </div>
+
+
+  <div class="tab-pane fade in active show" id="gradleorgapereocascasserversupportduo">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-duo:${project.'cas.version'}"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+
+  </div>
+
+
+  <div class="tab-pane fade in" id="bomorgapereocascasserversupportduo">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">dependencyManagement</span> <span class="o">{</span>
+  <span class="n">imports</span> <span class="o">{</span>
+    <span class="n">mavenBom</span> <span class="s2">"org.apereo.cas:cas-server-support-bom:${project.'cas.version'}"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>  
+  <span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-duo"</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+  
+  </div>
+
+</div>
+
+</div>
+
+<div class="alert alert-warning"><strong>Usage</strong>
+<p>Please note that support for Duo multifactor authentication that is based on the Duo's Web SDK and the embedded iFrame
+is deprecated and scheduled to be removed in the future. You should consider switching to the 'Universal Prompt' variant
+described in this document to avoid surprises in future upgrades.</p>
+</div>
+
+<h2 id="actuator-endpoints">Actuator Endpoints</h2>
+
+<p>The following endpoints are provided by CAS:</p>
+
+<div style="display:none" id="jdbcauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjdbcduoPingduoAccountStatus .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjdbcduoPingduoAccountStatus ');
+        $("ul#navPillsMenuscasmonitorendpointsjdbcduoPingduoAccountStatus").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjdbcduoPingduoAccountStatus li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjdbcduoPingduoAccountStatus">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#requiredPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#optionalPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#signingEncryptionPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#rdbmsPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#emailPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#ldapPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#authnPredicatePropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#passwordEncoderPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#principalTransformationPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjdbcduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcduoPingduoAccountStatus(this);" href="#passwordPolicyPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjdbcduoPingduoAccountStatus">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjdbcduoPingduoAccountStatus").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjdbcduoPingduoAccountStatus");
+        var id=$("#navPillsMenuscasmonitorendpointsjdbcduoPingduoAccountStatus a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjdbcduoPingduoAccountStatus").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjdbcduoPingduoAccountStatus").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjdbcduoPingduoAccountStatus").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="ldapauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsldapduoPingduoAccountStatus .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsldapduoPingduoAccountStatus ');
+        $("ul#navPillsMenuscasmonitorendpointsldapduoPingduoAccountStatus").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsldapduoPingduoAccountStatus li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsldapduoPingduoAccountStatus">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#requiredPropertiescasmonitorendpointsldapduoPingduoAccountStatus">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#optionalPropertiescasmonitorendpointsldapduoPingduoAccountStatus">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#signingEncryptionPropertiescasmonitorendpointsldapduoPingduoAccountStatus">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#rdbmsPropertiescasmonitorendpointsldapduoPingduoAccountStatus">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#emailPropertiescasmonitorendpointsldapduoPingduoAccountStatus">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#ldapPropertiescasmonitorendpointsldapduoPingduoAccountStatus">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#authnPredicatePropertiescasmonitorendpointsldapduoPingduoAccountStatus">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#passwordEncoderPropertiescasmonitorendpointsldapduoPingduoAccountStatus">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#principalTransformationPropertiescasmonitorendpointsldapduoPingduoAccountStatus">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsldapduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapduoPingduoAccountStatus(this);" href="#passwordPolicyPropertiescasmonitorendpointsldapduoPingduoAccountStatus">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsldapduoPingduoAccountStatus">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsldapduoPingduoAccountStatus"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsldapduoPingduoAccountStatus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsldapduoPingduoAccountStatus"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsldapduoPingduoAccountStatus").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsldapduoPingduoAccountStatus");
+        var id=$("#navPillsMenuscasmonitorendpointsldapduoPingduoAccountStatus a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsldapduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsldapduoPingduoAccountStatus").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsldapduoPingduoAccountStatus").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsldapduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsldapduoPingduoAccountStatus").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsldapduoPingduoAccountStatus").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsldapduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsldapduoPingduoAccountStatus").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="jaasauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjaasduoPingduoAccountStatus .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjaasduoPingduoAccountStatus ');
+        $("ul#navPillsMenuscasmonitorendpointsjaasduoPingduoAccountStatus").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjaasduoPingduoAccountStatus li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjaasduoPingduoAccountStatus">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#requiredPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#optionalPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#signingEncryptionPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#rdbmsPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#emailPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#ldapPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#authnPredicatePropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#passwordEncoderPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#principalTransformationPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjaasduoPingduoAccountStatus" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasduoPingduoAccountStatus(this);" href="#passwordPolicyPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjaasduoPingduoAccountStatus">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjaasduoPingduoAccountStatus"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjaasduoPingduoAccountStatus">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjaasduoPingduoAccountStatus"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjaasduoPingduoAccountStatus").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjaasduoPingduoAccountStatus");
+        var id=$("#navPillsMenuscasmonitorendpointsjaasduoPingduoAccountStatus a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjaasduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjaasduoPingduoAccountStatus").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjaasduoPingduoAccountStatus").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjaasduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjaasduoPingduoAccountStatus").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjaasduoPingduoAccountStatus").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjaasduoPingduoAccountStatus li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjaasduoPingduoAccountStatus").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div class="accordion" id="duoPingduoAccountStatus">
+    
+
+    
+
+    
+    
+
+    
+    
+</div>
+
+<p><br /></p>
+
+<h2 id="multiple-instances">Multiple Instances</h2>
+
+<p>CAS multifactor authentication support for Duo Security allows
+multiple Duo providers to be configured with distinct ids each of
+which may be connected to a separate Duo Security instance with a different configuration.
+This behavior allows more sensitive applications to be connected
+to a Duo instance that has more strict and secure authentication policies.</p>
+
+<p>For this behavior to function, separate unique ids of your own choosing need to be assigned to each Duo Security
+provider. Each provider instance is registered with CAS and activated in the authentication
+flows as necessary. The provider id need not be defined if there is only a single Duo instance available.</p>
+
+<h2 id="account-profile-management">Account Profile Management</h2>
+
+<p>The integration with Duo Security is able to provide user device registration information to the account profile management feature in CAS. <a href="../registration/Account-Management-Overview.html">See this guide</a> for better details.</p>
+
+<h2 id="user-account-status">User Account Status</h2>
+
+<p>If users are unregistered with Duo Security or allowed through via a direct bypass, 
+CAS will query Duo Security for the user account apriori to learn
+whether user is registered or configured for direct bypass. If the account is configured for direct bypass or the
+user account is not registered yet the new-user enrollment policy allows the user to skip registration, CAS will bypass
+Duo Security altogether and shall not challenge the user and will also <strong>NOT</strong> report back a multifactor-enabled 
+authentication context back to the application.</p>
+
+<div class="alert alert-warning"><strong>YMMV</strong><p>In recent conversations with Duo Security, it 
+turns out that the API behavior has changed (for security reasons) where it may no longer accurately 
+report back account status. This means even if the above conditions hold true, CAS may continue to route 
+the user to Duo Security having received an eligibility status from the API. Duo Security is reportedly 
+working on a fix to restore the API behavior in a more secure way. In the meanwhile, YMMV.</p></div>
+
+<h2 id="health-status">Health Status</h2>
+
+<p>CAS is able to contact Duo Security, on demand, in order to inquire 
+the health status of the service using Duo Security’s <code class="language-plaintext highlighter-rouge">ping</code> API. 
+The results of the operations are recorded and reported using <code class="language-plaintext highlighter-rouge">health</code> endpoint 
+provided by <a href="../monitoring/Monitoring-Statistics.html">CAS Monitoring endpoints</a>.
+Of course, the same result throughout the Duo authentication flow is also used to determine failure modes.</p>
+
+<h2 id="universal-prompt">Universal Prompt</h2>
+
+<p>Universal Prompt is a variation of Duo Multifactor Authentication 
+that uses the <a href="https://duo.com/docs/oauthapi">Duo OIDC Auth API</a>. This is 
+an OIDC standards-based API for adding strong two-factor authentication 
+to CAS. This option no longer displays the Duo Prompt 
+in an iFrame controlled and owned by CAS. Rather, the prompt is now 
+hosted on Duo’s servers and displayed via browser redirects. The
+response from Duo Security is passed to CAS as a browser redirect 
+and CAS will begin to negotiate and exchange that response in favor of
+a JWT that contains the multifactor authentication user profile details.</p>
+
+<p>Universal Prompt no longer requires you to generate and use a application
+key value. Instead, it requires a <em>client id</em> and <em>client secret</em>, which
+are known and taught CAS using the integration key and secret key
+configuration settings. You will need get your integration key, secret key, and API
+hostname from Duo Security when you register CAS as a protected application.</p>
+
+<h2 id="non-browser-mfa">Non-Browser MFA</h2>
+
+<p>The Duo Security module of CAS is able to also support <a href="https://duo.com/docs/authapi">non-browser based multifactor authentication</a> requests.
+In order to trigger this behavior, applications (i.e. <code class="language-plaintext highlighter-rouge">curl</code>, REST APIs, etc) need to specify a special
+<code class="language-plaintext highlighter-rouge">Content-Type</code> to signal to CAS that the request is submitted from a non-web based environment. 
+The multifactor authentication request is <a href="https://duo.com/docs/authapi#/auth">submitted to Duo Security</a> in <code class="language-plaintext highlighter-rouge">auto</code> mode which effectively may 
+translate into an out-of-band factor (push or phone) recommended by Duo as the best for the user’s devices.</p>
+
+<p>In order to successfully complete the authentication flow, CAS must also be configured with a method
+of primary authentication that is able to support non-web based environments 
+such as <a href="../authentication/Basic-Authentication.html">Basic Authentication</a>.</p>
+
+<p>Here is an example using <code class="language-plaintext highlighter-rouge">curl</code> that attempts to authenticate into a service by first exercising
+basic authentication while identifying the request content type as <code class="language-plaintext highlighter-rouge">application/cas</code>. It is assumed that the
+service below is configured in CAS with a special multifactor policy that forces the flow
+to pass through Duo Security as well.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>curl <span class="nt">--location</span> <span class="nt">--header</span> <span class="s2">"Content-Type: application/cas"</span> https://apps.example.org/myapp <span class="nt">-L</span> <span class="nt">-u</span> casuser:Mellon
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="configuration">Configuration</h2>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasauthnmfaduo">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasauthnmfaduo" data-bs-toggle="tab" href="#requiredPropertiescasauthnmfaduo">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasauthnmfaduo" data-bs-toggle="tab" href="#optionalPropertiescasauthnmfaduo">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasauthnmfaduo">
+        <a class="nav-link" id="linkSigningEncryptioncasauthnmfaduo" data-bs-toggle="tab" href="#signingEncryptionPropertiescasauthnmfaduo">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasauthnmfaduo">
+        <a class="nav-link" id="linkRdbmscasauthnmfaduo" data-bs-toggle="tab" href="#rdbmsPropertiescasauthnmfaduo">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasauthnmfaduo">
+        <a class="nav-link" id="linkEmailcasauthnmfaduo" data-bs-toggle="tab" href="#emailPropertiescasauthnmfaduo">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasauthnmfaduo">
+        <a class="nav-link" id="linkLdapcasauthnmfaduo" data-bs-toggle="tab" href="#ldapPropertiescasauthnmfaduo">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasauthnmfaduo">
+        <a class="nav-link" id="linkAuthnPredicatecasauthnmfaduo" data-bs-toggle="tab" href="#authnPredicatePropertiescasauthnmfaduo">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasauthnmfaduo">
+        <a class="nav-link" id="linkPasswordEncodercasauthnmfaduo" data-bs-toggle="tab" href="#passwordEncoderPropertiescasauthnmfaduo">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasauthnmfaduo">
+        <a class="nav-link" id="linkPrincipalTransformationcasauthnmfaduo" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasauthnmfaduo(this);" href="#principalTransformationPropertiescasauthnmfaduo">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasauthnmfaduo">
+        <a class="nav-link" id="linkPasswordPolicycasauthnmfaduo" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasauthnmfaduo(this);" href="#passwordPolicyPropertiescasauthnmfaduo">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasauthnmfaduo(this);" id="linkNotescasauthnmfaduo" data-bs-toggle="tab" href="#notescasauthnmfaduo">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasauthnmfaduo">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasauthnmfaduo">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasauthnmfaduo">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasauthnmfaduo"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasauthnmfaduo">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasauthnmfaduo">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasauthnmfaduo"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasauthnmfaduo">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasauthnmfaduo").remove()
+        
+        
+            $("#linkRdbmscasauthnmfaduo").remove()
+        
+        
+            $("#linkEmailcasauthnmfaduo").remove()
+        
+        
+            $("#linkSigningEncryptioncasauthnmfaduo").remove()
+        
+        
+            $("#linkRequiredPropertiescasauthnmfaduo").remove()
+        
+        
+            $("#linkPasswordPolicycasauthnmfaduo").remove()
+        
+        
+            $("#linkPrincipalTransformationcasauthnmfaduo").remove()
+        
+        
+            $("#linkPasswordEncodercasauthnmfaduo").remove()
+        
+        
+            $("#linkAuthnPredicatecasauthnmfaduo").remove()
+        
+        
+            $("#linkLdapcasauthnmfaduo").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasauthnmfaduo");
+        var id=$("#navPillsMenuscasauthnmfaduo a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasauthnmfaduo li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasauthnmfaduo").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasauthnmfaduo").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasauthnmfaduo li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasauthnmfaduo").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasauthnmfaduo").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasauthnmfaduo li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasauthnmfaduo").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h2 id="rest-protocol-credential-extraction">REST Protocol Credential Extraction</h2>
+
+<p>In the event that the <a href="../protocol/REST-Protocol.html">CAS REST Protocol</a> is turned on, a 
+special credential extractor is injected into the REST authentication engine in order 
+to recognize credentials and authenticate them as part of the REST request.
+The expected parameter name in the request body is <code class="language-plaintext highlighter-rouge">passcode</code> that can be found from
+Duo Security’s mobile application or received via SMS.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p>To enable additional logging, configure the log4j configuration file to add the following
+levels:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>...
+<span class="nt">&lt;Logger</span> <span class="na">name=</span><span class="s">"com.duosecurity"</span> <span class="na">level=</span><span class="s">"debug"</span> <span class="na">additivity=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"console"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"file"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Logger&gt;</span>
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You should also use NTP to ensure that your CAS server’s time is correct. Furthermore, CAS typically communicates with 
+Duo’s service on TCP port 443. Firewall configurations that restrict outbound access to 
+Duo’s service with rules using destination IP addresses or IP address ranges are not recommended per Duo Security, 
+since these may change over time to maintain our service’s high availability.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Multifactor Authentication';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

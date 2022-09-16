@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Multifactor Authentication Triggers</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="multifactor-authentication-triggers">Multifactor Authentication Triggers</h1>
+
+<p>The following triggers can be used to activate and instruct CAS to navigate to a multifactor authentication flow.
+To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#multifactor-authentication">review this guide</a>.</p>
+
+<p>The execution order of multifactor authentication triggers is outlined below:</p>
+
+<ol>
+  <li>Adaptive</li>
+  <li>Global</li>
+  <li>Opt-In Request Parameter/Header</li>
+  <li>REST Endpoint</li>
+  <li>Groovy Script</li>
+  <li>Principal Attribute Per Application</li>
+  <li>Global Principal Attribute Predicate</li>
+  <li>Global Principal Attribute</li>
+  <li>Global Authentication Attribute</li>
+  <li>Applications</li>
+  <li>Grouper</li>
+  <li>Entity ID Request Parameter</li>
+  <li>Other</li>
+</ol>
+
+<p>Each trigger should properly try to ignore the authentication request, if applicable configuration is not found for its activation and execution. Also note that various CAS modules present and inject their own <em>internal triggers</em> into the CAS application runtime in order to translate protocol-specific authentication requests (such as those presented by SAML2 or OpenID Connect) into multifactor authentication flows.</p>
+
+<div class="alert alert-info"><strong>Service Requirement</strong><p>Most multifactor authentication triggers require that the original authentication request submitted to CAS contain a <code>service</code> parameter. Failure to do so will result in an initial successful authentication attempt where subsequent requests that carry the relevant parameter will elevate the authentication context and trigger multifactor later. If you need to test a particular trigger, remember to provide the <code>service</code> parameter appropriately to see the trigger in action.</p></div>
+
+<p>The trigger machinery in general should be completely oblivious to multifactor authentication; all it cares about is finding the next event in the chain in a very generic way. This means that it is technically possible to combine multiple triggers each of which may produce a different event in the authentication flow. In the event, having selected a final candidate event, the appropriate component and module that is able to support and respond to the produced event will take over and route the authentication flow appropriately.</p>
+
+<h2 id="global">Global</h2>
+
+<p>MFA can be triggered for all applications and users regardless of individual settings.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#multifactor-authentication">review this guide</a>.</p>
+
+<h2 id="per-application">Per Application</h2>
+
+<p>MFA can be triggered for a specific application registered inside the CAS service registry.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^(https|imaps)://.*"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"multifactorPolicy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"multifactorAuthenticationProviders"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"java.util.LinkedHashSet"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"mfa-duo"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"bypassEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"forceExecution"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following fields are accepted by the policy definition</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">multifactorAuthenticationProviders</code></td>
+      <td>Set of multifactor provider ids that should trigger for this application.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">script</code></td>
+      <td>Path to a script, whether external or internal, to trigger multifactor authentication dynamically.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bypassEnabled</code></td>
+      <td>Whether multifactor authentication should be <a href="Configuring-Multifactor-Authentication-Bypass.html">bypassed</a> for this service.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">forceExecution</code></td>
+      <td>Whether multifactor authentication should forcefully trigger, even if the existing authentication context can be satisfied without MFA.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="groovy-per-application">Groovy Per Application</h3>
+
+<p>You may determine the multifactor authentication policy for a registered service using a Groovy script:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^(https|imaps)://.*"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"multifactorPolicy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"script"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"file:///etc/cas/config/mfa-policy.groovy"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The script may also be embedded directly in the service definition, as such:</p>
+
+<p>you may determine the multifactor authentication policy for a registered service using a Groovy script:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^(https|imaps)://.*"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"multifactorPolicy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"script"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"groovy { ... }"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The script itself may be designed as follows:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="kt">def</span> <span class="nf">run</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">authentication</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">registeredService</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">httpRequest</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">service</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span>
+    <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s2">"Determine mfa provider for ${registeredService} and ${authentication}"</span><span class="o">)</span>
+    <span class="k">return</span> <span class="s2">"mfa-duo"</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The parameters passed are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">registeredService</code></td>
+      <td>The object representing the corresponding service definition in the registry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">authentication</code></td>
+      <td>The object representing the <code class="language-plaintext highlighter-rouge">Authentication</code> object.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">httpRequest</code></td>
+      <td>The object representing the HTTP servlet request.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">service</code></td>
+      <td>The object representing the service request, associated with this http request.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">applicationContext</code></td>
+      <td>The object representing the Spring application context.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logger</code></td>
+      <td>The object responsible for issuing log messages such as <code class="language-plaintext highlighter-rouge">logger.info(...)</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The expected outcome of the script is either <code class="language-plaintext highlighter-rouge">null</code> in case multifactor authentication should be skipped by this trigger,
+or the identifier of the multifactor provider that should be considered for activation.</p>
+
+<h3 id="groovy-per-application-deprecated">Groovy Per Application (Deprecated)</h3>
+
+<div class="alert alert-warning"><strong>Usage</strong>
+<p><strong>This feature is deprecated and is scheduled to be removed in the future.</strong> If you can, consider using
+alternatives outlined here to trigger multifactor authentication per service using Groovy.</p>
+</div>
+
+<p>Additionally, you may determine the multifactor authentication policy for a registered service using a Groovy script:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^(https|imaps)://.*"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"multifactorPolicy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.GroovyRegisteredServiceMultifactorPolicy"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groovyScript"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"file:///etc/cas/config/mfa-policy.groovy"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The script itself may be designed as such by overriding the needed operations where necessary:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">org.apereo.cas.services.*</span>
+<span class="kn">import</span> <span class="nn">java.util.*</span>
+
+<span class="kd">class</span> <span class="nc">GroovyMultifactorPolicy</span> <span class="kd">extends</span> <span class="n">DefaultRegisteredServiceMultifactorPolicy</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">getMultifactorAuthenticationProviders</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="n">RegisteredServiceMultifactorPolicyFailureModes</span> <span class="nf">getFailureMode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="n">String</span> <span class="nf">getPrincipalAttributeNameTrigger</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="n">String</span> <span class="nf">getPrincipalAttributeValueToMatch</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">boolean</span> <span class="nf">isBypassEnabled</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">boolean</span> <span class="nf">isForceExecution</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The configuration of this component qualifies to use the <a href="../configuration/Configuration-Spring-Expressions.html">Spring Expression Language</a> syntax. Refer to the CAS API documentation to learn more about operations and expected behaviors.</p>
+
+<h2 id="global-principal-attribute">Global Principal Attribute</h2>
+
+<p>MFA can be triggered for all users/subjects carrying a specific attribute that matches one of the conditions below.</p>
+
+<ul>
+  <li>
+    <p>Trigger MFA based on a principal attribute(s) whose value(s) matches a regex pattern.
+<strong>Note</strong> that this behavior is only applicable if there is only a <strong>single MFA provider</strong> configured, since that would allow CAS
+to know what provider to next activate.</p>
+  </li>
+  <li>
+    <p>Trigger MFA based on a principal attribute(s) whose value(s) <strong>EXACTLY</strong> matches an MFA provider.
+This option is more relevant if you have more than one provider configured or if you have the flexibility of assigning provider ids to attributes as values.</p>
+  </li>
+</ul>
+
+<p>Needless to say, the attributes need to have been resolved for the principal prior to this step. To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#multifactor-authentication">review this guide</a>.</p>
+
+<h2 id="global-principal-attribute-predicate">Global Principal Attribute Predicate</h2>
+
+<p>This is a more generic variant of the above trigger. It may be useful in cases where there is more than one provider configured and available in the application runtime and you need to design a strategy to dynamically decide on the provider that should be activated for the request.</p>
+
+<p>The decision is handed off to a <code class="language-plaintext highlighter-rouge">Predicate</code> implementation defined in a Groovy script whose location is taught to CAS. The responsibility of the <code class="language-plaintext highlighter-rouge">test</code> function in the script is to determine eligibility of the provider to be triggered. If the predicate determines multiple providers as eligible by returning <code class="language-plaintext highlighter-rouge">true</code> more than one, the first provider in the sorted result set ranked by the provider’s order will be chosen to respond.</p>
+
+<p>The Groovy script predicate may be designed as such:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">org.apereo.cas.authentication.*</span>
+<span class="kn">import</span> <span class="nn">java.util.function.*</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.services.*</span>
+
+<span class="kd">class</span> <span class="nc">PredicateExample</span> <span class="kd">implements</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">MultifactorAuthenticationProvider</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kt">def</span> <span class="n">service</span>
+    <span class="kt">def</span> <span class="n">principal</span>
+    <span class="kt">def</span> <span class="n">providers</span>
+    <span class="kt">def</span> <span class="n">logger</span>
+
+    <span class="kd">public</span> <span class="nf">PredicateExample</span><span class="o">(</span><span class="n">service</span><span class="o">,</span> <span class="n">principal</span><span class="o">,</span> <span class="n">providers</span><span class="o">,</span> <span class="n">logger</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">service</span> <span class="o">=</span> <span class="n">service</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">principal</span> <span class="o">=</span> <span class="n">principal</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">providers</span> <span class="o">=</span> <span class="n">providers</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logger</span> <span class="o">=</span> <span class="n">logger</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="kd">final</span> <span class="n">MultifactorAuthenticationProvider</span> <span class="n">p</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The parameters passed are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">service</code></td>
+      <td>The object representing the corresponding service definition in the registry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">principal</code></td>
+      <td>The object representing the authenticated principal.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">providers</code></td>
+      <td>Collection of <code class="language-plaintext highlighter-rouge">MultifactorAuthenticationProvider</code>s from which a selection shall be made.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logger</code></td>
+      <td>The object responsible for issuing log messages such as <code class="language-plaintext highlighter-rouge">logger.info(...)</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#multifactor-authentication">review this guide</a>.</p>
+
+<p>As an example, the following predicate example will begin to test each multifactor authentication provider and if the given provider is <code class="language-plaintext highlighter-rouge">mfa-duo</code> it will accept it as a valid trigger so long as the provider can be reached.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">org.apereo.cas.authentication.*</span>
+<span class="kn">import</span> <span class="nn">java.util.function.*</span>
+<span class="kn">import</span> <span class="nn">org.apereo.cas.services.*</span>
+
+<span class="kd">class</span> <span class="nc">PredicateExample</span> <span class="kd">implements</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">MultifactorAuthenticationProvider</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kt">def</span> <span class="n">service</span>
+    <span class="kt">def</span> <span class="n">principal</span>
+    <span class="kt">def</span> <span class="n">providers</span>
+    <span class="kt">def</span> <span class="n">logger</span>
+
+    <span class="kd">public</span> <span class="nf">PredicateExample</span><span class="o">(</span><span class="n">service</span><span class="o">,</span> <span class="n">principal</span><span class="o">,</span> <span class="n">providers</span><span class="o">,</span> <span class="n">logger</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">service</span> <span class="o">=</span> <span class="n">service</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">principal</span> <span class="o">=</span> <span class="n">principal</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">providers</span> <span class="o">=</span> <span class="n">providers</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logger</span> <span class="o">=</span> <span class="n">logger</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">boolean</span> <span class="nf">test</span><span class="o">(</span><span class="kd">final</span> <span class="n">MultifactorAuthenticationProvider</span> <span class="n">p</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s2">"Testing provider {}"</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="s2">"mfa-duo"</span><span class="o">))</span> <span class="o">{</span>
+           <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s2">"Provider {} is available. Checking eligibility..."</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+           <span class="k">if</span> <span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">isAvailable</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">service</span><span class="o">))</span> <span class="o">{</span>
+               <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s2">"Provider {} matched. Good to go!"</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+               <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+           <span class="o">}</span>
+           <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s2">"Skipping provider {}. Match failed."</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+           <span class="k">return</span> <span class="kc">false</span><span class="o">;</span> 
+        <span class="o">}</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s2">"Provider {} cannot be reached"</span><span class="o">,</span> <span class="n">p</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+        <span class="k">return</span> <span class="kc">false</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="global-authentication-attribute">Global Authentication Attribute</h2>
+
+<p>MFA can be triggered for all users/subjects whose <em>authentication event/metadata</em> has resolved a specific attribute
+that matches one of the below conditions:</p>
+
+<ul>
+  <li>
+    <p>Trigger MFA based on a <em>authentication attribute(s)</em> whose value(s) matches a regex pattern.
+<strong>Note</strong> that this behavior is only applicable if there is only a <strong>single MFA provider</strong> configured, since that would allow CAS
+to know what provider to next activate.</p>
+  </li>
+  <li>
+    <p>Trigger MFA based on a <em>authentication attribute(s)</em> whose value(s) <strong>EXACTLY</strong> matches an MFA provider.
+This option is more relevant if you have more than one provider configured or if you have the flexibility of assigning
+provider ids to attributes as values.</p>
+  </li>
+</ul>
+
+<p>Needless to say, the attributes need to have been resolved for the authentication event prior to this step. This trigger
+is generally useful when the underlying authentication engine signals CAS to perform additional validation of credentials.
+This signal may be captured by CAS as an attribute that is part of the authentication event metadata which can then trigger
+additional multifactor authentication events.</p>
+
+<p>An example of this scenario would be the “Access Challenge response” produced by RADIUS servers.</p>
+
+<h2 id="adaptive">Adaptive</h2>
+
+<p>MFA can be triggered based on the specific nature of a request that may be considered outlawed. For instance,
+you may want all requests that are submitted from a specific IP pattern, or from a particular geographical location
+to be forced to go through MFA. CAS is able to adapt itself to various properties of the incoming request
+and will route the flow to execute MFA. See <a href="Configuring-Adaptive-Authentication.html">this guide</a> for more info.</p>
+
+<h2 id="grouper">Grouper</h2>
+
+<p>MFA can be triggered by <a href="https://incommon.org/software/grouper/">Grouper</a>
+groups to which the authenticated principal is assigned.
+Groups are collected by CAS and then cross-checked against all available/configured MFA providers.
+The group’s comparing factor <strong>MUST</strong> be defined in CAS to activate this behavior
+and it can be based on the group’s name, display name, etc where
+a successful match against a provider id shall activate the chosen MFA provider.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-grouper<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You will also need to ensure <code class="language-plaintext highlighter-rouge">grouper.client.properties</code> is available on the classpath
+with the following configured properties:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="py">grouperClient.webService.url</span> <span class="p">=</span> <span class="s">http://192.168.99.100:32768/grouper-ws/servicesRest</span>
+<span class="py">grouperClient.webService.login</span> <span class="p">=</span> <span class="s">banderson</span>
+<span class="py">grouperClient.webService.password</span> <span class="p">=</span> <span class="s">password</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="groovy">Groovy</h2>
+
+<p>MFA can be triggered based on the results of a groovy script of your own design. The outcome of the script should determine the MFA provider id that CAS should attempt to activate.</p>
+
+<p>The outline of the groovy script is shown below as a sample:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.*</span>
+
+<span class="kd">class</span> <span class="nc">SampleGroovyEventResolver</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">String</span> <span class="nf">run</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">def</span> <span class="n">service</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">registeredService</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">authentication</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">httpRequest</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span>
+
+        <span class="o">...</span>
+
+        <span class="k">return</span> <span class="s2">"mfa-duo"</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The parameters passed are as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">service</code></td>
+      <td>The object representing the incoming service provided in the request, if any.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">registeredService</code></td>
+      <td>The object representing the corresponding service definition in the registry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">authentication</code></td>
+      <td>The object representing the established authentication event, containing the principal.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">httpRequest</code></td>
+      <td>The object representing the <code class="language-plaintext highlighter-rouge">HttpServletRequest</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logger</code></td>
+      <td>The object responsible for issuing log messages such as <code class="language-plaintext highlighter-rouge">logger.info(...)</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As an example, the following script triggers multifactor authentication via Duo Security, if the requesting application is <code class="language-plaintext highlighter-rouge">https://www.example.com</code> and the authenticated principal contains a <code class="language-plaintext highlighter-rouge">mail</code> attribute whose values contain <code class="language-plaintext highlighter-rouge">email@example.org</code>.</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">java.util.*</span>
+
+<span class="kd">class</span> <span class="nc">MyExampleScript</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">String</span> <span class="nf">run</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">def</span> <span class="n">service</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">registeredService</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">authentication</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">httpRequest</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span>
+        <span class="kt">def</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">id</span> <span class="o">==</span> <span class="s2">"https://www.example.com"</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s2">"Evaluating principal attributes [{}]"</span><span class="o">,</span> <span class="n">authentication</span><span class="o">.</span><span class="na">principal</span><span class="o">.</span><span class="na">attributes</span><span class="o">)</span>
+
+            <span class="kt">def</span> <span class="n">mail</span> <span class="o">=</span> <span class="n">authentication</span><span class="o">.</span><span class="na">principal</span><span class="o">.</span><span class="na">attributes</span><span class="o">[</span><span class="s1">'mail'</span><span class="o">]</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">mail</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s2">"email@example.org"</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s2">"Found mail attribute with value [{}]"</span><span class="o">,</span> <span class="n">mail</span><span class="o">)</span>
+                <span class="k">return</span> <span class="s2">"mfa-duo"</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">null</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="rest">REST</h2>
+
+<p>MFA can be triggered based on the results of a remote REST endpoint of your design. If the endpoint is configured,
+CAS shall issue a <code class="language-plaintext highlighter-rouge">POST</code>, providing the authenticated username as <code class="language-plaintext highlighter-rouge">principalId</code> and <code class="language-plaintext highlighter-rouge">serviceId</code> as the service 
+url in the body of the request.</p>
+
+<p>Endpoints must be designed to accept/process <code class="language-plaintext highlighter-rouge">application/json</code>. The body of the response in 
+the event of a successful <code class="language-plaintext highlighter-rouge">200</code> status code is expected to be the MFA provider id which CAS should activate.</p>
+
+<h2 id="opt-in-request-parameterheader">Opt-In Request Parameter/Header</h2>
+
+<p>MFA can be triggered for a specific authentication request, provided
+the initial request to the CAS <code class="language-plaintext highlighter-rouge">/login</code> endpoint contains a parameter/header
+that indicates the required MFA authentication flow. The parameter/header name
+is configurable, but its value must match the authentication provider id
+of an available MFA provider described above.</p>
+
+<p>An example request that triggers an authentication flow based on a request parameter would be:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>https://.../cas/login?service<span class="o">=</span>...&amp;&lt;PARAMETER_NAME&gt;<span class="o">=</span>&lt;MFA_PROVIDER_ID&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The same strategy also applied to triggers that are based on request/session attributes, which tend to get used for internal communications between APIs and CAS components specially when designing extensions.</p>
+
+<h2 id="principal-attribute-per-application">Principal Attribute Per Application</h2>
+
+<p>As a hybrid option, MFA can be triggered for a specific application registered inside the CAS service registry, provided
+the authenticated principal carries an attribute that matches a configured attribute value. The attribute
+value can be an arbitrary regex pattern. See below to learn about how to configure MFA settings.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^(https|imaps)://.*"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"multifactorPolicy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceMultifactorPolicy"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"multifactorAuthenticationProviders"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"java.util.LinkedHashSet"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"mfa-duo"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"principalAttributeNameTrigger"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"memberOf"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"principalAttributeValueToMatch"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"faculty|allMfaMembers"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="entity-id-request-parameter">Entity Id Request Parameter</h2>
+
+<p>In situations where authentication is delegated to CAS, most commonly 
+via a <a href="https://www.shibboleth.net/products/">Shibboleth Identity Provider</a>,  the entity id may be passed as 
+a request parameter to CAS to be treated as a CAS registered service.
+This allows one to activate multifactor authentication policies based on the entity id that is registered
+This allows one to <a href="#Per Application">activate multifactor authentication policies</a> based on the entity id that is registered
+in the CAS service registry. As a side benefit, the entity id can take advantage of all other CAS features
+such as access strategies and authorization rules simply because it’s just another service definition known to CAS.</p>
+
+<p>To learn more about integration options and to understand how to delegate authentication to CAS 
+from a Shibboleth identity provider, please <a href="../integration/Shibboleth.html">see this guide</a>.</p>
+
+<p>Support is enabled by including the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-shibboleth<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">entityId</code> parameter may be passed as such:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>https://.../cas/login?service<span class="o">=</span>http://idp.example.org&amp;entityId<span class="o">=</span>the-entity-id-passed
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="custom">Custom</h2>
+
+<p>While support for triggers may seem extensive, there is always that edge use case that would have you trigger MFA based on a special set of requirements. To learn how to design your own triggers, <a href="Configuring-Multifactor-Authentication-CustomTriggers.html">please see this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Multifactor Authentication';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

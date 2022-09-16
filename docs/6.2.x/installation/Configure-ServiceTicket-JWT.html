@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - JWT Service Tickets</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="jwt-service-tickets">JWT Service Tickets</h1>
+
+<p><a href="http://jwt.io/">JSON Web Tokens</a> are an open, industry standard RFC 7519 method for representing claims securely between two parties. 
+CAS may also be allowed to fully create signed/encrypted JWTs and pass them back to the application in form of service tickets.</p>
+
+<p>JWTs are entirely self-contained and contain the authenticated principal as well as all authorized attributes in form of JWT claims.</p>
+
+<div class="alert alert-info"><strong>JCE Requirement</strong><p>Make sure you have the proper JCE bundle installed in your Java 
+environment that is used by CAS, specially if you need to use specific signing/encryption algorithms and methods. Be sure to pick 
+the right version of the JCE for your Java version. Java versions can be detected via the <code>java -version</code> command.</p></div>
+
+<h2 id="overview">Overview</h2>
+
+<p>JWT-based service tickets are issued to application based on the same semantics defined by the <a href="../protocol/CAS-Protocol.html">CAS Protocol</a>. 
+CAS having received an authentication request via its <code class="language-plaintext highlighter-rouge">/login</code> endpoint will conditionally issue back <code class="language-plaintext highlighter-rouge">JWT</code> service tickets to the 
+application in form of a <code class="language-plaintext highlighter-rouge">ticket</code> parameter via the requested http method.</p>
+
+<p>All JWTs are by default signed and encrypted by CAS based on keys generated and controlled during deployment. Such keys may be 
+exchanged with client applications to unpack the JWT and access claims.</p>
+
+<h2 id="flow-diagram">Flow Diagram</h2>
+
+<p><a href="../images/cas_flow_jwt_diagram.png" target="_blank"><img src="../images/cas_flow_jwt_diagram.png" alt="CAS Web flow JWT diagram" title="CAS Web flow JWT diagram" /></a></p>
+
+<p>Note that per the above diagram, the JWT request by default internally causes CAS to generate an <code class="language-plaintext highlighter-rouge">ST</code> for the application and immediately then validate it in
+order to get access to the authenticated principal and attributes per policies associated with the application registration record in the
+CAS service registry. This response is transformed into a <code class="language-plaintext highlighter-rouge">JWT</code> that is then passed onto the client application.</p>
+
+<p>In other words, the responsibility of receiving a service ticket (<code class="language-plaintext highlighter-rouge">ST</code>) and validating it is all moved into and handled internally by CAS. 
+The application only needs to learn how to decipher and unpack the final <code class="language-plaintext highlighter-rouge">JWT</code> and ensure its validity.</p>
+
+<p>The expiration time of the generated <code class="language-plaintext highlighter-rouge">JWT</code> is controlled by the length of the assertion returned as part of the validation event. If the 
+assertion validity length is not specified, then the expiration time is controlled by the length of the SSO session defined as part of SSO expiration policy of the CAS server.</p>
+
+<div class="alert alert-warning"><strong>Not OpenID Connect</strong><p>Remember that you are just receiving a ticket in form of a JWT, 
+thereby removing the need from your client to validate a normal service ticket. The ticket is internally validated by CAS and you as the client 
+are only left in charge of validating the JWT itself. Do not confuse this with OpenID Connect. While a JWT, the token itself is not an ID token, 
+cannot be refreshed and must be obtained again once you deem it expired. If you need more, consider using the OpenID Connect protocol instead. 
+Note that the responsibility of validating the JWT is pushed onto <b>the client</b> and NOT the CAS server itself.</p></div>
+
+<h2 id="administrative-endpoints">Administrative Endpoints</h2>
+
+<p>The following endpoints are provided by CAS:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Endpoint</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jwtTicketSigningPublicKey</code></td>
+      <td>Exposes the signing public key, accepting an optional <code class="language-plaintext highlighter-rouge">service</code> parameter.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>JWT support is enabled by including the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-token-tickets<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To see the relevant list of CAS properties, please <a href="../configuration/Configuration-Properties.html#jwt-tickets">review this guide</a>.</p>
+
+<h3 id="register-clients">Register Clients</h3>
+
+<p>Signal the relevant application in CAS service registry to produce JWTs for service tickets:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^https://.*"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Sample"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"properties"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"java.util.HashMap"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"jwtAsServiceTicket"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceProperty"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"values"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"java.util.HashSet"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"true"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="configure-keys-per-service">Configure Keys Per Service</h3>
+
+<p>By default, the signing and encryption keys used to encode the JWT are global to the CAS server and can be defined via CAS settings. It is also possible
+to override the global keys on a per-service basis, allowing each application to use its own set of signing and encryption keys. To do so, configure
+the service definition in the registry to match the following:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^https://.*"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Sample"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"properties"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"java.util.HashMap"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"jwtAsServiceTicket"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceProperty"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"values"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"java.util.HashSet"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"true"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"jwtAsServiceTicketSigningKey"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceProperty"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"values"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"java.util.HashSet"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"..."</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"jwtAsServiceTicketEncryptionKey"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceProperty"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"values"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"java.util.HashSet"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"..."</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"jwtAsServiceTicketCipherStrategyType"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.DefaultRegisteredServiceProperty"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"values"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"java.util.HashSet"</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"ENCRYPT_AND_SIGN"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following cipher strategy types are available:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ENCRYPT_AND_SIGN</code></td>
+      <td>Default strategy; encrypt values, and then sign.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGN_AND_ENCRYPT</code></td>
+      <td>Sign values, and then encrypt.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="jwt-validation---aes">JWT Validation - AES</h2>
+
+<p>The following <em>example</em> code snippet demonstrates how one might go about validating and parsing the CAS-produced JWT
+that is created using shared secrets via <code class="language-plaintext highlighter-rouge">AES</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">org.apache.commons.codec.binary.Base64</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jose4j.jwe.JsonWebEncryption</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jose4j.jwk.JsonWebKey</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jose4j.jws.JsonWebSignature</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.jose4j.keys.AesKey</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.nio.charset.StandardCharsets</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.Key</span><span class="o">;</span>
+
+<span class="o">...</span>
+
+<span class="kd">final</span> <span class="nc">String</span> <span class="n">signingKey</span> <span class="o">=</span> <span class="s">"..."</span><span class="o">;</span>
+<span class="kd">final</span> <span class="nc">String</span> <span class="n">encryptionKey</span> <span class="o">=</span> <span class="s">"..."</span><span class="o">;</span>
+
+<span class="kd">final</span> <span class="nc">Key</span> <span class="n">key</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AesKey</span><span class="o">(</span><span class="n">signingKey</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">));</span>
+
+<span class="kd">final</span> <span class="nc">JsonWebSignature</span> <span class="n">jws</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JsonWebSignature</span><span class="o">();</span>
+<span class="n">jws</span><span class="o">.</span><span class="na">setCompactSerialization</span><span class="o">(</span><span class="n">secureJwt</span><span class="o">);</span>
+<span class="n">jws</span><span class="o">.</span><span class="na">setKey</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+<span class="k">if</span> <span class="o">(!</span><span class="n">jws</span><span class="o">.</span><span class="na">verifySignature</span><span class="o">())</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"JWT verification failed"</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">final</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">decodedBytes</span> <span class="o">=</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">decodeBase64</span><span class="o">(</span><span class="n">jws</span><span class="o">.</span><span class="na">getEncodedPayload</span><span class="o">().</span><span class="na">getBytes</span><span class="o">(</span><span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">));</span>
+<span class="kd">final</span> <span class="nc">String</span> <span class="n">decodedPayload</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">decodedBytes</span><span class="o">,</span> <span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">);</span>
+
+<span class="kd">final</span> <span class="nc">JsonWebEncryption</span> <span class="n">jwe</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JsonWebEncryption</span><span class="o">();</span>
+<span class="kd">final</span> <span class="nc">JsonWebKey</span> <span class="n">jsonWebKey</span> <span class="o">=</span> <span class="nc">JsonWebKey</span><span class="o">.</span><span class="na">Factory</span>
+    <span class="o">.</span><span class="na">newJwk</span><span class="o">(</span><span class="s">"\n"</span> <span class="o">+</span> <span class="s">"{\"kty\":\"oct\",\n"</span> <span class="o">+</span> <span class="s">" \"k\":\""</span> <span class="o">+</span> <span class="n">encryptionKey</span> <span class="o">+</span> <span class="s">"\"\n"</span> <span class="o">+</span> <span class="s">"}"</span><span class="o">);</span>
+
+<span class="n">jwe</span><span class="o">.</span><span class="na">setCompactSerialization</span><span class="o">(</span><span class="n">decodedPayload</span><span class="o">);</span>
+<span class="n">jwe</span><span class="o">.</span><span class="na">setKey</span><span class="o">(</span><span class="k">new</span> <span class="nc">AesKey</span><span class="o">(</span><span class="n">jsonWebKey</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">getEncoded</span><span class="o">()));</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">jwe</span><span class="o">.</span><span class="na">getPlaintextString</span><span class="o">());</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Ticketing';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Attribute Resolution</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="attribute-resolution">Attribute Resolution</h1>
+<p>Attribute resolution strategies are controlled by the <a href="https://github.com/apereo/person-directory">Person Directory project</a>. The Person Directory dependency is automatically bundled with the CAS server. Therefor, declaring an additional dependency will not be required. This Person Directory project supports both LDAP and JDBC attribute resolution, caching, attribute aggregation from multiple attribute sources, etc.</p>
+
+<div class="alert alert-info"><strong>Default Caching Policy</strong><p>By default, attributes are cached to the length of the SSO session. This means that while the underlying component provided by Person Directory may have a different caching model, attributes by default and from a CAS perspective will not be refreshed and retrieved again on subsequent requests as long as the SSO session exists.</p></div>
+
+<h2 id="components">Components</h2>
+<p>A Person Directory <code class="language-plaintext highlighter-rouge">IPersonAttributeDao</code> attribute source is defined and configured to describe the global set of attributes to be fetched for each authenticated principal. That global set of attributes is then filtered by the service manager according to service-specific attribute release rules.</p>
+
+<h3 id="person-directory">Person Directory</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MergingPersonAttributeDaoImpl</code></td>
+      <td>Designed to query multiple <code class="language-plaintext highlighter-rouge">IPersonAttributeDaos</code> in order and merge the results into a single result set. Merging strategies may be configured via instances of <code class="language-plaintext highlighter-rouge">IAttributeMerger</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CachingPersonAttributeDaoImpl</code></td>
+      <td>Provides the ability to cache results of executed inner DAOs.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CascadingPersonAttributeDao</code></td>
+      <td>Designed to query multiple <code class="language-plaintext highlighter-rouge">IPersonAttributeDaos</code> in order and merge the results into a single result set. As each <code class="language-plaintext highlighter-rouge">IPersonAttributesAttributeDao</code> is queried the attributes from the first <code class="language-plaintext highlighter-rouge">IPersonAttributes</code> in the result set are used as the query for the next <code class="language-plaintext highlighter-rouge">IPersonAttributesAttributeDao</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">StubPersonAttributeDao</code></td>
+      <td>Backed by a single Map which this implementation will always return, useful for returning static values.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MessageFormatPersonAttributeDao</code></td>
+      <td>Provides the ability to create attributes based on other other attribute values as arguments.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">RegexGatewayPersonAttributeDao</code></td>
+      <td>Conditionally execute an inner DAO if the data in the seed matches criteria set out by the configured patterns.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SingleRowJdbcPersonAttributeDao</code></td>
+      <td>The implementation that maps from column names in the result of a SQL query to attribute names.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MultiRowJdbcPersonAttributeDao</code></td>
+      <td>Designed to work against a table where there is a mapping of one row to many users. Should be used if the database is structured such that there is a column for attribute names and column(s) for the corresponding values.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">XmlPersonAttributeDao</code></td>
+      <td>XML backed person attribute DAO that supports wildcard searching.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">LdapPersonAttributeDao</code></td>
+      <td>Queries an LDAP directory to populate person attributes using Spring Framework.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">GroovyPersonAttributeDao</code></td>
+      <td>Resolve attributes based on an external groovy script.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">TomlLdapPersonAttributeDao</code></td>
+      <td>Resolve person attributes and insert the ldap/context settings from an external Toml file.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">JsonBackedComplexStubPersonAttributeDao</code></td>
+      <td>Resolve person attributes that are specified in an external JSON file.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>More about the Person Directory and its configurable sources <a href="https://wiki.jasig.org/display/PDM15/Person+Directory+1.5+Manual">can be found here</a>.</p>
+
+<p>Note that the Person Directory project requires the following configuration in CAS overlays:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.commons<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>commons-collections4<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>4.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="cas">CAS</h3>
+<p>The CAS project provides the following additional implementations:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">LdapPersonAttributeDao</code></td>
+      <td>Queries an LDAP directory to populate person attributes using the bundled CAS LDAP libraries.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="sample-usage">Sample Usage</h3>
+
+<h4 id="ldap">LDAP</h4>
+<p>The following snippet assumes that connection information beans are already defined.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"ldapPersonAttributeDao"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.services.persondir.support.ldap.LdaptivePersonAttributeDao"</span>
+      <span class="na">p:connectionFactory-ref=</span><span class="s">"pooledLdapConnectionFactory"</span>
+      <span class="na">p:baseDN=</span><span class="s">"${ldap.baseDn}"</span>
+      <span class="na">p:searchControls-ref=</span><span class="s">"searchControls"</span>
+      <span class="na">p:searchFilter=</span><span class="s">"mail={0}"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"resultAttributeMapping"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;map&gt;</span>
+            <span class="c">&lt;!--
+               | Key is LDAP attribute name, value is principal attribute name.
+               --&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"member"</span> <span class="na">value=</span><span class="s">"member"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"mail"</span> <span class="na">value=</span><span class="s">"mail"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"displayName"</span> <span class="na">value=</span><span class="s">"displayName"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/map&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="jdbc">JDBC</h4>
+<p>The following snippet assumes that connection information beans are already defined.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"singleRowJdbcPersonAttributeDao"</span>
+    <span class="na">class=</span><span class="s">"org.jasig.services.persondir.support.jdbc.SingleRowJdbcPersonAttributeDao"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;constructor-arg</span> <span class="na">index=</span><span class="s">"0"</span> <span class="na">ref=</span><span class="s">"dataSource"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;constructor-arg</span> <span class="na">index=</span><span class="s">"1"</span> <span class="na">value=</span><span class="s">"SELECT * FROM USER_DATA WHERE {0}"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"queryAttributeMapping"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;map&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"username"</span> <span class="na">value=</span><span class="s">"uid"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/map&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"resultAttributeMapping"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;map&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"uid"</span> <span class="na">value=</span><span class="s">"username"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"first_name"</span> <span class="na">value=</span><span class="s">"first_name"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"last_name"</span> <span class="na">value=</span><span class="s">"last_name"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">"email"</span> <span class="na">value=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/map&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="caching-merging-and-cascading">Caching, Merging and Cascading</h4>
+<p>Note that this snippet below strictly uses the Person Directory components for resolving attributes.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"mergedPersonAttributeDao"</span>
+        <span class="na">class=</span><span class="s">"org.jasig.services.persondir.support.CachingPersonAttributeDaoImpl"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"cacheNullResults"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"userInfoCache"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.jasig.portal.utils.cache.MapCacheFactoryBean"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"cacheFactory"</span> <span class="na">ref=</span><span class="s">"cacheFactory"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"cacheName"</span> <span class="na">value=</span><span class="s">"org.jasig.services.persondir.USER_INFO.merged"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/bean&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"cachedPersonAttributesDao"</span> <span class="nt">&gt;</span>
+        <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"mergedPersonAttributeDao"</span>                 
+                <span class="na">class=</span><span class="s">"org.jasig.services.persondir.support.MergingPersonAttributeDaoImpl"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"merger"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.jasig.services.persondir.support.merger.NoncollidingAttributeAdder"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/property&gt;</span>
+            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"personAttributeDaos"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;list&gt;</span>
+                    <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.jasig.services.persondir.support.CascadingPersonAttributeDao"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"personAttributeDaos"</span><span class="nt">&gt;</span>
+                            <span class="nt">&lt;list&gt;</span>
+                                <span class="nt">&lt;ref</span> <span class="na">bean=</span><span class="s">"anotherDao"</span> <span class="nt">/&gt;</span>
+                            <span class="nt">&lt;/list&gt;</span>
+                        <span class="nt">&lt;/property&gt;</span>
+                    <span class="nt">&lt;/bean&gt;</span>
+                <span class="nt">&lt;/list&gt;</span>
+            <span class="nt">&lt;/property&gt;</span>
+        <span class="nt">&lt;/bean&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

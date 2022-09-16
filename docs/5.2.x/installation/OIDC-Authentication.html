@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - OpenID Connect Authentication</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="openid-connect-authentication">OpenID Connect Authentication</h1>
+
+<p>Allow CAS to act as an <a href="http://openid.net/connect/">OpenId Connect Provider (OP)</a>.</p>
+
+<div class="alert alert-info"><strong>Remember</strong><p>OpenId Connect is a continuation of the <a href="OAuth-OpenId-Authentication.html">OAuth protocol</a> with some additional variations. If you enable OpenId Connect, you will have automatically enabled OAuth as well. Options and behaviors that are documented for the <a href="OAuth-OpenId-Authentication.html">OAuth protocol</a> support may apply here just the same.</p></div>
+
+<p>Support is enabled by including the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-oidc<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To learn more about OpenId Connect, please <a href="http://openid.net/specs/openid-connect-basic-1_0.html">review this guide</a>.</p>
+
+<p>The current implementation provides support for:</p>
+
+<ul>
+  <li><a href="http://openid.net/specs/openid-connect-basic-1_0.html">Authorization Code Flow</a></li>
+  <li><a href="https://openid.net/specs/openid-connect-implicit-1_0.html">Implicit Flow</a></li>
+  <li><a href="https://openid.net/specs/openid-connect-discovery-1_0.html">Dynamic Discovery</a></li>
+  <li>Administration and registration of <a href="Service-Management.html">OIDC clients and relying parties</a>.</li>
+  <li>Administration and registration of <a href="Service-Management.html">OIDC clients and relying parties</a> via <a href="https://tools.ietf.org/html/draft-ietf-oauth-dyn-reg-management-01">Dynamic Client Registration protocol</a>.</li>
+  <li>Ability to <a href="../integration/Attribute-Release-Policies.html">resolve, map and release claims</a>.</li>
+  <li>Ability to configure expiration policies for various tokens.</li>
+</ul>
+
+<h2 id="endpoints">Endpoints</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/oidc/.well-known</code>, <code class="language-plaintext highlighter-rouge">/oidc/.well-known/openid-configuration</code></td>
+      <td>The discovery endpoint is a static page that you/clients use to query for CAS OIDC configuration information and metadata. No session is required. CAS returns basic information about endpoints, supported scopes, etc used for OIDC authentication.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/oidc/jwks</code></td>
+      <td>A read-only endpoint that contains the server’s public signing keys, which clients may use to verify the digital signatures of access tokens and ID tokens issued by CAS.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/oidc/authorize</code></td>
+      <td>Authorization requests are handled here.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/oidc/profile</code></td>
+      <td>User profile requests are handled here.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/oidc/introspect</code></td>
+      <td>Query CAS to detect the status of a given access token via <a href="https://tools.ietf.org/html/rfc7662">introspection</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/oidc/accessToken</code>, <code class="language-plaintext highlighter-rouge">/oidc/token</code></td>
+      <td>Produces authorized access tokens.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/oidc/revoke</code></td>
+      <td><a href="https://tools.ietf.org/html/rfc7009">Revoke</a> access or refresh tokens.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/oidc/register</code></td>
+      <td>Register clients via the <a href="https://tools.ietf.org/html/draft-ietf-oauth-dyn-reg-management-01">dynamic client registration</a> protocol.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="register-clients">Register Clients</h2>
+
+<p>Clients can be registered with CAS in the following ways.</p>
+
+<h3 id="statically">Statically</h3>
+
+<p>OpenID Connect clients can be <em>statically</em> registered with CAS as such:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.OidcRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientSecret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^&lt;https://the-redirect-uri&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OIDC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The following fields are available:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">clientId</code></td>
+      <td>Required. The identifier for this client application.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">clientSecret</code></td>
+      <td>Required. The secret for this client application.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">serviceId</code></td>
+      <td>Required. The authorized redirect URI for this OIDC client.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">implicit</code></td>
+      <td>Optional. Whether the response produced for this service should be <a href="https://openid.net/specs/openid-connect-implicit-1_0.html">implicit</a>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">supportedGrantTypes</code></td>
+      <td>Optional. Collection of supported grant types for this service.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">supportedResponseTypes</code></td>
+      <td>Optional. Collection of supported response types for this service.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signIdToken</code></td>
+      <td>Optional. Whether ID tokens should be signed. Default is <code class="language-plaintext highlighter-rouge">true</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jwks</code></td>
+      <td>Optional. Resource path to the keystore location that holds the keys for this application.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">encryptIdToken</code></td>
+      <td>Optional. Whether ID tokens should be encrypted. Default is <code class="language-plaintext highlighter-rouge">false</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">idTokenEncryptionAlg</code></td>
+      <td>Optional. The algorithm header value used to encrypt the id token.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">idTokenEncryptionEncoding</code></td>
+      <td>Optional. The algorithm method header value used to encrypt the id token.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">subjectType</code></td>
+      <td>Optional value chosen from <code class="language-plaintext highlighter-rouge">public</code> or <code class="language-plaintext highlighter-rouge">pairwise</code>. Type to use when generating principal identifiers. Default is <code class="language-plaintext highlighter-rouge">public</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sectoreIdentifierUri</code></td>
+      <td>Optional. Host value of this URL is used as the sector identifier for the pairwise identifier calculation. If left undefined, the host value of the <code class="language-plaintext highlighter-rouge">serviceId</code> will be used instead.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="alert alert-info"><strong>Keep What You Need!</strong><p>You are encouraged to only keep and maintain properties and settings needed for a 
+particular integration. It is UNNECESSARY to grab a copy of all service fields and try to configure them yet again based on their default. While 
+you may wish to keep a copy as a reference, this strategy would ultimately lead to poor upgrades increasing chances of breaking changes and a messy 
+deployment at that.</p></div>
+
+<p>Service definitions are typically managed and registered with CAS by the <a href="Service-Management.html">service management</a> facility.</p>
+
+<div class="alert alert-warning"><strong>Usage Warning!</strong><p>CAS today does not strictly enforce the collection of authorized supported 
+response/grant types for backward compatibility reasons if left blank. This means that if left undefined, all grant and response types may be allowed by 
+the service definition and related policies. Do please note that this behavior is <strong>subject to change</strong> in future releases 
+and thus, it is strongly recommended that all authorized grant/response types for each profile be declared in the service definition 
+immediately to avoid surprises in the future.</p></div>
+
+<h3 id="dynamically">Dynamically</h3>
+
+<p>Client applications may dynamically be registered with CAS for authentication. By default, CAS operates 
+in a <code class="language-plaintext highlighter-rouge">PROTECTED</code> mode where the registration endpoint requires user authentication. This behavior may be relaxed via 
+CAS settings to allow CAS to operate in an <code class="language-plaintext highlighter-rouge">OPEN</code> mode.</p>
+
+<h2 id="settings">Settings</h2>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#openid-connect">review this guide</a>.</p>
+
+<h2 id="server-configuration">Server Configuration</h2>
+
+<p>Remember that OpenID Connect features of CAS require session affinity (and optionally session replication),
+as the authorization responses throughout the login flow are stored via server-backed session storage mechanisms. 
+You will need to configure your deployment environment and load-balancers accordingly.</p>
+
+<h2 id="claims">Claims</h2>
+
+<p>OpenID connect claims are simply treated as normal CAS attributes that need to
+be <a href="../integration/Attribute-Release-Policies.html">resolved, mapped and released</a>.</p>
+
+<h3 id="scope-based-claims">Scope-based Claims</h3>
+
+<p>You may chain various attribute release policies that authorize claim release based on specific scopes:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.OidcRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientSecret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OIDC Test"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scopes"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"java.util.HashSet"</span><span class="p">,</span><span class="w"> 
+    </span><span class="p">[</span><span class="w"> </span><span class="s2">"profile"</span><span class="p">,</span><span class="w"> </span><span class="s2">"email"</span><span class="p">,</span><span class="w"> </span><span class="s2">"address"</span><span class="p">,</span><span class="w"> </span><span class="s2">"phone"</span><span class="p">,</span><span class="w"> </span><span class="s2">"offline_access"</span><span class="p">,</span><span class="w"> </span><span class="s2">"displayName"</span><span class="p">,</span><span class="w"> </span><span class="s2">"eduPerson"</span><span class="w"> </span><span class="p">]</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="mapping-claims">Mapping Claims</h3>
+
+<p>Claims associated with a scope (i.e. <code class="language-plaintext highlighter-rouge">given_name</code> for <code class="language-plaintext highlighter-rouge">profile</code>) are fixed in 
+the <a href="http://openid.net/specs/openid-connect-basic-1_0.html">OpenID specification</a>. In the 
+event that custom arbitrary attributes should be mapped to claims, mappings can be defined in CAS 
+settings to link a CAS-defined attribute to a fixed given scope. For instance, CAS configuration may 
+allow the value of the attribute <code class="language-plaintext highlighter-rouge">sys_given_name</code> to be mapped and assigned to the claim <code class="language-plaintext highlighter-rouge">given_name</code> 
+without having an impact on the attribute resolution configuration and all other CAS-enabled applications.</p>
+
+<p>If mapping is not defined, by default CAS attributes are expected to match claim names.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#openid-connect">review this guide</a>.</p>
+
+<h3 id="user-defined-scopes">User-Defined Scopes</h3>
+
+<p>Note that in addition to standard system scopes, you may define your own custom scope with a number of attributes within. These such as <code class="language-plaintext highlighter-rouge">displayName</code> above, get bundled into a <code class="language-plaintext highlighter-rouge">custom</code> scope which can be used and requested by services and clients.</p>
+
+<p>If you however wish to define your custom scopes as an extension of what OpenID Connect defines
+such that you may bundle attributes together, then you need to first register your <code class="language-plaintext highlighter-rouge">scope</code>,
+define its attribute bundle and then use it a given service definition such as <code class="language-plaintext highlighter-rouge">eduPerson</code> above.
+Such user-defined scopes are also able to override the definition of system scopes.</p>
+
+<p>To see the relevant list of CAS properties, please <a href="Configuration-Properties.html#openid-connect">review this guide</a>.</p>
+
+<h2 id="authentication-context-class">Authentication Context Class</h2>
+
+<p>Support for authentication context class references is implemented in form of <code class="language-plaintext highlighter-rouge">acr_values</code> as part of the original 
+authorization request, which is mostly taken into account by 
+the <a href="Configuring-Multifactor-Authentication.html">multifactor authentication features</a> of CAS. 
+Once successful, <code class="language-plaintext highlighter-rouge">acr</code> and <code class="language-plaintext highlighter-rouge">amr</code> values are passed back to the relying party as part of the id token.</p>
+
+<h2 id="pairwise-identifiers">Pairwise Identifiers</h2>
+
+<p>When <code class="language-plaintext highlighter-rouge">pairwise</code> subject type is used, CAS will calculate a unique <code class="language-plaintext highlighter-rouge">sub</code> value for each sector identifier. This identifier 
+should not be reversible by any party other than CAS and is somewhat akin to CAS generating persistent anonymous user 
+identifiers. Each value provided to every relying party is different so as not to enable clients to correlate the user’s activities without permission.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.OidcRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"client"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientSecret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^&lt;https://the-redirect-uri&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"usernameAttributeProvider"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.PairwiseOidcRegisteredServiceUsernameAttributeProvider"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"persistentIdGenerator"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.authentication.principal.OidcPairwisePersistentIdGenerator"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salt"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"aGVsbG93b3JsZA=="</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="keystores">Keystores</h2>
+
+<p>Each registered application in CAS can contain its own keystore as a <code class="language-plaintext highlighter-rouge">jwks</code> resource. By default,
+a global keystore can be expected and defined via CAS properties. The format of the keystore
+file is similar to the following:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"keys"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"d"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"e"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AQAB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"n"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"kty"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RSA"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"kid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cas"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>CAS will attempt to auto-generate a keystore if it can’t find one, but if you wish to generate one manually, 
+a JWKS can be generated using <a href="https://mkjwk.org/">this tool</a>
+or <a href="http://connect2id.com/products/nimbus-jose-jwt/generator">this tool</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

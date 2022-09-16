@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Code Conventions</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../index.html">
+                    <img class="undecorated" src="../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="code-conventions">Code Conventions</h1>
+
+<p>Following the lead of well established projects such as Apache and Eclipse, all code in CAS will comply with the <a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Code Conventions for the Java</a> and additionally with the CAS specific conventions listed below. Javadoc should exist on all publicly exported class members and follow the <a href="http://java.sun.com/j2se/javadoc/writingdoccomments/index.html">standard guidelines</a>.</p>
+
+<p>The following document describes the set of coding conventions that are specific to the CAS project:</p>
+
+<h2 id="tooling">Tooling</h2>
+
+<ul>
+  <li>The current codebase takes advantage of the <a href="http://checkstyle.sourceforge.net">Checkstyle engine</a> to <a href="https://github.com/Apereo/cas/blob/master/style/checkstyle-rules.xml">enforce conventions</a> as much as possible. Certain number of checks are also executed using <a href="https://spotbugs.github.io/">SpotBugs</a>.</li>
+  <li>Where appropriate, the codebase takes advantage of <a href="https://projectlombok.org/">Project Lombok</a> for auto-generation of code constructs such as getters and setters, etc.</li>
+</ul>
+
+<h2 id="consistency">Consistency</h2>
+
+<p>Try to keep consistent with the existing naming patterns when introducing new components, fields, and files. As an example if a CAS component is named as <code class="language-plaintext highlighter-rouge">SimpleCipherExecutor</code>, its natural alternative might be designed as <code class="language-plaintext highlighter-rouge">FancyCipherExecutor</code>.</p>
+
+<h2 id="documentation">Documentation</h2>
+
+<p>Generally all public APIs are expected to be adequately documented to a reasonable extent and just as well, all CAS configuration settings and properties are to be fully explained with examples, default values, etc as part of the field’s Javadocs.</p>
+
+<h2 id="brackets">Brackets</h2>
+
+<p>All brackets should appear in compact form and are mandatory even for single line statements.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FooClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">barMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(...)</span> <span class="o">{</span>
+            <span class="c1">// single line statement</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="needless-else-clauses">Needless else clauses</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FooClass</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">barMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(...)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="s">"foo"</span><span class="o">;</span>
+        <span class="o">}</span>
+         
+        <span class="k">return</span> <span class="n">bar</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="gettersetter-methods">Getter/Setter Methods</h2>
+
+<p>Generating Getter/Setter methods for fields is typically done using Project Lombok’s <code class="language-plaintext highlighter-rouge">@Getter</code> and <code class="language-plaintext highlighter-rouge">@Setter</code> annotations.</p>
+
+<h2 id="constructors">Constructors</h2>
+
+<p>Creating constructors is typically done using Project Lombok’s <code class="language-plaintext highlighter-rouge">@NoArgsConstructor</code>, <code class="language-plaintext highlighter-rouge">@AllArgsConstructor</code> or <code class="language-plaintext highlighter-rouge">@RequiredArgsConstructor</code> annotations.</p>
+
+<h2 id="indentations">Indentations</h2>
+
+<p>Code indentation should be set to use 4 spaces. Tabs should <strong>never</strong> be used for indentation.</p>
+
+<h2 id="static-members">Static Members</h2>
+
+<p>Static member variables will always be in uppercase wherein each word is separated by an underscore:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">SOME_OBJECT</span> <span class="o">=</span> <span class="s">"TheObject"</span><span class="o">;</span> 
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="logging">Logging</h2>
+
+<p>We use <a href="http://www.slf4j.org/index.html">SLF4J</a> for logging. Unless noted otherwise, <code class="language-plaintext highlighter-rouge">LOGGER</code> objects are to be generated using Project Lombok’s <code class="language-plaintext highlighter-rouge">@Slf4j</code> annotation.</p>
+
+<p><a href="http://www.slf4j.org/faq.html#logging_performance">Parameterized log messages</a> are preferred:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kd">final</span> <span class="nc">Object</span> <span class="n">entry</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SomeObject</span><span class="o">();</span>
+<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"The entry is {}."</span><span class="o">,</span> <span class="n">entry</span><span class="o">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>This is the preferred method over checking for a particular logging level and concatenating parameters through String objects.</p>
+
+<h2 id="qualifying-instance-variables-with-this">Qualifying instance variables with <code class="language-plaintext highlighter-rouge">this</code></h2>
+
+<p>Try to qualify all instance variables with <code class="language-plaintext highlighter-rouge">this</code> with the exception of the Logging instances.</p>
+
+<h2 id="use-of-the-var-keyword">Use of the <code class="language-plaintext highlighter-rouge">var</code> keyword</h2>
+
+<p>Local variables are commended to use Project Lombok’s <code class="language-plaintext highlighter-rouge">val</code>. In situations where mutability is needed, <code class="language-plaintext highlighter-rouge">var</code> is recommended.</p>
+
+<h2 id="naming-testcases">Naming testcases</h2>
+
+<p>If we were writing a JUnit testcase for code defined in <code class="language-plaintext highlighter-rouge">Foo.java</code>, we would name it <code class="language-plaintext highlighter-rouge">FooTests.java</code>. We do not allow any code which is not a testcase to have a name ending in “Tests”. All testcase must use annotations <code class="language-plaintext highlighter-rouge">(@Test)</code> instead of extending <code class="language-plaintext highlighter-rouge">junit.framework.TestCase</code>. Furthermore, the usage of <code class="language-plaintext highlighter-rouge">junit.framework</code> classes is generally discouraged.</p>
+
+<h2 id="injection">Injection</h2>
+
+<p>For required dependencies, the constructor injection must be used whereas setters can be used for optional dependencies.</p>
+
+<h2 id="tostring-equals-hashcode-methods">toString(), equals(), hashCode() methods</h2>
+
+<p>Take a look at Project Lombok’s <code class="language-plaintext highlighter-rouge">@ToString</code> and <code class="language-plaintext highlighter-rouge">@EqualsAndHashCode</code> annotations.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../javascripts/URI.js"></script>
+<script src="../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

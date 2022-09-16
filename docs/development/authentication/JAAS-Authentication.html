@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - JAAS Authentication</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+            <div id="dev-doc-info" class="alert alert-danger" role="alert">
+                <h3>WORKERS AHEAD!</h3>
+                <p>You are viewing the <strong>development</strong> documentation for the Apereo CAS server. <strong>The
+                    functionality presented here <a href="https://github.com/apereo/cas/milestones">is not officially released
+                        yet</a></strong>.
+                    This is a work in progress and will be continually updated as development moves forward. <strong>You are
+                        most encouraged to test the changes presented.</strong>
+            </div>
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="jaas-authentication">JAAS Authentication</h1>
+
+<p><a href="https://docs.oracle.com/javase/9/security/java-authentication-and-authorization-service-jaas1.htm">JAAS</a> is a Java standard
+authentication and authorization API. JAAS is configured via externalized plain text configuration file.
+Using JAAS with CAS allows modification of the authentication process without having to rebuild and redeploy CAS
+and allows for PAM-style multi-module “stacked” authentication.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>JAAS components are provided in the CAS core module and require no additional dependencies to use.
+The JAAS handler delegates to the built-in JAAS subsystem to perform authentication according to the
+directives in the JAAS config file.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasauthnjaas">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasauthnjaas" data-bs-toggle="tab" href="#requiredPropertiescasauthnjaas">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasauthnjaas" data-bs-toggle="tab" href="#optionalPropertiescasauthnjaas">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasauthnjaas">
+        <a class="nav-link" id="linkSigningEncryptioncasauthnjaas" data-bs-toggle="tab" href="#signingEncryptionPropertiescasauthnjaas">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasauthnjaas">
+        <a class="nav-link" id="linkRdbmscasauthnjaas" data-bs-toggle="tab" href="#rdbmsPropertiescasauthnjaas">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasauthnjaas">
+        <a class="nav-link" id="linkEmailcasauthnjaas" data-bs-toggle="tab" href="#emailPropertiescasauthnjaas">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasauthnjaas">
+        <a class="nav-link" id="linkLdapcasauthnjaas" data-bs-toggle="tab" href="#ldapPropertiescasauthnjaas">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasauthnjaas">
+        <a class="nav-link" id="linkAuthnPredicatecasauthnjaas" data-bs-toggle="tab" href="#authnPredicatePropertiescasauthnjaas">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasauthnjaas">
+        <a class="nav-link" id="linkPasswordEncodercasauthnjaas" data-bs-toggle="tab" href="#passwordEncoderPropertiescasauthnjaas">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasauthnjaas">
+        <a class="nav-link" id="linkPrincipalTransformationcasauthnjaas" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasauthnjaas(this);" href="#principalTransformationPropertiescasauthnjaas">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasauthnjaas">
+        <a class="nav-link" id="linkPasswordPolicycasauthnjaas" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasauthnjaas(this);" href="#passwordPolicyPropertiescasauthnjaas">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasauthnjaas(this);" id="linkNotescasauthnjaas" data-bs-toggle="tab" href="#notescasauthnjaas">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasauthnjaas">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasauthnjaas">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasauthnjaas">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasauthnjaas"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasauthnjaas">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasauthnjaas">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasauthnjaas"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasauthnjaas">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasauthnjaas").remove()
+        
+        
+            $("#linkRdbmscasauthnjaas").remove()
+        
+        
+            $("#linkEmailcasauthnjaas").remove()
+        
+        
+            $("#linkSigningEncryptioncasauthnjaas").remove()
+        
+        
+            $("#linkRequiredPropertiescasauthnjaas").remove()
+        
+        
+            $("#linkPasswordPolicycasauthnjaas").remove()
+        
+        
+            $("#linkPrincipalTransformationcasauthnjaas").remove()
+        
+        
+            $("#linkPasswordEncodercasauthnjaas").remove()
+        
+        
+            $("#linkAuthnPredicatecasauthnjaas").remove()
+        
+        
+            $("#linkLdapcasauthnjaas").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasauthnjaas");
+        var id=$("#navPillsMenuscasauthnjaas a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasauthnjaas li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasauthnjaas").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasauthnjaas").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasauthnjaas li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasauthnjaas").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasauthnjaas").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasauthnjaas li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasauthnjaas").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h3 id="password-policy">Password Policy</h3>
+
+<p>JAAS authentication components have limited support for detecting account status and password policy
+settings defined via CAS settings.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasauthnjaaspasswordpolicy">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#requiredPropertiescasauthnjaaspasswordpolicy">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#optionalPropertiescasauthnjaaspasswordpolicy">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasauthnjaaspasswordpolicy">
+        <a class="nav-link" id="linkSigningEncryptioncasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#signingEncryptionPropertiescasauthnjaaspasswordpolicy">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasauthnjaaspasswordpolicy">
+        <a class="nav-link" id="linkRdbmscasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#rdbmsPropertiescasauthnjaaspasswordpolicy">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasauthnjaaspasswordpolicy">
+        <a class="nav-link" id="linkEmailcasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#emailPropertiescasauthnjaaspasswordpolicy">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasauthnjaaspasswordpolicy">
+        <a class="nav-link" id="linkLdapcasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#ldapPropertiescasauthnjaaspasswordpolicy">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasauthnjaaspasswordpolicy">
+        <a class="nav-link" id="linkAuthnPredicatecasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#authnPredicatePropertiescasauthnjaaspasswordpolicy">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasauthnjaaspasswordpolicy">
+        <a class="nav-link" id="linkPasswordEncodercasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#passwordEncoderPropertiescasauthnjaaspasswordpolicy">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasauthnjaaspasswordpolicy">
+        <a class="nav-link" id="linkPrincipalTransformationcasauthnjaaspasswordpolicy" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasauthnjaaspasswordpolicy(this);" href="#principalTransformationPropertiescasauthnjaaspasswordpolicy">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasauthnjaaspasswordpolicy">
+        <a class="nav-link" id="linkPasswordPolicycasauthnjaaspasswordpolicy" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasauthnjaaspasswordpolicy(this);" href="#passwordPolicyPropertiescasauthnjaaspasswordpolicy">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasauthnjaaspasswordpolicy(this);" id="linkNotescasauthnjaaspasswordpolicy" data-bs-toggle="tab" href="#notescasauthnjaaspasswordpolicy">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasauthnjaaspasswordpolicy">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasauthnjaaspasswordpolicy">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasauthnjaaspasswordpolicy">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasauthnjaaspasswordpolicy"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasauthnjaaspasswordpolicy">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasauthnjaaspasswordpolicy">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasauthnjaaspasswordpolicy"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasauthnjaaspasswordpolicy">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkRdbmscasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkEmailcasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkSigningEncryptioncasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkRequiredPropertiescasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkPasswordPolicycasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkPrincipalTransformationcasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkPasswordEncodercasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkAuthnPredicatecasauthnjaaspasswordpolicy").remove()
+        
+        
+            $("#linkLdapcasauthnjaaspasswordpolicy").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasauthnjaaspasswordpolicy");
+        var id=$("#navPillsMenuscasauthnjaaspasswordpolicy a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasauthnjaaspasswordpolicy li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasauthnjaaspasswordpolicy").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasauthnjaaspasswordpolicy").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasauthnjaaspasswordpolicy li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasauthnjaaspasswordpolicy").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasauthnjaaspasswordpolicy").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasauthnjaaspasswordpolicy li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasauthnjaaspasswordpolicy").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h2 id="jaas-configuration-file">JAAS Configuration File</h2>
+
+<p>The default JAAS configuration file is located at <code class="language-plaintext highlighter-rouge">$JRE_HOME/lib/security/java.security</code>. It’s important to note
+that JAAS configuration applies to the entire JVM. The path to the JAAS configuration file in effect may be altered
+by setting the <code class="language-plaintext highlighter-rouge">java.security.auth.login.config</code> system property to an alternate file path (i.e. <code class="language-plaintext highlighter-rouge">file:/etc/cas/config/jaas.config</code>).</p>
+
+<p>A sample JAAS configuration file is provided for reference.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>/**
+  * Login Configuration for JAAS with the realm name defined as CAS.
+  */
+CAS {
+  org.sample.jaas.login.SampleLoginModule sufficient
+    debug=FALSE;
+};
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="login-modules">Login Modules</h2>
+
+<p>The following login modules are available with CAS:</p>
+
+<h3 id="jndi">JNDI</h3>
+
+<p>The module prompts for a username and password and then verifies 
+the password against the password stored in a directory service configured under JNDI.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>CAS {
+  com.sun.security.auth.module.JndiLoginModule sufficient
+    user.provider.url=name_service_url
+    group.provider.url=name_service_url
+    debug=FALSE;
+};
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The value of <code class="language-plaintext highlighter-rouge">name_service_url</code> specifies the directory service and path where this module can access the relevant user and group information. Because this module only performs one-level searches to find the relevant user information, the URL must point to a directory one level above where the user and group information is stored in the directory service.</p>
+
+<p>For a list of all other options and more comprehensive documentation, please see <a href="http://docs.oracle.com/javase/8/docs/jre/api/security/jaas/spec/com/sun/security/auth/module/JndiLoginModule.html">this guide</a> for more info.</p>
+
+<h3 id="kerberos">Kerberos</h3>
+
+<p>This module authenticates users using Kerberos protocols. The configuration entry for module has several options that control the 
+authentication process and additions to the <code class="language-plaintext highlighter-rouge">Subject</code>’s private credential set. Irrespective of these options, the <code class="language-plaintext highlighter-rouge">Subject</code>’s principal set and private credentials set are updated only when commit is called. When commit is called, the <code class="language-plaintext highlighter-rouge">KerberosPrincipal</code> is added to the <code class="language-plaintext highlighter-rouge">Subject</code>’s principal set and KerberosTicket is added to the <code class="language-plaintext highlighter-rouge">Subject</code>’s private credentials.</p>
+
+<p>If the configuration entry for module has the option <code class="language-plaintext highlighter-rouge">storeKey</code> set to true, then <code class="language-plaintext highlighter-rouge">KerberosKey</code> will also be added to 
+the subject’s private credentials. <code class="language-plaintext highlighter-rouge">KerberosKey</code>, the principal’s key will be either obtained from the keytab or derived from user’s password.</p>
+
+<p>This module also recognizes the <code class="language-plaintext highlighter-rouge">doNotPrompt</code> option. If set to true the user will not be prompted for the password. 
+The user can specify the location of the ticket cache by using the option <code class="language-plaintext highlighter-rouge">ticketCache</code> in the configuration entry. The user can specify the keytab location by using the option <code class="language-plaintext highlighter-rouge">keyTab</code> in the configuration entry.</p>
+
+<p>The principal name can be specified in the configuration entry by using the option <code class="language-plaintext highlighter-rouge">principal</code>. The principal name can 
+either be a simple user name or a service name such as <code class="language-plaintext highlighter-rouge">host/mission.eng.sun.com</code>. The principal can also be set using 
+the system property <code class="language-plaintext highlighter-rouge">sun.security.krb5.principal</code>. This property is checked during login. If this property is not set, 
+then the principal name from the configuration is used. In the case where the principal property is not set and the principal 
+entry also does not exist, the user is prompted for the name. When this property of entry is set, and <code class="language-plaintext highlighter-rouge">useTicketCache</code> is set to 
+true, only TGT belonging to this principal is used.</p>
+
+<p>Note that a valid <code class="language-plaintext highlighter-rouge">krb5.conf</code> must be supplied to the JVM for Kerberos auth via setting <code class="language-plaintext highlighter-rouge">-Djava.security.krb5.conf=/etc/krb5.conf</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre>CAS {
+  com.sun.security.auth.module.Krb5LoginModule sufficient
+    refreshKrb5Config=TRUE/FALSE
+    useTicketCache=TRUE/FALSE
+    ticketCache=...
+    renewTGT=TRUE/FALSE
+    useKeyTab=TRUE/FALSE
+    doNotPrompt=TRUE/FALSE
+    keyTab=TRUE/FALSE
+    storeKey=TRUE/FALSE
+    principal=...
+    debug=FALSE;
+};
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>For a list of all other options and more comprehensive documentation, please see <a href="http://docs.oracle.com/javase/8/docs/jre/api/security/jaas/spec/com/sun/security/auth/module/Krb5LoginModule.html">this guide</a> for more info.</p>
+
+<h3 id="unix">UNIX</h3>
+
+<p>This module imports a user’s Unix Principal information (<code class="language-plaintext highlighter-rouge">UnixPrincipal</code>, <code class="language-plaintext highlighter-rouge">UnixNumericUserPrincipal</code>, and <code class="language-plaintext highlighter-rouge">UnixNumericGroupPrincipal</code>) and associates them with the current <code class="language-plaintext highlighter-rouge">Subject</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>CAS {
+  com.sun.security.auth.module.UnixLoginModule sufficient
+    debug=FALSE;
+};
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>For a list of all other options and more comprehensive documentation, please see <a href="http://docs.oracle.com/javase/8/docs/jre/api/security/jaas/spec/com/sun/security/auth/module/UnixLoginModule.html">this guide</a> for more info.</p>
+
+<h3 id="nt">NT</h3>
+
+<p>This module renders a user’s NT security information as some number of <code class="language-plaintext highlighter-rouge">Principal</code>s and associates them with a <code class="language-plaintext highlighter-rouge">Subject</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>CAS {
+  com.sun.security.auth.module.NTLoginModule sufficient
+    debugNative=TRUE
+    debug=FALSE;
+};
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>For a list of all other options and more comprehensive documentation, please see <a href="http://docs.oracle.com/javase/8/docs/jre/api/security/jaas/spec/com/sun/security/auth/module/NTLoginModule.html">this guide</a> for more info.</p>
+
+<h3 id="ldap">LDAP</h3>
+
+<p>This module performs LDAP-based authentication. A username and password is verified against the corresponding user credentials stored in an LDAP directory. If authentication is successful then a new <code class="language-plaintext highlighter-rouge">LdapPrincipal</code> is created using the user’s distinguished name and a new <code class="language-plaintext highlighter-rouge">UserPrincipal</code> is created using the user’s username and both are associated with the current <code class="language-plaintext highlighter-rouge">Subject</code>.</p>
+
+<p>For a list of all other options and more comprehensive documentation, please see <a href="http://docs.oracle.com/javase/8/docs/jre/api/security/jaas/spec/com/sun/security/auth/module/LdapLoginModule.html">this guide</a> for more info.</p>
+
+<p>This module operates in one of three modes. A mode is selected by specifying a particular set of options:</p>
+
+<h4 id="search-first">Search First</h4>
+
+<p>In search-first mode, the LDAP directory is searched to determine the user’s distinguished name and then authentication is attempted. An (anonymous) search is performed using the supplied username in conjunction with a specified search filter. If successful then authentication is attempted using the user’s distinguished name and the supplied password. To enable this mode, set the <code class="language-plaintext highlighter-rouge">userFilter</code> option and omit the <code class="language-plaintext highlighter-rouge">authIdentity</code> option. Use <code class="language-plaintext highlighter-rouge">search-first</code> mode when the user’s distinguished name is not known in advance.</p>
+
+<p>The example below identifies the LDAP server and specifies that users’ entries be located by their <code class="language-plaintext highlighter-rouge">uid</code> and <code class="language-plaintext highlighter-rouge">objectClass</code> attributes. It also specifies that an identity based on the user’s <code class="language-plaintext highlighter-rouge">employeeNumber</code> attribute should be created.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>CAS {
+  com.sun.security.auth.module.LdapLoginModule REQUIRED
+    userProvider="ldap://ldap-svr/ou=people,dc=example,dc=com"
+    userFilter="(&amp;(uid={USERNAME})(objectClass=inetOrgPerson))"
+    authzIdentity="{EMPLOYEENUMBER}"
+    debug=true;
+};
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="authentication-first">Authentication First</h4>
+
+<p>In <code class="language-plaintext highlighter-rouge">authentication-first</code> mode, authentication is attempted using the supplied username and password and then the LDAP directory is searched. If authentication is successful then a search is performed using the supplied username in conjunction with a specified search filter. To enable this mode, set the <code class="language-plaintext highlighter-rouge">authIdentity</code> and the <code class="language-plaintext highlighter-rouge">userFilter</code> options. Use <code class="language-plaintext highlighter-rouge">authentication-first</code> mode when accessing an LDAP directory that has been configured to disallow anonymous searches.</p>
+
+<p>The example below requests that the LDAP server be located dynamically, that authentication be performed using the supplied username directly but without the protection of SSL and that users’ entries be located by one of three naming attributes and their <code class="language-plaintext highlighter-rouge">objectClass</code> attribute.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>CAS {
+  com.sun.security.auth.module.LdapLoginModule REQUIRED
+    userProvider="ldap:///cn=users,dc=example,dc=com"
+    authIdentity="{USERNAME}"
+    userFilter="(&amp;(|(samAccountName={USERNAME})(userPrincipalName={USERNAME})(cn={USERNAME}))(objectClass=user))"
+    useSSL=false
+    debug=true;
+};
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="authentication-only">Authentication Only</h4>
+
+<p>In <code class="language-plaintext highlighter-rouge">authentication-only</code> mode, authentication is attempted using the supplied username and password. The LDAP directory is not searched because the user’s distinguished name is already known. To enable this mode, set the authIdentity option to a valid distinguished name and omit the userFilter option. Use authentication-only mode when the user’s distinguished name is known in advance.</p>
+
+<p>The example below identifies alternative LDAP servers, it specifies the distinguished name to use for authentication and a fixed identity to use for authorization. No directory search is performed.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>CAS {
+  com.sun.security.auth.module.LdapLoginModule REQUIRED
+    userProvider="ldap://ldap-svr1 ldap://ldap-svr2"
+    authIdentity="cn={USERNAME},ou=people,dc=example,dc=com"
+    authzIdentity="staff"
+    debug=true;
+  };
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="ldaptive">Ldaptive</h3>
+
+<p>Ldaptive provides several <a href="http://www.ldaptive.org/docs/guide/jaas.html">login modules for authentication and authorization</a> against an LDAP. Each module accepts properties that correspond to the setters on objects in the ldaptive code base. If you are looking to set a specific configuration option that is available as a setter, the chances are that it will be accepted on the module. Any unknown options will be passed to the provider as a generic property.</p>
+
+<p>In order to take advantage of the login modules provided by Ldaptive, the following dependency must be present and added to the overlay:</p>
+
+<script type="text/javascript">
+
+function tabClicked(idx) {
+  var radius = "0px 5px 5px 5px";
+  if (idx != 0) {
+    radius = "5px 5px 5px 5px";
+  }
+  $(".tab-pane .highlight>pre.highlight").css("border-radius", radius);
+  switch (idx) {
+    case 0:
+      $("div #mavenorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 1:
+      $("div #gradleorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 2:
+      $("div #bomorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+  }
+}
+
+</script>
+
+<div style="display: block">
+
+<ul class="nav nav-pills">
+  <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(0)" data-bs-toggle="tab" href="#mavenorgapereocascasserversupportldapcore">Maven</a></li>
+  <li class="nav-item"><a class="nav-link active" onclick="javascript:tabClicked(1)" data-bs-toggle="tab" href="#gradleorgapereocascasserversupportldapcore">Gradle</a></li>
+
+  
+    <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(2)" data-bs-toggle="tab" href="#bomorgapereocascasserversupportldapcore">BOM</a></li>
+  
+
+  <li role="presentation" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" onclick="javascript:tabClicked(3)" data-bs-toggle="dropdown" href="#" role="button">Resources
+      <span class="caret"></span>
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-ldap-core', 'cas-overlay');">Generate CAS Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-ldap-core', 'cas-mgmt-overlay');">Generate CAS Management Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-ldap-core', 'cas-config-server-overlay');">Generate CAS Configuration Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-discovery-server-overlay');">Generate CAS Discovery Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-bootadmin-server-overlay');">Generate CAS Spring Boot Admin Server WAR Overlay</a>
+    </div>
+  </li>
+</ul>
+
+
+<div class="cas-module-tabs tab-content clearfix">
+
+
+
+  <div class="tab-pane fade in" id="mavenorgapereocascasserversupportldapcore">
+    
+
+    <span>
+      
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-ldap-core<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+    </span>
+  
+  </div>
+
+
+  <div class="tab-pane fade in active show" id="gradleorgapereocascasserversupportldapcore">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-ldap-core:${project.'cas.version'}"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+
+  </div>
+
+
+  <div class="tab-pane fade in" id="bomorgapereocascasserversupportldapcore">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">dependencyManagement</span> <span class="o">{</span>
+  <span class="n">imports</span> <span class="o">{</span>
+    <span class="n">mavenBom</span> <span class="s2">"org.apereo.cas:cas-server-support-bom:${project.'cas.version'}"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>  
+  <span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-ldap-core"</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+  
+  </div>
+
+</div>
+
+</div>
+
+<h3 id="keystore">Keystore</h3>
+
+<p>This module prompts for a key store alias and populates the subject with the alias’s principal and credentials. Stores an <code class="language-plaintext highlighter-rouge">X500Principal</code> for the subject distinguished name of the first certificate in the alias’s credentials in the subject’s principals, the alias’s certificate path in the subject’s public credentials, and a <code class="language-plaintext highlighter-rouge">X500PrivateCredential</code> whose certificate is the first certificate in the alias’s certificate path and whose private key is the alias’s private key in the subject’s private credentials.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>CAS {
+  com.sun.security.auth.module.KeyStoreLoginModule sufficient
+    keyStoreURL=...
+    keyStoreType=
+    keyStoreProvider=...
+    keyStoreAlias=...
+    keyStorePasswordURL=...
+    privateKeyPasswordURL=...
+    protected=...
+    debug=FALSE;
+};
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>For a list of all other options and more comprehensive documentation, please see <a href="http://docs.oracle.com/javase/8/docs/jre/api/security/jaas/spec/com/sun/security/auth/module/KeyStoreLoginModule.html">this guide</a> for more info.</p>
+
+<h2 id="deployments">Deployments</h2>
+
+<p>If your deployment strategy ultimately uses an <a href="../installation/Configuring-Servlet-Container.html#embedded">embedded container</a>, 
+you can pass along the location of the JAAS configuration file in form of a system property as such:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>java <span class="nt">-Djava</span>.security.auth.login.config<span class="o">=</span>file:/etc/cas/config/jaas.config <span class="nt">-jar</span> ...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Alternatively, you may activate the login configuration type to be <code class="language-plaintext highlighter-rouge">JavaLoginConfig</code> in the CAS settings and specify the path
+to the jaas configuration file there in the settings directly.</p>
+
+<p>For more information on configuration management, please <a href="../configuration/Configuration-Management.html">review this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Authentication';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

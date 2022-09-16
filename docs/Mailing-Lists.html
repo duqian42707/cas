@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Mailing Lists</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="index.html">
+                    <img class="undecorated" src="images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="mailing-lists">Mailing Lists</h1>
+
+<p>The CAS project has a number of topical mailing lists (now under the apereo.org domain) that are available to obtain support or participate in CAS
+development.</p>
+
+<p>It’s important to note that, while CAS has an international audience, discussion takes place in English.
+The community is very understanding of non-native English speakers and generally exercises patience and persistence
+in those circumstances. <em>Please post in English.</em></p>
+
+<h2 id="cas-community-list-cas-userapereoorg">CAS Community List (cas-user@apereo.org)</h2>
+
+<p><em>Focus</em>: support, troubleshooting, general questions.</p>
+
+<p>Post to this list if you have a question about installing, configuring, or troubleshooting CAS.</p>
+
+<p><a href="https://groups.google.com/a/apereo.org/forum/#!forum/cas-user">View and/or subscribe</a></p>
+
+<p><a href="https://groups.google.com/forum/#!forum/jasig-cas-user">Old archives</a></p>
+
+<div class="alert alert-info"><strong>List Etiquette</strong><p>If your question does not contain enough data and is described in vague terms, it will likely be ignored. Please try to be as precise as possible.</p></div>
+
+<h3 id="data-data-data">Data, Data, Data</h3>
+
+<p>Always ensure you have enough diagnostics data in your report:</p>
+
+<ul>
+  <li>Have you reported the <strong>exact CAS version numbers</strong> that exhibit the seemingly-faulty behavior?</li>
+  <li>Have you described your deployment/development environment in enough detail?</li>
+  <li>Have you included error logs, <strong>debug logs</strong>, screenshots and other useful snippets of your configuration to demonstrate the issue?</li>
+  <li>Have you included steps to explain how one might duplicate the problem?</li>
+  <li>Have you prepared unit tests to recreate the issue?</li>
+  <li>Have you prepared an overlay project that might allow the project to duplicate the issue?</li>
+</ul>
+
+<p>Please remember:</p>
+
+<blockquote>
+  <p>“It doesn’t work” doesn’t work. Share as much information as possible.</p>
+</blockquote>
+
+<p>Put another way; readers of your case aren’t necessarily housed in your head! They don’t know what you know. Help them out. Would you want to respond to your own report?</p>
+
+<h3 id="be-patient">Be Patient</h3>
+
+<p>Once you have posted to a mailing list, please be patient and allow members to read your post and respond. Messages submitted in quick succession or to multiple mailing lists at the same time will eventually be considered spam by the mail server and the sender will be blocked. Remember that all activity on the mailing list is <strong>entirely voluntary</strong>. There are no SLAs. If you find the mailing list responses are not quick enough, you may seek <a href="/cas/Support.html">other options for support</a>.</p>
+
+<p>If you find that your messages are not reaching the mailing list in due time, please contact the project members and/or Apereo to resolve the issue.</p>
+
+<h3 id="get-curious">Get Curious</h3>
+
+<p>Research the issue and be sure to do your due diligence:</p>
+
+<ul>
+  <li>Have you scanned the web archives for similar cases?</li>
+  <li>Have you looked at the project’s documentation to find better explanations?</li>
+  <li>Have you reviewed the project’s mailing lists, chatrooms and other facilities to find possible solutions?</li>
+  <li>Have you considered upgrading to the latest maintenance release to see if the problem has been fixed?</li>
+  <li>Have you looked at <code class="language-plaintext highlighter-rouge">DEBUG</code> logs to see if the software can offer an explanation?</li>
+</ul>
+
+<h3 id="contribute">Contribute</h3>
+
+<div class="alert alert-info"><strong>Remember</strong><p>If you have already identified an enhancement or a bug, it is <strong>STRONGLY</strong> recommended that you simply submit a pull request to address the case. There is no need for special ceremony to create separate issues. The pull request <strong>IS</strong> the issue and it will be tracked and tagged as such.</p></div>
+
+<p>If you can, <a href="/cas/developer/Contributor-Guidelines.html">always volunteer to post a patch</a> and work up a solution. Be prepared to follow up to test the produced patch in your environment and always try to provide a confirmation. Simply complaining about something and letting it sit in the issue tracker for someone else to handle isn’t going to get you much. If you find something that you deem worth someone else’s time to fix for you, be sure to demonstrate the issue is first and foremost worth your own time as well. “It ain’t a problem for me if it ain’t a problem for you”, sort of thing.</p>
+
+<p>When in doubt, please consult the project Apache v2 license:</p>
+
+<blockquote>
+  <p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an “AS IS” BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+</blockquote>
+
+<div class="alert alert-info"><strong>List Etiquette</strong><p>Unless explicitly asked, please <b>avoid</b> contacting individual project members directly.</p></div>
+
+<h2 id="cas-developer-list-cas-devapereoorg">CAS Developer List (cas-dev@apereo.org)</h2>
+
+<p><em>Focus</em>: CAS developer discussion and collaboration.</p>
+
+<p>The developer list is used by CAS committers to discuss CAS development. It’s a suitable forum for discussing feature
+requests, software design, and offering contributions.</p>
+
+<div class="alert alert-info"><strong>List Etiquette</strong><p>Please <b>do not</b> post support questions to the developer list. Your question will most likely be ignored.</p></div>
+
+<p><a href="https://groups.google.com/a/apereo.org/forum/#!forum/cas-dev">View and/or subscribe</a>
+<a href="https://groups.google.com/forum/#!forum/jasig-cas-dev">Old archives</a></p>
+
+<h2 id="cas-announcements-list-cas-announceapereoorg">CAS Announcements List (cas-announce@apereo.org)</h2>
+
+<p><em>Focus</em>: Release announcements.</p>
+
+<p>This is a low-traffic list to receive notifications about CAS releases including security patches.</p>
+
+<p><a href="https://groups.google.com/a/apereo.org/forum/#!forum/cas-announce">View and/or subscribe</a></p>
+
+<h2 id="cas-subscribers-list-cas-subsapereoorg">CAS Subscribers List (cas-subs@apereo.org)</h2>
+
+<p><em>Focus</em>: Trusted Contacts</p>
+
+<p>This is a low-traffic list to receive security release notifications and details early about CAS releases. 
+This is a private list, reserved for Apereo Foundation members with an active subscription to the CAS project.
+Membership can be requested on-demand from the CAS PMC, once membership status is confirmed.</p>
+
+<p><a href="https://groups.google.com/a/apereo.org/forum/#!forum/cas-subs">View and/or subscribe</a></p>
+
+<h2 id="security-lists">Security Lists</h2>
+
+<p>The following mailing lists handle security announcements and vulnerabilities.</p>
+
+<h3 id="cas-public-security-list-cas-appsec-publicapereoorg">CAS Public Security List (cas-appsec-public@apereo.org)</h3>
+
+<p><em>Focus</em>: Security issues, mitigation strategies and announcements</p>
+
+<p>This is a low-traffic list to receive notifications about CAS security issues. Note that posts on this list are <strong>public</strong>. To report what you 
+consider to be a security vulnerability, use the <code class="language-plaintext highlighter-rouge">cas-appsec-private@apereo.org</code> mailing list. All posts are private and moderated.</p>
+
+<p><a href="https://groups.google.com/a/apereo.org/forum/#!forum/cas-appsec-public">View and/or subscribe</a></p>
+
+<h3 id="cas-private-security-list-cas-appsec-privateapereoorg">CAS Private Security List (cas-appsec-private@apereo.org)</h3>
+
+<p><em>Focus</em>: Security issues, mitigation strategies and private internal discussions</p>
+
+<p>This is a private closed low-traffic list to  discuss CAS security issues amongst trusted members. Note that posts on this list are <em>private</em>. 
+To report what you consider to be a security vulnerability, please use the address <code class="language-plaintext highlighter-rouge">cas-appsec-private@apereo.org</code>. All posts are private and moderated.</p>
+
+<p><a href="https://groups.google.com/a/apereo.org/forum/#!forum/security">View and/or subscribe</a>
+<a href="https://groups.google.com/a/apereo.org/forum/#!forum/cas-appsec-private">View and/or subscribe</a></p>
+
+<h3 id="security-vulnerability-response">Security Vulnerability Response</h3>
+
+<p>Once reported via the appropriate channels, please <a href="/cas/developer/Sec-Vuln-Response.html">review this guide</a> to learn how CAS responds to security vulnerabilities.</p>
+
+<h2 id="cas-pmc-cas-pmcapereoorg">CAS PMC (cas-pmc@apereo.org)</h2>
+
+<p><em>Focus</em>: Project management committee matters, policy decisions</p>
+
+<p>This is a private closed-list open to the CAS PMC members. PMC bylaws are <a href="/cas/developer/Project-Commitee.html">published here</a>.</p>
+
+<p><a href="https://groups.google.com/a/apereo.org/forum/#!forum/cas-pmc">View and/or subscribe</a></p>
+
+<h2 id="cas-chair-cas-chairapereoorg">CAS Chair (cas-chair@apereo.org)</h2>
+
+<p><em>Focus</em>: Project chairman and vice chairman contact channel</p>
+
+<p>This is a private closed-list reserved for the CAS project chairman and vice chairman, in cotact with the Apereo foundation.</p>
+
+<p><a href="https://groups.google.com/a/apereo.org/forum/#!forum/cas-chair">View and/or subscribe</a></p>
+
+<h2 id="foreign-language-lists">Foreign Language Lists</h2>
+
+<p>The ESUP-Portail project has fostered the growth of several French-language
+<a href="https://listes.esup-portail.org/sympa/lists/cas">CAS lists</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="javascripts/URI.js"></script>
+<script src="javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

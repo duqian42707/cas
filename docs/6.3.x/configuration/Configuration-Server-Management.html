@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Configuration Server</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="configuration-server">Configuration Server</h1>
+
+<p>As your CAS deployment moves through the deployment pipeline from dev to test and into production
+you can manage the configuration between those environments and be certain that applications
+have everything they need to run when they migrate through the use of an external configuration server
+provided by the <a href="https://github.com/spring-cloud/spring-cloud-config">Spring Cloud</a> project. As an alternative,
+you may decide to run CAS in a standalone mode removing the need for external configuration server deployment,
+though at the cost of losing features and capabilities relevant for a cloud deployment.</p>
+
+<h2 id="configuration-profiles">Configuration Profiles</h2>
+
+<p>The CAS server web application responds to the following strategies that dictate how settings should be consumed.</p>
+
+<h3 id="standalone">Standalone</h3>
+
+<p>This is the default configuration mode which indicates that CAS does <strong>NOT</strong> require connections to an external configuration server
+and will run in an embedded <em>standalone mode</em>. When this option is turned on, CAS by default will attempt to locate settings and properties
+inside a given directory indicated under the setting name <code class="language-plaintext highlighter-rouge">cas.standalone.configuration-directory</code> and otherwise falls back to using <code class="language-plaintext highlighter-rouge">/etc/cas/config</code> as the configuration directory.
+You may instruct CAS to use this setting via the methods <a href="Configuration-Management.html#overview">outlined here</a>. 
+There also exists a <code class="language-plaintext highlighter-rouge">cas.standalone.configuration-file</code> which can be used to directly feed a collection of properties to CAS in form of a file or classpath resource.</p>
+
+<p>Similar to the Spring Cloud external configuration server, the contents of this directory include <code class="language-plaintext highlighter-rouge">(cas|application).(yml|properties)</code>
+files that can be used to control CAS behavior. Also, note that this configuration directory can be monitored by CAS to auto-pick up changes
+and refresh the application context as needed. Please <a href="Configuration-Management-Reload.html#reload-strategy">review this guide</a> to learn more.</p>
+
+<p>Note that by default, all CAS settings and configuration is controlled via the embedded <code class="language-plaintext highlighter-rouge">application.properties</code> file in the CAS server
+web application. There is also an embedded <code class="language-plaintext highlighter-rouge">application.yml</code> file that allows you to override all defaults if you wish to ship the configuration inside the main CAS web application and not rely on externalized configuration files. If you prefer properties to yaml, then <code class="language-plaintext highlighter-rouge">application-standalone.properties</code> will override <code class="language-plaintext highlighter-rouge">application.properties</code> as well.</p>
+
+<p>Settings found in external configuration files are and will be able to override the defaults provided by CAS. The naming of the configuration files 
+inside the CAS configuration directory follows the below pattern:</p>
+
+<ul>
+  <li>An <code class="language-plaintext highlighter-rouge">application.(properties|yml|yaml)</code> file is always loaded, if found.</li>
+  <li>Settings located inside <code class="language-plaintext highlighter-rouge">properties|yml|yaml</code> files whose name matches the value of <code class="language-plaintext highlighter-rouge">spring.application.name</code> are loaded (i.e <code class="language-plaintext highlighter-rouge">cas.properties</code>) Note: <code class="language-plaintext highlighter-rouge">spring.application.name</code> defaults to uppercase <code class="language-plaintext highlighter-rouge">CAS</code> but the lowercase name will also be loaded.</li>
+  <li>Settings located inside <code class="language-plaintext highlighter-rouge">properties|yml|yaml</code> files whose name matches the value of <code class="language-plaintext highlighter-rouge">spring.profiles.active</code> are loaded (i.e <code class="language-plaintext highlighter-rouge">ldap.properties</code>).</li>
+  <li>Profile-specific application properties outside of your packaged web application (<code class="language-plaintext highlighter-rouge">application-{profile}.properties|yml|yaml</code>)
+This allows you to, if needed, split your settings into multiple property files and then locate them by assigning their name
+to the list of active profiles (i.e. <code class="language-plaintext highlighter-rouge">spring.profiles.active=standalone,testldap,stagingMfa</code>)</li>
+</ul>
+
+<p>Configuration files are loaded in the following order where <code class="language-plaintext highlighter-rouge">spring.profiles.active=standalone,profile1,profile2</code>. Note that the last configuration file loaded will override any duplicate properties from configuration files loaded earlier:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">application.(properties|yml|yaml) </code></li>
+  <li>(lower case) <code class="language-plaintext highlighter-rouge">spring.application.name.(properties|yml|yaml)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">spring.application.name.(properties|yml|yaml)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">application-standalone.(properties|yml|yaml)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">standalone.(properties|yml|yaml)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">application-profile1.(properties|yml|yaml)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">profile1.(properties|yml|yaml)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">application-profile2.(properties|yml|yaml)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">profile2.(properties|yml|yaml)</code></li>
+</ol>
+
+<p>If two configuration files with same base name and different extensions exist, they are processed in the order of <code class="language-plaintext highlighter-rouge">properties</code>, <code class="language-plaintext highlighter-rouge">yml</code> and then <code class="language-plaintext highlighter-rouge">yaml</code> and then <code class="language-plaintext highlighter-rouge">groovy</code> (last one processed wins where duplicate properties exist). These external configuration files will override files located in the classpath (e.g. files from <code class="language-plaintext highlighter-rouge">src/main/resources</code> in your CAS overlay that end up in <code class="language-plaintext highlighter-rouge">WEB-INF/classes</code>) but the internal files are loaded per the <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#featuresl">spring boot</a> rules which differ from the CAS standalone configuration rules described here (e.g. <profile>.properties would not be loaded from classpath but `application-<profile>.properties` would).</profile></profile></p>
+
+<div class="alert alert-warning"><strong>Remember</strong><p>You are advised to not overlay or otherwise
+modify the built in <code>application.properties</code> or <code>bootstrap.properties</code> files. This will only complicate and weaken your deployment.
+Instead try to comply with the CAS defaults and bootstrap CAS as much as possible via the defaults, override via <code>application.yml</code>, <code>application-standalone.properties</code> or
+use the <a href="Configuration-Management.html#overview">outlined strategies</a>. Likewise, try to instruct CAS to locate
+configuration files external to its own. Premature optimization will only lead to chaos.</p></div>
+
+<h3 id="spring-cloud">Spring Cloud</h3>
+
+<p>CAS is able to use an external and central configuration server to obtain state and settings.
+The configuration server provides a very abstract way for CAS (and all of its other clients) to obtain settings from a variety
+of sources, such as file system, <code class="language-plaintext highlighter-rouge">git</code> or <code class="language-plaintext highlighter-rouge">svn</code> repositories, MongoDb databases, Vault, etc. The beauty of this solution is that to the CAS
+web application server, it matters not where settings come from and it has no knowledge of the underlying property sources. It 
+talks to the configuration server to locate settings and move on.</p>
+
+<div class="alert alert-info"><strong>Configuration Security</strong><p>This is a very good strategy to ensure configuration settings
+are not scattered around various deployment environments leading to a more secure deployment. The configuration server need not be
+exposed to the outside world, and it can safely and secure be hidden behind firewalls, etc allowing access to only authorized clients
+such as the CAS server web application.</p></div>
+
+<p>A full comprehensive guide is provided by the <a href="https://cloud.spring.io/spring-cloud-config/spring-cloud-config.html">Spring Cloud project</a>.</p>
+
+<h4 id="overlay">Overlay</h4>
+
+<p>The configuration server itself, similar to CAS, can be deployed
+via the following module in it own <a href="https://github.com/apereo/cas-configserver-overlay">WAR overlay</a>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-webapp-config-server<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In addition to the <a href="Configuration-Management.html#overview">strategies outlined here</a>, the configuration server 
+may load CAS settings and properties via the following order and mechanics:</p>
+
+<ol>
+  <li>Profile-specific application properties outside of your packaged web application (<code class="language-plaintext highlighter-rouge">application-{profile}.properties|yml</code>)</li>
+  <li>Profile-specific application properties packaged inside your jar (<code class="language-plaintext highlighter-rouge">application-{profile}.properties|yml</code>)</li>
+  <li>Application properties outside of your packaged jar (<code class="language-plaintext highlighter-rouge">application.properties|yml</code>).</li>
+  <li>Application properties packaged inside your jar (<code class="language-plaintext highlighter-rouge">application.properties|yml</code>).</li>
+</ol>
+
+<p>The configuration and behavior of the configuration server is also controlled by its own
+<code class="language-plaintext highlighter-rouge">src/main/resources/bootstrap.properties</code> file. By default, it runs under port <code class="language-plaintext highlighter-rouge">8888</code> at <code class="language-plaintext highlighter-rouge">/casconfigserver</code> inside
+an embedded Apache Tomcat server whose endpoints are protected with basic authentication
+where the default credentials are <code class="language-plaintext highlighter-rouge">casuser</code> and an auto-generated password defined in <code class="language-plaintext highlighter-rouge">src/main/resources/application.properties</code>.</p>
+
+<p>Furthermore, by default it runs under a <code class="language-plaintext highlighter-rouge">native</code> profile described below.</p>
+
+<p>The following endpoints are secured and exposed by the configuration server:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/encrypt</code></td>
+      <td>Accepts a <code class="language-plaintext highlighter-rouge">POST</code> to encrypt CAS configuration settings.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/decrypt</code></td>
+      <td>Accepts a <code class="language-plaintext highlighter-rouge">POST</code> to decrypt CAS configuration settings.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/actuator/refresh</code></td>
+      <td>Accepts a <code class="language-plaintext highlighter-rouge">POST</code> and attempts to refresh the internal state of configuration server.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/actuator/env</code></td>
+      <td>Accepts a <code class="language-plaintext highlighter-rouge">GET</code> and describes all configuration sources of the configuration server.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/actuator/cas/default</code></td>
+      <td>Describes what the configuration server knows about the <code class="language-plaintext highlighter-rouge">default</code> settings profile.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/actuator/cas/native</code></td>
+      <td>Describes what the configuration server knows about the <code class="language-plaintext highlighter-rouge">native</code> settings profile.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Once you have the configuration server deployed and assuming the credentials used to secure the configuration server match the example below, you can observe the collection of settings via:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>curl <span class="nt">-u</span> casuser:Mellon https://config.server.url:8888/casconfigserver/cas/native
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Assuming actuator endpoints are enabled in the configuration, you can also observe the collection of property sources that provide settings to the configuration server:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>curl <span class="nt">-u</span> casuser:Mellon https://config.server.url:8888/casconfigserver/actuator/env
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info"><strong>Actuator Endpoints</strong><p>
+Remember that actuator endpoints typically are prefixed with <code>/actuator</code>.
+</p></div>
+
+<h4 id="clients-and-consumers">Clients and Consumers</h4>
+
+<p>To let the CAS server web application (or any other client for that matter) talk to the configuration server,
+the following settings need to be applied to CAS’ own <code class="language-plaintext highlighter-rouge">src/main/resources/bootstrap.properties</code> file.
+The properties to configure the CAS server web application as the client of the configuration server
+must necessarily be read in before the rest of the application’s configuration is read from the configuration server, during the <em>bootstrap</em> phase.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="py">spring.cloud.config.uri</span><span class="p">=</span><span class="s">https://casuser:Mellon@config.server.url:8888/casconfigserver</span>
+<span class="py">spring.cloud.config.profile</span><span class="p">=</span><span class="s">native</span>
+<span class="py">spring.cloud.config.enabled</span><span class="p">=</span><span class="s">true</span>
+<span class="py">spring.profiles.active</span><span class="p">=</span><span class="s">default</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Remember that configuration server serves property sources from <code class="language-plaintext highlighter-rouge">/{name}/{profile}/{label}</code> to applications,
+where the default bindings in the client app are the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="s2">"name"</span> <span class="o">=</span> <span class="k">${</span><span class="nv">spring</span><span class="p">.application.name</span><span class="k">}</span>
+<span class="s2">"profile"</span> <span class="o">=</span> <span class="k">${</span><span class="nv">spring</span><span class="p">.profiles.active</span><span class="k">}</span>
+<span class="s2">"label"</span> <span class="o">=</span> <span class="s2">"master"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>All of them can be overridden by setting <code class="language-plaintext highlighter-rouge">spring.cloud.config.*</code> (where <code class="language-plaintext highlighter-rouge">*</code> is “name”, “profile” or “label”).
+The “label” is useful for rolling back to previous versions of configuration; with the default Config Server implementation
+it can be a git label, branch name or commit id. Label can also be provided as a comma-separated list,
+in which case the items in the list are tried on-by-one until one succeeds. This can be useful when working on a feature
+branch, for instance, when you might want to align the config label with your branch,
+but make it optional (e.g. <code class="language-plaintext highlighter-rouge">spring.cloud.config.label=myfeature,develop</code>).</p>
+
+<p>To lean more about how CAS allows you to reload configuration changes,
+please <a href="Configuration-Management-Reload.html">review this guide</a>.</p>
+
+<h4 id="profiles">Profiles</h4>
+
+<p>Various profiles exist to determine how configuration server should retrieve properties and settings.</p>
+
+<h5 id="native">Native</h5>
+
+<p>The server is configured by default to load <code class="language-plaintext highlighter-rouge">cas.(properties|yml)</code> files from an external location that is <code class="language-plaintext highlighter-rouge">/etc/cas/config</code>.
+This location is constantly monitored by the server to detect external changes. Note that this location simply needs to
+exist, and does not require any special permissions or structure. The name of the configuration file that goes inside this
+directory needs to match the <code class="language-plaintext highlighter-rouge">spring.application.name</code> (i.e. <code class="language-plaintext highlighter-rouge">cas.properties</code>).</p>
+
+<p>If you want to use additional configuration files, they need to have the
+form <code class="language-plaintext highlighter-rouge">application-&lt;profile&gt;.(properties|yml)</code>.
+A file named <code class="language-plaintext highlighter-rouge">application.(properties|yml)</code> will be included by default. The profile specific
+files can be activated by using the <code class="language-plaintext highlighter-rouge">spring.profiles.include</code> configuration option,
+controlled via the <code class="language-plaintext highlighter-rouge">src/main/resources/bootstrap.properties</code> file:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="py">spring.profiles.active</span><span class="p">=</span><span class="s">native</span>
+<span class="py">spring.cloud.config.server.native.searchLocations</span><span class="p">=</span><span class="s">file:///etc/cas/config</span>
+<span class="py">spring.profiles.include</span><span class="p">=</span><span class="s">profile1,profile2</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>An example of an external <code class="language-plaintext highlighter-rouge">.properties</code> file hosted by an external location follows:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="py">cas.server.name</span><span class="p">=</span><span class="s">...</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>You could have just as well used a <code class="language-plaintext highlighter-rouge">cas.yml</code> file to host the changes.</p>
+
+<h5 id="default">Default</h5>
+
+<p>The configuration server is also able to handle <code class="language-plaintext highlighter-rouge">git</code> or <code class="language-plaintext highlighter-rouge">svn</code> based repositories that host CAS configuration.
+Such repositories can either be local to the deployment, or they could be on the cloud in form of GitHub/BitBucket. Access to
+cloud-based repositories can either be in form of a username/password, or via SSH so as long the appropriate keys are configured in the
+CAS deployment environment which is really no different than how one would normally access a git repository via SSH.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c"># spring.profiles.active=default
+# spring.cloud.config.server.git.uri=https://github.com/repoName/config
+# spring.cloud.config.server.git.uri=file://${user.home}/config
+# spring.cloud.config.server.git.username=
+# spring.cloud.config.server.git.password=
+</span>
+<span class="c"># spring.cloud.config.server.svn.basedir=
+# spring.cloud.config.server.svn.uri=
+# spring.cloud.config.server.svn.username=
+# spring.cloud.config.server.svn.password=
+# spring.cloud.config.server.svn.default-label=trunk
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Needless to say, the repositories could use both YAML and properties syntax to host configuration files.</p>
+
+<div class="alert alert-info"><strong>Keep What You Need!</strong><p>Again, in all of the above strategies,
+an adopter is encouraged to only keep and maintain properties needed for their particular deployment. It is
+UNNECESSARY to grab a copy of all CAS settings and move them to an external location. Settings that are
+defined by the external configuration location or repository are able to override what is provided by CAS
+as a default.</p></div>
+
+<h5 id="mongodb">MongoDb</h5>
+
+<p>The server is also able to locate properties entirely from a MongoDb instance.</p>
+
+<p>Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-mongo<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Note that to access and review the collection of CAS properties,
+you will need to use your own native tooling for MongoDB to configure and inject settings.</p>
+
+<p>MongoDb documents are required to be found in the collection <code class="language-plaintext highlighter-rouge">MongoDbProperty</code>, as the following document:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kfhf945jegnsd45sdg93452"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the-setting-name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the-setting-value"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To see the relevant list of CAS properties for this feature, please <a href="Configuration-Properties.html#mongodb">review this guide</a>.</p>
+
+<h5 id="hashicorp-vault">HashiCorp Vault</h5>
+
+<p>CAS is also able to use <a href="https://www.vaultproject.io/">Vault</a> to
+locate properties and settings. <a href="Configuration-Properties-Security.html">Please review this guide</a>.</p>
+
+<h5 id="hashicorp-consul">HashiCorp Consul</h5>
+
+<p>CAS is also able to use <a href="https://www.consul.io/">Consul</a> to
+locate properties and settings. <a href="../installation/Service-Discovery-Guide-Consul.html">Please review this guide</a>.</p>
+
+<h5 id="apache-zookeeper">Apache ZooKeeper</h5>
+
+<p>CAS is also able to use <a href="https://zookeeper.apache.org/">Apache ZooKeeper</a> to locate properties and settings.</p>
+
+<p>Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-zookeeper<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To see the relevant list of CAS properties for this feature, please <a href="Configuration-Properties.html#zookeeper">review this guide</a>.</p>
+
+<p>You will need to map CAS settings to ZooKeeper’s nodes that contain values. The parent node for all settings should 
+match the configuration root value provided to CAS. Under the root, you could have folders such 
+as <code class="language-plaintext highlighter-rouge">cas</code>, <code class="language-plaintext highlighter-rouge">cas,dev</code>, <code class="language-plaintext highlighter-rouge">cas,local</code>, etc where <code class="language-plaintext highlighter-rouge">dev</code> and <code class="language-plaintext highlighter-rouge">local</code> are Spring profiles.</p>
+
+<p>To create nodes and values in Apache ZooKeeper, try the following commands
+as a sample:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>zookeeper-client <span class="nt">-server</span> zookeeper1:2181
+create /cas cas
+create /cas/config cas
+create /cas/config/cas cas
+create /cas/config/cas/settingName casuser::Test
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Creating nodes and directories in Apache ZooKeeper may require providing a value. The above sample commands show that 
+the value <code class="language-plaintext highlighter-rouge">cas</code> is provided when creating directories. Always check with the official Apache ZooKeeper guides. You may not need to do that step.</p>
+
+<p>Finally in your CAS properties, the new <code class="language-plaintext highlighter-rouge">settingName</code> setting can be used as a reference.</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="c"># cas.something.something=${settingName}
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>…where <code class="language-plaintext highlighter-rouge">${settingName}</code> gets the value of the contents of the Apache ZooKeeper node <code class="language-plaintext highlighter-rouge">cas/config/cas/settingName</code>.</p>
+
+<h5 id="amazon-s3">Amazon S3</h5>
+
+<p>CAS is also able to use <a href="https://aws.amazon.com/s3/">Amazon S3</a> to locate properties and settings.</p>
+
+<p>Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre> <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-aws-s3<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+ <span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>See <a href="Configuration-Properties.html#amazon-s3">this guide</a> for relevant settings.</p>
+
+<h5 id="amazon-secrets-manager">Amazon Secrets Manager</h5>
+
+<p>CAS is also able to use <a href="https://aws.amazon.com/secrets-manager/">Amazon Secret Manager</a> to locate properties and settings.</p>
+
+<p>Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-aws-secretsmanager<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>See <a href="Configuration-Properties.html#amazon-secrets-manager">this guide</a> for relevant settings.</p>
+
+<h5 id="amazon-systems-manager-parameter-store-ssm">Amazon Systems Manager Parameter Store (SSM)</h5>
+
+<p>CAS is also able to use <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html">AWS Systems Manager Parameter Store</a> 
+to locate properties and settings.</p>
+
+<p>Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-aws-ssm<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>See <a href="Configuration-Properties.html#amazon-parameter-store">this guide</a> for relevant settings.</p>
+
+<h5 id="dynamodb">DynamoDb</h5>
+
+<p>CAS is also able to use <a href="https://aws.amazon.com/dynamodb/">DynamoDb</a> to locate properties and settings.</p>
+
+<p>Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-dynamodb<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">DynamoDbCasProperties</code> table is automatically created by CAS with the following structure:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"primary-key"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the-setting-name"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the-setting-value"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>See <a href="Configuration-Properties.html#dynamodb">this guide</a> for relevant settings.</p>
+
+<h5 id="azure-keyvault-secrets">Azure KeyVault Secrets</h5>
+
+<p>CAS is also able to use Microsoft Azure’s KeyVault Secrets to locate properties and settings. Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-azure-keyvault<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>To see the relevant list of CAS properties for this feature, please <a href="Configuration-Properties.html#azure-keyvault-secrets">review this guide</a>.</p>
+
+<p><strong>IMPORTANT</strong>: The allowed  name pattern in Azure Key Vault is <code class="language-plaintext highlighter-rouge">^[0-9a-zA-Z-]+$</code>. For properties that contain 
+that contain <code class="language-plaintext highlighter-rouge">.</code> in the name (i.e. <code class="language-plaintext highlighter-rouge">cas.some.property</code>),  replace <code class="language-plaintext highlighter-rouge">.</code> with <code class="language-plaintext highlighter-rouge">-</code> when you store the setting in Azure Key Vault (i.e. <code class="language-plaintext highlighter-rouge">cas-some-property</code>). 
+The module will handle the transformation for you.</p>
+
+<p>See <a href="Configuration-Properties.html#azure-keyvault-secrets">this guide</a> for relevant settings.</p>
+
+<h5 id="jdbc">JDBC</h5>
+
+<p>CAS is also able to use a relational database to locate properties and settings.</p>
+
+<p>Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>By default, settings are expected to be found under a <code class="language-plaintext highlighter-rouge">CAS_SETTINGS_TABLE</code> that contains the fields: <code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code> and <code class="language-plaintext highlighter-rouge">value</code>.
+To see the relevant list of CAS properties for this feature, please <a href="Configuration-Properties.html#jdbc">review this guide</a>.</p>
+
+<h5 id="rest">REST</h5>
+
+<p>CAS is also able to locate properties and settings using a REST API.</p>
+
+<p>Support is provided via the following dependency in the WAR overlay:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>cas-server-support-configuration-cloud-rest<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The REST endpoint is expected to produce a <code class="language-plaintext highlighter-rouge">Map</code> in the payload with keys as the setting names
+and values as the setting value. To see the relevant list of CAS properties for this 
+feature, please <a href="Configuration-Properties.html#rest">review this guide</a>.</p>
+
+<h4 id="cas-server-cloud-configuration">CAS Server Cloud Configuration</h4>
+
+<p>The cloud configuration modules provided above on this page by the CAS project directly may also be used verbatim inside 
+a CAS server overlay. Remember that the primary objective for these modules is to simply retrieve settings and properties 
+from a source. While they are mostly and primarily useful when activated inside the Spring Cloud Configuration server and 
+can be set to honor profiles and such, they nonetheless may also be used inside a CAS server overlay directly to simply 
+fetch settings from a source while running in standalone mode. In such scenarios, all sources of configuration regardless 
+of format or syntax will work alongside each other to retrieve settings and you can certainly mix and match as you see fit.</p>
+
+<h4 id="composite-sources">Composite Sources</h4>
+
+<p>In some scenarios you may wish to pull configuration data from multiple environment repositories.
+To do this just enable multiple profiles in your configuration server’s application properties or YAML file.
+If, for example, you want to pull configuration data from a Git repository as well as a SVN
+repository you would set the following properties for your configuration server.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">profiles</span><span class="pi">:</span>
+    <span class="na">active</span><span class="pi">:</span> <span class="s">git, svn</span>
+  <span class="na">cloud</span><span class="pi">:</span>
+    <span class="na">config</span><span class="pi">:</span>
+      <span class="na">server</span><span class="pi">:</span>
+        <span class="na">svn</span><span class="pi">:</span>
+          <span class="na">uri</span><span class="pi">:</span> <span class="s">file:///path/to/svn/repo</span>
+          <span class="na">order</span><span class="pi">:</span> <span class="m">2</span>
+        <span class="na">git</span><span class="pi">:</span>
+          <span class="na">uri</span><span class="pi">:</span> <span class="s">file:///path/to/git/repo</span>
+          <span class="na">order</span><span class="pi">:</span> <span class="m">1</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>In addition to each repo specifying a URI, you can also specify an <code class="language-plaintext highlighter-rouge">order</code> property. The <code class="language-plaintext highlighter-rouge">order</code> property allows you to specify
+the priority order for all your repositories. The lower the numerical value of the order property the
+higher priority it will have. The priority order of a repository will help resolve any potential
+conflicts between repositories that contain values for the same properties.</p>
+
+<h4 id="property-overrides">Property Overrides</h4>
+
+<p>The configuration server has an “overrides” feature that allows the operator to provide configuration properties 
+to all applications that cannot be accidentally changed by the application using the normal change events and hooks. 
+To declare overrides add a map of name-value pairs to <code class="language-plaintext highlighter-rouge">spring.cloud.config.server.overrides</code>.</p>
+
+<p>For example:</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">cloud</span><span class="pi">:</span>
+    <span class="na">config</span><span class="pi">:</span>
+      <span class="na">server</span><span class="pi">:</span>
+        <span class="na">overrides</span><span class="pi">:</span>
+          <span class="na">foo</span><span class="pi">:</span> <span class="s">bar</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>This will cause the CAS server (as the client of the configuration server) to read <code class="language-plaintext highlighter-rouge">foo=bar</code> independent of its own configuration.</p>
+
+<h2 id="securing-settings">Securing Settings</h2>
+
+<p>To learn how sensitive CAS settings can be secured via encryption, <a href="Configuration-Properties-Security.html">please review this guide</a>.</p>
+
+<h2 id="reloading-changes">Reloading Changes</h2>
+
+<p>To lean more about how CAS allows you to reload configuration changes,
+please <a href="Configuration-Management-Reload.html">review this guide</a>.</p>
+
+<h2 id="clustered-deployments">Clustered Deployments</h2>
+
+<p>CAS uses the <a href="http://cloud.spring.io/spring-cloud-static/spring-cloud.html">Spring Cloud Bus</a>
+to manage configuration in a distributed deployment. Spring Cloud Bus links nodes of a
+distributed system with a lightweight message broker. This can then be used to broadcast state
+changes (e.g. configuration changes) or other management instructions.</p>
+
+<p>To learn how sensitive CAS settings can be secured via encryption, <a href="Configuration-Management-Clustered.html">please review this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Configuration';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

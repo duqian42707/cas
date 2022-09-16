@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Release Notes</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="rc2-release-notes">RC2 Release Notes</h1>
+
+<p>We strongly recommend that you take advantage of the release candidates as they come out. Waiting for a <code class="language-plaintext highlighter-rouge">GA</code> release is only going to set 
+you up for unpleasant surprises. A <code class="language-plaintext highlighter-rouge">GA</code> is <a href="https://apereo.github.io/2017/03/08/the-myth-of-ga-rel/">a tag and nothing more</a>. Note that CAS 
+releases are <em>strictly</em> time-based releases; they are not scheduled or based on specific benchmarks, statistics or completion of features. To gain 
+confidence in a particular release, it is strongly recommended that you start early by experimenting with release candidates and/or follow-up snapshots.</p>
+
+<h2 id="apereo-membership">Apereo Membership</h2>
+
+<p>If you benefit from Apereo CAS as free and open-source software, we invite you to <a href="https://www.apereo.org/content/apereo-membership">join the Apereo Foundation</a> 
+and financially support the project at a capacity that best suits your deployment. Note that all development activity 
+is performed <em>almost exclusively</em> on a voluntary basis with no expectations, commitments or strings attached. Having the financial means to better 
+sustain engineering activities will allow the developer community to allocate <em>dedicated and committed</em> time for long-term support, 
+maintenance and release planning, especially when it comes to addressing critical and security issues in a timely manner. Funding will 
+ensure support for the software you rely on and you gain an advantage and say in the way Apereo, and the CAS project at that, runs 
+and operates. If you consider your CAS deployment to be a critical part of the identity and access management ecosystem, this is a viable option to consider.</p>
+
+<h2 id="get-involved">Get Involved</h2>
+
+<ul>
+  <li>Start your CAS deployment today. Try out features and <a href="/cas/Mailing-Lists.html">share feedback</a>.</li>
+  <li>Better yet, <a href="/cas/developer/Contributor-Guidelines.html">contribute patches</a>.</li>
+  <li>Suggest and apply documentation improvements.</li>
+</ul>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://github.com/apereo/cas/milestones">Release Schedule</a></li>
+  <li><a href="/cas/developer/Release-Policy.html">Release Policy</a></li>
+</ul>
+
+<h2 id="overlay">Overlay</h2>
+
+<p>In the <code class="language-plaintext highlighter-rouge">gradle.properties</code> of the <a href="../installation/WAR-Overlay-Installation.html">CAS WAR Overlay</a>, adjust the following setting:</p>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="py">cas.version</span><span class="p">=</span><span class="s">6.3.0-RC2</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="alert alert-info">
+  <strong>System Requirements</strong><br />There are no changes to the minimum system/platform requirements for this release.
+</div>
+
+<h2 id="new--noteworthy">New &amp; Noteworthy</h2>
+
+<p>The following items are new improvements and enhancements presented in this release.</p>
+
+<h3 id="amazon-sdk-v2">Amazon SDK v2</h3>
+
+<p>CAS is now using the Amazon SDK v2, which effectively upgrades and impacts the functionality for DynamoDb, SNS, SSM, 
+S3 and all other features based on Amazon Web Services.</p>
+
+<h3 id="yubikey-device-management-via-rest">YubiKey Device Management via REST</h3>
+
+<p>YubiKey devices used for <a href="../mfa/YubiKey-Authentication.html">multifactor authentication</a> can now be externally managed via a REST API.</p>
+
+<h3 id="test-coverage-via-codecov">Test Coverage via CodeCov</h3>
+
+<p>CAS test coverage across all modules in the codebase has now reached <code class="language-plaintext highlighter-rouge">84%</code> and continues to climb. Additional validation rules are also applied 
+to fail all pull requests that fall below this threshold. This area will be closely monitored and improved
+as progress is made with the goal of hopefully reaching at least <code class="language-plaintext highlighter-rouge">85%</code> before the final GA release. Of course, this will not be a blocker for the final release.</p>
+
+<h3 id="yubikey-multiple-devices">YubiKey Multiple Devices</h3>
+
+<p>Multiple YubiKey devices can now be registered with CAS for <a href="../mfa/YubiKey-Authentication.html">multifactor authentication</a>. This ability can be controlled via CAS settings.</p>
+
+<p><img src="https://user-images.githubusercontent.com/1205228/88883051-8b9caa80-d248-11ea-9ad5-487c6071fbc5.png" alt="image" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/1205228/88883117-bf77d000-d248-11ea-98c9-e88088fdd975.png" alt="image" /></p>
+
+<div class="alert alert-warning">
+  <strong>WATCH OUT!</strong><br />This may be a breaking change. The underlying data models and repository implementations that manage device records for users are modified to handle a collection of devices per user. This does affect database or filesystem schemas and API calls where a collection is expected instead of a single result.
+</div>
+
+<h3 id="amazon-s3-service-registry">Amazon S3 Service Registry</h3>
+
+<p>CAS registered service definitions can now be natively stored in <a href="../services/AmazonS3-Service-Management.html">Amazon S3 buckets</a>.</p>
+
+<h3 id="dynamic-jpa-service-management">Dynamic JPA Service Management</h3>
+
+<p>CAS registered service definitions that are managed by the <a href="../services/JPA-Service-Management.html">JPA Service Registry</a>
+are now put through a more fine-tuned dynamic registration process at runtime. Previously, database schemas were created automatically
+if appropriate entity classes, representing each client application type, were found on the classpath. In this release, entity classes 
+are required to be explicitly registered with the CAS service management facility and each appropriate auto-configuration module should
+correctly nominate the relevant entities when declared in the <a href="../installation/WAR-Overlay-Installation.html">WAR Overlay</a>.</p>
+
+<div class="alert alert-info">
+  <strong>Remember</strong><br />If you are not using a relational database to manage application definitions,
+  there is nothing for you to do here. Carry on!
+</div>
+
+<p>The main motivation for this change is to avoid conflicts between the CAS web application server and 
+the CAS management application, specially when both are configured to use JPA to manage service definitions. The management
+application requires compile-time access to the CAS service definition APIs to handle data mappings, yet doing so interferes
+with the JPA Service Registry expectations of database schemas and tables that should be there, given the classpath
+automatic discovery process. For example, a CAS server deployment could declare support for CAS and SAML application types
+allowing it to create appropriate schemas automatically based on those two definition types. When the CAS management application 
+is next deployed, it might complain about missing schemas for OAUTH and OIDC applications since the type 
+is found on the classpath but the definition is not actually used/supported by the deployment.</p>
+
+<p>Using this new strategy, database tables and schemas are not automatically expected or created by the CAS management
+ application, allowing the codebase to use entity classes on the classpath for data mapping operations. 
+ To handle the registration, the management application is given the ability to register entity classes for each 
+ application type with the CAS JPA Service Registry using a simple property, allowing the operator to explicitly 
+ declare the set of services supported by the deployment.</p>
+
+<h3 id="saml2-logout-requests--responses">SAML2 Logout Requests &amp; Responses</h3>
+
+<p>SAML2 single logout handling handling, when CAS is running as a <a href="../installation/Configuring-SAML2-Authentication.html">SAML2 identity provider</a>, is now 
+able to produce a logout response for the service provider once the single logout sequence has completed. Additionally, logout requests
+are no longer sent to the original service provider which initiated the single logout flow.</p>
+
+<h3 id="openid-connect-logout">OpenID Connect Logout</h3>
+
+<p>Logout requests handled by OpenID Connect authentication flows can now properly redirect to a requested URL via <code class="language-plaintext highlighter-rouge">post_logout_redirect_uri</code>
+provided <code class="language-plaintext highlighter-rouge">id_token_hint</code> is specified, and the logout URL is authorized for the relying party.</p>
+
+<h3 id="okta-sdk-v2">Okta SDK v2</h3>
+
+<p>CAS is now using the Okta SDK v2 mainly used to handle the integration between CAS and Okta for authentication and attribute resolution.</p>
+
+<h3 id="attribute-consent-activation">Attribute Consent Activation</h3>
+
+<p>Activation rules for <a href="../integration/Attribute-Release-Consent.html">Attribute Consent</a> are re-designed to allow per-application 
+overrides of the global policy activation rules. Additional documentation updates are now present to demonstrate how multiple 
+attribute consent policies may be chained together.</p>
+
+<p>Furthermore, activation rules can also be outsourced to external Groovy scripts.</p>
+
+<div class="alert alert-warning">
+  <strong>WATCH OUT!</strong><br />This may be a breaking change since the data model for the <code>DefaultRegisteredServiceConsentPolicy</code> 
+  has remove the <code>enabled</code> field, replacing it with <code>status</code>. Review the documentation to adjust for proper syntax.
+</div>
+
+<h3 id="ticket-granting-ticket-expiration-policy-per-service">Ticket-Granting Ticket Expiration Policy Per Service</h3>
+
+<p>The ticket-granting ticket expiration policy can be overridden on a per-service using 
+the expiration policy <a href="../ticketing/Configuring-Ticket-Expiration-Policy.html">assigned to the service definition</a>.</p>
+
+<h3 id="service-matching-strategy">Service Matching Strategy</h3>
+
+<p>Service identifiers defined for applications in the CAS service registry have always been defined as patterns. This release exposes 
+a few <a href="../services/Configuring-Service-Matching-Strategy.html">additional options</a> while also allowing the matching strategy to be externalized to custom components.</p>
+
+<h3 id="sso-participation-policy">SSO Participation Policy</h3>
+
+<p>Adjustments are put in place to correctly locate and reconstruct the authentication transaction, in the 
+event that <a href="../services/Configuring-Service-SSO-Policy.html">single sign-on participation</a> is disabled for a 
+particular service, specially in Open ID Connect authentication flows. Furthermore, the authentication policy criteria
+for a service definition is now defaulted to match the global and default authentication policies for the CAS.</p>
+
+<h3 id="wildcarded-service-definitions">Wildcarded Service Definitions</h3>
+
+<p>Consider a SAML service provider definition registered with CAS that authorizes 
+all service providers found in an XML metadata aggregate file:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.support.saml.services.SamlRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">".+"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SAML"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"evaluationOrder"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"metadataLocation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://example.org/md-aggregate.xml"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Then, suppose the same CAS deployment wishes to authorize all CAS-enabled web applications:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.apereo.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">".+"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALL"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"evaluationOrder"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The issue here is that depending on how the <code class="language-plaintext highlighter-rouge">evaluationOrder</code> is set up, the wrong service definition might get matched and processed
+for SAML or CAS protocol authentication requests. The root cause is that the CAS matching engine attempts to locate service definitions
+by their <code class="language-plaintext highlighter-rouge">serviceId</code> (which might correlate to an entity id or a redirect URI, etc) without taking into account the 
+authentication protocol itself. In this release, a few additional improvements are put in place to allow grouping of 
+application definitions by both type and evaluation order, and the matching engine is enhanced to process such groups while considering
+both the group’s evaluation priority as well as each individual service’s evaluation order.</p>
+
+<div class="alert alert-info">
+  <strong>Note</strong><br />The fixes presented in this release continue to be in progress to refine additional use cases. This area will likely be
+  revisited in follow-up releases to make sure wildcarded service definitions across all protocols can work together correctly.
+</div>
+
+<h2 id="other-stuff">Other Stuff</h2>
+
+<ul>
+  <li>Adjustments to SAML2 metadata resolution cache to ensure enough capacity for resolved metadata providers.</li>
+  <li>Minor fixes to SQL query execution when pushing CAS audit logs to Oracle databases.</li>
+  <li>The expiration of access tokens is now correctly communicated back to OAuth relying parties, specially if the access token expiration policy is defined per application.</li>
+  <li>The handling of authentication requests, set to force CAS to challenge the user credentials, is reviewed and adjusted to ensure such requests can properly honor multifactor authentication flows for qualifying requests per configured triggers.</li>
+  <li>The logout handling strategy is slightly broken apart to introduce a <code class="language-plaintext highlighter-rouge">LogoutRedirectionStrategy</code>, mainly responsible for handling follow-up redirects to authorized applications/endpoints as appropriate for each authentication protocol.</li>
+  <li>Component registration with the Memcached serialization engine is now broken apart and delegated to appropriate modules owning said components.</li>
+  <li>Signed SAML authentication requests that embed the signature in URLs are reviewed and adjusted to avoid creating long URLs exceeding browser limits.</li>
+  <li>The naming strategy for JSON/YAML service definition files is relaxed to allow multiple words in the file name.</li>
+  <li>Transformation of service definitions to JSON or YAML is adjusted to exclude fields with default values to produce leaner payloads.</li>
+</ul>
+
+<h2 id="library-upgrades">Library Upgrades</h2>
+
+<ul>
+  <li>Commons Lang</li>
+  <li>Mockito</li>
+  <li>DropWizard</li>
+  <li>Spring</li>
+  <li>Spring Boot</li>
+  <li>Amazon SDK</li>
+  <li>Spotbugs</li>
+  <li>Gradle</li>
+  <li>Okta</li>
+  <li>Shiro</li>
+  <li>Hazelcast AWS</li>
+  <li>Hazelcast Kubernetes</li>
+  <li>Hazelcast Azure</li>
+  <li>EhCache</li>
+  <li>Spring Boot Admin</li>
+  <li>Ldaptive</li>
+  <li>Inspektr</li>
+  <li>Nexmo</li>
+  <li>Twilio</li>
+  <li>Bootstrap</li>
+  <li>Spring Data</li>
+  <li>Person Directory</li>
+  <li>Azure DocumentDb</li>
+  <li>Grouper Client</li>
+  <li>InfluxDb</li>
+</ul>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Planning';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

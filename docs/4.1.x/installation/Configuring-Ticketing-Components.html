@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Configuring Ticketing Components</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="configuring-ticketing-components">Configuring Ticketing Components</h1>
+<p>There are two core configurable ticketing components:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">TicketRegistry</code> - Provides for durable ticket storage.</li>
+  <li><code class="language-plaintext highlighter-rouge">ExpirationPolicy</code> - Provides a policy framework for ticket expiration semantics.</li>
+</ul>
+
+<h2 id="ticket-registry">Ticket Registry</h2>
+<p>The deployment environment and technology expertise generally determine the particular <code class="language-plaintext highlighter-rouge">TicketRegistry</code> component.
+A cache-backed implementation is recommended for HA deployments, while the default <code class="language-plaintext highlighter-rouge">DefaultTicketRegistry</code> in-memory component may be suitable for small deployments.</p>
+
+<h3 id="default-in-memory-ticket-registry">Default (In-Memory) Ticket Registry</h3>
+<p><code class="language-plaintext highlighter-rouge">DefaultTicketRegistry</code> uses a <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> for memory-backed ticket storage and retrieval.
+This component does not preserve ticket state across restarts. There are a few configuration knobs available:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">initialCapacity</code> - <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> initial capacity.</li>
+  <li><code class="language-plaintext highlighter-rouge">loadFactor</code> - <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> load factor.</li>
+  <li><code class="language-plaintext highlighter-rouge">concurrencyLevel</code> - Allows tuning the <code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> for concurrent write support.</li>
+</ul>
+
+<p>All three arguments map to those of the <a href="http://goo.gl/qKKg7"><code class="language-plaintext highlighter-rouge">ConcurrentHashMap</code> constructor</a>.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"ticketRegistry"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.ticket.registry.DefaultTicketRegistry"</span>
+      <span class="na">c:initialCapacity=</span><span class="s">"10000"</span>
+      <span class="na">c:loadFactor=</span><span class="s">"1"</span>
+      <span class="na">c:concurrencyLevel=</span><span class="s">"20"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<h3 id="cache-based-ticket-registries">Cache-Based Ticket Registries</h3>
+<p>Cached-based ticket registries provide a high-performance solution for ticket storage in high availability
+deployments. Components for the following caching technologies are provided:</p>
+
+<ul>
+  <li><a href="Hazelcast-Ticket-Registry.html">Hazelcast</a></li>
+  <li><a href="Ehcache-Ticket-Registry.html">Ehcache</a></li>
+  <li><a href="JBoss-Cache-Ticket-Registry.html">JBoss Cache</a></li>
+  <li><a href="Memcached-Ticket-Registry.html">Memcached</a></li>
+</ul>
+
+<h3 id="rdbms-ticket-registries">RDBMS Ticket Registries</h3>
+<p>RDBMS-based ticket registries provide a distributed ticket store across multiple CAS nodes. Components for the following caching technologies are provided:</p>
+
+<ul>
+  <li><a href="JPA-Ticket-Registry.html">JPA</a></li>
+</ul>
+
+<h3 id="ticket-generators">Ticket Generators</h3>
+<p>CAS presents a pluggable architecture for generating unique ticket ids for each ticket type. The configuration of each generator is defined at <code class="language-plaintext highlighter-rouge">src\main\webapp\WEB-INF\spring-configuration\uniqueIdGenerators.xml</code>. Here’s a brief sample:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"ticketGrantingTicketUniqueIdGenerator"</span> <span class="na">class=</span><span class="s">"org.jasig.cas.util.DefaultUniqueTicketIdGenerator"</span>
+        <span class="na">c:maxLength=</span><span class="s">"50"</span> <span class="na">c:suffix=</span><span class="s">"${host.name}"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"serviceTicketUniqueIdGenerator"</span> <span class="na">class=</span><span class="s">"org.jasig.cas.util.DefaultUniqueTicketIdGenerator"</span>
+    <span class="na">c:maxLength=</span><span class="s">"20"</span> <span class="na">c:suffix=</span><span class="s">"${host.name}"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"loginTicketUniqueIdGenerator"</span> <span class="na">class=</span><span class="s">"org.jasig.cas.util.DefaultUniqueTicketIdGenerator"</span>
+    <span class="na">c:maxLength=</span><span class="s">"30"</span> <span class="na">c:suffix=</span><span class="s">"${host.name}"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"proxy20TicketUniqueIdGenerator"</span> <span class="na">class=</span><span class="s">"org.jasig.cas.util.DefaultUniqueTicketIdGenerator"</span>
+    <span class="na">c:maxLength=</span><span class="s">"20"</span> <span class="na">c:suffix=</span><span class="s">"${host.name}"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;util:map</span> <span class="na">id=</span><span class="s">"uniqueIdGeneratorsMap"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;entry</span>
+        <span class="na">key=</span><span class="s">"org.jasig.cas.authentication.principal.SimpleWebApplicationServiceImpl"</span>
+        <span class="na">value-ref=</span><span class="s">"serviceTicketUniqueIdGenerator"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/util:map&gt;</span></code></pre></figure>
+
+<h4 id="components">Components</h4>
+
+<h5 id="uniqueticketidgenerator"><code class="language-plaintext highlighter-rouge">UniqueTicketIdGenerator</code></h5>
+<p>Strategy parent interface that describes operations needed to generate a unique id for a ticket.</p>
+
+<h5 id="defaultuniqueticketidgenerator"><code class="language-plaintext highlighter-rouge">DefaultUniqueTicketIdGenerator</code></h5>
+<p>Uses numeric and random string generators to create a unique id, while supporting prefixes for each ticket type, as is outlined by the CAS protocol, as well as a suffix that typically is mapped to the CAS server node identifier in order to indicate which node is the author of this ticket. The latter configuration point helps with troubleshooting and diagnostics in a clustered CAS environment.</p>
+
+<h5 id="hostnamebaseduniqueticketidgenerator"><code class="language-plaintext highlighter-rouge">HostNameBasedUniqueTicketIdGenerator</code></h5>
+<p>An extension of <code class="language-plaintext highlighter-rouge">DefaultUniqueTicketIdGenerator</code> that is able auto-configure the suffix based on the underlying host name.
+In order to assist with multi-node deployments, in scenarios where CAS configuration
+and specially <code class="language-plaintext highlighter-rouge">cas.properties</code> file is externalized, it would be ideal to simply just have one set
+of configuration files for all nodes, such that there would for instance be one <code class="language-plaintext highlighter-rouge">cas.properties</code> file
+for all nodes. This would remove the need to copy/sync configuration files over across nodes, again in a
+situation where they are externalized.</p>
+
+<p>The drawback is that in keeping only one <code class="language-plaintext highlighter-rouge">cas.properties</code> file, we’d lose the ability
+to define unique <code class="language-plaintext highlighter-rouge">host.name</code> property values for each node as the suffix, which would assist with troubleshooting
+and diagnostics. To provide a remedy, this ticket generator is able to retrieve the <code class="language-plaintext highlighter-rouge">host.name</code> value directly from
+the actual node name, rather than relying on the configuration, only if one isn’t specified in
+the <code class="language-plaintext highlighter-rouge">cas.properties</code> file.</p>
+
+<h5 id="samlcompliantuniqueticketidgenerator"><code class="language-plaintext highlighter-rouge">SamlCompliantUniqueTicketIdGenerator</code></h5>
+<p>Unique Ticket Id Generator compliant with the SAML 1.1 specification for artifacts, that is also compliant with the SAML v2 specification.</p>
+
+<h3 id="ticket-registry-cleaner">Ticket Registry Cleaner</h3>
+<p>The ticket registry cleaner should be used for ticket registries that cannot manage their own state. That would include the default in-memory registry and the JPA ticket registry. Cache-based ticket registry implementations such as Memcached, Hazelcast or Ehcache do not require a registry cleaner. The ticket registry cleaner configuration is specified in the <code class="language-plaintext highlighter-rouge">spring-configuration/ticketRegistry.xml</code> file.</p>
+
+<h4 id="components-1">Components</h4>
+
+<h5 id="registrycleaner"><code class="language-plaintext highlighter-rouge">RegistryCleaner</code></h5>
+<p>Strategy interface to denote the start of cleaning the registry.</p>
+
+<h5 id="defaultticketregistrycleaner"><code class="language-plaintext highlighter-rouge">DefaultTicketRegistryCleaner</code></h5>
+<p>The default ticket registry cleaner scans the entire CAS ticket registry for expired tickets and removes them.  This process is only required so that the size of the ticket registry will not grow beyond a reasonable size.
+The functionality of CAS is not dependent on a ticket being removed as soon as it is expired. Locking strategies may be used to support high availability environments. In a clustered CAS environment with several CAS nodes executing ticket cleanup, it is desirable to execute cleanup from only one CAS node at a time.</p>
+
+<h5 id="lockingstrategy"><code class="language-plaintext highlighter-rouge">LockingStrategy</code></h5>
+<p>Strategy pattern for defining a locking strategy in support of exclusive execution of some process.</p>
+
+<h5 id="nooplockingstrategy"><code class="language-plaintext highlighter-rouge">NoOpLockingStrategy</code></h5>
+<p>No-Op locking strategy that allows the use of <code class="language-plaintext highlighter-rouge">DefaultTicketRegistryCleaner</code> in environments where exclusive access to the registry for cleaning is either unnecessary or not possible.</p>
+
+<h4 id="configuration">Configuration</h4>
+<p>If you’re using the default ticket registry configuration, your <code class="language-plaintext highlighter-rouge">/cas-server-webapp/WEB-INF/spring-configuration/ticketRegistry.xml</code> probably looks like this:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- TICKET REGISTRY CLEANER --&gt;</span>
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"ticketRegistryCleaner"</span> 
+  <span class="na">class=</span><span class="s">"org.jasig.cas.ticket.registry.support.DefaultTicketRegistryCleaner"</span>
+      <span class="na">c:centralAuthenticationService-ref=</span><span class="s">"centralAuthenticationService"</span>
+      <span class="na">c:ticketRegistry-ref=</span><span class="s">"ticketRegistry"</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"jobDetailTicketRegistryCleaner"</span>  
+      <span class="na">class=</span><span class="s">"org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"</span>
+    <span class="na">p:targetObject-ref=</span><span class="s">"ticketRegistryCleaner"</span>
+    <span class="na">p:targetMethod=</span><span class="s">"clean"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"triggerJobDetailTicketRegistryCleaner"</span> 
+      <span class="na">class=</span><span class="s">"org.springframework.scheduling.quartz.SimpleTriggerFactoryBean"</span>
+    <span class="na">p:jobDetail-ref=</span><span class="s">"jobDetailTicketRegistryCleaner"</span>
+    <span class="na">p:startDelay=</span><span class="s">"20000"</span>
+    <span class="na">p:repeatInterval=</span><span class="s">"5000000"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<h2 id="ticket-expiration-policies">Ticket Expiration Policies</h2>
+<p>CAS supports a pluggable and extensible policy framework to control the expiration policy of ticket-granting tickets (TGT) and service tickets (ST). <a href="Configuring-Ticket-Expiration-Policy.html">See this guide</a> for details on how to configure the expiration policies.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

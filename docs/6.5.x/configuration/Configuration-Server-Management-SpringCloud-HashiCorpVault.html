@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Configuration Server</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="spring-cloud-configuration-server---spring-cloud-hashicorp-vault">Spring Cloud Configuration Server - Spring Cloud HashiCorp Vault</h1>
+
+<p>Spring Cloud Configuration Server is able to use <a href="https://www.vaultproject.io/">Vault</a> to locate properties and settings. 
+To learn more about configuration security, <a href="Configuration-Properties-Security.html">please review this guide</a>.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudvault">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudvault" data-bs-toggle="tab" href="#requiredPropertiesspringcloudvault">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudvault" data-bs-toggle="tab" href="#optionalPropertiesspringcloudvault">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudvault">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudvault" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudvault">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudvault">
+        <a class="nav-link" id="linkRdbmsspringcloudvault" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudvault">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudvault">
+        <a class="nav-link" id="linkEmailspringcloudvault" data-bs-toggle="tab" href="#emailPropertiesspringcloudvault">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudvault">
+        <a class="nav-link" id="linkLdapspringcloudvault" data-bs-toggle="tab" href="#ldapPropertiesspringcloudvault">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudvault">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudvault" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudvault">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudvault">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudvault" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudvault">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudvault">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudvault" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvault(this);" href="#principalTransformationPropertiesspringcloudvault">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudvault">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudvault" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvault(this);" href="#passwordPolicyPropertiesspringcloudvault">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudvault" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvault(this);" href="#thirdPartyPropertiesspringcloudvault">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudvault(this);" id="linkNotesspringcloudvault" data-bs-toggle="tab" href="#notesspringcloudvault">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudvault">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudvault">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudvault">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudvault"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudvault">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudvault">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudvault"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudvault">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudvault">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudvault"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudvault">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.6.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudvault").remove()
+        
+        
+            $("#linkRdbmsspringcloudvault").remove()
+        
+        
+            $("#linkEmailspringcloudvault").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudvault").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudvault").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudvault").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudvault").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudvault").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudvault").remove()
+        
+        
+            $("#linkLdapspringcloudvault").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudvault");
+        var id=$("#navPillsMenusspringcloudvault a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudvault li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudvault").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudvault").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudvault li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudvault").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudvault").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudvault li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudvault").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<div class="alert alert-info mt-3"><strong>Usage</strong><p>The configuration modules provide here may also be used verbatim inside a CAS server overlay and do not exclusively belong to a Spring Cloud Configuration server. While this module is primarily useful when inside the Spring Cloud Configuration server, it nonetheless may also be used inside a CAS server overlay directly to fetch settings from a source.</p></div>
+
+<h2 id="token-authentication">Token Authentication</h2>
+
+<p>Tokens are the core method for authentication within Vault. Token
+authentication requires a static token to be provided.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudvaulttoken">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudvaulttoken" data-bs-toggle="tab" href="#requiredPropertiesspringcloudvaulttoken">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudvaulttoken" data-bs-toggle="tab" href="#optionalPropertiesspringcloudvaulttoken">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudvaulttoken">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudvaulttoken" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudvaulttoken">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudvaulttoken">
+        <a class="nav-link" id="linkRdbmsspringcloudvaulttoken" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudvaulttoken">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudvaulttoken">
+        <a class="nav-link" id="linkEmailspringcloudvaulttoken" data-bs-toggle="tab" href="#emailPropertiesspringcloudvaulttoken">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudvaulttoken">
+        <a class="nav-link" id="linkLdapspringcloudvaulttoken" data-bs-toggle="tab" href="#ldapPropertiesspringcloudvaulttoken">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudvaulttoken">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudvaulttoken" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudvaulttoken">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudvaulttoken">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudvaulttoken" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudvaulttoken">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudvaulttoken">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudvaulttoken" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaulttoken(this);" href="#principalTransformationPropertiesspringcloudvaulttoken">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudvaulttoken">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudvaulttoken" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaulttoken(this);" href="#passwordPolicyPropertiesspringcloudvaulttoken">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudvaulttoken" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaulttoken(this);" href="#thirdPartyPropertiesspringcloudvaulttoken">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudvaulttoken(this);" id="linkNotesspringcloudvaulttoken" data-bs-toggle="tab" href="#notesspringcloudvaulttoken">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudvaulttoken">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudvaulttoken">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudvaulttoken">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudvaulttoken"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudvaulttoken">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudvaulttoken">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudvaulttoken"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudvaulttoken">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudvaulttoken">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudvaulttoken"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudvaulttoken">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/development/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudvaulttoken").remove()
+        
+        
+            $("#linkRdbmsspringcloudvaulttoken").remove()
+        
+        
+            $("#linkEmailspringcloudvaulttoken").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudvaulttoken").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudvaulttoken").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudvaulttoken").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudvaulttoken").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudvaulttoken").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudvaulttoken").remove()
+        
+        
+            $("#linkLdapspringcloudvaulttoken").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudvaulttoken");
+        var id=$("#navPillsMenusspringcloudvaulttoken a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudvaulttoken li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudvaulttoken").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudvaulttoken").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudvaulttoken li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudvaulttoken").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudvaulttoken").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudvaulttoken li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudvaulttoken").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h2 id="appid-authentication">AppID Authentication</h2>
+
+<p>Vault supports AppId authentication that consists of two hard to guess
+tokens. The AppId defaults to <code class="language-plaintext highlighter-rouge">spring.application.name</code> that is statically
+configured. The second token is the UserId which is a part determined by the
+application, usually related to the runtime environment. Spring Cloud Vault
+Config supports IP address, Mac address and static
+UserId’s (e.g. supplied via System properties). The IP and Mac address are
+represented as Hex-encoded SHA256 hash.</p>
+
+<p>Using IP addresses:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">export </span><span class="nv">IP_ADDRESS</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nt">-n</span> 192.168.99.1 | <span class="nb">sha256sum</span><span class="sb">`</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Using MAC address:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">export</span> <span class="nv">$MAC_ADDRESS</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nt">-n</span> ABCDEFGH | <span class="nb">sha256sum</span><span class="sb">`</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudvaultappid">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudvaultappid" data-bs-toggle="tab" href="#requiredPropertiesspringcloudvaultappid">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudvaultappid" data-bs-toggle="tab" href="#optionalPropertiesspringcloudvaultappid">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudvaultappid">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudvaultappid" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudvaultappid">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudvaultappid">
+        <a class="nav-link" id="linkRdbmsspringcloudvaultappid" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudvaultappid">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudvaultappid">
+        <a class="nav-link" id="linkEmailspringcloudvaultappid" data-bs-toggle="tab" href="#emailPropertiesspringcloudvaultappid">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudvaultappid">
+        <a class="nav-link" id="linkLdapspringcloudvaultappid" data-bs-toggle="tab" href="#ldapPropertiesspringcloudvaultappid">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudvaultappid">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudvaultappid" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudvaultappid">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudvaultappid">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudvaultappid" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudvaultappid">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudvaultappid">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudvaultappid" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultappid(this);" href="#principalTransformationPropertiesspringcloudvaultappid">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudvaultappid">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudvaultappid" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultappid(this);" href="#passwordPolicyPropertiesspringcloudvaultappid">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudvaultappid" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultappid(this);" href="#thirdPartyPropertiesspringcloudvaultappid">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudvaultappid(this);" id="linkNotesspringcloudvaultappid" data-bs-toggle="tab" href="#notesspringcloudvaultappid">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudvaultappid">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudvaultappid">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudvaultappid">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudvaultappid"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudvaultappid">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudvaultappid">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudvaultappid"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudvaultappid">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudvaultappid">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudvaultappid"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudvaultappid">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/development/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudvaultappid").remove()
+        
+        
+            $("#linkRdbmsspringcloudvaultappid").remove()
+        
+        
+            $("#linkEmailspringcloudvaultappid").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudvaultappid").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudvaultappid").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudvaultappid").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudvaultappid").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudvaultappid").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudvaultappid").remove()
+        
+        
+            $("#linkLdapspringcloudvaultappid").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudvaultappid");
+        var id=$("#navPillsMenusspringcloudvaultappid a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudvaultappid li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudvaultappid").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudvaultappid").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudvaultappid li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudvaultappid").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudvaultappid").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudvaultappid li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudvaultappid").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h2 id="kubernetes-authentication">Kubernetes Authentication</h2>
+
+<p>Kubernetes authentication mechanism allows to authenticate with Vault
+using a Kubernetes Service Account Token. The authentication is role
+based and the role is bound to a service account name and a namespace.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudvaultkubernetes">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudvaultkubernetes" data-bs-toggle="tab" href="#requiredPropertiesspringcloudvaultkubernetes">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudvaultkubernetes" data-bs-toggle="tab" href="#optionalPropertiesspringcloudvaultkubernetes">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudvaultkubernetes">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudvaultkubernetes" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudvaultkubernetes">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudvaultkubernetes">
+        <a class="nav-link" id="linkRdbmsspringcloudvaultkubernetes" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudvaultkubernetes">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudvaultkubernetes">
+        <a class="nav-link" id="linkEmailspringcloudvaultkubernetes" data-bs-toggle="tab" href="#emailPropertiesspringcloudvaultkubernetes">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudvaultkubernetes">
+        <a class="nav-link" id="linkLdapspringcloudvaultkubernetes" data-bs-toggle="tab" href="#ldapPropertiesspringcloudvaultkubernetes">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudvaultkubernetes">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudvaultkubernetes" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudvaultkubernetes">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudvaultkubernetes">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudvaultkubernetes" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudvaultkubernetes">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudvaultkubernetes">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudvaultkubernetes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultkubernetes(this);" href="#principalTransformationPropertiesspringcloudvaultkubernetes">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudvaultkubernetes">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudvaultkubernetes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultkubernetes(this);" href="#passwordPolicyPropertiesspringcloudvaultkubernetes">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudvaultkubernetes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultkubernetes(this);" href="#thirdPartyPropertiesspringcloudvaultkubernetes">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudvaultkubernetes(this);" id="linkNotesspringcloudvaultkubernetes" data-bs-toggle="tab" href="#notesspringcloudvaultkubernetes">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudvaultkubernetes">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudvaultkubernetes">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudvaultkubernetes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudvaultkubernetes"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudvaultkubernetes">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudvaultkubernetes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudvaultkubernetes"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudvaultkubernetes">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudvaultkubernetes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudvaultkubernetes"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudvaultkubernetes">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/development/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkRdbmsspringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkEmailspringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudvaultkubernetes").remove()
+        
+        
+            $("#linkLdapspringcloudvaultkubernetes").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudvaultkubernetes");
+        var id=$("#navPillsMenusspringcloudvaultkubernetes a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudvaultkubernetes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudvaultkubernetes").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudvaultkubernetes").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudvaultkubernetes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudvaultkubernetes").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudvaultkubernetes").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudvaultkubernetes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudvaultkubernetes").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h2 id="generic-backend-v1">Generic Backend v1</h2>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudvaultgeneric">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudvaultgeneric" data-bs-toggle="tab" href="#requiredPropertiesspringcloudvaultgeneric">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudvaultgeneric" data-bs-toggle="tab" href="#optionalPropertiesspringcloudvaultgeneric">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudvaultgeneric">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudvaultgeneric" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudvaultgeneric">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudvaultgeneric">
+        <a class="nav-link" id="linkRdbmsspringcloudvaultgeneric" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudvaultgeneric">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudvaultgeneric">
+        <a class="nav-link" id="linkEmailspringcloudvaultgeneric" data-bs-toggle="tab" href="#emailPropertiesspringcloudvaultgeneric">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudvaultgeneric">
+        <a class="nav-link" id="linkLdapspringcloudvaultgeneric" data-bs-toggle="tab" href="#ldapPropertiesspringcloudvaultgeneric">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudvaultgeneric">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudvaultgeneric" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudvaultgeneric">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudvaultgeneric">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudvaultgeneric" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudvaultgeneric">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudvaultgeneric">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudvaultgeneric" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultgeneric(this);" href="#principalTransformationPropertiesspringcloudvaultgeneric">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudvaultgeneric">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudvaultgeneric" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultgeneric(this);" href="#passwordPolicyPropertiesspringcloudvaultgeneric">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudvaultgeneric" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultgeneric(this);" href="#thirdPartyPropertiesspringcloudvaultgeneric">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudvaultgeneric(this);" id="linkNotesspringcloudvaultgeneric" data-bs-toggle="tab" href="#notesspringcloudvaultgeneric">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudvaultgeneric">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudvaultgeneric">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudvaultgeneric">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudvaultgeneric"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudvaultgeneric">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudvaultgeneric">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudvaultgeneric"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudvaultgeneric">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudvaultgeneric">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudvaultgeneric"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudvaultgeneric">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/development/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudvaultgeneric").remove()
+        
+        
+            $("#linkRdbmsspringcloudvaultgeneric").remove()
+        
+        
+            $("#linkEmailspringcloudvaultgeneric").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudvaultgeneric").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudvaultgeneric").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudvaultgeneric").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudvaultgeneric").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudvaultgeneric").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudvaultgeneric").remove()
+        
+        
+            $("#linkLdapspringcloudvaultgeneric").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudvaultgeneric");
+        var id=$("#navPillsMenusspringcloudvaultgeneric a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudvaultgeneric li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudvaultgeneric").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudvaultgeneric").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudvaultgeneric li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudvaultgeneric").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudvaultgeneric").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudvaultgeneric li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudvaultgeneric").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h2 id="kv-backend-v2">KV Backend v2</h2>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenusspringcloudvaultkv">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiesspringcloudvaultkv" data-bs-toggle="tab" href="#requiredPropertiesspringcloudvaultkv">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiesspringcloudvaultkv" data-bs-toggle="tab" href="#optionalPropertiesspringcloudvaultkv">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiesspringcloudvaultkv">
+        <a class="nav-link" id="linkSigningEncryptionspringcloudvaultkv" data-bs-toggle="tab" href="#signingEncryptionPropertiesspringcloudvaultkv">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiesspringcloudvaultkv">
+        <a class="nav-link" id="linkRdbmsspringcloudvaultkv" data-bs-toggle="tab" href="#rdbmsPropertiesspringcloudvaultkv">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiesspringcloudvaultkv">
+        <a class="nav-link" id="linkEmailspringcloudvaultkv" data-bs-toggle="tab" href="#emailPropertiesspringcloudvaultkv">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiesspringcloudvaultkv">
+        <a class="nav-link" id="linkLdapspringcloudvaultkv" data-bs-toggle="tab" href="#ldapPropertiesspringcloudvaultkv">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiesspringcloudvaultkv">
+        <a class="nav-link" id="linkAuthnPredicatespringcloudvaultkv" data-bs-toggle="tab" href="#authnPredicatePropertiesspringcloudvaultkv">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiesspringcloudvaultkv">
+        <a class="nav-link" id="linkPasswordEncoderspringcloudvaultkv" data-bs-toggle="tab" href="#passwordEncoderPropertiesspringcloudvaultkv">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiesspringcloudvaultkv">
+        <a class="nav-link" id="linkPrincipalTransformationspringcloudvaultkv" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultkv(this);" href="#principalTransformationPropertiesspringcloudvaultkv">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiesspringcloudvaultkv">
+        <a class="nav-link" id="linkPasswordPolicyspringcloudvaultkv" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultkv(this);" href="#passwordPolicyPropertiesspringcloudvaultkv">Password Policy</a>
+    </li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link" id="linkThirdPartyPropertiesspringcloudvaultkv" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabspringcloudvaultkv(this);" href="#thirdPartyPropertiesspringcloudvaultkv">Third Party</a>
+    </li>
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabspringcloudvaultkv(this);" id="linkNotesspringcloudvaultkv" data-bs-toggle="tab" href="#notesspringcloudvaultkv">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentspringcloudvaultkv">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiesspringcloudvaultkv">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiesspringcloudvaultkv">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiesspringcloudvaultkv"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiesspringcloudvaultkv">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiesspringcloudvaultkv">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiesspringcloudvaultkv"></textarea>
+</div>
+
+
+
+<div class="tab-pane properties-tab fade in" id="thirdPartyPropertiesspringcloudvaultkv">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <i>Third Party</i> in the CAS configuration metadata. This flag indicates that the configuration setting is not controlled, owned or managed by the CAS ecosystem, and affects functionality that is offered by a third-party library, such as Spring Boot or Spring Cloud to CAS. For additional info, you might have to visit the third-party source to find more details.
+    </sub>
+    <br /><p />
+
+    
+    
+    
+
+    <!-- fragment:keep -->
+
+
+
+
+
+
+
+
+
+
+<table class="cas-datatable properties " id="tableThirdPartyPropertiesspringcloudvaultkv">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+    
+
+    </tbody>
+</table>
+
+<textarea style="position:absolute; left: -10000px;" id="copyAreaThirdPartyPropertiesspringcloudvaultkv"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notesspringcloudvaultkv">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/development/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiesspringcloudvaultkv").remove()
+        
+        
+            $("#linkRdbmsspringcloudvaultkv").remove()
+        
+        
+            $("#linkEmailspringcloudvaultkv").remove()
+        
+        
+            $("#linkSigningEncryptionspringcloudvaultkv").remove()
+        
+        
+            $("#linkRequiredPropertiesspringcloudvaultkv").remove()
+        
+        
+            $("#linkPasswordPolicyspringcloudvaultkv").remove()
+        
+        
+            $("#linkPrincipalTransformationspringcloudvaultkv").remove()
+        
+        
+            $("#linkPasswordEncoderspringcloudvaultkv").remove()
+        
+        
+            $("#linkAuthnPredicatespringcloudvaultkv").remove()
+        
+        
+            $("#linkLdapspringcloudvaultkv").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenusspringcloudvaultkv");
+        var id=$("#navPillsMenusspringcloudvaultkv a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiesspringcloudvaultkv li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiesspringcloudvaultkv").closest("table").remove()
+            $("#navRequiredPropertiesLeftspringcloudvaultkv").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiesspringcloudvaultkv li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiesspringcloudvaultkv").closest("table").remove()
+            $("#navOptionalPropertiesLeftspringcloudvaultkv").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiesspringcloudvaultkv li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiesspringcloudvaultkv").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Configuration';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

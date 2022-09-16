@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Service Management</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="service-management">Service Management</h1>
+<p>The CAS service management facility allows CAS server administrators to declare and configure which services
+(CAS clients) may make use of CAS in which ways. The core component of the service management facility is the
+service registry, provided by the <code class="language-plaintext highlighter-rouge">ServiceRegistryDao</code> component, that stores one or more registered services
+containing metadata that drives a number of CAS behaviors:</p>
+
+<ul>
+  <li>Authorized services - Control which services may participate in a CAS SSO session.</li>
+  <li>Forced authentication - Provides administrative control for forced authentication.</li>
+  <li>Attribute release - Provide user details to services for authorization and personalization.</li>
+  <li>Proxy control - Further restrict authorized services by granting/denying proxy authentication capability.</li>
+  <li>Theme control - Define alternate CAS themes to be used for particular services.</li>
+</ul>
+
+<p>The service management webapp is a Web application that may be deployed along side CAS that provides a GUI
+to manage service registry data.</p>
+
+<h2 id="demo">Demo</h2>
+<p>The Service Management web application is available for demo at <a href="https://jasigcasmgmt.herokuapp.com/cas-management">https://jasigcasmgmt.herokuapp.com/cas-management</a></p>
+
+<h2 id="considerations">Considerations</h2>
+<p>It is not required to use the service management facility explicitly. CAS ships with a default configuration that is
+suitable for deployments that do not need or want to leverage the capabilities above. The default configuration allows
+any service contacting CAS over https/imaps to use CAS and receive any attribute configured by an <code class="language-plaintext highlighter-rouge">IPersonAttributeDao</code>
+bean.</p>
+
+<p>A premier consideration around service management is whether to leverage the user interface. If the service management
+webapp is used, then a <code class="language-plaintext highlighter-rouge">ServiceRegistryDao</code> that provides durable storage (e.g. <code class="language-plaintext highlighter-rouge">JpaServiceRegistryDaoImpl</code>) must be
+used to preserve state across restarts.</p>
+
+<p>It is perfectly acceptable to avoid the service management webapp Web application for managing registered service data.
+In fact, configuration-driven methods (e.g. XML, JSON) may be preferable in environments where strict configuration
+management controls are required.</p>
+
+<h2 id="registered-services">Registered Services</h2>
+
+<p>Registered services present the following metadata:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">id</code></td>
+      <td>Required unique identifier. In most cases this is managed automatically by the <code class="language-plaintext highlighter-rouge">ServiceRegistryDao</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>Required name (255 characters or less). Must include valid characters allowed by the file system.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">description</code></td>
+      <td>Optional free-text description of the service. (255 characters or less)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logo</code></td>
+      <td>Optional path to an image file that is the logo for this service. The image will be displayed on the login page along with the service description and name.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">serviceId</code></td>
+      <td>Required <a href="http://ant.apache.org/manual/dirtasks.html#patterns">Ant pattern</a> or <a href="http://docs.oracle.com/javase/tutorial/essential/regex/">regular expression</a> describing a logical service. A logical service defines one or more URLs where a service or services are located. The definition of the url pattern must be <strong>done carefully</strong> because it can open security breaches. For example, using Ant pattern, if you define the following service : <code class="language-plaintext highlighter-rouge">http://example.*/myService</code> to match <code class="language-plaintext highlighter-rouge">http://example.com/myService</code> and <code class="language-plaintext highlighter-rouge">http://example.fr/myService</code>, it’s a bad idea as it can be tricked by <code class="language-plaintext highlighter-rouge">http://example.hostattacker.com/myService</code>. The best way to proceed is to define the more precise url patterns.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">theme</code></td>
+      <td>Optional <a href="http://static.springsource.org/spring/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-themeresolver">Spring theme</a> that may be used to customize the CAS UI when the service requests a ticket. See <a href="User-Interface-Customization.html">this guide</a> for more details.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">proxyPolicy</code></td>
+      <td>Determines whether the service is able to proxy authentication, not whether the service accepts proxy authentication.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">evaluationOrder</code></td>
+      <td>Required value that determines relative order of evaluation of registered services. This flag is particularly important in cases where two service URL expressions cover the same services; evaluation order determines which registration is evaluated first.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">requiredHandlers</code></td>
+      <td>Set of authentication handler names that must successfully authenticate credentials in order to access the service.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">attributeReleasePolicy</code></td>
+      <td>The policy that describes the set of attributes allows to be released to the application, as well as any other filtering logic needed to weed some out. See <a href="../integration/Attribute-Release.html">this guide</a> for more details on attribute release and filters.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logoutType</code></td>
+      <td>Defines how this service should be treated once the logout protocol is initiated. Acceptable values are <code class="language-plaintext highlighter-rouge">LogoutType.BACK_CHANNEL</code>, <code class="language-plaintext highlighter-rouge">LogoutType.FRONT_CHANNEL</code> or <code class="language-plaintext highlighter-rouge">LogoutType.NONE</code>. See <a href="Logout-Single-Signout.html">this guide</a> for more details on logout.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">usernameAttributeProvider</code></td>
+      <td>The provider configuration which dictates what value as the “username” should be sent back to the application. See <a href="../integration/Attribute-Release.html">this guide</a> for more details on attribute release and filters.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">accessStrategy</code></td>
+      <td>The strategy configuration that outlines and access rules for this service. It describes whether the service is allowed, authorized to participate in SSO, or can be granted access from the CAS perspective based on a particular attribute-defined role, aka RBAC. See <a href="../integration/Attribute-Release.html">this guide</a> for more details on attribute release and filters.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">publicKey</code></td>
+      <td>The public key associated with this service that is used to authorize the request by encrypting certain elements and attributes in the CAS validation protocol response, such as <a href="Configuring-Proxy-Authentication.html">the PGT</a> or <a href="../integration/ClearPass.html">the credential</a>. See <a href="../integration/Attribute-Release.html">this guide</a> for more details on attribute release and filters.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">logoutUrl</code></td>
+      <td>URL endpoint for this service to receive logout requests. See <a href="Logout-Single-Signout.html">this guide</a> for more details</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">properties</code></td>
+      <td>Extra metadata associated with this service in form of key/value pairs. This is used to inject custom fields into the service definition, to be used later by extension modules to define additional behavior on a per-service basis.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="configure-service-access-strategy">Configure Service Access Strategy</h3>
+
+<p><a href="Configuring-Service-Access-Strategy.html">See this guide</a> for more info please.</p>
+
+<h3 id="configure-service-custom-properties">Configure Service Custom Properties</h3>
+
+<p><a href="Configuring-Service-Custom-Properties.html">See this guide</a> for more info please.</p>
+
+<h3 id="configure-proxy-authentication-policy">Configure Proxy Authentication Policy</h3>
+<p>Each registered application in the registry may be assigned a proxy policy to determine whether the service is allowed for proxy authentication. This means that a PGT will not be issued to a service unless the proxy policy is configured to allow it. Additionally, the policy could also define which endpoint urls are in fact allowed to receive the PGT.</p>
+
+<p>Note that by default, the proxy authentication is disallowed for all applications.</p>
+
+<h4 id="components">Components</h4>
+
+<h5 id="refuseregisteredserviceproxypolicy"><code class="language-plaintext highlighter-rouge">RefuseRegisteredServiceProxyPolicy</code></h5>
+<p>Disallows proxy authentication for a service. This is default policy and need not be configured explicitly.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.jasig.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testId"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testId"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"proxyPolicy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.jasig.cas.services.RefuseRegisteredServiceProxyPolicy"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<h5 id="regexmatchingregisteredserviceproxypolicy"><code class="language-plaintext highlighter-rouge">RegexMatchingRegisteredServiceProxyPolicy</code></h5>
+<p>A proxy policy that only allows proxying to PGT urls that match the specified regex pattern.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.jasig.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testId"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testId"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"proxyPolicy"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.jasig.cas.services.RegexMatchingRegisteredServiceProxyPolicy"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"pattern"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"^https?://.*"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<h2 id="persisting-registered-service-data">Persisting Registered Service Data</h2>
+
+<h6 id="inmemoryserviceregistrydaoimpl"><code class="language-plaintext highlighter-rouge">InMemoryServiceRegistryDaoImpl</code></h6>
+<p>This DAO is an in-memory services management seeded from registration beans wired via Spring beans.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"serviceRegistryDao"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.services.InMemoryServiceRegistryDaoImpl"</span>
+      <span class="na">p:registeredServices-ref=</span><span class="s">"registeredServicesList"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;util:list</span> <span class="na">id=</span><span class="s">"registeredServicesList"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.jasig.cas.services.RegexRegisteredService"</span>
+          <span class="na">p:id=</span><span class="s">"1"</span>
+          <span class="na">p:name=</span><span class="s">"HTTPS and IMAPS services on example.com"</span>
+          <span class="na">p:serviceId=</span><span class="s">"^(https|imaps)://([A-Za-z0-9_-]+\.)*example\.com/.*"</span>
+          <span class="na">p:evaluationOrder=</span><span class="s">"0"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/util:list&gt;</span></code></pre></figure>
+
+<p>This component is <em>NOT</em> suitable for use with the service management webapp since it does not persist data.
+On the other hand, it is perfectly acceptable for deployments where the XML configuration is authoritative for
+service registry data and the UI will not be used.</p>
+
+<h6 id="jsonserviceregistrydao"><code class="language-plaintext highlighter-rouge">JsonServiceRegistryDao</code></h6>
+<p>This DAO reads services definitions from JSON configuration files at the application context initialization time. JSON files are
+expected to be found inside a configured directory location and this DAO will recursively look through the directory structure to find relevant JSON files.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"serviceRegistryDao"</span> <span class="na">class=</span><span class="s">"org.jasig.cas.services.JsonServiceRegistryDao"</span>
+          <span class="na">c:configDirectory=</span><span class="s">"file:/etc/cas/json"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<p>A sample JSON file follows:</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"@class"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"org.jasig.cas.services.RegexRegisteredService"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"serviceId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testId"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testId"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"evaluationOrder"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+
+<div class="alert alert-warning"><strong>Clustering Services</strong><p>
+You MUST consider that if your CAS server deployment is clustered, each CAS node in the cluster must have
+access to the same set of JSON configuration files as the other, or you may have to devise a strategy to keep
+changes synchronized from one node to the next.
+</p></div>
+
+<p>The JSON service registry is also able to auto detect changes to the specified directory. It will monitor changes to recognize
+file additions, removals and updates and will auto-refresh CAS so changes do happen instantly.</p>
+
+<div class="alert alert-info"><strong>Escaping Characters</strong><p>
+Please make sure all field values in the JSON blob are correctly escaped, specially for the service id. If the service is defined as a regular expression, certain regex constructs such as "." and "\d" need to be doubly escaped.
+</p></div>
+
+<p>The naming convention for new JSON files is recommended to be the following:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">JSON fileName <span class="o">=</span> serviceName + <span class="s2">"-"</span> + serviceNumericId + <span class="s2">".json"</span></code></pre></figure>
+
+<p>Based on the above formula, for example the above JSON snippet shall be named: <code class="language-plaintext highlighter-rouge">testJsonFile-103935657744185.json</code></p>
+
+<div class="alert alert-warning"><strong>Duplicate Services</strong><p>
+As you add more files to the directory, you need to be absolutely sure that no two service definitions
+will have the same id. If this happens, loading one definition will stop loading the other. While service ids
+can be chosen arbitrarily, make sure all service numeric identifiers are unique. CAS will also output warnings
+if duplicate data is found.
+</p></div>
+
+<h6 id="mongoserviceregistrydao"><code class="language-plaintext highlighter-rouge">MongoServiceRegistryDao</code></h6>
+<p>This DAO uses a <a href="https://www.mongodb.org/">MongoDb</a> instance to load and persist service definitions. Support is enabled by adding the following module into the Maven overlay:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.jasig.cas<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>cas-server-integration-mongo<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre></figure>
+
+<h6 id="configuration">Configuration</h6>
+
+<p>This implementation auto-configures most of the internal details.
+The following configuration in <code class="language-plaintext highlighter-rouge">cas.properties</code> is required.</p>
+
+<figure class="highlight"><pre><code class="language-properties" data-lang="properties"><span class="py">mongodb.host</span><span class="p">=</span><span class="s">mongodb database url</span>
+<span class="py">mongodb.port</span><span class="p">=</span><span class="s">mongodb database port</span>
+<span class="py">mongodb.userId</span><span class="p">=</span><span class="s">mongodb userid to bind</span>
+<span class="py">mongodb.userPassword</span><span class="p">=</span><span class="s">mongodb password to bind</span>
+<span class="py">cas.service.registry.mongo.db</span><span class="p">=</span><span class="s">Collection name to store service definitions</span></code></pre></figure>
+
+<h6 id="ldapserviceregistrydao"><code class="language-plaintext highlighter-rouge">LdapServiceRegistryDao</code></h6>
+<p>Service registry implementation which stores the services in a LDAP Directory. Uses an instance of <code class="language-plaintext highlighter-rouge">LdapRegisteredServiceMapper</code>, that by default is <code class="language-plaintext highlighter-rouge">DefaultLdapRegisteredServiceMapper</code> in order to configure settings for retrieval, search and persistence of service definitions. By default, entries are assigned the <code class="language-plaintext highlighter-rouge">objectclass</code> <code class="language-plaintext highlighter-rouge">casRegisteredService</code> attribute and are looked up by the <code class="language-plaintext highlighter-rouge">uid</code> attribute.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"org.jasig.cas"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"serviceRegistryDao"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.adaptors.ldap.services.LdapServiceRegistryDao"</span>
+      <span class="na">p:connectionFactory-ref=</span><span class="s">"pooledLdapConnectionFactory"</span>
+      <span class="na">p:searchRequest-ref=</span><span class="s">"searchRequest"</span>
+      <span class="na">p:ldapServiceMapper-ref=</span><span class="s">"ldapServiceMapper"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"ldapServiceMapper"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.adaptors.ldap.services.DefaultLdapRegisteredServiceMapper"</span><span class="nt">/&gt;</span></code></pre></figure>
+
+<p>Note that the configuration of the mapper is optional and need not explicitly exist.</p>
+
+<p />
+
+<h6 id="defaultldapregisteredservicemapper"><code class="language-plaintext highlighter-rouge">DefaultLdapRegisteredServiceMapper</code></h6>
+<p>The default mapper has support for the following optional items:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Default Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">objectClass</code></td>
+      <td>casRegisteredService</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">serviceDefinitionAttribute</code></td>
+      <td>description</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">idAttribute</code></td>
+      <td>uid</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Service definitions are by default stored inside the <code class="language-plaintext highlighter-rouge">serviceDefinitionAttribute</code> attribute as JSON objects. The format and syntax of the JSON is identical to that of <code class="language-plaintext highlighter-rouge">JsonServiceRegistryDao</code>.</p>
+
+<h6 id="jpaserviceregistrydaoimpl"><code class="language-plaintext highlighter-rouge">JpaServiceRegistryDaoImpl</code></h6>
+<p>Stores registered service data in a database; the preferred choice when using the service management webapp.
+The following schema shall be generated by CAS automatically for brand new deployments, and must be massaged
+when doing CAS upgrades:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">create</span> <span class="k">table</span> <span class="n">RegisteredServiceImpl</span> <span class="p">(</span>
+    <span class="n">expression_type</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="s1">'ant'</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="n">id</span> <span class="nb">bigint</span> <span class="k">generated</span> <span class="k">by</span> <span class="k">default</span> <span class="k">as</span> <span class="k">identity</span> <span class="p">(</span><span class="k">start</span> <span class="k">with</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">access_strategy</span> <span class="nb">blob</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">attribute_release</span> <span class="nb">blob</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">description</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="n">evaluation_order</span> <span class="nb">integer</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="n">logo</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">logout_type</span> <span class="nb">integer</span><span class="p">,</span>
+    <span class="n">logout_url</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="n">proxy_policy</span> <span class="nb">blob</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">required_handlers</span> <span class="nb">blob</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">public_key</span> <span class="nb">blob</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">serviceId</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span>
+    <span class="n">theme</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="n">username_attr</span> <span class="nb">blob</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="k">primary</span> <span class="k">key</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">)</span></code></pre></figure>
+
+<p>The following configuration template may be applied to <code class="language-plaintext highlighter-rouge">deployerConfigContext.xml</code> to provide for persistent
+registered service storage.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span>
+    <span class="na">id=</span><span class="s">"dataSource"</span>
+    <span class="na">class=</span><span class="s">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>
+    <span class="na">p:driverClass=</span><span class="s">"${database.driverClass:org.hsqldb.jdbcDriver}"</span>
+    <span class="na">p:jdbcUrl=</span><span class="s">"${database.url:jdbc:hsqldb:mem:cas-ticket-registry}"</span>
+    <span class="na">p:user=</span><span class="s">"${database.user:sa}"</span>
+    <span class="na">p:password=</span><span class="s">"${database.password:}"</span>
+    <span class="na">p:initialPoolSize=</span><span class="s">"${database.pool.minSize:6}"</span>
+    <span class="na">p:minPoolSize=</span><span class="s">"${database.pool.minSize:6}"</span>
+    <span class="na">p:maxPoolSize=</span><span class="s">"${database.pool.maxSize:18}"</span>
+    <span class="na">p:maxIdleTimeExcessConnections=</span><span class="s">"${database.pool.maxIdleTime:1000}"</span>
+    <span class="na">p:checkoutTimeout=</span><span class="s">"${database.pool.maxWait:2000}"</span>
+    <span class="na">p:acquireIncrement=</span><span class="s">"${database.pool.acquireIncrement:16}"</span>
+    <span class="na">p:acquireRetryAttempts=</span><span class="s">"${database.pool.acquireRetryAttempts:5}"</span>
+    <span class="na">p:acquireRetryDelay=</span><span class="s">"${database.pool.acquireRetryDelay:2000}"</span>
+    <span class="na">p:idleConnectionTestPeriod=</span><span class="s">"${database.pool.idleConnectionTestPeriod:30}"</span>
+    <span class="na">p:preferredTestQuery=</span><span class="s">"${database.pool.connectionHealthQuery:select 1}"</span>
+<span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;util:list</span> <span class="na">id=</span><span class="s">"packagesToScan"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;value&gt;</span>org.jasig.cas.services<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;value&gt;</span>org.jasig.cas.support.oauth.services<span class="nt">&lt;/value&gt;</span>
+<span class="nt">&lt;/util:list&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">"org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"</span>
+      <span class="na">id=</span><span class="s">"jpaVendorAdapter"</span>
+      <span class="na">p:generateDdl=</span><span class="s">"true"</span>
+      <span class="na">p:showSql=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"entityManagerFactory"</span>
+      <span class="na">class=</span><span class="s">"org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"</span>
+      <span class="na">p:dataSource-ref=</span><span class="s">"dataSource"</span>
+      <span class="na">p:jpaVendorAdapter-ref=</span><span class="s">"jpaVendorAdapter"</span>
+      <span class="na">p:packagesToScan-ref=</span><span class="s">"packagesToScan"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"jpaProperties"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;props&gt;</span>
+            <span class="nt">&lt;prop</span> <span class="na">key=</span><span class="s">"hibernate.dialect"</span><span class="nt">&gt;</span>${database.dialect:org.hibernate.dialect.HSQLDialect}<span class="nt">&lt;/prop&gt;</span>
+            <span class="nt">&lt;prop</span> <span class="na">key=</span><span class="s">"hibernate.hbm2ddl.auto"</span><span class="nt">&gt;</span>create-drop<span class="nt">&lt;/prop&gt;</span>
+            <span class="nt">&lt;prop</span> <span class="na">key=</span><span class="s">"hibernate.jdbc.batch_size"</span><span class="nt">&gt;</span>${database.batchSize:1}<span class="nt">&lt;/prop&gt;</span>
+        <span class="nt">&lt;/props&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"transactionManager"</span> <span class="na">class=</span><span class="s">"org.springframework.orm.jpa.JpaTransactionManager"</span>
+      <span class="na">p:entityManagerFactory-ref=</span><span class="s">"entityManagerFactory"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;tx:advice</span> <span class="na">id=</span><span class="s">"txAdvice"</span> <span class="na">transaction-manager=</span><span class="s">"transactionManager"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tx:attributes&gt;</span>
+        <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">"delete*"</span> <span class="na">read-only=</span><span class="s">"false"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">"save*"</span> <span class="na">read-only=</span><span class="s">"false"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">"update*"</span> <span class="na">read-only=</span><span class="s">"false"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">"get*"</span> <span class="na">read-only=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;tx:method</span> <span class="na">name=</span><span class="s">"*"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/tx:attributes&gt;</span>
+<span class="nt">&lt;/tx:advice&gt;</span>
+
+<span class="nt">&lt;aop:config&gt;</span>
+    <span class="nt">&lt;aop:pointcut</span> <span class="na">id=</span><span class="s">"servicesManagerOperations"</span> <span class="na">expression=</span><span class="s">"execution(* org.jasig.cas.services.JpaServiceRegistryDaoImpl.*(..))"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;aop:advisor</span> <span class="na">advice-ref=</span><span class="s">"txAdvice"</span> <span class="na">pointcut-ref=</span><span class="s">"servicesManagerOperations"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/aop:config&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"serviceRegistryDao"</span>
+      <span class="na">class=</span><span class="s">"org.jasig.cas.services.JpaServiceRegistryDaoImpl"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<p>You will also need to change the property <code class="language-plaintext highlighter-rouge">hibernate.dialect</code> in adequacy with your database in <code class="language-plaintext highlighter-rouge">cas.properties</code> and <code class="language-plaintext highlighter-rouge">deployerConfigContext.xml</code>.</p>
+
+<p>For example, for MYSQL the setting would be:</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">cas.properties</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">database.hibernate.dialect<span class="o">=</span>org.hibernate.dialect.MySQLDialect</code></pre></figure>
+
+<p>In <code class="language-plaintext highlighter-rouge">deployerConfigContext.xml</code>:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;prop</span> <span class="na">key=</span><span class="s">"hibernate.dialect"</span><span class="nt">&gt;</span>${database.hibernate.dialect}<span class="nt">&lt;/prop&gt;</span></code></pre></figure>
+
+<p>You will also need to ensure that the xml configuration file contains the <code class="language-plaintext highlighter-rouge">tx</code>, <code class="language-plaintext highlighter-rouge">util</code> and <code class="language-plaintext highlighter-rouge">aop</code> namespaces:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="na">xmlns:tx=</span><span class="s">"http://www.springframework.org/schema/tx"</span>
+       <span class="na">xmlns:aop=</span><span class="s">"http://www.springframework.org/schema/aop"</span>
+       <span class="na">xmlns:p=</span><span class="s">"http://www.springframework.org/schema/p"</span>
+       <span class="na">xmlns:util=</span><span class="s">"http://www.springframework.org/schema/util"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"</span><span class="nt">&gt;</span></code></pre></figure>
+
+<p>Finally, be sure to add those to your <code class="language-plaintext highlighter-rouge">pom.xml</code>:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.jasig.cas<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>cas-server-support-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>runtime<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.hibernate<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>hibernate-entitymanager<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${hibernate.entitymgmr.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.mchange<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>c3p0<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${c3p0.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="c">&lt;!-- Required for MySQL. Swap with the appropriate driver for your deployment.
+&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;version&gt;${mysql.connector.version}&lt;/version&gt;
+&lt;/dependency&gt;
+--&gt;</span></code></pre></figure>
+
+<h2 id="service-management-webapp">Service Management Webapp</h2>
+<p>The Services Management web application is a standalone application that helps one manage service registrations and entries via a customizable user interface. The management web application <em>MUST</em> share the same registry configuration as
+the CAS server itself so the entire system can load the same services data. To learn more about the management webapp,
+<a href="Installing-ServicesMgmt-Webapp.html">please see this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = '';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - SAML SP Integrations</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="saml-sp-integrations">SAML SP Integrations</h1>
+
+<p>CAS provides built-in integration support for a number of SAML2 service providers. Configuring these service providers
+is about declaring the relevant properties in the CAS configuration as well as the configuration module below. Each integration,
+when configured appropriately, will register the service provider with the CAS service registry as a SAML SP and will follow
+a recipe (that is documented by the SP publicly) to configure attribute release policies, name ids and entity IDs. If you need to,
+you can review the registration record inside the CAS service registry to adjust options.</p>
+
+<p><strong>NOTE:</strong> In the event that special attributes and/or name ids are required for the integration, you are required
+to ensure all such <a href="Attribute-Resolution.html">attributes are properly resolved</a> and are available to the CAS principal.</p>
+
+<div class="alert alert-warning"><strong>Remember</strong><p>SAML2 service provider integrations listed here attempt to automate CAS configuration based on known and documented integration guidelines and recipes provided by the service provider owned by the vendor. These recipes can change and break CAS over time and needless to say, they need to be properly and thoroughly tested as the project itself does not have a subscription to each application to test for correctness. YMMV. If you find an issue with an automated integration strategy here, please <strong>speak up</strong>.</p></div>
+
+<p>Support is enabled by including the following module in the WAR Overlay:</p>
+
+<script type="text/javascript">
+
+function tabClicked(idx) {
+  var radius = "0px 5px 5px 5px";
+  if (idx != 0) {
+    radius = "5px 5px 5px 5px";
+  }
+  $(".tab-pane .highlight>pre.highlight").css("border-radius", radius);
+  switch (idx) {
+    case 0:
+      $("div #mavenorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 1:
+      $("div #gradleorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 2:
+      $("div #bomorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+  }
+}
+
+</script>
+
+<div style="display: block">
+
+<ul class="nav nav-pills">
+  <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(0)" data-bs-toggle="tab" href="#mavenorgapereocascasserversupportsamlspintegrations">Maven</a></li>
+  <li class="nav-item"><a class="nav-link active" onclick="javascript:tabClicked(1)" data-bs-toggle="tab" href="#gradleorgapereocascasserversupportsamlspintegrations">Gradle</a></li>
+
+  
+    <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(2)" data-bs-toggle="tab" href="#bomorgapereocascasserversupportsamlspintegrations">BOM</a></li>
+  
+
+  <li role="presentation" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" onclick="javascript:tabClicked(3)" data-bs-toggle="dropdown" href="#" role="button">Resources
+      <span class="caret"></span>
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-saml-sp-integrations', 'cas-overlay');">Generate CAS Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-saml-sp-integrations', 'cas-mgmt-overlay');">Generate CAS Management Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-saml-sp-integrations', 'cas-config-server-overlay');">Generate CAS Configuration Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-discovery-server-overlay');">Generate CAS Discovery Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-bootadmin-server-overlay');">Generate CAS Spring Boot Admin Server WAR Overlay</a>
+    </div>
+  </li>
+</ul>
+
+
+<div class="cas-module-tabs tab-content clearfix">
+
+
+
+  <div class="tab-pane fade in" id="mavenorgapereocascasserversupportsamlspintegrations">
+    
+
+    <span>
+      
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-saml-sp-integrations<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+    </span>
+  
+  </div>
+
+
+  <div class="tab-pane fade in active show" id="gradleorgapereocascasserversupportsamlspintegrations">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-saml-sp-integrations:${project.'cas.version'}"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+
+  </div>
+
+
+  <div class="tab-pane fade in" id="bomorgapereocascasserversupportsamlspintegrations">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">dependencyManagement</span> <span class="o">{</span>
+  <span class="n">imports</span> <span class="o">{</span>
+    <span class="n">mavenBom</span> <span class="s2">"org.apereo.cas:cas-server-support-bom:${project.'cas.version'}"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>  
+  <span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-saml-sp-integrations"</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+  
+  </div>
+
+</div>
+
+</div>
+
+<p>The following SAML SP integrations, as samples, are provided by CAS:</p>
+
+<div class="img-cloud">
+<a href="http://www.incommon.org/federation/metadata.html">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052578/47d6f570-dd60-11e6-8f03-02cb99d6106d.gif" height="48" width="110" /></a> 
+
+<a href="https://support.zoom.us/hc/en-us/articles/201363003-Getting-Started-with-SSO">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052568/475f36d4-dd60-11e6-84f4-a88eb33f3f0a.jpg" height="30" width="110" /></a> 
+
+<a href="https://www.dropbox.com/guide/admin/security/configure-single-sign-on">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052575/47ba8930-dd60-11e6-8cb1-9334066d5f0f.png" height="48" width="140" /></a> 
+
+<a href="https://blog.samanage.com/company/saml-single-sign-on-support-samanage/">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052581/47e7bcfc-dd60-11e6-85e9-c09926736e5e.png" height="48" width="140" /></a> 
+
+<a href="https://help.salesforce.com/HTViewHelpDoc?id=sso_saml.htm">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052579/47da9d74-dd60-11e6-8eac-d66b67e2ebf7.png" height="60" width="100" /></a>
+
+<a href="https://community.box.com/t5/For-Admins/Single-Sign-On-SSO-with-Box-For-Administrators/ta-p/1263">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052572/47ace302-dd60-11e6-9842-4eda5a9ab5cf.png" height="48" width="90" /></a> 
+
+<a href="http://wiki.servicenow.com/index.php?title=SAML_2.0_Web_Browser_SSO_Profile">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052583/4805e2c2-dd60-11e6-8150-80aaa4bbab0e.png" height="20" width="100" /></a> 
+
+<a href="http://www.workday.com/">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052587/4816e04a-dd60-11e6-9ceb-6ccec1290e19.png" height="48" width="100" /></a>
+
+<a href="https://help.webex.com/docs/DOC-1067">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052574/47af8206-dd60-11e6-95d0-5827e0d88d73.jpg" height="48" width="100" /></a>
+
+<a href="https://www.collegeboard.org/powerfaids/net-partner">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052570/47abea6a-dd60-11e6-85a0-387c3c2ce8e7.png" height="48" width="140" /></a> 
+
+<a href="https://msdn.microsoft.com/en-us/library/azure/dn641269.aspx">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22053102/d64da904-dd63-11e6-8a68-977526634b9d.png" height="48" width="110" /></a> 
+
+<a href="https://asana.com/guide/help/premium/authentication#gl-saml">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052569/478b8c16-dd60-11e6-82f4-e292243ff076.png" height="48" width="100" /></a> 
+
+<a href="https://onlinehelp.tableau.com/current/server/en-us/saml_requ.htm">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052586/480cffc6-dd60-11e6-939c-1ceb34f3186d.png" height="48" width="140" /></a> 
+
+<a href="https://help.evernote.com/hc/en-us/articles/209005217-How-to-configure-SSO-for-your-business">
+<img src="https://cloud.githubusercontent.com/assets/1205228/22052577/47d6b6e6-dd60-11e6-810e-dd875bf25d17.png" height="48" width="110" /></a> 
+
+<a href="http://www.ellucian.com/Software/Colleague-WebAdvisor/">
+<img src="https://cloud.githubusercontent.com/assets/1205228/23185912/5c3f2f50-f89a-11e6-8450-6da44a1a9d9d.png" height="48" width="140" /></a>
+
+<a href="https://docs.openathens.net/display/public/MD/SAML+interoperability+requirements/">
+<img src="https://cloud.githubusercontent.com/assets/1205228/24070833/ffb5f63a-0bd9-11e7-8bda-28301c37188b.png" height="48" width="140" /></a>
+
+<a href="http://server.arcgis.com/en/portal/latest/administer/linux/configuring-a-saml-compliant-identity-provider-with-your-portal.htm">
+<img src="https://cloud.githubusercontent.com/assets/1205228/24108414/c3851e14-0da2-11e7-97d7-086a93d6873d.png" height="48" width="130" /></a>
+
+<a href="https://helpx.adobe.com/enterprise/kb/configure_shibboleth_idp_for_use_with_Adobe_SSO.html">
+<img src="https://cloud.githubusercontent.com/assets/1205228/24562072/ac5964ec-165e-11e7-9986-92108c30eb9b.png" height="48" width="90" /></a>
+
+<a href="https://www.academicworks.com/why-academicworks/user-authentication/">
+<img src="https://cloud.githubusercontent.com/assets/1205228/24624808/3c5909b6-18c2-11e7-9922-52ee604aff55.png" height="48" width="200" /></a>
+
+<a href="https://www.infinitecampus.com/">
+<img src="https://cloud.githubusercontent.com/assets/1205228/24698286/4c4d8740-1a05-11e7-844e-54d328e64e2f.png" height="48" width="120" /></a>
+
+<a href="http://kb.securingthehuman.org/Other-Resources/55708668/Single-Sign-On-Technical-Overview-Guide.htm">
+<img src="https://cloud.githubusercontent.com/assets/1205228/24699366/fbfbcf5a-1a08-11e7-9664-f37d6e50a5a3.png" height="48" width="120" /></a>
+
+<a href="https://get.slack.help/hc/en-us/articles/205168057">
+<img src="https://cloud.githubusercontent.com/assets/1205228/24858382/5b15c512-1e01-11e7-87ac-f0b091cd7885.png" height="48" width="110" /></a>
+
+<a href="https://support.zendesk.com/hc/en-us/articles/203663676-Using-SAML-for-single-sign-on-Professional-and-Enterprise-">
+<img src="https://cloud.githubusercontent.com/assets/1205228/24858342/34441006-1e01-11e7-9209-9b78081de4db.png" height="48" width="120" /></a>
+
+<a href="https://www.gartner.com/">
+<img src="https://cloud.githubusercontent.com/assets/1205228/25349422/a29a98f6-28d6-11e7-9d10-e286d0080cbe.png" height="48" width="90" /></a>
+
+<a href="https://www.cherwell.com/">
+<img src="https://user-images.githubusercontent.com/1205228/30205883-84174ebc-949f-11e7-9afc-a66c2ab19f59.png" height="48" width="110" /></a>
+
+<a href="https://www.bynder.com">
+<img src="https://user-images.githubusercontent.com/1205228/30205852-69921a5e-949f-11e7-8326-ba4c00fceba4.png" height="48" width="120" /></a>
+
+<a href="https://www.everbridge.com/">
+<img src="https://user-images.githubusercontent.com/1205228/30205910-a560ec90-949f-11e7-8485-e3a833f8109b.png" height="48" width="120" /></a>
+
+<a href="https://sserca.fau.edu/">
+<img src="https://user-images.githubusercontent.com/1205228/30221936-5e90af04-94da-11e7-8046-483fc26a1c01.png" height="48" width="170" /></a>
+
+<a href="https://newrelic.com/new">
+<img src="https://user-images.githubusercontent.com/1205228/30247067-541cef96-9620-11e7-88d7-c3749ba55ecf.png" height="48" width="90" /></a>
+
+<a href="https://www.egnyte.com/">
+<img src="https://user-images.githubusercontent.com/1205228/30247063-218f3962-9620-11e7-9ba4-54f7112fee13.png" height="48" width="120" /></a>
+
+<a href="https://www.yuja.com/">
+<img src="https://user-images.githubusercontent.com/1205228/30271142-6dd0b58c-9704-11e7-9138-0b86d5799403.png" height="48" width="100" /></a>
+
+<a href="https://www.symplicity.com/">
+<img src="https://user-images.githubusercontent.com/1205228/30271318-192b48fc-9705-11e7-9c18-3be401a39e84.png" height="48" width="200" /></a>
+
+<a href="Google-Apps-Integration.html">
+<img src="https://cloud.githubusercontent.com/assets/1205228/25385497/18e09c84-2979-11e7-94c1-5ad430b3d768.png" height="48" width="120" /></a>
+
+<a href="http://www.accruent.com/">
+<img src="https://user-images.githubusercontent.com/1205228/30735450-f9a12792-9f8b-11e7-941d-7ab4ac7628b9.png" height="48" width="120" /></a>
+
+<a href="https://docs.gitlab.com/ee/administration/auth/">
+<img src="https://user-images.githubusercontent.com/1205228/33747990-4d8da06e-db83-11e7-9551-f52630f7d4f0.png" height="38" width="120" /></a>
+
+<a href="https://www.hipchat.com/">
+<img src="https://user-images.githubusercontent.com/1205228/33751445-2b45394e-db98-11e7-9526-1eda07a70d99.png" height="58" width="100" /></a>
+
+<a href="https://www.appdynamics.com/">
+<img src="https://user-images.githubusercontent.com/1205228/33800340-3c2c072e-dcfb-11e7-9f10-7a7b2488c9b2.png" height="58" width="120" /></a>
+
+<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html">
+<img src="https://user-images.githubusercontent.com/1205228/34523704-d33a2054-f0ad-11e7-9fd7-444c30772a2a.png" height="58" width="120" /></a>
+
+<a href="https://www.concursolutions.com/">
+<img src="https://user-images.githubusercontent.com/1205228/36302734-ca3327ae-12c6-11e8-836f-e9a1550253d2.png" height="58" width="170" /></a>
+
+<a href="https://www.polleverywhere.com/">
+<img src="https://user-images.githubusercontent.com/1205228/36302795-026f57d2-12c7-11e8-931e-0f8700df1864.png" height="58" width="180" /></a>
+
+<a href="https://www.blackbaud.com/files/support/helpfiles/auth/content/auth-saml.html">
+<img src="https://user-images.githubusercontent.com/1205228/39860502-c72d1614-5452-11e8-956d-28a4b3a7a757.png" height="58" width="150" /></a>
+
+<a href="https://www.givecampus.com/">
+<img src="https://user-images.githubusercontent.com/1205228/39876988-eb009f5c-5489-11e8-8b74-940f75997f41.png" height="58" width="130" /></a>
+
+<a href="https://www.warpwire.com/">
+<img src="https://user-images.githubusercontent.com/1205228/39861404-b73f4bca-5455-11e8-9035-e0ecf1f8dcd0.png" height="58" width="150" /></a>
+
+<a href="https://rocket.chat/docs/administrator-guides/authentication/saml/">
+<img src="https://user-images.githubusercontent.com/1205228/39877039-1128c7ae-548a-11e8-8735-1abf90883df6.png" height="58" width="150" /></a>
+
+<a href="https://armssoftware.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55328877-35e0a400-5442-11e9-8848-cda5a9efe1c5.png" height="50" width="100" /></a>
+
+<a href="https://www.ahpcare.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55275480-e5334480-52a3-11e9-982a-1fad518258c5.png" height="50" width="190" /></a>
+
+<a href="https://www.neogov.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55275543-f3359500-52a4-11e9-9407-02ba4fc21a80.png" height="38" width="120" /></a>
+
+<a href="https://www.conexed.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55275622-ff6e2200-52a5-11e9-833d-f48518e58d0e.png" height="58" width="170" /></a>
+
+<a href="https://www.cccco.edu/">
+<img src="https://user-images.githubusercontent.com/1205228/55275721-62ac8400-52a7-11e9-89c2-121f2c494920.png" height="98" width="90" /></a>
+
+<a href="https://www.zimbra.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55322014-f14c0d00-542f-11e9-9355-3dd766ea56e6.png" height="68" width="160" /></a>
+
+<a href="https://www.atlassian.com/software/confluence">
+<img src="https://user-images.githubusercontent.com/1205228/55322216-97981280-5430-11e9-9ea3-b3682cb67ff1.png" height="68" width="130" /></a>
+
+<a href="https://www.atlassian.com/software/jira">
+<img src="https://user-images.githubusercontent.com/1205228/55322296-cb733800-5430-11e9-93e7-0f57e1a1ae89.png" height="78" width="90" /></a>
+
+<a href="https://www.pagerduty.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55322626-b34fe880-5431-11e9-8574-74cc9ab9643f.png" height="78" width="120" /></a>
+
+<a href="https://www.crashplan.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55322944-7f28f780-5432-11e9-8dd0-e999f0b6e03e.png" height="78" width="120" /></a>
+
+<a href="https://www.docusign.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55340232-1c972200-5459-11e9-87d2-53e1eccef8b8.png" height="78" width="150" /></a>
+
+<a href="https://www.safaribooksonline.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55340518-b65ecf00-5459-11e9-9941-3b0e80ceaf73.png" height="78" width="110" /></a>
+
+<a href="https://www.tophat.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55340927-89f78280-545a-11e9-81fb-baf0413bcbfa.png" height="48" width="140" /></a>
+ 
+<a href="https://myemma.com/">
+<img src="https://user-images.githubusercontent.com/1205228/55434382-58f77a80-554c-11e9-8494-1c6a830b532c.png" height="48" width="140" /></a>
+
+<a href="https://www.qualtrics.com">
+<img src="https://user-images.githubusercontent.com/1205228/55434613-d3c09580-554c-11e9-83ef-6b5805d7424e.png" height="48" width="140" /></a>
+
+</div>
+
+<div class="alert alert-info"><strong>Configure Once, Run Everywhere</strong>
+<p>If you have developed a recipe for integrating
+with a SAML service provider, consider contributing that recipe to the project so its configuration
+can be automated once and for all to use. Let the change become a feature of the project, 
+rather than something you alone have to maintain.</p></div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Allow CAS to register and enable a number of built-in SAML service provider integrations.</p>
+
+<div class="alert alert-warning"><strong>Remember</strong><p>SAML2 service provider integrations listed 
+here attempt to automate CAS configuration based on known and documented integration 
+guidelines and recipes provided by the service provider owned by the vendor. These 
+recipes can change and break CAS over time.</p></div>
+
+<p>The settings defined for each service provider attempt to automate the creation of
+SAML service definition and nothing more. If you find the applicable settings lack in certain areas, it
+is best to fall back onto the native configuration strategy for registering
+SAML service providers with CAS which would depend on your service registry of choice.</p>
+
+<p>The SAML2 service provider supports the following settings:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">metadata</code></td>
+      <td>Location of metadata for the service provider (i.e URL, path, etc)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name</code></td>
+      <td>The name of the service provider registered in the service registry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">description</code></td>
+      <td>The description of the service provider registered in the service registry.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name-id-attribute</code></td>
+      <td>Attribute to use when generating name ids for this service provider.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">name-id-format</code></td>
+      <td>The forced NameID Format identifier (i.e. <code class="language-plaintext highlighter-rouge">urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</code>).</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">attributes</code></td>
+      <td>Attributes to release to the service provider, which may virtually be mapped and renamed.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">signature-location</code></td>
+      <td>Signature location to verify metadata.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">entity-ids</code></td>
+      <td>List of entity ids allowed for this service provider.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sign-responses</code></td>
+      <td>Indicate whether responses should be signed. Default is <code class="language-plaintext highlighter-rouge">true</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sign-assertions</code></td>
+      <td>Indicate whether assertions should be signed. Default is <code class="language-plaintext highlighter-rouge">false</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The only required setting that would activate the automatic configuration for a
+service provider is the presence and definition of metadata. All other settings are optional.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscassamlsp">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescassamlsp" data-bs-toggle="tab" href="#requiredPropertiescassamlsp">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescassamlsp" data-bs-toggle="tab" href="#optionalPropertiescassamlsp">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescassamlsp">
+        <a class="nav-link" id="linkSigningEncryptioncassamlsp" data-bs-toggle="tab" href="#signingEncryptionPropertiescassamlsp">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescassamlsp">
+        <a class="nav-link" id="linkRdbmscassamlsp" data-bs-toggle="tab" href="#rdbmsPropertiescassamlsp">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescassamlsp">
+        <a class="nav-link" id="linkEmailcassamlsp" data-bs-toggle="tab" href="#emailPropertiescassamlsp">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescassamlsp">
+        <a class="nav-link" id="linkLdapcassamlsp" data-bs-toggle="tab" href="#ldapPropertiescassamlsp">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescassamlsp">
+        <a class="nav-link" id="linkAuthnPredicatecassamlsp" data-bs-toggle="tab" href="#authnPredicatePropertiescassamlsp">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescassamlsp">
+        <a class="nav-link" id="linkPasswordEncodercassamlsp" data-bs-toggle="tab" href="#passwordEncoderPropertiescassamlsp">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescassamlsp">
+        <a class="nav-link" id="linkPrincipalTransformationcassamlsp" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcassamlsp(this);" href="#principalTransformationPropertiescassamlsp">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescassamlsp">
+        <a class="nav-link" id="linkPasswordPolicycassamlsp" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcassamlsp(this);" href="#passwordPolicyPropertiescassamlsp">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcassamlsp(this);" id="linkNotescassamlsp" data-bs-toggle="tab" href="#notescassamlsp">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcassamlsp">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescassamlsp">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescassamlsp">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescassamlsp"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescassamlsp">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescassamlsp">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescassamlsp"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescassamlsp">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.4.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescassamlsp").remove()
+        
+        
+            $("#linkRdbmscassamlsp").remove()
+        
+        
+            $("#linkEmailcassamlsp").remove()
+        
+        
+            $("#linkSigningEncryptioncassamlsp").remove()
+        
+        
+            $("#linkRequiredPropertiescassamlsp").remove()
+        
+        
+            $("#linkPasswordPolicycassamlsp").remove()
+        
+        
+            $("#linkPrincipalTransformationcassamlsp").remove()
+        
+        
+            $("#linkPasswordEncodercassamlsp").remove()
+        
+        
+            $("#linkAuthnPredicatecassamlsp").remove()
+        
+        
+            $("#linkLdapcassamlsp").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscassamlsp");
+        var id=$("#navPillsMenuscassamlsp a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescassamlsp li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescassamlsp").closest("table").remove()
+            $("#navRequiredPropertiesLeftcassamlsp").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescassamlsp li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescassamlsp").closest("table").remove()
+            $("#navOptionalPropertiesLeftcassamlsp").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescassamlsp li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescassamlsp").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<p><strong>Note</strong>: For InCommon and other metadata aggregates, multiple entity ids can be specified to
+filter <a href="https://spaces.internet2.edu/display/InCFederation/Metadata+Aggregates">the InCommon metadata</a>. EntityIds
+can be regular expression patterns and are mapped to
+CAS’ <code class="language-plaintext highlighter-rouge">serviceId</code> field in the registry. The signature location MUST BE the public key used to sign the metadata.</p>
+
+<h2 id="google-apps">Google Apps</h2>
+
+<p>The Google Apps SAML integration is also provided by 
+CAS natively <a href="Google-Apps-Integration.html">based on this guide</a>.</p>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Integration';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Hazelcast Ticket Registry</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+            <div id="dev-doc-info" class="alert alert-danger" role="alert">
+                <h3>WORKERS AHEAD!</h3>
+                <p>You are viewing the <strong>development</strong> documentation for the Apereo CAS server. <strong>The
+                    functionality presented here <a href="https://github.com/apereo/cas/milestones">is not officially released
+                        yet</a></strong>.
+                    This is a work in progress and will be continually updated as development moves forward. <strong>You are
+                        most encouraged to test the changes presented.</strong>
+            </div>
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="hazelcast-ticket-registry">Hazelcast Ticket Registry</h1>
+
+<p>Hazelcast Ticket Registry is a distributed ticket registry implementation
+based on <a href="https://hazelcast.org/">Hazelcast distributed grid library</a>. The registry implementation is
+cluster-aware and is able to auto-join a cluster of all the CAS nodes that expose this registry.
+Hazelcast will use port auto-increment feature to assign a TCP port to each member of a cluster starting
+from initially provided arbitrary port, which is typically <code class="language-plaintext highlighter-rouge">5701</code> by default.</p>
+
+<p>Hazelcast will evenly distribute the ticket data among all the members of a cluster in a very
+efficient manner. Also, by default, the data collection on each node is configured with 1 backup copy,
+so that Hazelcast will use it to make strong data consistency guarantees i.e. the loss of data on
+live nodes will not occur should any other <em>primary data owner</em> members die. The data will be
+re-partitioned among the remaining live cluster members.</p>
+
+<p>Support is enabled by the following module:</p>
+
+<script type="text/javascript">
+
+function tabClicked(idx) {
+  var radius = "0px 5px 5px 5px";
+  if (idx != 0) {
+    radius = "5px 5px 5px 5px";
+  }
+  $(".tab-pane .highlight>pre.highlight").css("border-radius", radius);
+  switch (idx) {
+    case 0:
+      $("div #mavenorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 1:
+      $("div #gradleorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #bomorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+    case 2:
+      $("div #bomorgapereocascasserversupportreports").addClass("active").addClass("show");
+      $("div #gradleorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      $("div #mavenorgapereocascasserversupportreports").removeClass("active").removeClass("show");
+      break;
+  }
+}
+
+</script>
+
+<div style="display: block">
+
+<ul class="nav nav-pills">
+  <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(0)" data-bs-toggle="tab" href="#mavenorgapereocascasserversupporthazelcastticketregistr">Maven</a></li>
+  <li class="nav-item"><a class="nav-link active" onclick="javascript:tabClicked(1)" data-bs-toggle="tab" href="#gradleorgapereocascasserversupporthazelcastticketregistr">Gradle</a></li>
+
+  
+    <li class="nav-item"><a class="nav-link" onclick="javascript:tabClicked(2)" data-bs-toggle="tab" href="#bomorgapereocascasserversupporthazelcastticketregistr">BOM</a></li>
+  
+
+  <li role="presentation" class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" onclick="javascript:tabClicked(3)" data-bs-toggle="dropdown" href="#" role="button">Resources
+      <span class="caret"></span>
+    </a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-hazelcast-ticket-registry', 'cas-overlay');">Generate CAS Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-hazelcast-ticket-registry', 'cas-mgmt-overlay');">Generate CAS Management Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('cas-server-support-hazelcast-ticket-registry', 'cas-config-server-overlay');">Generate CAS Configuration Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-discovery-server-overlay');">Generate CAS Discovery Server WAR Overlay</a>
+      <a class="dropdown-item" href="javascript:generateOverlay('', 'cas-bootadmin-server-overlay');">Generate CAS Spring Boot Admin Server WAR Overlay</a>
+    </div>
+  </li>
+</ul>
+
+
+<div class="cas-module-tabs tab-content clearfix">
+
+
+
+  <div class="tab-pane fade in" id="mavenorgapereocascasserversupporthazelcastticketregistr">
+    
+
+    <span>
+      
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apereo.cas<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>cas-server-support-hazelcast-ticket-registry<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${cas.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+    </span>
+  
+  </div>
+
+
+  <div class="tab-pane fade in active show" id="gradleorgapereocascasserversupporthazelcastticketregistr">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-hazelcast-ticket-registry:${project.'cas.version'}"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+
+  </div>
+
+
+  <div class="tab-pane fade in" id="bomorgapereocascasserversupporthazelcastticketregistr">
+  
+  <span>
+    
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">dependencyManagement</span> <span class="o">{</span>
+  <span class="n">imports</span> <span class="o">{</span>
+    <span class="n">mavenBom</span> <span class="s2">"org.apereo.cas:cas-server-support-bom:${project.'cas.version'}"</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>  
+  <span class="n">implementation</span> <span class="s2">"org.apereo.cas:cas-server-support-hazelcast-ticket-registry"</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+  </span>
+  
+  </div>
+
+</div>
+
+</div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>This module has a configuration strategy which by default auto-configures a hazelcast 
+instance used by the ticket registry implementation to build and retrieve Hazelcast 
+maps for its distributed tickets storage. Some aspects of hazelcast configuration in 
+this auto-configuration mode are controlled by CAS properties.</p>
+
+<h4 id="hazelcast-configuration">Hazelcast Configuration</h4>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasticketregistryhazelcastcore">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasticketregistryhazelcastcore" data-bs-toggle="tab" href="#requiredPropertiescasticketregistryhazelcastcore">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasticketregistryhazelcastcore" data-bs-toggle="tab" href="#optionalPropertiescasticketregistryhazelcastcore">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasticketregistryhazelcastcore">
+        <a class="nav-link" id="linkSigningEncryptioncasticketregistryhazelcastcore" data-bs-toggle="tab" href="#signingEncryptionPropertiescasticketregistryhazelcastcore">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasticketregistryhazelcastcore">
+        <a class="nav-link" id="linkRdbmscasticketregistryhazelcastcore" data-bs-toggle="tab" href="#rdbmsPropertiescasticketregistryhazelcastcore">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasticketregistryhazelcastcore">
+        <a class="nav-link" id="linkEmailcasticketregistryhazelcastcore" data-bs-toggle="tab" href="#emailPropertiescasticketregistryhazelcastcore">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasticketregistryhazelcastcore">
+        <a class="nav-link" id="linkLdapcasticketregistryhazelcastcore" data-bs-toggle="tab" href="#ldapPropertiescasticketregistryhazelcastcore">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasticketregistryhazelcastcore">
+        <a class="nav-link" id="linkAuthnPredicatecasticketregistryhazelcastcore" data-bs-toggle="tab" href="#authnPredicatePropertiescasticketregistryhazelcastcore">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasticketregistryhazelcastcore">
+        <a class="nav-link" id="linkPasswordEncodercasticketregistryhazelcastcore" data-bs-toggle="tab" href="#passwordEncoderPropertiescasticketregistryhazelcastcore">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasticketregistryhazelcastcore">
+        <a class="nav-link" id="linkPrincipalTransformationcasticketregistryhazelcastcore" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastcore(this);" href="#principalTransformationPropertiescasticketregistryhazelcastcore">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasticketregistryhazelcastcore">
+        <a class="nav-link" id="linkPasswordPolicycasticketregistryhazelcastcore" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastcore(this);" href="#passwordPolicyPropertiescasticketregistryhazelcastcore">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastcore(this);" id="linkNotescasticketregistryhazelcastcore" data-bs-toggle="tab" href="#notescasticketregistryhazelcastcore">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasticketregistryhazelcastcore">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasticketregistryhazelcastcore">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasticketregistryhazelcastcore">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasticketregistryhazelcastcore"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasticketregistryhazelcastcore">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasticketregistryhazelcastcore">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasticketregistryhazelcastcore"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasticketregistryhazelcastcore">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkRdbmscasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkEmailcasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkSigningEncryptioncasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkRequiredPropertiescasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkPasswordPolicycasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkPrincipalTransformationcasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkPasswordEncodercasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkAuthnPredicatecasticketregistryhazelcastcore").remove()
+        
+        
+            $("#linkLdapcasticketregistryhazelcastcore").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasticketregistryhazelcastcore");
+        var id=$("#navPillsMenuscasticketregistryhazelcastcore a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasticketregistryhazelcastcore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasticketregistryhazelcastcore").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasticketregistryhazelcastcore").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasticketregistryhazelcastcore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasticketregistryhazelcastcore").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasticketregistryhazelcastcore").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasticketregistryhazelcastcore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasticketregistryhazelcastcore").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h4 id="hazelcast-cluster-core">Hazelcast Cluster Core</h4>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasticketregistryhazelcastclustercore">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#requiredPropertiescasticketregistryhazelcastclustercore">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#optionalPropertiescasticketregistryhazelcastclustercore">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasticketregistryhazelcastclustercore">
+        <a class="nav-link" id="linkSigningEncryptioncasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#signingEncryptionPropertiescasticketregistryhazelcastclustercore">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasticketregistryhazelcastclustercore">
+        <a class="nav-link" id="linkRdbmscasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#rdbmsPropertiescasticketregistryhazelcastclustercore">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasticketregistryhazelcastclustercore">
+        <a class="nav-link" id="linkEmailcasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#emailPropertiescasticketregistryhazelcastclustercore">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasticketregistryhazelcastclustercore">
+        <a class="nav-link" id="linkLdapcasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#ldapPropertiescasticketregistryhazelcastclustercore">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasticketregistryhazelcastclustercore">
+        <a class="nav-link" id="linkAuthnPredicatecasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#authnPredicatePropertiescasticketregistryhazelcastclustercore">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasticketregistryhazelcastclustercore">
+        <a class="nav-link" id="linkPasswordEncodercasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#passwordEncoderPropertiescasticketregistryhazelcastclustercore">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasticketregistryhazelcastclustercore">
+        <a class="nav-link" id="linkPrincipalTransformationcasticketregistryhazelcastclustercore" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclustercore(this);" href="#principalTransformationPropertiescasticketregistryhazelcastclustercore">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasticketregistryhazelcastclustercore">
+        <a class="nav-link" id="linkPasswordPolicycasticketregistryhazelcastclustercore" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclustercore(this);" href="#passwordPolicyPropertiescasticketregistryhazelcastclustercore">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclustercore(this);" id="linkNotescasticketregistryhazelcastclustercore" data-bs-toggle="tab" href="#notescasticketregistryhazelcastclustercore">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasticketregistryhazelcastclustercore">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasticketregistryhazelcastclustercore">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasticketregistryhazelcastclustercore">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasticketregistryhazelcastclustercore"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasticketregistryhazelcastclustercore">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasticketregistryhazelcastclustercore">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasticketregistryhazelcastclustercore"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasticketregistryhazelcastclustercore">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkRdbmscasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkEmailcasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkSigningEncryptioncasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkRequiredPropertiescasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkPasswordPolicycasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkPrincipalTransformationcasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkPasswordEncodercasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkAuthnPredicatecasticketregistryhazelcastclustercore").remove()
+        
+        
+            $("#linkLdapcasticketregistryhazelcastclustercore").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasticketregistryhazelcastclustercore");
+        var id=$("#navPillsMenuscasticketregistryhazelcastclustercore a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasticketregistryhazelcastclustercore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasticketregistryhazelcastclustercore").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasticketregistryhazelcastclustercore").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasticketregistryhazelcastclustercore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasticketregistryhazelcastclustercore").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasticketregistryhazelcastclustercore").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasticketregistryhazelcastclustercore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasticketregistryhazelcastclustercore").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h4 id="hazelcast-cluster-networking">Hazelcast Cluster Networking</h4>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasticketregistryhazelcastclusternetworkssl">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#requiredPropertiescasticketregistryhazelcastclusternetworkssl">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#optionalPropertiescasticketregistryhazelcastclusternetworkssl">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasticketregistryhazelcastclusternetworkssl">
+        <a class="nav-link" id="linkSigningEncryptioncasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#signingEncryptionPropertiescasticketregistryhazelcastclusternetworkssl">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasticketregistryhazelcastclusternetworkssl">
+        <a class="nav-link" id="linkRdbmscasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#rdbmsPropertiescasticketregistryhazelcastclusternetworkssl">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasticketregistryhazelcastclusternetworkssl">
+        <a class="nav-link" id="linkEmailcasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#emailPropertiescasticketregistryhazelcastclusternetworkssl">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasticketregistryhazelcastclusternetworkssl">
+        <a class="nav-link" id="linkLdapcasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#ldapPropertiescasticketregistryhazelcastclusternetworkssl">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasticketregistryhazelcastclusternetworkssl">
+        <a class="nav-link" id="linkAuthnPredicatecasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#authnPredicatePropertiescasticketregistryhazelcastclusternetworkssl">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasticketregistryhazelcastclusternetworkssl">
+        <a class="nav-link" id="linkPasswordEncodercasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#passwordEncoderPropertiescasticketregistryhazelcastclusternetworkssl">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasticketregistryhazelcastclusternetworkssl">
+        <a class="nav-link" id="linkPrincipalTransformationcasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclusternetworkssl(this);" href="#principalTransformationPropertiescasticketregistryhazelcastclusternetworkssl">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasticketregistryhazelcastclusternetworkssl">
+        <a class="nav-link" id="linkPasswordPolicycasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclusternetworkssl(this);" href="#passwordPolicyPropertiescasticketregistryhazelcastclusternetworkssl">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclusternetworkssl(this);" id="linkNotescasticketregistryhazelcastclusternetworkssl" data-bs-toggle="tab" href="#notescasticketregistryhazelcastclusternetworkssl">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasticketregistryhazelcastclusternetworkssl">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasticketregistryhazelcastclusternetworkssl">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasticketregistryhazelcastclusternetworkssl">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasticketregistryhazelcastclusternetworkssl"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasticketregistryhazelcastclusternetworkssl">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasticketregistryhazelcastclusternetworkssl">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasticketregistryhazelcastclusternetworkssl"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasticketregistryhazelcastclusternetworkssl">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkRdbmscasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkEmailcasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkSigningEncryptioncasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkRequiredPropertiescasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkPasswordPolicycasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkPrincipalTransformationcasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkPasswordEncodercasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkAuthnPredicatecasticketregistryhazelcastclusternetworkssl").remove()
+        
+        
+            $("#linkLdapcasticketregistryhazelcastclusternetworkssl").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasticketregistryhazelcastclusternetworkssl");
+        var id=$("#navPillsMenuscasticketregistryhazelcastclusternetworkssl a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasticketregistryhazelcastclusternetworkssl li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasticketregistryhazelcastclusternetworkssl").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasticketregistryhazelcastclusternetworkssl").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasticketregistryhazelcastclusternetworkssl li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasticketregistryhazelcastclusternetworkssl").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasticketregistryhazelcastclusternetworkssl").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasticketregistryhazelcastclusternetworkssl li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasticketregistryhazelcastclusternetworkssl").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h4 id="hazelcast-network-tls-encryption">Hazelcast Network TLS Encryption</h4>
+
+<p>You can use the TLS (Transport Layer Security) protocol to establish an encrypted
+communication across your Hazelcast cluster with key stores and trust stores. Hazelcast allows you
+to encrypt socket level communication between Hazelcast members and
+between Hazelcast clients and members, for end to end encryption.</p>
+
+<div class="alert alert-info"><strong>Usage</strong><p>
+Hazelcast SSL is an enterprise feature. You will need a proper Hazelcast Enterprise License to use this facility.</p></div>
+
+<p>Hazelcast provides a default SSL context factory implementation, which is guided 
+and auto-configured by CAS when enabled to use the configured keystore to initialize SSL context.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasticketregistryhazelcastclusternetworkssltls">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#requiredPropertiescasticketregistryhazelcastclusternetworkssltls">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#optionalPropertiescasticketregistryhazelcastclusternetworkssltls">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasticketregistryhazelcastclusternetworkssltls">
+        <a class="nav-link" id="linkSigningEncryptioncasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#signingEncryptionPropertiescasticketregistryhazelcastclusternetworkssltls">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasticketregistryhazelcastclusternetworkssltls">
+        <a class="nav-link" id="linkRdbmscasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#rdbmsPropertiescasticketregistryhazelcastclusternetworkssltls">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasticketregistryhazelcastclusternetworkssltls">
+        <a class="nav-link" id="linkEmailcasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#emailPropertiescasticketregistryhazelcastclusternetworkssltls">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasticketregistryhazelcastclusternetworkssltls">
+        <a class="nav-link" id="linkLdapcasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#ldapPropertiescasticketregistryhazelcastclusternetworkssltls">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasticketregistryhazelcastclusternetworkssltls">
+        <a class="nav-link" id="linkAuthnPredicatecasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#authnPredicatePropertiescasticketregistryhazelcastclusternetworkssltls">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasticketregistryhazelcastclusternetworkssltls">
+        <a class="nav-link" id="linkPasswordEncodercasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#passwordEncoderPropertiescasticketregistryhazelcastclusternetworkssltls">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasticketregistryhazelcastclusternetworkssltls">
+        <a class="nav-link" id="linkPrincipalTransformationcasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclusternetworkssltls(this);" href="#principalTransformationPropertiescasticketregistryhazelcastclusternetworkssltls">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasticketregistryhazelcastclusternetworkssltls">
+        <a class="nav-link" id="linkPasswordPolicycasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclusternetworkssltls(this);" href="#passwordPolicyPropertiescasticketregistryhazelcastclusternetworkssltls">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastclusternetworkssltls(this);" id="linkNotescasticketregistryhazelcastclusternetworkssltls" data-bs-toggle="tab" href="#notescasticketregistryhazelcastclusternetworkssltls">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasticketregistryhazelcastclusternetworkssltls">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasticketregistryhazelcastclusternetworkssltls">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasticketregistryhazelcastclusternetworkssltls">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasticketregistryhazelcastclusternetworkssltls"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasticketregistryhazelcastclusternetworkssltls">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasticketregistryhazelcastclusternetworkssltls">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasticketregistryhazelcastclusternetworkssltls"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasticketregistryhazelcastclusternetworkssltls">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/development/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkRdbmscasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkEmailcasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkSigningEncryptioncasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkRequiredPropertiescasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkPasswordPolicycasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkPrincipalTransformationcasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkPasswordEncodercasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkAuthnPredicatecasticketregistryhazelcastclusternetworkssltls").remove()
+        
+        
+            $("#linkLdapcasticketregistryhazelcastclusternetworkssltls").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasticketregistryhazelcastclusternetworkssltls");
+        var id=$("#navPillsMenuscasticketregistryhazelcastclusternetworkssltls a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasticketregistryhazelcastclusternetworkssltls li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasticketregistryhazelcastclusternetworkssltls").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasticketregistryhazelcastclusternetworkssltls").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasticketregistryhazelcastclusternetworkssltls li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasticketregistryhazelcastclusternetworkssltls").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasticketregistryhazelcastclusternetworkssltls").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasticketregistryhazelcastclusternetworkssltls li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasticketregistryhazelcastclusternetworkssltls").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<div class="alert alert-info"><strong>Performance</strong><p>
+Under Linux, the JVM automatically makes use of <code>/dev/random</code> for the 
+generation of random numbers. If this entropy is insufficient to keep up with the rate 
+requiring random numbers, it can slow down the encryption/decryption since it could block for 
+minutes waiting for sufficient entropy . This can be fixed 
+by setting the <code>-Djava.security.egd=file:/dev/./urandom</code> system property.
+Note that if there is a shortage of entropy, this option will not block 
+and the returned random values could theoretically be vulnerable to a cryptographic attack.
+</p></div>
+
+<div class="alert alert-warning"><strong>Session Monitoring</strong><p>Be aware that under 
+very heavy load and given a very large collection of tickets 
+over time, <a href="../monitoring/Configuring-Monitoring.html">session monitoring capabilities</a> of 
+CAS that report back ticket statistics based on the underlying Hazelcast ticket 
+registry may end up timing out. This is due to the concern that Hazelcast attempts 
+to run distributed queries across the entire network to collect, analyze and 
+aggregate tickets which may be still active or in flux. If you do experience 
+this behavior, it likely is preferable to turn off the session monitor.
+</p></div>
+
+<p>For more information on the Hazelcast configuration options available,
+refer to <a href="https://docs.hazelcast.com/imdg/latest/">the Hazelcast documentation</a></p>
+
+<h3 id="security">Security</h3>
+
+<p>Tokens and tickets that are managed by the Hazelcast ticket registry can be signed and encrypted.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasticketregistryhazelcastcrypto">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#requiredPropertiescasticketregistryhazelcastcrypto">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#optionalPropertiescasticketregistryhazelcastcrypto">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasticketregistryhazelcastcrypto">
+        <a class="nav-link" id="linkSigningEncryptioncasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#signingEncryptionPropertiescasticketregistryhazelcastcrypto">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasticketregistryhazelcastcrypto">
+        <a class="nav-link" id="linkRdbmscasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#rdbmsPropertiescasticketregistryhazelcastcrypto">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasticketregistryhazelcastcrypto">
+        <a class="nav-link" id="linkEmailcasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#emailPropertiescasticketregistryhazelcastcrypto">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasticketregistryhazelcastcrypto">
+        <a class="nav-link" id="linkLdapcasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#ldapPropertiescasticketregistryhazelcastcrypto">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasticketregistryhazelcastcrypto">
+        <a class="nav-link" id="linkAuthnPredicatecasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#authnPredicatePropertiescasticketregistryhazelcastcrypto">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasticketregistryhazelcastcrypto">
+        <a class="nav-link" id="linkPasswordEncodercasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#passwordEncoderPropertiescasticketregistryhazelcastcrypto">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasticketregistryhazelcastcrypto">
+        <a class="nav-link" id="linkPrincipalTransformationcasticketregistryhazelcastcrypto" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastcrypto(this);" href="#principalTransformationPropertiescasticketregistryhazelcastcrypto">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasticketregistryhazelcastcrypto">
+        <a class="nav-link" id="linkPasswordPolicycasticketregistryhazelcastcrypto" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastcrypto(this);" href="#passwordPolicyPropertiescasticketregistryhazelcastcrypto">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasticketregistryhazelcastcrypto(this);" id="linkNotescasticketregistryhazelcastcrypto" data-bs-toggle="tab" href="#notescasticketregistryhazelcastcrypto">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasticketregistryhazelcastcrypto">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasticketregistryhazelcastcrypto">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasticketregistryhazelcastcrypto">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasticketregistryhazelcastcrypto"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasticketregistryhazelcastcrypto">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasticketregistryhazelcastcrypto">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasticketregistryhazelcastcrypto"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasticketregistryhazelcastcrypto">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkRdbmscasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkEmailcasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkSigningEncryptioncasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkRequiredPropertiescasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkPasswordPolicycasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkPrincipalTransformationcasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkPasswordEncodercasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkAuthnPredicatecasticketregistryhazelcastcrypto").remove()
+        
+        
+            $("#linkLdapcasticketregistryhazelcastcrypto").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasticketregistryhazelcastcrypto");
+        var id=$("#navPillsMenuscasticketregistryhazelcastcrypto a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasticketregistryhazelcastcrypto li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasticketregistryhazelcastcrypto").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasticketregistryhazelcastcrypto").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasticketregistryhazelcastcrypto li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasticketregistryhazelcastcrypto").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasticketregistryhazelcastcrypto").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasticketregistryhazelcastcrypto li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasticketregistryhazelcastcrypto").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<h2 id="logging">Logging</h2>
+
+<p>To enable additional logging for the registry, configure the log4j 
+configuration file to add the following levels:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>...
+<span class="nt">&lt;Logger</span> <span class="na">name=</span><span class="s">"com.hazelcast"</span> <span class="na">level=</span><span class="s">"debug"</span> <span class="na">additivity=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"console"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"file"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Logger&gt;</span>
+...
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Ticketing';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

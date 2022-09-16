@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Attribute Resolution</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    
+<h1 id="attribute-resolution">Attribute Resolution</h1>
+
+<p>Attribute resolution strategies are controlled by
+the <a href="https://github.com/apereo/person-directory">Person Directory project</a>.
+The Person Directory dependency is automatically bundled with the CAS server. Therefore,
+declaring an additional dependency will not be required.
+This Person Directory project supports both LDAP and JDBC attribute resolution,
+caching, attribute aggregation from multiple attribute sources, etc.</p>
+
+<div class="alert alert-info"><strong>Default Caching Policy</strong><p>By default,
+attributes are cached to the length of the SSO session.
+This means that while the underlying component provided by Person Directory may have
+a different caching model, attributes by default and from
+a CAS perspective will not be refreshed and retrieved again on subsequent requests
+as long as the SSO session exists.</p></div>
+
+<h2 id="actuator-endpoints">Actuator Endpoints</h2>
+
+<p>The following endpoints are provided by CAS:</p>
+
+<div style="display:none" id="jdbcauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjdbcresolveAttributes .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjdbcresolveAttributes ');
+        $("ul#navPillsMenuscasmonitorendpointsjdbcresolveAttributes").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjdbcresolveAttributes li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjdbcresolveAttributes">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#requiredPropertiescasmonitorendpointsjdbcresolveAttributes">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#optionalPropertiescasmonitorendpointsjdbcresolveAttributes">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjdbcresolveAttributes">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#signingEncryptionPropertiescasmonitorendpointsjdbcresolveAttributes">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjdbcresolveAttributes">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#rdbmsPropertiescasmonitorendpointsjdbcresolveAttributes">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjdbcresolveAttributes">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#emailPropertiescasmonitorendpointsjdbcresolveAttributes">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjdbcresolveAttributes">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#ldapPropertiescasmonitorendpointsjdbcresolveAttributes">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjdbcresolveAttributes">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#authnPredicatePropertiescasmonitorendpointsjdbcresolveAttributes">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjdbcresolveAttributes">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#passwordEncoderPropertiescasmonitorendpointsjdbcresolveAttributes">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjdbcresolveAttributes">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#principalTransformationPropertiescasmonitorendpointsjdbcresolveAttributes">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjdbcresolveAttributes">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjdbcresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjdbcresolveAttributes(this);" href="#passwordPolicyPropertiescasmonitorendpointsjdbcresolveAttributes">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjdbcresolveAttributes">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjdbcresolveAttributes">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjdbcresolveAttributes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjdbcresolveAttributes"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjdbcresolveAttributes">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjdbcresolveAttributes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjdbcresolveAttributes"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjdbcresolveAttributes").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjdbcresolveAttributes").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjdbcresolveAttributes");
+        var id=$("#navPillsMenuscasmonitorendpointsjdbcresolveAttributes a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjdbcresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjdbcresolveAttributes").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjdbcresolveAttributes").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjdbcresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjdbcresolveAttributes").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjdbcresolveAttributes").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjdbcresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjdbcresolveAttributes").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="ldapauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsldapresolveAttributes(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsldapresolveAttributes .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsldapresolveAttributes ');
+        $("ul#navPillsMenuscasmonitorendpointsldapresolveAttributes").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsldapresolveAttributes li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsldapresolveAttributes">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#requiredPropertiescasmonitorendpointsldapresolveAttributes">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#optionalPropertiescasmonitorendpointsldapresolveAttributes">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsldapresolveAttributes">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#signingEncryptionPropertiescasmonitorendpointsldapresolveAttributes">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsldapresolveAttributes">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#rdbmsPropertiescasmonitorendpointsldapresolveAttributes">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsldapresolveAttributes">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#emailPropertiescasmonitorendpointsldapresolveAttributes">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsldapresolveAttributes">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#ldapPropertiescasmonitorendpointsldapresolveAttributes">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsldapresolveAttributes">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#authnPredicatePropertiescasmonitorendpointsldapresolveAttributes">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsldapresolveAttributes">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#passwordEncoderPropertiescasmonitorendpointsldapresolveAttributes">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsldapresolveAttributes">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#principalTransformationPropertiescasmonitorendpointsldapresolveAttributes">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsldapresolveAttributes">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsldapresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsldapresolveAttributes(this);" href="#passwordPolicyPropertiescasmonitorendpointsldapresolveAttributes">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsldapresolveAttributes">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsldapresolveAttributes">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsldapresolveAttributes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsldapresolveAttributes"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsldapresolveAttributes">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsldapresolveAttributes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsldapresolveAttributes"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsldapresolveAttributes").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsldapresolveAttributes").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsldapresolveAttributes");
+        var id=$("#navPillsMenuscasmonitorendpointsldapresolveAttributes a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsldapresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsldapresolveAttributes").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsldapresolveAttributes").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsldapresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsldapresolveAttributes").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsldapresolveAttributes").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsldapresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsldapresolveAttributes").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div style="display:none" id="jaasauthpropReference">
+    <!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<script>
+    function enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(link) {
+        // console.log(link);
+        let id = new URL(link.href).hash;
+        console.log(`Tab link selected ${id}`);
+        $("#casPropertiesTabContentcasmonitorendpointsjaasresolveAttributes .properties-tab").removeClass("show").removeClass("active");
+        $(`.modal-body ${id}`).addClass("show").addClass("active");
+        $(`.modal-body ${id} table tr`).css("display", "block");
+    }
+
+    window.addEventListener('load', (event) => {
+        // console.log('Loaded page for configuration properties casmonitorendpointsjaasresolveAttributes ');
+        $("ul#navPillsMenuscasmonitorendpointsjaasresolveAttributes").css("display", "")
+            .show().addClass("show").addClass("active");
+
+        setTimeout(() => {
+            let selector = "ul#navPillsMenuscasmonitorendpointsjaasresolveAttributes li a:visible:first";
+            console.log(`Activating link ${selector}: ${$(selector)}`);
+            $(selector).show().addClass("show").addClass("active");
+        }, 1000);
+    });
+</script>
+
+<ul style="display:none;" class="nav nav-tabs" id="navPillsMenuscasmonitorendpointsjaasresolveAttributes">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#requiredPropertiescasmonitorendpointsjaasresolveAttributes">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#optionalPropertiescasmonitorendpointsjaasresolveAttributes">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasmonitorendpointsjaasresolveAttributes">
+        <a class="nav-link" id="linkSigningEncryptioncasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#signingEncryptionPropertiescasmonitorendpointsjaasresolveAttributes">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasmonitorendpointsjaasresolveAttributes">
+        <a class="nav-link" id="linkRdbmscasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#rdbmsPropertiescasmonitorendpointsjaasresolveAttributes">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasmonitorendpointsjaasresolveAttributes">
+        <a class="nav-link" id="linkEmailcasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#emailPropertiescasmonitorendpointsjaasresolveAttributes">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasmonitorendpointsjaasresolveAttributes">
+        <a class="nav-link" id="linkLdapcasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#ldapPropertiescasmonitorendpointsjaasresolveAttributes">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasmonitorendpointsjaasresolveAttributes">
+        <a class="nav-link" id="linkAuthnPredicatecasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#authnPredicatePropertiescasmonitorendpointsjaasresolveAttributes">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasmonitorendpointsjaasresolveAttributes">
+        <a class="nav-link" id="linkPasswordEncodercasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#passwordEncoderPropertiescasmonitorendpointsjaasresolveAttributes">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasmonitorendpointsjaasresolveAttributes">
+        <a class="nav-link" id="linkPrincipalTransformationcasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#principalTransformationPropertiescasmonitorendpointsjaasresolveAttributes">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasmonitorendpointsjaasresolveAttributes">
+        <a class="nav-link" id="linkPasswordPolicycasmonitorendpointsjaasresolveAttributes" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasmonitorendpointsjaasresolveAttributes(this);" href="#passwordPolicyPropertiescasmonitorendpointsjaasresolveAttributes">Password Policy</a>
+    </li>
+
+    
+
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasmonitorendpointsjaasresolveAttributes">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasmonitorendpointsjaasresolveAttributes">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasmonitorendpointsjaasresolveAttributes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasmonitorendpointsjaasresolveAttributes"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasmonitorendpointsjaasresolveAttributes">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasmonitorendpointsjaasresolveAttributes">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasmonitorendpointsjaasresolveAttributes"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkRdbmscasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkEmailcasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkSigningEncryptioncasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkRequiredPropertiescasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkPasswordPolicycasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkPrincipalTransformationcasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkPasswordEncodercasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkAuthnPredicatecasmonitorendpointsjaasresolveAttributes").remove()
+        
+        
+            $("#linkLdapcasmonitorendpointsjaasresolveAttributes").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasmonitorendpointsjaasresolveAttributes");
+        var id=$("#navPillsMenuscasmonitorendpointsjaasresolveAttributes a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasmonitorendpointsjaasresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasmonitorendpointsjaasresolveAttributes").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasmonitorendpointsjaasresolveAttributes").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasmonitorendpointsjaasresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasmonitorendpointsjaasresolveAttributes").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasmonitorendpointsjaasresolveAttributes").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasmonitorendpointsjaasresolveAttributes li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasmonitorendpointsjaasresolveAttributes").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+
+</div>
+
+<div class="accordion" id="resolveAttributes">
+    
+
+    
+
+    
+    
+</div>
+
+<p><br /></p>
+
+<h2 id="person-directory">Person Directory</h2>
+
+<p>A framework for resolving persons and attributes from a variety of underlying sources.
+It consists of a collection of components that retrieve, cache, resolve, aggregate,
+merge person attributes from JDBC, LDAP and more.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscaspersondirectory">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescaspersondirectory" data-bs-toggle="tab" href="#requiredPropertiescaspersondirectory">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescaspersondirectory" data-bs-toggle="tab" href="#optionalPropertiescaspersondirectory">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescaspersondirectory">
+        <a class="nav-link" id="linkSigningEncryptioncaspersondirectory" data-bs-toggle="tab" href="#signingEncryptionPropertiescaspersondirectory">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescaspersondirectory">
+        <a class="nav-link" id="linkRdbmscaspersondirectory" data-bs-toggle="tab" href="#rdbmsPropertiescaspersondirectory">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescaspersondirectory">
+        <a class="nav-link" id="linkEmailcaspersondirectory" data-bs-toggle="tab" href="#emailPropertiescaspersondirectory">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescaspersondirectory">
+        <a class="nav-link" id="linkLdapcaspersondirectory" data-bs-toggle="tab" href="#ldapPropertiescaspersondirectory">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescaspersondirectory">
+        <a class="nav-link" id="linkAuthnPredicatecaspersondirectory" data-bs-toggle="tab" href="#authnPredicatePropertiescaspersondirectory">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescaspersondirectory">
+        <a class="nav-link" id="linkPasswordEncodercaspersondirectory" data-bs-toggle="tab" href="#passwordEncoderPropertiescaspersondirectory">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescaspersondirectory">
+        <a class="nav-link" id="linkPrincipalTransformationcaspersondirectory" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcaspersondirectory(this);" href="#principalTransformationPropertiescaspersondirectory">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescaspersondirectory">
+        <a class="nav-link" id="linkPasswordPolicycaspersondirectory" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcaspersondirectory(this);" href="#passwordPolicyPropertiescaspersondirectory">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcaspersondirectory(this);" id="linkNotescaspersondirectory" data-bs-toggle="tab" href="#notescaspersondirectory">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcaspersondirectory">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescaspersondirectory">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescaspersondirectory">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescaspersondirectory"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescaspersondirectory">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescaspersondirectory">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescaspersondirectory"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescaspersondirectory">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescaspersondirectory").remove()
+        
+        
+            $("#linkRdbmscaspersondirectory").remove()
+        
+        
+            $("#linkEmailcaspersondirectory").remove()
+        
+        
+            $("#linkSigningEncryptioncaspersondirectory").remove()
+        
+        
+            $("#linkRequiredPropertiescaspersondirectory").remove()
+        
+        
+            $("#linkPasswordPolicycaspersondirectory").remove()
+        
+        
+            $("#linkPrincipalTransformationcaspersondirectory").remove()
+        
+        
+            $("#linkPasswordEncodercaspersondirectory").remove()
+        
+        
+            $("#linkAuthnPredicatecaspersondirectory").remove()
+        
+        
+            $("#linkLdapcaspersondirectory").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscaspersondirectory");
+        var id=$("#navPillsMenuscaspersondirectory a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescaspersondirectory li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescaspersondirectory").closest("table").remove()
+            $("#navRequiredPropertiesLeftcaspersondirectory").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescaspersondirectory li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescaspersondirectory").closest("table").remove()
+            $("#navOptionalPropertiesLeftcaspersondirectory").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescaspersondirectory li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescaspersondirectory").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<p>Attribute sources are defined and configured to describe the global set of attributes to be fetched
+for each authenticated principal. That global set of attributes is then filtered by the
+service manager according to service-specific attribute release rules.</p>
+
+<p>Note that each attribute repository source can be assigned a unique 
+identifier to be used for additional filtering. The attribute resolution engine
+provided by Person Directory can also be configured to only consult not 
+all but a selection of attribute repository sources, <em>deferring</em> the task
+of attribute retrieval for later phases in the authentication process, 
+such as <a href="Attribute-Release-Caching.html">releasing attributes</a>.</p>
+
+<div class="alert alert-info"><strong>Principal Resolution</strong><p>Note that in most if not all cases,
+CAS authentication is able to retrieve and resolve attributes from the authentication source, which would
+eliminate the need for configuring a separate resolver specially if 
+both the authentication and the attribute source are the same.
+Using separate resolvers should only be required when sources are 
+different, or when there is a need to tackle more advanced attribute
+resolution use cases such as cascading, merging, etc. 
+<a href="../installation/Configuring-Principal-Resolution.html">See this guide</a> for more info.</p></div>
+
+<p>The goal of the resolver is to construct a final identifiable 
+authenticated principal for CAS which carries a number of attributes inside it.
+The behavior of the person-directory resolver is such that it attempts
+to locate the principal id, which in most cases is the same thing as the credential
+id provided during authentication or it could be noted by a custom 
+attribute. Then the resolver starts to construct attributes from attribute 
+repositories defined. If it realizes that a custom attribute is used to determine the principal id AND the same attribute 
+is also set to be collected into the final set of attributes, it 
+will then remove that attribute from the final collection.</p>
+
+<p>Note that by default, CAS auto-creates attribute repository sources that are appropriate for LDAP, JDBC, etc.
+If you need something more, you will need to resort to more elaborate measures of defining the bean configuration.</p>
+
+<p>More about the Person Directory and its configurable 
+sources <a href="https://github.com/apereo/person-directory">can be found here</a>.</p>
+
+<h3 id="overview">Overview</h3>
+
+<p>Control the set of authentication attributes that are retrieved by the principal resolution process,
+from attribute sources unless noted otherwise by the specific authentication scheme.</p>
+
+<p>If multiple attribute repository sources are defined, they are added into a list
+and their results are cached and merged.</p>
+
+<!-- fragment:keep -->
+
+<p>The following settings and properties are available from the CAS configuration catalog:</p>
+
+<ul class="nav nav-tabs" id="navPillsMenuscasauthnattributerepositorycore">
+
+    <li class="nav-item">
+        <a class="nav-link active" id="linkRequiredPropertiescasauthnattributerepositorycore" data-bs-toggle="tab" href="#requiredPropertiescasauthnattributerepositorycore">Required</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="linkOptionalPropertiescasauthnattributerepositorycore" data-bs-toggle="tab" href="#optionalPropertiescasauthnattributerepositorycore">Optional</a>
+    </li>
+
+    <li class="nav-item" id="navSigningEncryptionPropertiescasauthnattributerepositorycore">
+        <a class="nav-link" id="linkSigningEncryptioncasauthnattributerepositorycore" data-bs-toggle="tab" href="#signingEncryptionPropertiescasauthnattributerepositorycore">Signing &amp; Encryption</a>
+    </li>
+
+    <li class="nav-item" id="navRdbmsPropertiescasauthnattributerepositorycore">
+        <a class="nav-link" id="linkRdbmscasauthnattributerepositorycore" data-bs-toggle="tab" href="#rdbmsPropertiescasauthnattributerepositorycore">Hibernate &amp; JDBC</a>
+    </li>
+
+    <li class="nav-item" id="navEmailPropertiescasauthnattributerepositorycore">
+        <a class="nav-link" id="linkEmailcasauthnattributerepositorycore" data-bs-toggle="tab" href="#emailPropertiescasauthnattributerepositorycore">Email Servers</a>
+    </li>
+
+    <li class="nav-item" id="navLdapPropertiescasauthnattributerepositorycore">
+        <a class="nav-link" id="linkLdapcasauthnattributerepositorycore" data-bs-toggle="tab" href="#ldapPropertiescasauthnattributerepositorycore">LDAP &amp; Active Directory</a>
+    </li>
+
+    <li class="nav-item" id="navAuthnPredicatePropertiescasauthnattributerepositorycore">
+        <a class="nav-link" id="linkAuthnPredicatecasauthnattributerepositorycore" data-bs-toggle="tab" href="#authnPredicatePropertiescasauthnattributerepositorycore">Authentication</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordEncoderPropertiescasauthnattributerepositorycore">
+        <a class="nav-link" id="linkPasswordEncodercasauthnattributerepositorycore" data-bs-toggle="tab" href="#passwordEncoderPropertiescasauthnattributerepositorycore">Password Encoding</a>
+    </li>
+
+    <li class="nav-item" id="navPrincipalTransformationPropertiescasauthnattributerepositorycore">
+        <a class="nav-link" id="linkPrincipalTransformationcasauthnattributerepositorycore" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasauthnattributerepositorycore(this);" href="#principalTransformationPropertiescasauthnattributerepositorycore">Principal Transformation</a>
+    </li>
+
+    <li class="nav-item" id="navPasswordPolicyPropertiescasauthnattributerepositorycore">
+        <a class="nav-link" id="linkPasswordPolicycasauthnattributerepositorycore" data-bs-toggle="tab" onclick="javascript:enablePropertiesTabcasauthnattributerepositorycore(this);" href="#passwordPolicyPropertiescasauthnattributerepositorycore">Password Policy</a>
+    </li>
+
+    
+
+     
+    <li class="nav-item">
+        <a class="nav-link" onclick="javascript:enablePropertiesTabcasauthnattributerepositorycore(this);" id="linkNotescasauthnattributerepositorycore" data-bs-toggle="tab" href="#notescasauthnattributerepositorycore">Notes</a>
+    </li>
+    
+</ul>
+
+<div class="tab-content clearfix" id="casPropertiesTabContentcasauthnattributerepositorycore">
+
+
+<div class="tab-pane properties-tab fade in active show" id="requiredPropertiescasauthnattributerepositorycore">
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Required</i></u> in the CAS configuration metadata. This flag indicates that the presence of the setting may be needed to activate or affect the behavior of the CAS feature and generally should be reviewed, possibly owned and adjusted. If the setting is assigned a default value, you do not need to strictly put the setting in your copy of the configuration, but should review it nonetheless to make sure it matches your deployment expectations.
+    </sub>
+    <br /><p />
+
+    <p />
+        
+    <table class="cas-datatable properties " id="tableRequiredPropertiescasauthnattributerepositorycore">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaRequiredPropertiescasauthnattributerepositorycore"></textarea>
+</div>
+
+<div class="tab-pane properties-tab fade in" id="optionalPropertiescasauthnattributerepositorycore">
+
+    <i style="vertical-align: sub;" class="fas fa-info-circle"></i>
+    <sub>
+        The configuration settings listed below are tagged as <u><i>Optional</i></u> in the CAS configuration metadata. This
+        flag indicates that the presence of the setting
+        is not immediately necessary in the end-user CAS configuration, because a default value is assigned or
+        the activation of the feature is not conditionally controlled by the setting value. You should only include this field in your
+        configuration if you need to modify the default value.
+    </sub>
+    <br /><p />
+
+    <table class="cas-datatable properties " id="tableOptionalPropertiescasauthnattributerepositorycore">
+    <thead><tr><th></th></tr></thead>
+    <tbody>
+
+        
+
+        
+            
+        
+
+    </tbody>
+    </table>
+
+    <textarea style="position:absolute; left: -10000px;" id="copyAreaOptionalPropertiescasauthnattributerepositorycore"></textarea>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<div class="tab-pane properties-tab fade in" id="notescasauthnattributerepositorycore">
+    
+    <p />
+
+<h4 id="configuration-metadata">Configuration Metadata</h4>
+
+<p>The collection of configuration properties listed in this section are automatically generated from the CAS source and components that contain the actual field
+definitions, types, descriptions, modules, etc. This metadata may not always be 100% accurate, or could be lacking details and sufficient explanations.</p>
+
+<h4 id="be-selective">Be Selective</h4>
+
+<p>This section is meant as a guide only. Do NOT copy/paste the entire collection of settings into your CAS configuration; rather pick only the properties that you
+need. Do NOT enable settings unless you are certain of their purpose and do NOT copy settings into your configuration only to keep them as reference. All these
+ideas lead to upgrade headaches, maintenance nightmares and premature aging.</p>
+
+<h4 id="yagni">YAGNI</h4>
+
+<p>Note that for nearly ALL use cases, declaring and configuring properties listed here is sufficient. You should NOT have to explicitly massage a CAS XML/Java/etc
+configuration file to design an authentication handler, create attribute release policies, etc. CAS at runtime will auto-configure all required changes for you.
+If you are unsure about the meaning of a given CAS setting, do NOT turn it on without hesitation. Review the codebase or better yet, ask questions to clarify
+the intended behavior.</p>
+
+<h4 id="naming-convention">Naming Convention</h4>
+
+<p>Property names can be specified in very relaxed terms. For instance <code class="language-plaintext highlighter-rouge">cas.someProperty</code>, <code class="language-plaintext highlighter-rouge">cas.some-property</code>, <code class="language-plaintext highlighter-rouge">cas.some_property</code> are all valid names. While all
+forms are accepted by CAS, there are certain components (in CAS and other frameworks used) whose activation at runtime is conditional on a property value, where
+this property is required to have been specified in CAS configuration using kebab case. This is both true for properties that are owned by CAS as well as those
+that might be presented to the system via an external library or framework such as Spring Boot, etc.</p>
+
+<div class="alert alert-info"><p>
+When possible, properties should be stored in lower-case kebab format, such as <code>cas.property-name=value</code>.
+The only possible exception to this rule is when naming actuator endpoints; The name of the
+actuator endpoints (i.e. <code>ssoSessions</code>) <strong>MUST</strong> remain in camelCase mode. 
+</p></div>
+
+<p>Settings and properties that are controlled by the CAS platform directly always begin with the prefix <code class="language-plaintext highlighter-rouge">cas</code>. All other settings are controlled and provided
+to CAS via other underlying frameworks and may have their own schemas and syntax. BE CAREFUL with
+the distinction. Unrecognized properties are rejected by CAS and/or frameworks upon which CAS depends. This means if you somehow misspell a property definition
+or fail to adhere to the dot-notation syntax and such, your setting is entirely refused by CAS and likely the feature it controls will never be activated in the
+way you intend.</p>
+
+<h4 id="validation">Validation</h4>
+
+<p>Configuration properties are automatically validated on CAS startup to report issues with configuration binding, specially if defined CAS settings cannot be
+recognized or validated by the configuration schema. The validation process is on by default and can be skipped on startup using a special system
+property <code class="language-plaintext highlighter-rouge">SKIP_CONFIG_VALIDATION</code> that should be set to <code class="language-plaintext highlighter-rouge">true</code>. Additional validation processes are also handled
+via <a href="/6.5.x/configuration/Configuration-Metadata-Repository.html">Configuration Metadata</a> and property migrations applied automatically on
+startup by Spring Boot and family.</p>
+
+<h4 id="indexed-settings">Indexed Settings</h4>
+
+<p>CAS settings able to accept multiple values are typically documented with an index, such as <code class="language-plaintext highlighter-rouge">cas.some.setting[0]=value</code>. The index <code class="language-plaintext highlighter-rouge">[0]</code> is meant to be
+incremented by the adopter to allow for distinct multiple configuration blocks.</p>
+
+</div>
+
+
+
+<script>
+
+    window.addEventListener('load', (event) => {
+        
+            $("#linkOptionalPropertiescasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkRdbmscasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkEmailcasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkSigningEncryptioncasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkRequiredPropertiescasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkPasswordPolicycasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkPrincipalTransformationcasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkPasswordEncodercasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkAuthnPredicatecasauthnattributerepositorycore").remove()
+        
+        
+            $("#linkLdapcasauthnattributerepositorycore").remove()
+        
+
+        
+        // console.log("Checking for visible link menu in: navPillsMenuscasauthnattributerepositorycore");
+        var id=$("#navPillsMenuscasauthnattributerepositorycore a:visible:first").prop('id');
+        // console.log("Attempting to select tab with id " + id);
+        if (id != undefined && id != null) {
+            // console.log("Selecting first tab with link id " + id);
+            var firstTabEl = document.querySelector("#" + id);
+            var firstTab = new bootstrap.Tab(firstTabEl);
+            firstTab.show();
+            // console.log("Selected tab with link id " + id);
+        }
+
+        let c = $("#tableRequiredPropertiescasauthnattributerepositorycore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navRequiredPropertiescasauthnattributerepositorycore").closest("table").remove()
+            $("#navRequiredPropertiesLeftcasauthnattributerepositorycore").closest("table").remove()
+        }
+        c = $("#tableOptionalPropertiescasauthnattributerepositorycore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navOptionalPropertiescasauthnattributerepositorycore").closest("table").remove()
+            $("#navOptionalPropertiesLeftcasauthnattributerepositorycore").closest("table").remove()
+        }
+        c = $("#tableThirdPartyPropertiescasauthnattributerepositorycore li.property-name code").length;
+        if (c <= ROWS) {
+            $("#navThirdPartyPropertiescasauthnattributerepositorycore").hide();
+        }
+        
+    });
+</script>
+
+</div>
+
+<div class="alert alert-info"><strong>Remember This</strong><p>Note that in certain cases,
+CAS authentication is able to retrieve and resolve attributes from the authentication 
+source in the same authentication request, which would
+eliminate the need for configuring a separate attribute repository specially 
+if both the authentication and the attribute source are the same.
+Using separate repositories should be required when sources are different, 
+or when there is a need to tackle more advanced attribute
+resolution use cases such as cascading, merging, etc.</p></div>
+
+<p>Attributes for all sources are defined in their own individual block.
+CAS does not care about the source owner of attributes. It finds them where they can be found and otherwise, it moves on.
+This means that certain number of attributes can be resolved via one source and the remaining attributes
+may be resolved via another. If there are commonalities across sources, the merger shall decide the final result and behavior.</p>
+
+<p>Note that attribute repository sources, if/when defined, execute in a specific order.
+This is important to take into account when attribute merging may take place.</p>
+
+<p>Note that if no <em>explicit</em> attribute mappings are defined, all permitted attributes on the record
+may be retrieved by CAS from the attribute repository source and made available to the principal. On the other hand,
+if explicit attribute mappings are defined, then <em>only mapped attributes</em> are retrieved.</p>
+
+<p>The following merging strategies can be used to resolve conflicts when the same attribute are found from multiple sources:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">REPLACE</code></td>
+      <td>Overwrites existing attribute values, if any.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ADD</code></td>
+      <td>Retains existing attribute values if any, and ignores values from subsequent sources in the resolution chain.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MULTIVALUED</code></td>
+      <td>Combines all values into a single attribute, essentially creating a multi-valued attribute.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">NONE</code></td>
+      <td>Do not merge attributes, only use attributes retrieved during authentication.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The following aggregation strategies can be used to resolve and merge attributes
+when multiple attribute repository sources are defined to fetch data:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">MERGE</code></td>
+      <td>Default. Query multiple repositories in order and merge the results into a single result set.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">CASCADE</code></td>
+      <td>Same as above; results from each query are passed down to the next attribute repository source. If the first repository queried has no results, no further attribute repositories will be queried.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="sources">Sources</h3>
+
+<p>The following options may be used to fetch attributes in CAS.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Reference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stub</td>
+      <td><a href="Attribute-Resolution-Stub.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>LDAP</td>
+      <td><a href="Attribute-Resolution-LDAP.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Groovy</td>
+      <td><a href="Attribute-Resolution-Groovy.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>REST</td>
+      <td><a href="Attribute-Resolution-REST.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Grouper</td>
+      <td><a href="Attribute-Resolution-Grouper.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Couchbase</td>
+      <td><a href="Attribute-Resolution-Couchbase.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Redis</td>
+      <td><a href="Attribute-Resolution-Redis.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>JDBC</td>
+      <td><a href="Attribute-Resolution-JDBC.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>OKTA</td>
+      <td><a href="Attribute-Resolution-Okta.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Custom</td>
+      <td><a href="Attribute-Resolution-Custom.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Python/Javascript/Groovy</td>
+      <td><a href="Attribute-Resolution-Scripted.html">See this guide</a>.</td>
+    </tr>
+    <tr>
+      <td>Microsoft Azure Active Directory</td>
+      <td><a href="Attribute-Resolution-AzureAD.html">See this guide</a>.</td>
+    </tr>
+  </tbody>
+</table>
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Attributes';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>

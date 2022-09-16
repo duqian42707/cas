@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="CAS - Enterprise Single Sign-On for the Web"/>
+    <meta name="keywords" content="authentication, login, cas, central authentication service, web, java, protocol, thymeleaf,
+                   open source, boot, spring, authorization, google, facebook, twitter, higher-ed, enterprise,
+                   access management, single signon, sso, RBAC, ABAC, attributes, SAML, OpenID, openid connect,
+                   JWT, ADFS"/>
+    <meta name="robots" content="index,follow"/>
+
+    
+    
+
+        
+    
+
+
+    
+
+    <script>
+        ((i, s, o, g, r, a, m) => {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83384532-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="print" href="../../stylesheets/print.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+    <title>CAS - Configuration Management</title>
+
+</head>
+
+<body>
+<!-- HEADER -->
+<header class="hidden-sm-down">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <a href="../../index.html">
+                    <img class="undecorated" src="../../images/cas_logo.png"/>
+                </a>
+            </div>
+            <div class="col-xs-8 col-md-6">
+                <h1>Enterprise Single Sign-On for All</h1>
+            </div>
+            <div class="hidden-sm-down col-md-4">
+                <a id="forkme_banner" href="https://github.com/apereo/cas">View on GitHub</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-primary bg-dark">
+    <div class="container">
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a href="../../index.html" class="zoom nav-link">Home</a></li>
+                <li class="nav-item"><a href="https://github.com/apereo/cas/releases" class="zoom nav-link">Releases</a></li>
+                <li class="nav-item"><a href="../../Support.html" class="zoom nav-link">Support</a></li>
+                <li class="nav-item"><a href="../../Mailing-Lists.html" class="zoom nav-link">Mailing Lists</a></li>
+                <li class="nav-item">
+                    <a class="zoom nav-link" href="../../Demos.html">Demos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="zoom nav-link dropdown-toggle mr-md-2" href="#" id="cas-versions" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Versions</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cas-versions">
+                        
+                        
+                        <a class="dropdown-item" href="/cas/development/">Development</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.6.x/">v6.6.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.5.x/">v6.5.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.4.x/">v6.4.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.3.x/">v6.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.2.x/">v6.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.1.x/">v6.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/6.0.x/">v6.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.3.x/">v5.3.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.2.x/">v5.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.1.x/">v5.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/5.0.x/">v5.0.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.2.x/">v4.2.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.1.x/">v4.1.x</a>
+                        
+                        
+                        
+                        <a class="dropdown-item" href="/cas/4.0.x/">v4.0.x</a>
+                        
+                        
+
+                    </div>
+                </li>
+                <li class="nav-item"><a href="https://apereo.github.io" target="_blank" class="zoom nav-link">Blog</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <div class="col-12 col-md-3 col-xl-2 docs-sidebar pb-5" id="sidebar"></div>
+
+
+        <div class="d-none d-xl-block col-xl-2 docs-toc">
+    <div id="pageContents">
+        <ul class="section-nav"></ul>
+    </div>
+</div>
+
+
+        <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 cas-docs-content" role="main">
+
+
+            
+
+            <section>
+                <nav id="docsNavBar">
+                    <span id="toolbarIcons"></span>
+                </nav>
+
+                <div id="cas-docs-container">
+                    <h1 id="configuration-management">Configuration Management</h1>
+
+<p>The core foundations of CAS that deal with configuration management, settings and replication of changes
+across multiple CAS nodes are all entirely handled automatically via the
+<a href="https://github.com/spring-cloud/spring-cloud-config">Spring Cloud</a> project. The strategies listed below
+present a very flexible and powerful way to manage CAS configuration for production deployments, by
+allowing the CAS adopter to <strong>ONLY</strong> keep track of settings required for their specific deployment concerns
+and leaving all else behind to be handled by the default CAS configuration.</p>
+
+<p>The following strategies may be used to fully extend the CAS configuration model.</p>
+
+<div class="alert alert-info"><strong>YAML or Properties?</strong><p>CAS configuration allows for both
+YAML and Properties syntax in any of the below strategies used. It generally does not matter which syntax 
+is used, but when working with Unicode strings as properties values it does matter. Spring loads properties
+files using the ISO-8859-1 encoding. YAML files are loaded with UTF-8 encoding. If you are setting Unicode
+values try using a YAML configuration file.</p></div>
+
+<h2 id="overview">Overview</h2>
+
+<p>CAS allows you to externalize your configuration so you can work with the same CAS instance in
+different environments. You can use properties files, YAML files, environment variables and
+command-line arguments to externalize configuration.</p>
+
+<p>CAS uses a very particular order that is designed to allow sensible overriding of values. Properties passed to the CAS web application 
+are considered in the following order:</p>
+
+<ol>
+  <li>Command line arguments, starting with <code class="language-plaintext highlighter-rouge">--</code> (e.g. <code class="language-plaintext highlighter-rouge">--server.port=9000</code>)</li>
+  <li>Properties from <code class="language-plaintext highlighter-rouge">SPRING_APPLICATION_JSON</code> (inline JSON embedded in an environment variable/system property)</li>
+  <li>JNDI attributes from <code class="language-plaintext highlighter-rouge">java:comp/env</code>.</li>
+  <li>Java System properties.</li>
+  <li>OS environment variables.</li>
+  <li>Configuration files (i.e. <code class="language-plaintext highlighter-rouge">application.properties|yml</code>) indicated by the <a href="#configuration-server">configuration server</a> and profile.</li>
+</ol>
+
+<div class="alert alert-info"><strong>Managing Configuration</strong><p>In order to manage
+the CAS configuration, you should configure access
+to <a href="../monitoring/Monitoring-Statistics.html">CAS administration panels.</a></p></div>
+
+<h2 id="configuration-server">Configuration Server</h2>
+
+<p>CAS provides a built-in configuration server that is responsible for bootstrapping the configuration
+environment and loading of externalized settings in a distributed system. You may have a central
+place to manage external properties for CAS nodes across all environments. To learn more about how to manage the CAS configuration, please <a href="Configuration-Server-Management.html">review this guide</a>.</p>
+
+<h2 id="extending-cas-configuration">Extending CAS Configuration</h2>
+
+<p>To learn more about how to extend and customize the CAS configuration, please <a href="Configuration-Management-Extensions.html">review this guide</a>.</p>
+
+<h2 id="auto-configuration-strategy">Auto Configuration Strategy</h2>
+
+<p>To see a complete list of CAS properties, please <a href="Configuration-Properties.html#configuration-storage">review this guide</a>.</p>
+
+<p>Note that CAS in most if not all cases will attempt to auto-configure the context based on the declaration
+and presence of feature-specific dedicated modules. This generally SHOULD relieve the deployer
+from manually massaging the application context via XML configuration files.</p>
+
+<p>The idea is twofold:</p>
+
+<ul>
+  <li>Declare your intention for a given CAS feature by declaring the appropriate module in your overlay.</li>
+  <li>Optionally, configure the appropriate properties and settings.</li>
+</ul>
+
+<p>CAS will automatically take care of injecting appropriate beans and other components into the runtime application context,
+Depending on the presence of a module and/or its settings configured by the deployer.</p>
+
+<div class="alert alert-info"><strong>No XML</strong><p>Again, the entire point of
+the auto-configuration strategy is ensure deployers aren't swimming in a sea of XML files
+configuring beans and such. CAS should take care of it all. If you find an instance where
+this claim does not hold, consider that a "bug" and file a feature request.</p></div>
+
+
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<footer>
+    <div class="container">
+        CAS is supported by the <a href="https://www.apereo.org/">Apereo Foundation</a>.
+    </div>
+</footer>
+
+<script>
+    let pageSection = 'Configuration';
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+<script src="../../javascripts/URI.js"></script>
+<script src="../../javascripts/main.js"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>
